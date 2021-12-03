@@ -1,0 +1,158 @@
+<!-- データ受け取る -->
+<?php
+
+//画像データを受け取る
+
+class Staff
+{
+
+    private $filename;
+    private $temp_path;
+    private $file_err;
+    private $filesize;
+    private $upload_dir;
+
+
+    public function __construct($file, $upload_dir)
+    {
+        $filename = basename($file['name']);
+        $this->filename = $filename;
+        $this->temp_path = $file['tmp_name'];
+        $this->file_err = $file['error'];
+        $this->filesize = $file['size'];
+        $this->upload_dir = $upload_dir;
+    }
+
+    public function getName()
+    {
+        return $this->filename;
+    }
+
+
+    public function check_staff_img($staff)
+    {
+        $img_uperr = array();
+        if ($staff->filesize > 10485760 || $staff->file_err == 2) {
+            $img_uperr[] = 'ファイルサイズは10MB以下にしてください';
+        }
+        $allow_ext = array('jpg', 'jpeg', 'png', 'gif');
+        $file_ext = pathinfo($staff->filename, PATHINFO_EXTENSION);
+
+        if (!in_array(strtolower($file_ext), $allow_ext)) {
+            $img_uperr[] = '画像ファイルを選択してください';
+        }
+        if (!is_uploaded_file($staff->temp_path)) {
+            $img_uperr[] = 'ファイルが選択されていません';
+        }
+        if (count($img_uperr) > 0) {
+            return $img_uperr;
+        } else {
+            if (move_uploaded_file($staff->temp_path, $staff->upload_dir . 'test.jpg')) {
+                echo 'アップしました';
+            } else {
+                echo '保存に失敗しました';
+            }
+        }
+    }
+};
+
+?>
+
+
+
+<?php
+$file = $_FILES['img'];
+
+$staff = new Staff($file, '/home/xrptest/xrptest.starfree.jp/public_html/img/');
+
+$abc = $staff->check_staff_img($staff);
+
+if (isset($abc)) {
+    foreach ($abc as $ab) {
+        echo $ab;
+        echo '<br>';
+    };
+}
+
+
+?>
+
+
+
+
+
+
+
+<!-- login -->
+<?php
+require_once('db_connect.php');
+?>
+
+<body id="body">
+    <br>
+    <br>
+    <p>$_FILESの中身</p>
+    <?php
+
+    var_dump($staff);
+
+    ?>
+
+    <br>
+    <br><br><br><br><br><br><br><br><br><br>
+    <?php
+
+
+    try {
+        $staff_name = $_POST['newgirl'];
+        $staff_pass = $_POST['pass'];
+
+        $staff_name = htmlspecialchars($staff_name, ENT_QUOTES, 'UTF-8');
+        $staff_pass = htmlspecialchars($staff_pass, ENT_QUOTES, 'UTF-8');
+
+
+        //データベースに接続
+        $dbh = db_connect();
+        //PDOでの例外エラーを詳細にするためのオプション
+        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        //sql
+        $sql = "INSERT INTO `mst_staff` (name, pass) VALUES (?, ?)";
+        $stmt = $dbh->prepare($sql);
+        $date[] = $staff_name;
+        $date[] = $staff_pass;
+        $stmt->execute($date);
+
+        //接続終了
+        $dbh = null;
+
+        print $staff_name;
+        print 'さんを追加';
+    } catch (Exception $e) {
+        echo $e->getMessage();
+        exit();
+    }
+
+    ?>
+
+
+
+</body>
+
+</html>
+
+
+
+
+<?php
+switch ($_SESSION['shop_permission']['type']) {
+    case IMAGETYPE_JPEG:
+        header('content-type: image/jpeg');
+        break;
+    case IMAGETYPE_PNG:
+        header('content-type: image/png');
+        break;
+    case IMAGETYPE_GIF:
+        header('content-type: image/gif');
+        break;
+}
+?>

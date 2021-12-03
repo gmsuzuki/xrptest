@@ -1,0 +1,95 @@
+
+<h1>テスト</h1>
+
+
+<div>
+  <input type="file" id="inp-preview1" onChange="imgPreView(event, 'preview1')">
+  <div id="preview1"></div>
+<div>
+<div>
+  <input type="file" id="inp-preview2" onChange="imgPreView(event, 'preview2')">
+  <div id="preview2"></div>
+<div>
+<div>
+  <input type="file" id="inp-preview3" onChange="imgPreView(event, 'preview3')">
+  <div id="preview3"></div>
+<div>  
+
+
+<br>
+<br>
+<br>
+
+
+
+<h1>画像アップロード</h1>
+    <form>
+        <input type="file" accept="image/*" multiple=" multiple" onchange="loadImage(this);">
+
+    </form>
+    <div id="imgPreviewField">
+
+</div>
+    <br>
+
+
+
+
+
+
+
+
+
+
+<!--
+    プレビュー参考 
+https://www.kabanoki.net/4195/
+
+ -->
+
+<script>
+const shopbg = document.getElementById('shopbg')
+const cover_img = document.getElementById('cover_img')
+
+shopbg.addEventListener('change', function (e) {
+    // 1枚だけ表示する
+    const file = e.target.files[0];
+
+    // ファイルのブラウザ上でのURLを取得する
+    const blobUrl = window.URL.createObjectURL(file);
+
+    // img要素に表示
+    const img = document.getElementById('shopbg_preview');
+    img.src = blobUrl;
+});
+
+
+cover_img.addEventListener('change', function (e) {
+    // 1枚だけ表示する
+    const file = e.target.files[0];
+
+    // ファイルのブラウザ上でのURLを取得する
+    const blobUrl = window.URL.createObjectURL(file);
+
+    // img要素に表示
+    const img = document.getElementById('cover_img_preview');
+    img.src = blobUrl;
+});
+
+
+</script>
+
+
+<!-- <input type="file" name="img" accept="image/jpeg,image/png,image/gif"
+ onchange="previewImage(this);"> -->
+
+<script>
+function previewImage(obj)
+{
+	const fileReader = new FileReader();
+	fileReader.onload = (function() {
+		document.getElementById('preview').src = fileReader.result;
+	});
+	fileReader.readAsDataURL(obj.files[0]);
+}
+</script>
