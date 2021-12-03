@@ -1,0 +1,448 @@
+@charset "utf-8";
+
+
+/* 最大７６８pxまでは */
+/* @media screen and (max-width: 768px) {
+  h1{
+    color:green;
+  }
+
+} */
+
+
+  html{
+}
+
+
+
+body{
+    box-sizing : border-box;
+    background-color: aqua;
+}
+
+#wrapper{
+  max-width: 768px;
+  width:100%;
+  margin: 0 auto;
+  background-color: burlywood;
+}
+
+main{
+  margin-top: 60px;
+}
+
+
+.h-body{
+
+}
+
+.btn-icon{
+  width:60px;
+  height: 60px;
+  background-color: red;
+  border: solid 1px #000 ;
+}
+
+
+/* flex */
+.flex {
+    display: -ms-flexbox; /* IE */
+    display: flex;
+}
+
+.flex-equal-justified {
+    -ms-flex-pack: justify; /* IE */
+    justify-content: space-between;
+}
+
+.flex-horizontal {
+    -ms-flex-direction: row; /* IE */
+    flex-direction: row;
+}
+
+
+
+
+/* header関連 */
+
+
+header{
+  max-width: 768px;
+  width:100%;
+  margin: 0 auto;
+  height: 60px;
+  background-color:#ccc;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+
+
+.migiue{
+  /* position: relative; */
+  background-color: red;
+}
+
+.header-inner{
+    position: relative;
+    width: 100%;
+    height: 60px;
+    border-bottom: 4px solid #000;
+    background: #fff;   
+}
+
+.shop-logo{
+    height:60px;
+    line-height:60px;
+    padding-left:4px;
+}
+
+
+.header-btns{
+    display: flex;
+    flex-direction:row;
+    height: 100%;
+
+}
+
+.header-btn{
+    width: 60px;
+    text-align: center;
+    height: 100%;
+}
+
+
+.header-btn a{
+    display: block;
+    height: 100%;
+    text-align: center;
+    text-decoration:none;
+}
+
+.header-btn a i{
+    font-size: 26px;
+    padding-top: 10px;
+    padding-bottom: 4px;    
+
+}
+.header-btn a p{
+    font-size: 5px;
+}
+
+
+/* ハンバーガーボタン */
+#hamburger{
+    position: fixed;
+    top: 0px;
+    display: flex;
+    height: 60px;
+    width: 60px;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+    cursor: pointer;
+}
+
+.inner_line {
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 4px;
+    background-color: #000;
+    transition: all .5s;/*アニメーション設定*/
+    border-radius: 4px;
+  }
+
+
+#line1 {
+    top: 15px;
+}
+
+#line2 {
+    top: 23px;
+}
+
+#line3 {
+    top: 31px;
+}
+
+
+/* ハンバーガーボタンのアニメ */
+.line_1,.line_2,.line_3{
+    background: #000000;
+  }
+  .line_1 {
+  /*-45度回転させる*/
+  transform: translateY(8px) rotate(-45deg);
+    top: 15px;
+  }
+  .line_2 {
+    opacity: 0;
+  }
+  .line_3 {
+    /*45度回転させる*/
+    transform: translateY(-8px) rotate(45deg);
+    top: 31px;
+  }
+
+
+/* ハンバーガーのメニューでます */
+#nav ul {
+    padding: 70px 10px 0;
+}
+#nav ul li {
+    border-bottom: solid 1px #ffffff;
+    list-style: none;
+}
+
+#nav ul li a {
+    display: block;
+    width: 100%;
+    font-size: 15px;
+    box-sizing: border-box;
+    color:#ffffff;
+    text-decoration: none;
+    padding: 9px 15px 10px 0;
+    position: relative;
+}
+
+#nav ul li a::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-top: solid 2px #ffffff;
+    border-right: solid 2px #ffffff;
+    transform: rotate(45deg);
+    position: absolute;
+    right: 11px;
+    top: 16px;
+}
+
+#nav {
+    width: 100%;
+    position: absolute;
+    /* top: 0;
+    left: 100%;leftの値を変更してメニューを画面外へ */
+    left:0;
+    top:-360px;
+    z-index:-1;
+
+    background-color: #3584bb;
+    transition: all .7s;/*アニメーション設定*/
+
+}
+
+.inNav {
+    transform: translateY(360px);
+    height: 100vh;/*メニューを画面内へ*/
+    overflow: hidden;
+}
+
+/* メニュー出ると下は動かない */
+.Nav-open{
+    overflow: hidden;
+    height: 100%;
+}
+
+
+/* accordion  */
+  .areaMenu{
+    width: 100%;
+    padding: 0 4px;
+    margin: 0 auto;
+  }
+  
+  .accordion-single  {
+  }
+  
+  .accordion-single-title {
+    border-bottom: 1px solid #efefef;
+    padding: 10px;
+    cursor: pointer;
+    position: relative;
+    font-size: 15px;
+    margin: 0;
+  }
+  
+  /* 右矢印 */
+  .accordion-single-title::after{
+    content: "";
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transition: all 0.5s ease-in-out;
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-top: solid 2px #999;
+    border-right: solid 2px #999;
+    transform: translateY(-50%) rotate(135deg);
+  }
+  
+  .accordion-single-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .5s ease-in-out;
+  }
+  
+  .accordion-single-content p {
+    padding: 10px;
+    background-color: #999;
+    border-bottom: 1px solid #efefef;
+  }
+  
+  .accordion-single-item.is-open .accordion-single-content  {
+    max-height: 150px;
+  }
+  
+  .accordion-single-item.is-open .accordion-single-title::after  {
+    transform: translateY(-50%) rotate(315deg);
+  }
+
+  
+
+  /* swaiper */
+
+  .swiper {
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .swiper-wrapper{
+    background-color: #678;
+  }
+
+  .swiper-slide{
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    height: 100%;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .swiper-slide span {
+    display: block;
+    width: 100%;
+    height: 5%;
+    background-color: #000;
+    color: #fff;
+    position: absolute;
+    bottom: 50px;
+  }
+
+
+
+
+/* gl */
+
+.swiper2 {
+  width: 80%;
+  height: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.girl-slide{
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  height: 100%;
+  width: 400px;
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  position: relative;
+}
+
+.girl-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* news */
+.swiper3 {
+  width: 95%;
+  height: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.news-slide{
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  height: 30%;
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  position: relative;
+}
+
+.news-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* header出したり消えたり */
+
+.sa {
+  opacity: 0;
+  transition: all .5s ease;
+}
+ 
+.sa.show {
+  opacity: 1;
+  transform: none;
+}

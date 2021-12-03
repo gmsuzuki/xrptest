@@ -1,0 +1,231 @@
+@charset "utf-8";
+
+body {
+  box-sizing: border-box;
+  background-color: #98d4f3;
+}
+
+#wrapper {
+  max-width: 768px;
+  width: 95%;
+  margin: 0 auto;
+}
+
+main {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.img_preview {
+  width: 100px;
+}
+
+h1 {
+  font-size: 32px;
+  text-align: center;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+h2 {
+  font-size: 18px;
+  color: #5ab4bd;
+  margin-top: 1rem;
+}
+
+h3 {
+  margin-top: 1rem;
+  font-size: 12px;
+  color: red;
+}
+.setting_btn {
+  margin-bottom: 12px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ーーーーエラー系ーーーー */
+.errmessage {
+  background-color: red;
+  color: white;
+  font-size: 1rem;
+}
+
+/* ーーーー入力系ーーーー */
+
+input {
+  margin-top: 1rem;
+  width: 100%;
+  height: 2rem;
+  font-size: 16px;
+}
+
+/* 入力エラー系 */
+input[type="text"]:invalid,
+textarea:invalid {
+  color: #630015;
+  border-color: #c20c33;
+  background-color: #ffd9e1;
+}
+
+/* 入力必須系 */
+
+input[type="text"]:required,
+textarea:required {
+  border-color: #c20c33;
+}
+
+form {
+  margin-bottom: 32px;
+}
+
+textarea {
+  font-size: 16px;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.setting_btn a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0.7em 2em;
+  width: 95%;
+  color: #333;
+  font-size: 18px;
+  font-weight: 700;
+  background-color: #cccccc;
+  box-shadow: 0 5px 0 #aaaaaa;
+  transition: 0.3s;
+}
+
+.setting_btn a::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-top: 3px solid #333333;
+  border-right: 3px solid #333333;
+  transform: rotate(45deg);
+}
+
+.setting_btn a:hover {
+  transform: translateY(3px);
+  text-decoration: none;
+  box-shadow: 0 2px 0 #aaaaaa;
+}
+
+/* 新人登録のタブ切り替え用 */
+
+/*タブ切り替え全体のスタイル*/
+.tabs {
+  margin-top: 50px;
+  padding-bottom: 40px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  margin: 0 auto;
+}
+
+/*タブのスタイル*/
+.tab_item {
+  width: calc(100% / 3);
+  height: 50px;
+  border-bottom: 3px solid #5ab4bd;
+  background-color: #d9d9d9;
+  line-height: 50px;
+  font-size: 16px;
+  text-align: center;
+  color: #565656;
+  display: block;
+  float: left;
+  text-align: center;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+.tab_item:hover {
+  opacity: 0.75;
+}
+
+/*ラジオボタンを全て消す*/
+input[name="tab_item"] {
+  display: none;
+}
+
+/*タブ切り替えの中身のスタイル*/
+.tab_content {
+  display: none;
+  padding: 20px 20px 0;
+  clear: both;
+  overflow: hidden;
+}
+
+/*選択されているタブのコンテンツのみを表示*/
+#all:checked ~ #all_content,
+#new_enquete:checked ~ #enquete_content,
+#new_picture:checked ~ #picture_content {
+  display: block;
+}
+
+/*選択されているタブのスタイルを変える*/
+.tabs input:checked + .tab_item {
+  background-color: #5ab4bd;
+  color: #fff;
+}
+
+/* ---------------------------------------------- */
+/* スタッフ一覧のテスト用　ほんとに適当 */
+ul {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+li {
+  width: 45%;
+  margin: 6px;
+}
+
+li a {
+  display: block;
+  padding: 6px;
+  color: #fff;
+  text-decoration: none;
+  box-sizing: border-box;
+  border: dotted 2px #fff;
+  border-radius: 8px;
+  transition: 1s;
+  /*色替え用*/
+  background: #0d47a1;
+  box-shadow: 0px 0px 0px 4px #0d47a1;
+}
+
+.bbb {
+  background-color: black;
+  width: 100%;
+  color: #d9d9d9;
+}
+
+.example {
+  position: relative;
+}
+
+.example p {
+  /*aタグを画像の真ん中に*/
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+/* ---------------------------------------------- */
+
+/* schedule入れる */
