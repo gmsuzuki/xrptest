@@ -5,12 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
   <!--サイトの説明 -->
   <title>testページ</title>
   <meta name="description" content="就職用ホームページです" />
 
-
+  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
   <!--ogp設定-->
   <meta property="og:url" content="ページのURL" />
   <meta property="og:title" content="ページのタイトル" />
