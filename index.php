@@ -9,7 +9,6 @@
   <title>testページ</title>
   <meta name="description" content="就職用ホームページです" />
 
-  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
   <!--ogp設定-->
   <meta property="og:url" content="ページのURL" />
   <meta property="og:title" content="ページのタイトル" />
