@@ -66,6 +66,7 @@
         あいうえおかきくけこさしすせそ
         abcdefghijklmnopqrstuvwxyz
         家でやりました
+        ネットでやりました
       </div>
       <br>
       <a href="staff/staff00.php">staff</a>
