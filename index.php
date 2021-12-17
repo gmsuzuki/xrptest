@@ -9,7 +9,6 @@
   <title>testページ</title>
   <meta name="description" content="就職用ホームページです" />
 
-  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
   <!--ogp設定-->
   <meta property="og:url" content="ページのURL" />
   <meta property="og:title" content="ページのタイトル" />
@@ -43,6 +42,7 @@
   <script src="js/script.js" defer></script>
 
   <!-- フォントオーサム -->
+  <!-- 最後はダウンロードしてスピードを出す -->
   <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
 
 </head>
@@ -55,12 +55,17 @@
 
     <!-- header読み込み -->
     <?php
-    require_once("header.php");
+    require_once("header2.php");
 
     ?>
     <!------------------>
     <main>
 
+    <div class="font-test">
+      <h1>フォントテスト</h1>
+      あいうえおかきくけこさしすせそ
+      abcdefghijklmnopqrstuvwxyz
+    </div>
       <br>
       <a href="staff/staff00.php">staff</a>
       <br>
@@ -82,7 +87,8 @@
           <!-- foreach で数だけ取る -->
           <div class="swiper-slide">
             <a href="staff/staff00.php?name=test">
-              <img src="img/nat1.jpg" alt="">
+              <!-- ここの画像がでかくなるとbodyが動くのではみ出したら切る -->
+              <img src="img/200x40.png" alt="">
             </a>
             <span>test</span>
           </div>
@@ -94,6 +100,9 @@
         <div class="swiper-button-prev prev1"></div>
         <div class="swiper-pagination page1"></div>
       </div>
+<div>
+  datefmt_set_calendar
+</div>
 
       <!---------------------------------------------------->
 
