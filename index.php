@@ -61,11 +61,12 @@
     <!------------------>
     <main>
 
-    <div class="font-test">
-      <h1>フォントテスト</h1>
-      あいうえおかきくけこさしすせそ
-      abcdefghijklmnopqrstuvwxyz
-    </div>
+      <div class="font-test">
+        <h1>フォントテスト</h1>
+        あいうえおかきくけこさしすせそ
+        abcdefghijklmnopqrstuvwxyz
+        家でやりました
+      </div>
       <br>
       <a href="staff/staff00.php">staff</a>
       <br>
@@ -100,9 +101,9 @@
         <div class="swiper-button-prev prev1"></div>
         <div class="swiper-pagination page1"></div>
       </div>
-<div>
-  datefmt_set_calendar
-</div>
+      <div>
+        datefmt_set_calendar
+      </div>
 
       <!---------------------------------------------------->
 
