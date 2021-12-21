@@ -55,7 +55,6 @@
 
     <!-- header読み込み -->
     <?php
-    // require_once("h_banner.php");
     require_once("header2.php");
 
     ?>

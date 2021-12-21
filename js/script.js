@@ -1,40 +1,58 @@
-// トップバナー関係
-// function hBannerClose() {
-//   document.getElementById("h_banner").classList.remove("banner_visible");
-// }
+// ページごとに処理のjsを変える方法
 
-// document.getElementById("h_banner").addEventListener("click", function () {
-//   hBannerClose();
-// });
+// トップバナー関係;
+function hBannerClose() {
+  document.getElementById("h_banner").classList.remove("banner_visible");
+}
+
+document.getElementById("h_banner").addEventListener("click", function () {
+  hBannerClose();
+});
 
 // ヘッダー表示
 
-// ヘッダーを取得
-const header = document.getElementById("header");
+// 特別なときだけヘッダーを隠す
 
-// ヘッダーの高さを取得
-// const hH = header.clientHeight;
-const hH = 5;
+window.onload = () => {
+  // URLの取得
+  let url = location.href;
+  if (url == "http://xrptest.starfree.jp/newmember.php") {
+    // URLが 上の場合に実行する処理
+    // 下これ動いているか？チェック用
+    // document.getElementById("body").classList.add("active");
+    const header = document.getElementById("header");
+    header.classList.add("header_blind");
+    // const hH = header.clientHeight;
+    const hH = 3;
+    // 現在地を示す変数を定義
+    let pos = 0;
 
-// 現在地を示す変数を定義
-let pos = 0;
+    const onScroll = () => {
+      // スクロール位置がヘッダーの高さ分より大きい場合にclass名を追加し、そうでない場合にclass名を削除
+      if (pos > hH) {
+        header.classList.add("header_pinned");
+      } else {
+        header.classList.remove("header_pinned");
+      }
+    };
 
-const onScroll = () => {
-  // スクロール位置がヘッダーの高さ分より大きい場合にclass名を追加し、そうでない場合にclass名を削除
-  if (pos > hH) {
-    header.classList.add("header_pinned");
+    window.addEventListener("scroll", () => {
+      pos = window.scrollY;
+      onScroll();
+    });
   } else {
-    header.classList.remove("header_pinned");
+    header.classList.add("header_pinned");
   }
 };
 
+// スクロールすると表示されるメニュー
 const under_nav = document.getElementById("under_nav");
 let timeoutId;
 
 window.addEventListener("scroll", () => {
   // スクロールするごとにpos（現在地）の値を更新
-  pos = window.scrollY;
-  onScroll();
+  // pos = window.scrollY;
+  // onScroll();
 
   under_nav.classList.remove("under_nav_pinned");
 
