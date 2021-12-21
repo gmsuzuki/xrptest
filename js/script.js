@@ -1,3 +1,12 @@
+// トップバナー関係
+// function hBannerClose() {
+//   document.getElementById("h_banner").classList.remove("banner_visible");
+// }
+
+// document.getElementById("h_banner").addEventListener("click", function () {
+//   hBannerClose();
+// });
+
 // ヘッダー表示
 
 // ヘッダーを取得
