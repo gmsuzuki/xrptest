@@ -1,36 +1,47 @@
+<!-- bannerありバージョン -->
 
 <header id="header">
 
-<div class="container header_contents">
-    <div id="sns_btn">
-            <div class="cube_icons">
-                <div class="icon_content">
-                    <!-- iconmaster 53ページ目 -->
-                    <img src="" alt="">
-                    <p>S N S</p>
-                </div>
+<div class="container">
+
+    <!-- 一段目 -->
+
+    <?php
+    require_once("h_banner.php");
+
+    ?>
+
+    <!-- 二段目 -->
+
+    <div class="header_contents"><!-- flex開始 -->
+
+        <!-- flexbox1 -->
+        <div id="sns_btn">
+            <div class="icon_content">
+                <!-- iconmaster 53ページ目 -->
+                <img src="" alt="">
+                <p>S N S</p>
             </div>
-    
+        </div>
+
+        <!-- flexbox2 -->
+        <a href="http://xrptest.starfree.jp/" >
+            <div id="shop_logo">
+                 <img src="./img/88x31.png" alt="">
+            </div>
+        </a>
+
+        <!-- flexbox3 -->
+        <div id="hamburger">
+            <div class="icon_content">
+                <span class="inner_line line1"></span>
+                <span class="inner_line line2"></span>
+                <span class="inner_line line3"></span>
+                <p>MENU</p>
+            </div>
+        </div>
     </div>
 
-    <a href="http://xrptest.starfree.jp/" >
-        <div class="shop_logo">
-            <img src="./img/88x31.png" alt="">
-        </div>
-    </a>
-        <div class="cube_icons">
-            <div id="hamburger">
-            <div class="icon_content">
-                <!-- 1番上の線 -->
-                <span class="inner_line line1"></span>
-                <!-- 真ん中の線 -->
-                <span class="inner_line line2"></span>
-                <!-- 1番下の線 -->
-                <span class="inner_line line3"></span>
-                        <p>MENU</p>
-                        </div>
-                    </div>
-            </div>
 </div>
 
 

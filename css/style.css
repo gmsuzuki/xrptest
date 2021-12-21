@@ -27,11 +27,12 @@ body {
   font-size: 1.4em;
   line-height: 2.24rem;
   box-sizing: border-box;
-  background-color: aqua;
+  background-color: mediumturquoise;
 }
 
 main {
   padding-top: 50px;
+  visibility: hidden;
 }
 
 #wrapper {
@@ -65,14 +66,16 @@ h1 {
   max-width: 768px;
   width: 100%;
   margin: 0 auto;
-  height: 50px;
   position: relative;
   background-color: grey;
   visibility: hidden;
+  z-index: 500;
+  height: 0px;
 }
 
 #h_banner.banner_visible {
   visibility: visible;
+  height: 50px;
 }
 
 .close_banner {
@@ -127,25 +130,73 @@ h1 {
   visibility: visible;
 }
 
-/* header関連 */
+/* ////////////////////////////// */
+/* ////////////////////////////// */
+/*////////// header関連////////////*/
+/* ////////////////////////////// */
+/* ////////////////////////////// */
+
+.koukoku p,
+.spHeader {
+  height: 50px;
+}
+.koukoku p {
+  background-color: blue;
+}
+
+#sns_btn,
+#hamburger {
+  width: 48px;
+  height: 48px;
+  background-color: red;
+  position: relative;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.icon_content {
+  width: 80%;
+  height: 80%;
+  background-color: red;
+  position: relative;
+}
+
+.cube_icons p,
+.icon_content p {
+  font-size: 1rem;
+  position: absolute;
+  bottom: -7px;
+  width: 100%;
+  margin: 0 auto;
+}
+
 header {
   max-width: 768px;
   width: 100%;
   margin: 0 auto;
-  height: 50px;
+  height: 48px;
   background-color: white;
   position: fixed;
   top: 0;
   z-index: 300;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); */
+  /* transition: all 0s; */
+  transform: translateY(-100%);
+  -webkit-transform: translateY(-100%);
+}
+
+.header_blind {
   transition: all 0.5s;
   transform: translateY(-100%);
   -webkit-transform: translateY(-100%);
 }
 
 .header_pinned {
-  -webkit-transform: translateY(0);
   transform: translateY(0);
+  -webkit-transform: translateY(0);
 }
 
 .header_contents {
@@ -153,11 +204,12 @@ header {
   justify-content: space-between;
   -ms-flex-pack: justify; /* IE */
   align-items: center;
+  background-color: #fff;
 }
 
 .cube_icons {
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -180,7 +232,7 @@ header {
   margin: 0 auto;
 }
 
-.shop_logo {
+#shop_logo {
   background-color: red;
   width: 120px;
   overflow: hidden;
@@ -188,7 +240,7 @@ header {
 }
 
 /* ハンバーガーボタン */
-#hamburger {
+/* #hamburger {
   position: fixed;
   top: 0px;
   display: flex;
@@ -198,29 +250,27 @@ header {
   align-items: center;
   z-index: 300;
   cursor: pointer;
-}
+} */
 
 .inner_line {
   display: block;
   position: absolute;
   width: 30px;
   height: 2px;
-  left: 6px;
+  left: 4px;
   background-color: #000;
   transition: all 0.5s; /*アニメーション設定*/
   border-radius: 4px;
 }
 
 .line1 {
-  top: 8px;
+  top: 5px;
 }
-
 .line2 {
-  top: 16px;
+  top: 13px;
 }
-
 .line3 {
-  top: 24px;
+  top: 21px;
 }
 
 /* ハンバーガーボタンのアニメ */
@@ -228,7 +278,7 @@ header {
 .open .line1 {
   /*-45度回転させる*/
   transform: translateY(8px) rotate(-45deg);
-  top: 8px;
+  top: 5px;
 }
 .open .line2 {
   opacity: 0;
@@ -236,7 +286,7 @@ header {
 .open .line3 {
   /*45度回転させる*/
   transform: translateY(-8px) rotate(45deg);
-  top: 24px;
+  top: 21px;
 }
 /* ////////////////////////////////////// */
 /* ////////////////////////////////////// */
