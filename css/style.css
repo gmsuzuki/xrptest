@@ -60,6 +60,55 @@ h1 {
   border: solid 1px #000;
 }
 
+/* 上段バナー関係 */
+#h_banner {
+  max-width: 768px;
+  width: 100%;
+  margin: 0 auto;
+  height: 50px;
+  position: relative;
+  background-color: grey;
+  visibility: hidden;
+}
+
+#h_banner.banner_visible {
+  visibility: visible;
+}
+
+.close_banner {
+  position: absolute;
+  left: 10px;
+  top: 15px;
+}
+
+.round_btn {
+  display: block;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%; /* 丸みの度合い */
+  background: rgba(10, 10, 100, 0.2); /* ボタンの背景色 */
+}
+
+.round_btn::before,
+.round_btn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px; /* 棒の幅（太さ） */
+  height: 12px; /* 棒の高さ */
+  background: white; /* バツ印の色 */
+}
+
+.round_btn::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.round_btn::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
 /* 下の固定ナビ */
 
 #under_nav {
