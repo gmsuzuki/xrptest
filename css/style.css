@@ -93,6 +93,7 @@ h1 {
   background: rgba(10, 10, 100, 0.2); /* ボタンの背景色 */
 }
 
+/* 上段バナーのクローズボタン */
 .round_btn::before,
 .round_btn::after {
   content: "";
