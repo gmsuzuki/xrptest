@@ -55,15 +55,26 @@
 
     <!-- header読み込み -->
     <?php
-    require_once("header2.php");
-
+    require_once("header.php");
     ?>
     <!------------------>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+   <a href="newmember.php"><h1>上から出る場合</h1></a>
+
+
     <main>
 
       <div class="font-test">
         <h1>フォントテスト</h1>
         あいうえおかきくけこさしすせそ
+        tati
         abcdefghijklmnopqrstuvwxyz
         家でやりました
         ネットでやりました

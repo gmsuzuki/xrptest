@@ -1,23 +1,16 @@
-<!-- bannerありバージョン -->
+<!-- bannerなしバージョン -->
 
 <header id="header">
 
+
 <div class="container">
-
-    <!-- 一段目 -->
-
-    <?php
-    require_once("h_banner.php");
-
-    ?>
-
     <!-- 二段目 -->
 
     <div class="header_contents"><!-- flex開始 -->
 
         <!-- flexbox1 -->
         <div id="sns_btn">
-            <div class="icon_content">
+            <div class="icon_contents">
                 <!-- iconmaster 53ページ目 -->
                 <img src="" alt="">
                 <p>S N S</p>
@@ -27,13 +20,13 @@
         <!-- flexbox2 -->
         <a href="http://xrptest.starfree.jp/" >
             <div id="shop_logo">
-                 <img src="./img/88x31.png" alt="">
+                 <img src="./img/200x40.png" alt="">
             </div>
         </a>
 
         <!-- flexbox3 -->
         <div id="hamburger">
-            <div class="icon_content">
+            <div class="icon_contents">
                 <span class="inner_line line1"></span>
                 <span class="inner_line line2"></span>
                 <span class="inner_line line3"></span>

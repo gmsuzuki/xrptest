@@ -61,21 +61,23 @@ h1 {
   border: solid 1px #000;
 }
 
+/* ////////////////////////////// */
 /* 上段バナー関係 */
+/* ////////////////////////////// */
 #h_banner {
   max-width: 768px;
   width: 100%;
   margin: 0 auto;
   position: relative;
   background-color: grey;
-  visibility: hidden;
   z-index: 500;
-  height: 0px;
+  height: 50px;
+  overflow: hidden;
 }
 
-#h_banner.banner_visible {
-  visibility: visible;
-  height: 50px;
+#h_banner.banner_blind {
+  visibility: hidden;
+  height: 0px;
 }
 
 .close_banner {
@@ -84,6 +86,7 @@ h1 {
   top: 15px;
 }
 
+/* 上段バナーのクローズボタン */
 .round_btn {
   display: block;
   position: relative;
@@ -93,7 +96,6 @@ h1 {
   background: rgba(10, 10, 100, 0.2); /* ボタンの背景色 */
 }
 
-/* 上段バナーのクローズボタン */
 .round_btn::before,
 .round_btn::after {
   content: "";
@@ -113,8 +115,9 @@ h1 {
   transform: translate(-50%, -50%) rotate(-45deg);
 }
 
+/* ////////////////////////////// */
 /* 下の固定ナビ */
-
+/* ////////////////////////////// */
 #under_nav {
   max-width: 768px;
   width: 100%;
@@ -132,18 +135,68 @@ h1 {
 }
 
 /* ////////////////////////////// */
-/* ////////////////////////////// */
 /*////////// header関連////////////*/
 /* ////////////////////////////// */
-/* ////////////////////////////// */
 
-.koukoku p,
-.spHeader {
-  height: 50px;
+header {
+  max-width: 768px;
+  width: 100%;
+  margin: 0 auto;
+  background-color: white;
+  position: fixed;
+  top: 0;
+  z-index: 300;
+  /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); */
+  /* transition: all 0s; */
+  transform: translateY(-100%);
+  -webkit-transform: translateY(-100%);
 }
-.koukoku p {
-  background-color: blue;
+
+/* header js 関連 */
+.header_blind {
+  transition: all 0.5s;
+  transform: translateY(-100%);
+  -webkit-transform: translateY(-100%);
 }
+
+.header_pinned {
+  transform: translateY(0);
+  -webkit-transform: translateY(0);
+}
+
+/* --------------------------------- */
+/* 実験用header */
+
+header {
+  max-width: 768px;
+  width: 100%;
+  margin: 0 auto;
+  background-color: white;
+  position: relative;
+  top: 0;
+  z-index: 300;
+  /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); */
+  /* transition: all 0s; */
+  transform: translateY(-100%);
+  -webkit-transform: translateY(-100%);
+}
+
+/* header js 関連 */
+.header_blind {
+  transition: all 0.5s;
+  transform: translateY(-100%);
+  -webkit-transform: translateY(-100%);
+}
+
+.header_pinned {
+  transform: translateY(0);
+  -webkit-transform: translateY(0);
+  position: fixed;
+  top: 0;
+}
+
+/* --------------------------------- */
+/* 実験用header */
 
 #sns_btn,
 #hamburger {
@@ -158,7 +211,15 @@ h1 {
   cursor: pointer;
 }
 
-.icon_content {
+#shop_logo {
+  background-color: red;
+  width: 120px;
+  overflow: hidden;
+  text-align: center;
+  cursor: pointer;
+}
+
+.icon_contents {
   width: 80%;
   height: 80%;
   background-color: red;
@@ -166,38 +227,12 @@ h1 {
 }
 
 .cube_icons p,
-.icon_content p {
+.icon_contents p {
   font-size: 1rem;
   position: absolute;
   bottom: -7px;
   width: 100%;
   margin: 0 auto;
-}
-
-header {
-  max-width: 768px;
-  width: 100%;
-  margin: 0 auto;
-  height: 48px;
-  background-color: white;
-  position: fixed;
-  top: 0;
-  z-index: 300;
-  /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); */
-  /* transition: all 0s; */
-  transform: translateY(-100%);
-  -webkit-transform: translateY(-100%);
-}
-
-.header_blind {
-  transition: all 0.5s;
-  transform: translateY(-100%);
-  -webkit-transform: translateY(-100%);
-}
-
-.header_pinned {
-  transform: translateY(0);
-  -webkit-transform: translateY(0);
 }
 
 .header_contents {
@@ -208,50 +243,9 @@ header {
   background-color: #fff;
 }
 
-.cube_icons {
-  width: 48px;
-  height: 48px;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-.icon_content {
-  width: 80%;
-  height: 80%;
-  background-color: red;
-  position: relative;
-}
-
-.cube_icons p {
-  font-size: 1rem;
-  position: absolute;
-  bottom: -7px;
-  width: 100%;
-  margin: 0 auto;
-}
-
-#shop_logo {
-  background-color: red;
-  width: 120px;
-  overflow: hidden;
-  text-align: center;
-}
-
-/* ハンバーガーボタン */
-/* #hamburger {
-  position: fixed;
-  top: 0px;
-  display: flex;
-  height: 50px;
-  width: 50px;
-  justify-content: center;
-  align-items: center;
-  z-index: 300;
-  cursor: pointer;
-} */
+/* ////////////////////////////////////// */
+/* ハンバーガー関係 */
+/* ////////////////////////////////////// */
 
 .inner_line {
   display: block;
@@ -289,11 +283,9 @@ header {
   transform: translateY(-8px) rotate(45deg);
   top: 21px;
 }
-/* ////////////////////////////////////// */
-/* ////////////////////////////////////// */
-/* ハンバーガーのメニューでます */
-/* ////////////////////////////////////// */
-/* ////////////////////////////////////// */
+
+/* 出るメニュー */
+
 .nav_wrapper {
   position: relative;
 }
@@ -434,7 +426,9 @@ header {
   color: grey;
 }
 
-/* accordion ---------------------------------- */
+/* ////////////////////////////////////// */
+/* accordion  */
+/* ////////////////////////////////////// */
 .areaMenu {
   width: 100%;
   padding: 0 4px;

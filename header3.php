@@ -1,47 +1,40 @@
-<!-- bannerありバージョン -->
+<!-- デフォルトのヘッダー -->
+<!-- 画面上部に固定 -->
 
 <header id="header">
 
-    <!-- 一段目 -->
 
-    <!-- if文で読み込むかチェックすれば良いんじゃね？ -->
-    <?php
-     require_once("h_banner.php");
-    ?>
+<div class="container header_contents">
 
-
-<div class="container">
-    <!-- 二段目 -->
-
-    <div class="header_contents"><!-- flex開始 -->
-
-        <!-- flexbox1 -->
-        <div id="sns_btn">
-            <div class="icon_contents">
-                <!-- iconmaster 53ページ目 -->
-                <img src="" alt="">
-                <p>S N S</p>
+    <div id="sns_btn">
+            <div class="cube_icons">
+                <div class="icon_content">
+                    <!-- iconmaster 53ページ目 -->
+                    <img src="" alt="">
+                    <p>S N S</p>
+                </div>
             </div>
-        </div>
-
-        <!-- flexbox2 -->
-        <a href="http://xrptest.starfree.jp/" >
-            <div id="shop_logo">
-                 <img src="./img/200x40.png" alt="">
-            </div>
-        </a>
-
-        <!-- flexbox3 -->
-        <div id="hamburger">
-            <div class="icon_contents">
-                <span class="inner_line line1"></span>
-                <span class="inner_line line2"></span>
-                <span class="inner_line line3"></span>
-                <p>MENU</p>
-            </div>
-        </div>
+    
     </div>
 
+    <a href="http://xrptest.starfree.jp/" >
+        <div class="shop_logo">
+            <img src="./img/88x31.png" alt="">
+        </div>
+    </a>
+        <div class="cube_icons">
+            <div id="hamburger">
+            <div class="icon_content">
+                <!-- 1番上の線 -->
+                <span class="inner_line line1"></span>
+                <!-- 真ん中の線 -->
+                <span class="inner_line line2"></span>
+                <!-- 1番下の線 -->
+                <span class="inner_line line3"></span>
+                        <p>MENU</p>
+                        </div>
+                    </div>
+            </div>
 </div>
 
 
