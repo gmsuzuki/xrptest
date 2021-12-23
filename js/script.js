@@ -1,13 +1,17 @@
 // ページごとに処理のjsを変える方法
 
 // トップバナー関係;
-function hBannerClose() {
-  document.getElementById("h_banner").classList.remove("banner_visible");
-}
+// バナーjsで分けるかも
 
-document.getElementById("h_banner").addEventListener("click", function () {
-  hBannerClose();
-});
+if (document.getElementById("h_banner")) {
+  function hBannerClose() {
+    document.getElementById("h_banner").classList.add("banner_blind");
+  }
+
+  document.getElementById("h_banner").addEventListener("click", function () {
+    hBannerClose();
+  });
+}
 
 // ヘッダー表示
 
@@ -26,7 +30,6 @@ window.onload = () => {
     const hH = 3;
     // 現在地を示す変数を定義
     let pos = 0;
-
     const onScroll = () => {
       // スクロール位置がヘッダーの高さ分より大きい場合にclass名を追加し、そうでない場合にclass名を削除
       if (pos > hH) {
@@ -41,7 +44,20 @@ window.onload = () => {
       onScroll();
     });
   } else {
-    header.classList.add("header_pinned");
+    // header.classList.add("header_pinned");
+    const hBanner = 50;
+    let pos = 0;
+    const onScroll = () => {
+      if (pos > hBanner) {
+        header.classList.add("header_pinned");
+      } else {
+        header.classList.remove("header_pinned");
+      }
+    };
+    window.addEventListener("scroll", () => {
+      pos = window.scrollY;
+      onScroll();
+    });
   }
 };
 
