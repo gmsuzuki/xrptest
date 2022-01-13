@@ -1,43 +1,40 @@
-<!-- bannerなしバージョン -->
+<!-- bannerなし -->
 
-<header id="header">
+<header id="header" class="header_blind">
 
+  
+    <div id="header_contents">
 
-<div class="container">
-    <!-- 二段目 -->
-
-    <div class="header_contents"><!-- flex開始 -->
-
+        <div id="header_flex" class="container"><!-- flex開始 -->
         <!-- flexbox1 -->
-        <div id="sns_btn">
-            <div class="icon_contents">
+            <div id="sns_btn">
+                <div class="icon_contents">
                 <!-- iconmaster 53ページ目 -->
-                <img src="" alt="">
+                <!--色が変えられる https://icooon-mono.com/?s=sns# -->
+                  <img src="img/icon_sns.svg" alt="sns_icon" class="nav_icon">    
                 <p>S N S</p>
+                </div>
             </div>
-        </div>
 
         <!-- flexbox2 -->
-        <a href="http://xrptest.starfree.jp/" >
+            <a href="http://xrptest.starfree.jp/" >
             <div id="shop_logo">
                  <img src="./img/200x40.png" alt="">
             </div>
-        </a>
+            </a>
 
         <!-- flexbox3 -->
-        <div id="hamburger">
-            <div class="icon_contents">
+            <div id="hamburger">
+                <div class="icon_contents">
                 <span class="inner_line line1"></span>
                 <span class="inner_line line2"></span>
                 <span class="inner_line line3"></span>
                 <p>MENU</p>
-            </div>
+                </div>
         </div>
-    </div>
+    </div><!-- flex閉じ -->
 
-</div>
-
-
+    <div id="line"></div>
 
     <!-- ハンバーガーメニュー -->
 
@@ -84,16 +81,10 @@
          </div>
 
     </div>
-
-
+<!-- header ピン留めがヘッダーコンテンツになっているからここに持ってきた -->
+<!-- メニュー内容も固定しとかないと、スクロールしたときにメニューが置いていかれる -->
+</div>
 </header>
 
-<div id="under_nav" class="under_nav_pinned">
-    <ul>
-        <li>test1</li>
-        <li>test2</li>
-        <li>test3</li>
-    </ul>
-</div>
 
 

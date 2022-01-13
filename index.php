@@ -21,6 +21,7 @@
   <meta property="og:locale" content="ja_JP" />
   <meta property="fb:app_id" content="appIDを入力" />
 
+
   <!--リンク関連-->
   <link rel="canonical" href="正規化するURL" />
   <!--ファビコンアイコン-->
@@ -37,9 +38,13 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/swiper.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="css/header.css" />
+  <link rel="stylesheet" type="text/css" href="css/accordion.css" />
+  <link rel="stylesheet" type="text/css" href="css/under_nav.css" />
 
   <script src="js/swiper.min.js" defer></script>
   <script src="js/script.js" defer></script>
+  <script src="js/header.js" defer></script>
 
   <!-- フォントオーサム -->
   <!-- 最後はダウンロードしてスピードを出す -->
@@ -66,7 +71,7 @@
     <br>
     <br>
     <br>
-   <a href="newmember.php"><h1>上から出る場合</h1></a>
+   <a href="girls.php"><h1>上から出る場合</h1></a>
 
 
     <main>
@@ -172,6 +177,8 @@
       <br>
       <br>
       <br>
+
+      
       <br>
       <br>
       <br>

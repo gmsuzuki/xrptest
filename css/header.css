@@ -1,0 +1,356 @@
+/* ////////////////////////////// */
+/*////////// header関連////////////*/
+/* ////////////////////////////// */
+
+header {
+  max-width: 768px;
+  width: 100%;
+  margin: 0 auto;
+  background-color: white;
+  position: relative;
+  top: 0;
+  z-index: 300;
+  color: #444;
+  /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); */
+  /* transition: all 0s; */
+  /* transform: translateY(-100%); */
+  /* -webkit-transform: translateY(-100%); */
+}
+
+/* header js 関連 */
+.header_blind {
+  transition: all 0.5s;
+  transform: translateY(-100%);
+  -webkit-transform: translateY(-100%);
+}
+
+.header_pinned {
+  transition: all 0.5s;
+  transform: translateY(0);
+  -webkit-transform: translateY(0);
+  position: fixed;
+  top: 0;
+}
+/* --------------------------------- */
+
+#header_contents {
+  background-color: #fff;
+  max-width: 768px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+#header_flex {
+  display: flex;
+  justify-content: space-between;
+  -ms-flex-pack: justify; /* IE */
+  max-width: 768px;
+  width: 100%;
+  margin: 0 auto;
+  align-items: center;
+  background-color: white;
+}
+
+#sns_btn,
+#hamburger {
+  width: 44px;
+  height: 44px;
+  /* background-color: burlywood; */
+  position: relative;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+#shop_logo {
+  background-color: red;
+  width: 120px;
+  overflow: hidden;
+  text-align: center;
+  cursor: pointer;
+}
+
+.icon_contents {
+  width: 70%;
+  height: 70%;
+  /* background-color: red; */
+  position: relative;
+}
+
+.icon_contents p {
+  font-size: 0.5rem;
+  position: absolute;
+  bottom: -11px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.nav_icon {
+  width: 70%;
+  height: 70%;
+}
+
+#line {
+  content: "";
+  background-color: white;
+  height: 1px;
+  box-shadow: 0 1px 3px -1px #ccc;
+}
+
+/* //////////////////////////////// */
+/* ハンバーガーのボタン */
+/* //////////////////////////////// */
+
+.inner_line {
+  display: block;
+  position: absolute;
+  width: 22px;
+  height: 2px;
+  left: 4px;
+  background-color: #444;
+  transition: all 0.5s; /*アニメーション設定*/
+  border-radius: 4px;
+}
+
+.line1 {
+  top: 2px;
+}
+.line2 {
+  top: 10px;
+}
+.line3 {
+  top: 18px;
+}
+
+/* ハンバーガーボタンのアニメ */
+
+.open .line1 {
+  /*-45度回転させる*/
+  transform: translateY(8px) rotate(-45deg);
+  top: 2px;
+}
+.open .line2 {
+  opacity: 0;
+}
+.open .line3 {
+  /*45度回転させる*/
+  transform: translateY(-8px) rotate(45deg);
+  top: 18px;
+}
+
+/* ////////////////////////////////////// */
+/* 出るメニュー */
+/* ////////////////////////////////////// */
+
+.nav_wrapper {
+  position: relative;
+  max-width: 768px;
+  width: 100%;
+  /* height: 100vh; */
+  margin: 0 auto;
+  /* overflow: hidden; */
+  z-index: -5;
+  visibility: hidden;
+}
+
+/* snsナビ */
+#sp_wrapper,
+#sns_wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+  visibility: hidden;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+}
+
+#sp_wrapper.sp_wrap_deploy,
+#sns_wrapper.sns_wrap_deploy {
+  visibility: visible;
+}
+
+/* ナビを消す用背景 */
+#close_bg_ham,
+#close_bg_sns {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 15;
+  background-color: #000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+/*ハンバーガーメニューが開いたら表示*/
+#close_bg_ham.active,
+#close_bg_sns.active {
+  opacity: 0.3;
+  visibility: visible;
+}
+
+/* ナビ共通 */
+#sp_nav,
+#sns_nav {
+  position: absolute;
+  max-width: 768px;
+  width: 100%;
+  transition: all 0.5s; /*アニメーション設定*/
+  background-color: rgba(2, 2, 2, 0.9);
+  padding: 25px 0;
+  z-index: 20;
+}
+
+#shop_info,
+#sns_info {
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+  font-size: 1.3rem;
+  color: grey;
+}
+
+/* sns用ナビ */
+
+#sns_nav {
+  top: 0;
+  left: -100%;
+  color: white;
+  text-align: center;
+}
+
+#sns_nav.sns_in_nav {
+  transform: translateX(100%);
+  overflow: hidden;
+}
+
+#sns_nav ul {
+  display: flex;
+}
+
+#sns_nav li {
+  display: block;
+  cursor: pointer;
+  border: 1px solid #555;
+  width: 33.3%;
+  height: 100px;
+}
+
+/* 通常ナビ */
+#sp_nav {
+  top: -120%;
+  height: 40vh;
+  padding: 25px 0;
+}
+
+#sp_nav.in_sp_nav {
+  top: 0;
+  overflow: hidden;
+}
+
+/* メニュー出ると下は動かない */
+.nav_deploy_h,
+.nav_deploy_s {
+  overflow: hidden;
+  height: 100%;
+}
+
+/* メニューの中身 */
+
+#sp_nav ul {
+  padding: 0 20px;
+}
+#sp_nav ul li {
+  border-bottom: solid 1px #555;
+  list-style: none;
+}
+
+#sp_nav ul li a {
+  display: block;
+  width: 100%;
+  font-size: 1.5rem;
+  box-sizing: border-box;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 15px 10px 0;
+  position: relative;
+}
+
+#sp_nav ul li a::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-top: solid 2px #ffffff;
+  border-right: solid 2px #ffffff;
+  transform: rotate(45deg);
+  position: absolute;
+  right: 11px;
+  top: 17px;
+}
+
+/* ////////////////////////////// */
+/* 上段バナー関係 */
+/* ////////////////////////////// */
+#h_banner {
+  max-width: 768px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  background-color: grey;
+  z-index: 500;
+  max-height: 100px;
+  height: 13.3vw;
+  overflow: hidden;
+  background-color: red;
+}
+
+.h_banner_img {
+  width: 100%;
+}
+
+#h_banner.banner_blind {
+  visibility: hidden;
+  height: 0px;
+}
+
+.close_banner {
+  position: absolute;
+  left: 10px;
+  top: 35%;
+}
+
+/* 上段バナーのクローズボタン */
+.round_btn {
+  display: block;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%; /* 丸みの度合い */
+  background: rgba(10, 10, 100, 0.2); /* ボタンの背景色 */
+}
+
+.round_btn::before,
+.round_btn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px; /* 棒の幅（太さ） */
+  height: 12px; /* 棒の高さ */
+  background: white; /* バツ印の色 */
+}
+
+.round_btn::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.round_btn::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
