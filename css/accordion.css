@@ -1,0 +1,52 @@
+/* ////////////////////////////////////// */
+/* accordion  */
+/* ////////////////////////////////////// */
+.areaMenu {
+  width: 100%;
+  padding: 0 4px;
+  margin: 0 auto;
+}
+
+.accordion-single-title {
+  border-bottom: 1px solid #efefef;
+  padding: 10px;
+  cursor: pointer;
+  position: relative;
+  font-size: 15px;
+  margin: 0;
+}
+
+/* 右矢印 */
+.accordion-single-title::after {
+  content: "";
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  transition: all 0.5s ease-in-out;
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-top: solid 2px #999;
+  border-right: solid 2px #999;
+  transform: translateY(-50%) rotate(135deg);
+}
+
+.accordion-single-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out;
+}
+
+.accordion-single-content p {
+  padding: 10px;
+  background-color: #999;
+  border-bottom: 1px solid #efefef;
+}
+
+.accordion-single-item.is-open .accordion-single-content {
+  max-height: 150px;
+}
+
+.accordion-single-item.is-open .accordion-single-title::after {
+  transform: translateY(-50%) rotate(315deg);
+}

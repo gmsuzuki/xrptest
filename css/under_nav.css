@@ -1,0 +1,51 @@
+/* ////////////////////////////// */
+/* 下の固定ナビ */
+/* ////////////////////////////// */
+#under_nav {
+  max-width: 768px;
+  width: 100%;
+  margin: 0 auto;
+  height: 50px;
+  position: fixed;
+  bottom: 100px;
+  background: #444;
+  z-index: 200;
+  visibility: hidden;
+  color: #fff;
+}
+
+#under_nav.under_nav_pinned {
+  visibility: visible;
+}
+
+#under_nav ul {
+  display: flex;
+  width: 100%;
+}
+
+#under_nav ul li {
+  text-align: center;
+  width: 25%;
+  border-right: 1px solid #bdbdbd;
+}
+
+#under_nav ul li:last-child {
+  border: none;
+}
+
+#under_nav ul li a:link,
+#under_nav ul li a:visited,
+#under_nav ul li a:hover,
+#under_nav ul li a:active {
+  color: #fff;
+}
+
+#under_nav img {
+  margin-top: 8px;
+  width: 20px;
+  height: 20px;
+}
+
+#under_nav p {
+  font-size: 0.6em;
+}
