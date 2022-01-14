@@ -25,6 +25,7 @@
             <div id="sns_btn">
                 <div class="icon_contents">
  <!--色が変えられる https://icooon-mono.com/?s=sns# -->
+ <!-- https://icon-rainbow.com/ -->
                 <img src="img/icon_sns.svg" alt="sns_icon" class="nav_icon">
                 <p>S N S</p>
                 </div>
@@ -59,9 +60,24 @@
         <div id="sns_wrapper">
             <div id="sns_nav">
                 <ul>
-                    <li>twitter</li>
-                    <li>youtube</li>
-                    <li>instagram</li>
+                    <li>
+                        <a href="">
+                        <img src="img/icon_twitter.svg" alt="twitter">
+                        <p>twitter</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                        <img src="img/icon_youtube.svg" alt="youtube">
+                        <p>youtube</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                        <img src="img/icon_instagram.svg" alt="instagram">
+                        <p>instagram</p>
+                        </a>
+                    </li>
                 </ul>
                 <div id="sns_info">
                     開いています

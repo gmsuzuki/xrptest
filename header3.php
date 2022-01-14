@@ -48,9 +48,25 @@
         <div id="sns_wrapper">
             <div id="sns_nav">
                 <ul>
-                    <li>twitter</li>
-                    <li>youtube</li>
-                    <li>instagram</li>
+                    <li>
+                        <a href="">
+                        <img src="img/icon_twitter.svg" alt="twitter">
+                        <p>twitter</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                        <img src="img/icon_youtube.svg" alt="youtube">
+                        <p>youtube</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                        <img src="img/icon_instagram.svg" alt="instagram">
+                        <p>instagram</p>
+                        </a>
+                    </li>
+
                 </ul>
                 <div id="sns_info">
                     開いています

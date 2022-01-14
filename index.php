@@ -54,15 +54,17 @@
 
 <body id="body">
 
-
   <div id="wrapper">
-
-
     <!-- header読み込み -->
     <?php
     require_once("header.php");
     ?>
+
     <!------------------>
+ 
+
+ 
+  
     <br>
     <br>
     <br>

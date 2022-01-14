@@ -15,6 +15,7 @@ header {
   /* transition: all 0s; */
   /* transform: translateY(-100%); */
   /* -webkit-transform: translateY(-100%); */
+  /* visibility: hidden; */
 }
 
 /* header js 関連 */
@@ -238,9 +239,30 @@ header {
 #sns_nav li {
   display: block;
   cursor: pointer;
-  border: 1px solid #555;
+  border-right: 1px solid #555;
   width: 33.3%;
-  height: 100px;
+  height: 50px;
+}
+
+#sns_nav li:last-child {
+  border: none;
+}
+
+#sns_nav ul li a:link,
+#sns_nav ul li a:visited,
+#sns_nav ul li a:hover,
+#sns_nav ul li a:active {
+  color: #fff;
+}
+
+#sns_nav img {
+  margin-top: 8px;
+  width: 20px;
+  height: 20px;
+}
+
+#sns_nav p {
+  font-size: 0.6em;
 }
 
 /* 通常ナビ */
