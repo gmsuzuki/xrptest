@@ -44,9 +44,10 @@
 
   <script src="js/swiper.min.js" defer></script>
   <script src="js/script.js" defer></script>
-  <script src="js/header.js" defer></script>
+  <script src="js/accordion.js" defer></script>
 
-  <!-- フォントオーサム -->
+
+   <!-- フォントオーサム -->
   <!-- 最後はダウンロードしてスピードを出す -->
   <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
 
@@ -54,148 +55,138 @@
 
 <body id="body">
 
-
-  <div id="wrapper">
-
-
-    <!-- header読み込み -->
-    <?php
-    require_once("header.php");
-    ?>
-    <!------------------>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-   <a href="girls.php"><h1>上から出る場合</h1></a>
-
-
-    <main>
-
-      <div class="font-test">
-        <h1>フォントテスト</h1>
-        あいうえおかきくけこさしすせそ
-        tati
-        abcdefghijklmnopqrstuvwxyz
-        家でやりました
-        ネットでやりました
-      </div>
-      <br>
-      <a href="staff/staff00.php">staff</a>
-      <br>
-      <a href="newmember.php">登録</a>
+<div id="wrapper" class="shop_fv">
 
 
 
-      <br>
+<main>
 
-      <!-- Slider main container -->
-      <!-- swiperはここ参照 -->
-      <a href="https://garigaricode.com/swiper/" target="blank">ここわかりやすい</a>
+<section id="shop_top" class="block_index">
+  <div id="shop_heading" class="parts_index">
+    <h1>お店の名前</h1>
+    <h2>お店の説明</h2>
+    <div class="logo_area parts_index">
+      <img src="img/icon_girl.svg" alt="shop_logo">
+    </div>
+  </div>
+  <div id="rating" class="parts_index">
+        <ul>
+          <li>
+            注意事項が入ります
 
-      <h4>スワイパーテスト</h4>
-
-
-      <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-          <!-- foreach で数だけ取る -->
-          <div class="swiper-slide">
-            <a href="staff/staff00.php?name=test">
-              <!-- ここの画像がでかくなるとbodyが動くのではみ出したら切る -->
-              <img src="img/200x40.png" alt="">
+          </li>
+          <li>
+            <a href="top.php" class="enter_top">
+              Enter
             </a>
-            <span>test</span>
-          </div>
-          <div class="swiper-slide">Slide 2</div>
-          <div class="swiper-slide">Slide 3</div>
-        </div>
+          </li>
+          <li>
+            みたくないひとは
+            <a href="https://www.google.com/?hl=ja">
+              こちら
+            </a>
+            から退場
+          </li>
+        </ul>
+  </div>
 
-        <div class="swiper-button-next next1"></div>
-        <div class="swiper-button-prev prev1"></div>
-        <div class="swiper-pagination page1"></div>
+  <div id="other_service" class="parts_index">
+  <ul>
+    <li>
+      <a href="">
+        <img src="img/btn_yes.png" alt="">
+      </a>
+    </li>
+    <li>
+      <a href="">
+        <img src="img/btn_no.png" alt="">
+      </a>
+    </li>
+  </ul>
+
+  </div>
+
+
+</section>
+
+
+<section id="shop_information" class="block_index">
+
+ <div id="shop_recruit" class="parts_index" >
+
+ <!-- foreach -->
+  <div class="card">
+    <a href="">
+      <div class="card_imgframe">
+        <img src="img/nat2.jpg" alt="">
       </div>
-      <div>
-        datefmt_set_calendar
+    </a>
+  </div>
+
+ <!-- foreach -->
+  <div class="card">
+    <a href="">
+      <div class="card_imgframe">
+        <img src="img/200x40.png" alt="">
       </div>
-
-      <!---------------------------------------------------->
-
-
-      <br>
-      <br>
+    </a>
+  </div>
 
 
+ </div>
+</section>
 
-      <!-- Slider main container -->
-      <h4>スワイパーテスト2
-      </h4>
-      <div class="swiper2 GlSwiper">
-        <div class="swiper-wrapper">
-          <!-- foreach で数だけ取る -->
-          <div class="swiper-slide girl-slide">Slide 1</div>
-          <div class="swiper-slide girl-slide">Slide 2</div>
-          <div class="swiper-slide girl-slide">Slide 3</div>
-          <div class="swiper-slide girl-slide">Slide 4</div>
-          <div class="swiper-slide girl-slide">Slide 5</div>
-        </div>
 
+
+  <article id="top_description" class="block_index"> 
+    <section id="shop_concept">
+        <h2>お店のconcept</h2>
+
+      <div class="parts_index" >
+        <h3>
+        「厳選した人材を採用」
+        </h3>
+        <p class="text_concept">
+          中身が入ります。中身が入ります。中身が入ります。
+          中身が入ります。中身が入ります。中身が入ります。
+        </p>
+        <h3>
+        「厳選した人材を採用」
+        </h3>
+        <p class="text_concept">
+          中身が入ります。中身が入ります。中身が入ります。
+          中身が入ります。中身が入ります。中身が入ります。
+        </p>
+        <h3>
+        「厳選した人材を採用」
+        </h3>
+        <p class="text_concept">
+          中身が入ります。中身が入ります。中身が入ります。
+          中身が入ります。中身が入ります。中身が入ります。
+        </p>
       </div>
+    </section>
+
+    <section id="group_concept">
+    <h2>groupについて</h2>
+        <p class="text_concept">
+          中身が入ります。中身が入ります。中身が入ります。
+          中身が入ります。中身が入ります。中身が入ります。
+        </p>
+
+    </section>
 
 
-      <br>
-      <br>
 
+    </article>
 
-
-      <!-- Slider main container -->
-      <h4>スワイパーテスト3複数段</h4>
-      <div class="swiper3 newsSwiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide news-slide">slide 1</div>
-          <div class="swiper-slide news-slide">Slide 2</div>
-          <div class="swiper-slide news-slide">Slide 3</div>
-          <div class="swiper-slide news-slide">slide 4</div>
-          <div class="swiper-slide news-slide">slide 5</div>
-          <div class="swiper-slide news-slide">slide 6</div>
-          <div class="swiper-slide news-slide">slide 7</div>
-          <div class="swiper-slide news-slide">slide 8</div>
-          <div class="swiper-slide news-slide">slide 9</div>
-        </div>
-
-        <div class="swiper-button-next next2"></div>
-        <div class="swiper-button-prev prev2"></div>
-        <div class="swiper-pagination page2"></div>
-      </div>
-
-
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
+    
 
       
-      <br>
-      <br>
-      <br>
-      <br>
-      dddd
-      アップできるかな？
-      新しいマックですよ
       <?php
       require_once("accordion.php");
       ?>
 
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
 
     </main>
 
