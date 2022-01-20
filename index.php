@@ -55,8 +55,8 @@
 
 <body id="body">
 
+<<<<<<< HEAD
 <div id="wrapper" class="shop_fv">
-
 
 
 <main>
