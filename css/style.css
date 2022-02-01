@@ -14,7 +14,6 @@
 h1,
 h2 {
   font-size: 2.2rem;
-  line-height: 4.8rem;
 }
 
 .font-test {
@@ -57,32 +56,40 @@ main {
   margin: 0 auto;
 }
 
-/* top関連 */
+/* index_レイティング入り口関連 */
 
+/* 共通部分 */
 .shop_fv {
-  background-image: url(../img/bg_top.jpeg);
+  background-image: url(../img/concept_bg.jpeg);
   background-repeat: no-repeat;
   background-attachment: fixed;
-  /* background-position: center; */
+  background-size: cover;
+  background-position: center;
+}
+
+.index_wrapper {
+  background-color: #fff;
 }
 
 .block_index {
-  padding: 10px 0;
+  padding-top: 35px;
 }
 
 .parts_index {
-  padding: 10px 0;
+  margin-bottom: 20px;
 }
 
-#shop_top {
+/* indexの入り口 */
+
+#shop_index {
   background-color: rgba(202, 146, 146, 0.8);
   text-align: center;
   width: 95%;
   margin: 0 auto;
 }
 
-#shop_heading h1,
-#shop_heading h2 {
+#shop_index_heading h1,
+#shop_index_heading h2 {
   font-size: 2.2rem;
   line-height: 4.8rem;
   text-shadow: 2px 2px 1px #003366, -2px 2px 1px #003366, 2px -2px 1px #003366,
@@ -91,13 +98,13 @@ main {
   color: #fff;
 }
 
-.logo_area {
+.logo_area_index {
   max-width: 300px;
   height: auto;
   margin: 0 auto;
 }
 
-.logo_area img {
+.logo_area_index img {
   width: 100%;
 }
 
@@ -111,7 +118,7 @@ main {
   margin: 10px auto;
 }
 
-.enter_top {
+.enter_index {
   color: #ffffff;
   background-color: #cc0000;
   width: 50%;
@@ -125,7 +132,7 @@ main {
   transition: 0.6s;
 }
 
-.enter_top a:active {
+.enter_index a:active {
   background-color: #fff;
   color: red;
 }
@@ -143,76 +150,281 @@ main {
   width: 90%;
 }
 
-#shop_information {
+/* informationゾーン */
+
+#information_index {
   background-color: #fff;
   width: 100%;
   max-width: 768px;
   margin: 0 auto;
-  padding-top: 10px;
 }
 
-#shop_recruit {
+.index_head {
+  text-align: center;
+  font-size: 3rem;
+  line-height: 4.8rem;
+  font-weight: bold;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.index_head:before {
+  position: absolute;
+  bottom: -10px;
+  left: calc(50% - 30px);
+  width: 60px;
+  height: 5px;
+  content: "";
+  border-radius: 3px;
+  background: palevioletred;
+}
+
+#recruit_index {
   width: 90%;
   margin: 0 auto;
 }
-.card {
+.card_index {
   width: 100%;
   max-width: 768px;
   height: auto;
-  margin: 20px auto;
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
-.card_imgframe img {
+.card_index_imgframe img {
   width: 100%;
   height: auto;
   max-height: 280px;
   object-fit: cover;
 }
 
-/* top_description */
+/* shop_description */
 
-#top_description {
+#shop_description_index {
   width: 100%;
-  background-color: #fff;
+  color: #333;
+  background-color: #efece9;
 }
 
-#shop_concept {
+#shop_concept_index {
   width: 90%;
   margin: 0 auto;
+  height: auto;
+  position: relative;
+}
+.concept_flex {
+  display: flex;
+  width: 100%;
+  height: 25vh;
 }
 
-#top_description h2 {
-  margin: 10px auto;
-  font-size: 3rem;
-  text-align: center;
+.concept_flex_bg0,
+.concept_flex_bg1,
+.concept_flex_bg2 {
+  width: 33.3%;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.concept_flex_bg0 {
+  background-image: url(../img/concept00.jpeg);
 }
 
-#top_description h3 {
+.concept_flex_bg1 {
+  background-image: url(../img/concept01.jpeg);
+}
+
+.concept_flex_bg2 {
+  background-image: url(../img/concept02.jpeg);
+}
+
+.concept_box_index {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.75);
+  max-width: 80vw;
+  height: auto;
+  top: 25%;
+  padding: 15px;
+  z-index: 2;
+}
+
+.concept_head {
+  font-size: 2.5rem;
+  font-weight: bold;
+  line-height: 4rem;
+}
+
+.text_concept_index {
+  width: 100%;
+  margin: 0 auto;
   font-size: 1.5rem;
-  text-align: center;
-  margin: 10px 0;
-  text-decoration: underline;
-  text-decoration-color: red;
+  padding: 25px 0;
+}
+/* コンセプト細かく */
+#separate_line {
+  height: 1px;
+  width: 60%;
+  margin: 20px auto;
+  background-color: grey;
+  margin-bottom: 40px;
 }
 
-#top_description .text_concept {
+.concept_head.head_piece01 {
+  text-align: right;
+}
+#concept_small_pieces {
+  display: flex;
   width: 90%;
+  height: 30vh;
   margin: 0 auto;
-  font-size: 0.6rem;
+  background-color: #efece9;
+  padding: 20px 0;
+}
+.concept_left_pieces00,
+.concept_right_pieces01 {
+  width: 60%;
 }
 
-#group_concept {
-  background-color: #ccc;
+.text_concept_piece {
+  font-size: 1.5rem;
+  padding: 20px 0;
+  margin: 0 5px;
+}
+.concept_right_pieces00,
+.concept_left_pieces01 {
+  width: 40%;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-/* .btn-icon {
-  width: 50px;
-  height: 50px;
-  background-color: red;
-  border: solid 1px #000;
-} */
+.concept_pieces_bg00 {
+  background-image: url(../img/concept00.jpeg);
+}
+
+.concept_pieces_bg01 {
+  background-image: url(../img/concept01.jpeg);
+}
+
+/* 再びレーティング */
+#rating01 {
+  width: 100%;
+  text-align: center;
+}
+.concept_head.rating_head {
+  color: palevioletred;
+  font-size: 2rem;
+}
+
+.concept_exit_head {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.concept_enter {
+  color: #ffffff;
+  background-color: palevioletred;
+  width: 70%;
+  min-width: 180px;
+  margin: 20px auto;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 2em;
+  text-decoration: none;
+  display: block;
+  transition: 0.6s;
+}
+
+.concept_enter span {
+  font-size: 1.5rem;
+  vertical-align: baseline;
+}
+.concept_enter a:active {
+  background-color: #fff;
+  color: palevioletred;
+}
+
+/* 退場 */
+.concept_exit {
+  padding: 20px 15px;
+  font-size: 1.2rem;
+  width: 100%;
+  background-color: rgb(214, 213, 213);
+}
+
+.concept_exit_box {
+  width: calc(100% - 30px);
+  margin: 0 auto;
+  padding: 10px 25px;
+  text-align: left;
+  line-height: 1.5rem;
+}
+
+/* groupについて */
+
+#group_description_index {
+  background-color: #fff;
+  position: relative;
+}
+#group_concept_index {
+  width: 90%;
+  min-height: 40vh;
+  margin: 0 auto;
+  padding: 30px;
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url(../img/map_bg.png);
+}
+
+.group_head {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.group_concept_box {
+  padding: 30px 15px;
+  line-height: 5rem;
+}
+
+#group_recruit_index {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.group_recruit_box {
+  width: 100%;
+  overflow: hidden;
+}
+
+.group_recruit_box img {
+  width: 100%;
+  height: auto;
+  max-height: 280px;
+  object-fit: cover;
+}
+.card_index {
+  width: 100%;
+  max-width: 768px;
+  height: auto;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.card_index_imgframe img {
+  width: 100%;
+  height: auto;
+  max-height: 280px;
+  object-fit: cover;
+}
+
+/* footer */
+footer {
+  height: 500px;
+  background-color: rgb(11, 191, 236);
+}
 
 /* ------------------------------------ */
 /* swaiper */

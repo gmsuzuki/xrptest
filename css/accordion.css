@@ -3,10 +3,19 @@
 /* ////////////////////////////////////// */
 .areaMenu {
   width: 100%;
-  padding: 0 4px;
   margin: 0 auto;
 }
-
+#shop_list_head {
+  width: 100%;
+  background-color: palevioletred;
+  font-size: 2.5rem;
+  line-height: 5rem;
+  padding: 0 10px;
+  text-shadow: #fff 2px 0, #fff -2px 0, #fff 0 -2px, #fff 0 2px, #fff 2px 2px,
+    #fff -2px 2px, #fff 2px -2px, #fff -2px -2px, #fff 1px 2px, #fff -1px 2px,
+    #fff 1px -2px, #fff -1px -2px, #fff 2px 1px, #fff -2px 1px, #fff 2px -1px,
+    #fff -2px -1px, rgba(0, 0, 0, 0.5) 3px 3px 3px;
+}
 .accordion-single-title {
   border-bottom: 1px solid #efefef;
   padding: 10px;
@@ -14,6 +23,10 @@
   position: relative;
   font-size: 15px;
   margin: 0;
+}
+
+.accordion-single {
+  padding: 10px;
 }
 
 /* 右矢印 */
@@ -41,6 +54,7 @@
   padding: 10px;
   background-color: #999;
   border-bottom: 1px solid #efefef;
+  font-weight: bold;
 }
 
 .accordion-single-item.is-open .accordion-single-content {
