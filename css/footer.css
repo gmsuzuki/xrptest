@@ -1,0 +1,108 @@
+/* ////////////////////////////////////// */
+/* footer css  */
+/* ////////////////////////////////////// */
+
+footer {
+  background-color: #f2f2f2;
+  width: 100%;
+  text-align: center;
+}
+
+#footer_shop_sns {
+  background-color: #222;
+  color: white;
+  padding-top: 20px;
+}
+
+.footer_shop_sns_head {
+  font-size: 3rem;
+  padding: 20px 0;
+}
+
+.footer_shop_sns_box {
+  display: flex;
+}
+
+.footer_shop_sns_box li {
+  display: block;
+  padding: 10px 0;
+  cursor: pointer;
+  border-right: 1px solid #555;
+  width: 33.3%;
+  margin-bottom: 10px;
+}
+
+.footer_shop_sns_box li :last-child {
+  border: none;
+}
+
+.footer_shop_sns_icon img {
+  width: 33.3%;
+}
+
+.footer_shop_sns_icon p {
+  color: white;
+  font-size: 1.2rem;
+  padding: 5px 0;
+}
+
+/* pankuzu */
+
+#pankuzu {
+  padding-top: 30px;
+}
+
+#pankuzu ul li {
+  display: inline;
+  color: black;
+}
+
+/* ここに関してはphpから取るときに追加すれば良い気がする */
+#pankuzu ul li span::after {
+  content: ">>";
+}
+
+#pankuzu ul li a {
+  color: black;
+}
+
+#footer_shop_box {
+  padding: 30px;
+  text-align: center;
+}
+
+.footer_shop_logo {
+  padding-top: 10px;
+  font-size: 3rem;
+}
+
+.footer_shop_number {
+  font-size: 1rem;
+}
+
+.footer_shop_time {
+  font-size: 1.5rem;
+  background-color: #fff;
+  padding: 5px 0;
+  margin: 5px 0;
+}
+
+.footer_shop_attention {
+  margin-top: 40px;
+  padding-top: 20px;
+  font-size: 1rem;
+  color: rgb(121, 121, 121);
+  line-height: 1.5rem;
+  border-top: 1px solid #d9d9d9;
+}
+
+#js-scroll-top {
+  text-align: center;
+  display: block;
+  height: 40px;
+  background-color: palevioletred;
+  line-height: 40px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+}
