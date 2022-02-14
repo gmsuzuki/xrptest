@@ -62,3 +62,5 @@ document.getElementById("close_bg_ham").addEventListener("click", function () {
 document.getElementById("close_bg_sns").addEventListener("click", function () {
   removeSnsLink();
 });
+
+

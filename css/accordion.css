@@ -51,16 +51,26 @@
 }
 
 .accordion-single-content p {
-  padding: 10px;
+  padding: 10px 10px 10px 30px;
   background-color: #999;
   border-bottom: 1px solid #efefef;
   font-weight: bold;
 }
 
+.accordion-single-content p a {
+  color: #fff;
+}
+
 .accordion-single-item.is-open .accordion-single-content {
-  max-height: 150px;
+  max-height: 550px;
+}
+
+.accordion-single-item.is-open .accordion-single-title {
+  color: palevioletred;
 }
 
 .accordion-single-item.is-open .accordion-single-title::after {
   transform: translateY(-50%) rotate(315deg);
+  border-top: solid 2px palevioletred;
+  border-right: solid 2px palevioletred;
 }

@@ -36,11 +36,9 @@
 
   <!--css javascript-->
   <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/swiper.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css" />
-  <link rel="stylesheet" type="text/css" href="css/header.css" />
   <link rel="stylesheet" type="text/css" href="css/accordion.css" />
-  <link rel="stylesheet" type="text/css" href="css/under_nav.css" />
+  <link rel="stylesheet" type="text/css" href="css/footer.css" />
 
   <!-- <script src="js/swiper.min.js" defer></script> -->
   <!-- <script src="js/script.js" defer></script> -->
@@ -270,15 +268,14 @@
       </div>
       <!-- 文字ゾーンindex_wrapperここまで -->
 
-      <footer>
-
-      </footer>
 
     </main>
 
+    <?php
+    require_once("footer.php");
+    ?>
 
-
-  </div> <!-- index_wrapper -->
+  </div> <!-- wrapper -->
 
 </body>
 
