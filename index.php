@@ -53,7 +53,10 @@
 
 <body id="body">
 
-  <div id="wrapper" class="shop_fv">
+  <div id="wrapper"> 
+
+    <div class="shop_fv">
+
 
     <main>
 
@@ -104,6 +107,7 @@
         </div>
       </section>
 
+    </div>
       <!-- ここからは文字ベース -->
       <div class="index_wrapper">
 
@@ -274,6 +278,7 @@
     <?php
     require_once("footer.php");
     ?>
+
 
   </div> <!-- wrapper -->
 

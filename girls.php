@@ -76,6 +76,16 @@
     フェードインさせる方法
 </a>
 
+
+<h1>
+  バックグランドURLを固定する場合
+  バックグラウンドカバーをするとおかしくなる
+  回避方法
+  <a href="https://web.runland.co.jp/blog_cate2/post-3558">
+    これです
+  </a>
+</h1>
+
    <div id="testdes">test</div>
     <br>
     <br>

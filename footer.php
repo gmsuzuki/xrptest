@@ -34,13 +34,13 @@
     <section id="pankuzu">
         <ul itemscope itemtype="https:/BreadcrumbList">
             <li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem">
-                <a href="https://8bit.co.jp/" itemscope="itemscope" itemtype="http://schema.org/Thing" itemprop="item">
+                <a href="" itemscope="itemscope" itemtype="http://schema.org/Thing" itemprop="item">
                     <span itemprop="name">トップページ</span>
                 </a>
                 <meta itemprop="position" content="1">
             </li>
             <li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem">
-                <a href="https://8bit.co.jp/company/" itemtype="http://schema.org/Thing" itemprop="item">
+                <a href="" itemtype="http://schema.org/Thing" itemprop="item">
                     <span itemprop="name">会社概要</span>
                 </a>
                 <meta itemprop="position" content="2">
