@@ -54,9 +54,11 @@
     <div id="footer_shop_box">
         <h2 class="footer_shop_logo">株式会社こだわり</h2>
         <h4 class="footer_shop_number">登録番号第33333333</h4>
-        <h3 class="footer_shop_time">
-            営業時間　10:00 〜 11:00 (LO 10:30)
-        </h3>
+        <div class="footer_shop_time">
+             <h3 class="ribbon">
+                <span>営業時間 10:00〜11:00(LO 10:30)</span>
+             </h3>
+        </div>
 
         <div class="footer_shop_attention">
             このサイトで使用している全てのデータ、画像の著作はお店に帰属し、複製・転載は固くお断り致します
