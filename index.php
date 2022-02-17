@@ -218,10 +218,16 @@
                 <a href="">退場する。</a>
               </h3>
               <div class="concept_exit_box">
-                <p>注意事項の中身が入ります。中身が入ります。中身が入ります。
-                  中身が入ります。中身が入ります。中身が入ります。</p>
+                  <div class="concept_exit_img">
+                    <img src="img/88x31.png" alt="under18">
+                  </div>
+                  <div class="concept_exit_text">注意事項の中身が入ります。中身が入ります。中身が入ります。
+                    中身が入ります。中身が入ります。中身が入ります。
+                    中身が入ります。中身が入ります。中身が入ります。
+                  </div>
               </div>
             </div>
+            
             <!--  -->
             <!-- ratingおわり -->
           </section>
