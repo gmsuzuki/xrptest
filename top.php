@@ -45,6 +45,7 @@
   <script src="js/swiper.min.js" defer></script>
   <script src="js/script.js" defer></script>
   <script src="js/header.js" defer></script>
+  <script src="js/loading.js" defer></script>
 
   <!-- フォントオーサム -->
   <!-- 最後はダウンロードしてスピードを出す -->
@@ -54,6 +55,12 @@
 
 <body id="body">
 
+ <!-- ローディング画面 -->
+  <div id="loading-wrapper">
+    <div class="loader"></div>
+    <p>Loading...</p>
+  </div>
+  <!-- コンテンツ部分 -->
 
   <div id="wrapper">
 
