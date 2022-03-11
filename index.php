@@ -43,7 +43,7 @@
   <!-- <script src="js/swiper.min.js" defer></script> -->
   <!-- <script src="js/script.js" defer></script> -->
   <script src="js/accordion.js" defer></script>
-
+ <script src="js/loading.js" defer></script>
 
   <!-- フォントオーサム -->
   <!-- 最後はダウンロードしてスピードを出す -->
@@ -52,6 +52,15 @@
 </head>
 
 <body id="body">
+
+ <!-- ローディング画面 -->
+  <div id="loading-wrapper">
+    <div class="loader"></div>
+    <p>Loading...</p>
+  </div>
+  <!-- コンテンツ部分 -->
+
+
 
   <div id="wrapper"> 
 
@@ -75,9 +84,10 @@
               注意事項が入ります
 
             </li>
-            <li>
-              <a href="top.php" class="enter_index">
-                Enter
+            <li class="button">
+              <!-- <a href="top.php" class="enter_index"> -->
+                <a href="top.php" class="btn_color_red btn_font00 btn_active">
+                入場する
               </a>
             </li>
             <li>
@@ -205,11 +215,14 @@
 
           <section id="rating01">
             <h3 class="concept_head rating_head">こだわってますから是非！</h3>
-            <a href="">
-              <div class="concept_enter">入場する。
+            <div class="button under_space">
+            <a href="" class="btn_color_pink btn_font00 btn_active">
+              <!-- <div class="concept_entera"> -->
+                入場する。
                 <span>権利は持ってる</span>
-              </div>
+              <!-- </div> -->
             </a>
+            </div>
             <!--  -->
             <!-- 退場エリア -->
             <div class="concept_exit">
