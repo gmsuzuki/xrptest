@@ -140,18 +140,21 @@ document.getElementsByTagName('head')[0].appendChild(_d);
 </div>
 </section>
 
-<!-- 即 -->
+<!-- おわり即 -->
 
 <section class="container under_space">
+
+<!-- 最新ニュース -->
+
 <div class="content_wrapper">
-<!-- タウンの仕様がよくわからないのでサイズ指定は後回し -->
-<h2 class="block_title">What's New</h2>
 
-<!-- イチ記事 -->
-<article class="topic">
-  <a href="" class="top">
+  <h2 class="block_title">What's New</h2>
 
-  </a>
+  <!-- イチ記事 -->
+    <article class="topic">
+      <a href="" class="top">
+
+      </a>
 
 </article>
 
