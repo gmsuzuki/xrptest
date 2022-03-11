@@ -42,7 +42,8 @@
   <link rel="stylesheet" type="text/css" href="css/accordion.css" />
   <link rel="stylesheet" type="text/css" href="css/under_nav.css" />
 
-  <script src="js/swiper.min.js" defer></script>
+   <script src="js/swiper.min.js" defer></script>
+  <script src="js/swiper_conf.js" defer></script>
   <script src="js/script.js" defer></script>
   <script src="js/header.js" defer></script>
   <script src="js/loading.js" defer></script>
@@ -70,6 +71,109 @@
     require_once("header.php");
     ?>
     <!------------------>
+
+
+    <main>
+
+
+<!-- スワイパー① -->
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <!-- foreach で数だけ取る -->
+          <div class="swiper-slide">
+            <a href="staff/staff00.php?name=test" class="swipe_a">
+              <!-- ここの画像がでかくなるとbodyが動くのではみ出したら切る -->
+              <img src="img/sw01.jpeg" alt="">
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="staff/staff00.php?name=test" class="swipe_a">
+              <!-- ここの画像がでかくなるとbodyが動くのではみ出したら切る -->
+              <img src="img/sw02.jpeg" alt="">
+            </a>  
+          </div>
+          <div class="swiper-slide">
+            <a href="staff/staff00.php?name=test" class="swipe_a">
+              <!-- ここの画像がでかくなるとbodyが動くのではみ出したら切る -->
+              <img src="img/sw03.jpeg" alt="">
+            </a>  
+          </div>
+        </div>
+
+        <!-- <div class="swiper-button-next next1"></div> -->
+        <!-- <div class="swiper-button-prev prev1"></div> -->
+        <div class="swiper-pagination page1"></div>
+      </div>
+
+<!-- スワイパー① -->
+    
+<!-- 注意点 -->
+
+
+<section id="attention" class="container under_space">
+
+  <h2 class="head_ja">特別なお知らせ</h2>
+  <h3 class="button_arrow">
+    <a href="" class="btn_color_red btn_font01">
+     コロナウィルス感染予防対策について</a>
+  </h3>
+
+  </section>
+
+<!-- 即 -->
+
+<section class="container under_space">
+<div class="content_wrapper">
+<!-- タウンの仕様がよくわからないのでサイズ指定は後回し -->
+<h2 class="block_title">Right away</h2>
+
+<iframe class="dto-sw2" id="dto-sw2-218" src="https://www.dto.jp/shop/6471/standby-widget-v2?mr=5&amp;l=10&amp;fc=000000&amp;if=dto-sw2-17569" width="100%" frameborder="0" scrolling="no" style="width: 414px; height: 290px;"></iframe>
+  <script type="text/javascript">
+(function(){
+var _d = document.createElement('script');
+_d.src = 'https://www.dto.jp/js/dto.standby-widget-v2-52.js';
+_d.type = 'text/javascript';
+document.getElementsByTagName('head')[0].appendChild(_d);
+})();
+</script>
+
+</div>
+</section>
+
+<!-- 即 -->
+
+<section class="container under_space">
+<div class="content_wrapper">
+<!-- タウンの仕様がよくわからないのでサイズ指定は後回し -->
+<h2 class="block_title">What's New</h2>
+
+<!-- イチ記事 -->
+<article class="topic">
+  <a href="" class="top">
+
+  </a>
+
+</article>
+
+
+<a href="">
+  <div class="news_box">
+    <div class="news_img">
+      <img src="img/88x31.png" alt="">
+    </div>
+    <div class="news_contents">
+      あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほ
+    </div>
+
+  </div>
+</a>
+
+</div>
+</section>
+
+
+
+<!-- 注意点 -->
     <br>
     <br>
     <br>
@@ -81,7 +185,7 @@
    <a href="girls.php"><h1>上から出る場合。</h1></a>
 
 
-    <main>
+
 
       <div class="font-test">
         <h1>フォントテスト</h1>
@@ -107,24 +211,8 @@
       <h4>スワイパーテスト</h4>
 
 
-      <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-          <!-- foreach で数だけ取る -->
-          <div class="swiper-slide">
-            <a href="staff/staff00.php?name=test">
-              <!-- ここの画像がでかくなるとbodyが動くのではみ出したら切る -->
-              <img src="img/200x40.png" alt="">
-            </a>
-            <span>test</span>
-          </div>
-          <div class="swiper-slide">Slide 2</div>
-          <div class="swiper-slide">Slide 3</div>
-        </div>
 
-        <div class="swiper-button-next next1"></div>
-        <div class="swiper-button-prev prev1"></div>
-        <div class="swiper-pagination page1"></div>
-      </div>
+
       <div>
         datefmt_set_calendar
       </div>
