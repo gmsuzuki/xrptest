@@ -1,0 +1,691 @@
+@charset "utf-8";
+
+/* 最大７６８pxまでは */
+/* @media screen and (max-width: 768px) {
+  h1{
+    color:green;
+  }
+
+} */
+
+/* 全体ーーーーーーーーーー */
+
+/* ｈ関連ーーーーーーーーーー */
+h1,
+h2 {
+  font-size: 2.2rem;
+}
+
+.font-test {
+  text-align: center;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  /* ゴシック */
+  font-family: "Avenir", "Helvetica Neue", "Helvetica", "Arial",
+    "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo",
+    "游ゴシック", "Yu Gothic", "ＭＳ Ｐゴシック", sans-serif;
+  /* 明朝 */
+  /* font-family: 'ヒラギノ明朝 Pro W3', 'Hiragino Mincho Pro', '游明朝','Yu Mincho', '游明朝体', 'YuMincho','ＭＳ Ｐ明朝', 'MS PMincho', serif; */
+  font-size: 1.4em;
+  line-height: 2.24rem;
+  box-sizing: border-box;
+  background-color: #f7f7f7 !important;
+}
+
+/* space */
+
+.under_space {
+  margin-bottom: 48px;
+}
+
+/* ボタン系 */
+
+.button_arrow a {
+  margin: 0 auto;
+  padding: 1em 2em;
+  width: 90%;
+  min-width: 180px;
+  border-radius: 9px;
+  transition: 0.6s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button a {
+  margin: 0 auto;
+  padding: 1em 2em;
+  width: 90%;
+  min-width: 180px;
+  border-radius: 9px;
+  transition: 0.6s;
+  display: block;
+}
+
+.btn_color_red {
+  background-color: #be1c10;
+  color: #fff;
+}
+
+.btn_color_pink {
+  background-color: palevioletred;
+  color: #fff;
+}
+
+.btn_font00 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.btn_font01 {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.button_arrow a::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-top: 3px solid;
+  border-right: 3px solid;
+  transform: rotate(45deg);
+}
+
+.btn_active:active {
+  text-decoration: none;
+  background-color: #fff;
+  color: red;
+}
+
+/* 基本的にスマホ幅で制作 */
+/* 最大が７６８でそれを超えるとｂｇ表示 */
+#wrapper {
+  max-width: 768px;
+  width: 100%;
+  margin: 0 auto;
+  /* background-color: burlywood; */
+  overflow: hidden !important;
+}
+
+main {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  /* visibility: hidden; */
+}
+
+.container {
+  width: 100%;
+  padding: 0 2%;
+  /* margin: 0 auto; */
+}
+
+/* 新しいまとめたcss */
+
+/* ブロック */
+
+.content_wrapper {
+  border-radius: 9px;
+  background-color: #f5f3ec;
+  overflow: hidden;
+  padding: 0 1%;
+}
+
+/* index_レイティング入り口関連 */
+
+/* 共通部分 */
+
+.index_wrapper {
+  background-color: #fff;
+}
+
+.block_index {
+  padding-top: 35px;
+}
+
+.parts_index {
+  margin-bottom: 20px;
+}
+
+/* indexの入り口 */
+
+#shop_index {
+  background-color: rgba(202, 146, 146, 0.8);
+  text-align: center;
+  width: 95%;
+  margin: 0 auto;
+  padding-bottom: 10px;
+}
+
+.shop_fv::before {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  z-index: -1;
+  max-width: 768px;
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
+  background-repeat: no-repeat;
+  background-position: 50% 100%;
+  background-image: url(../img/concept_bg.jpeg);
+  background-size: cover;
+}
+
+#shop_index_heading h1,
+#shop_index_heading h2 {
+  font-size: 2.2rem;
+  line-height: 4.8rem;
+  text-shadow: 2px 2px 1px #003366, -2px 2px 1px #003366, 2px -2px 1px #003366,
+    -2px -2px 1px #003366, 2px 0px 1px #003366, 0px 2px 1px #003366,
+    -2px 0px 1px #003366, 0px -2px 1px #003366; /* 文字の影 */
+  color: #fff;
+}
+
+.logo_area_index {
+  max-width: 300px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.logo_area_index img {
+  width: 100%;
+}
+
+#rating {
+  width: 100%;
+}
+
+#rating li,
+#other_service li {
+  width: 90%;
+  margin: 10px auto;
+}
+
+#rating li img {
+  display: block;
+}
+
+#other_service {
+  width: 90%;
+  margin: 0 auto;
+}
+
+#other_service ul {
+  width: 100%;
+}
+
+#other_service img {
+  width: 90%;
+}
+
+/* informationゾーン */
+
+#information_index {
+  background-color: #fff;
+  width: 100%;
+  max-width: 768px;
+  margin: 0 auto;
+}
+
+.index_head {
+  text-align: center;
+  font-size: 3rem;
+  line-height: 4.8rem;
+  font-weight: bold;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.index_head:before {
+  position: absolute;
+  bottom: -10px;
+  left: calc(50% - 30px);
+  width: 60px;
+  height: 5px;
+  content: "";
+  border-radius: 3px;
+  background: palevioletred;
+}
+
+#recruit_index {
+  width: 90%;
+  margin: 0 auto;
+}
+.card_index {
+  width: 100%;
+  max-width: 768px;
+  height: auto;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.card_index_imgframe img {
+  width: 100%;
+  height: auto;
+  max-height: 280px;
+  object-fit: cover;
+}
+
+/* shop_description */
+
+#shop_description_index {
+  width: 100%;
+  color: #333;
+  background-color: #efece9;
+}
+
+#shop_concept_index {
+  width: 90%;
+  margin: 0 auto;
+  height: auto;
+  position: relative;
+}
+.concept_flex {
+  display: flex;
+  width: 100%;
+  height: 25vh;
+}
+
+.concept_flex_bg0,
+.concept_flex_bg1,
+.concept_flex_bg2 {
+  width: 33.3%;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.concept_flex_bg0 {
+  background-image: url(../img/concept00.jpeg);
+}
+
+.concept_flex_bg1 {
+  background-image: url(../img/concept01.jpeg);
+}
+
+.concept_flex_bg2 {
+  background-image: url(../img/concept02.jpeg);
+}
+
+.concept_box_index {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.75);
+  max-width: 80vw;
+  height: auto;
+  top: 20%;
+  padding: 15px;
+  z-index: 2;
+}
+
+.concept_head {
+  font-size: 2.5rem;
+  font-weight: bold;
+  line-height: 4rem;
+}
+
+.text_concept_index {
+  width: 100%;
+  margin: 0 auto;
+  font-size: 1.5rem;
+  padding: 25px 0;
+}
+/* コンセプト細かく */
+#separate_line {
+  height: 1px;
+  width: 60%;
+  margin: 20px auto;
+  background-color: grey;
+  margin-bottom: 40px;
+}
+
+.concept_head.head_piece01 {
+  text-align: right;
+}
+#concept_small_pieces {
+  display: flex;
+  width: 90%;
+  height: 30vh;
+  margin: 0 auto;
+  background-color: #efece9;
+  padding: 20px 0;
+}
+.concept_left_pieces00,
+.concept_right_pieces01 {
+  width: 60%;
+}
+
+.text_concept_piece {
+  font-size: 1.5rem;
+  padding: 20px 0;
+  margin: 0 15px;
+}
+.concept_right_pieces00,
+.concept_left_pieces01 {
+  width: 40%;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.concept_pieces_bg00 {
+  background-image: url(../img/concept00.jpeg);
+}
+
+.concept_pieces_bg01 {
+  background-image: url(../img/concept01.jpeg);
+}
+
+/* 再びレーティング */
+#rating01 {
+  width: 100%;
+  text-align: center;
+}
+.concept_head.rating_head {
+  color: palevioletred;
+  font-size: 2rem;
+}
+
+.concept_exit_head {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.concept_enter {
+  color: #ffffff;
+  background-color: palevioletred;
+  width: 80%;
+  min-width: 180px;
+  margin: 0px auto 30px;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 2em;
+  text-decoration: none;
+  display: block;
+  transition: 0.6s;
+}
+
+.concept_enter span {
+  font-size: 1.5rem;
+  vertical-align: baseline;
+}
+.concept_enter a:active {
+  background-color: #fff;
+  color: palevioletred;
+}
+
+/* 退場 */
+.concept_exit {
+  padding: 20px 15px;
+  font-size: 1.2rem;
+  width: 100%;
+  background-color: rgb(214, 213, 213);
+}
+
+.concept_exit_box {
+  /* width: calc(100% - 30px); */
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  padding: 10px 15px;
+  text-align: left;
+  line-height: 1.5rem;
+}
+
+.concept_exit_img {
+  width: 20%;
+  margin: 0 10px 0 0;
+  overflow: hidden;
+}
+
+.concept_exit_text {
+  width: 80%;
+  padding: 0 10px;
+}
+
+/* groupについて */
+
+#group_description_index {
+  background-color: #fff;
+  position: relative;
+}
+#group_concept_index {
+  width: 90%;
+  min-height: 40vh;
+  margin: 0 auto;
+  padding: 20px;
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url(../img/map_bg.png);
+}
+
+.group_head {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.group_concept_box {
+  padding: 20px 15px;
+  line-height: 5rem;
+}
+
+#group_recruit_index {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.group_recruit_box {
+  width: 100%;
+  overflow: hidden;
+}
+
+.group_recruit_box img {
+  width: 100%;
+  height: auto;
+  max-height: 280px;
+  object-fit: cover;
+}
+
+/* topページ */
+
+/* 日本語表題 */
+h2.head_ja {
+  font-size: 1.5rem;
+  line-height: 2.8rem;
+  margin: 10px 0;
+}
+
+h2.block_title {
+  font-size: 2.4rem;
+  line-height: 2.8rem;
+  padding-top: 12px;
+  padding-left: 5px;
+}
+
+/* ニュースのところ */
+.topic {
+  overflow: hidden;
+}
+
+.news_box {
+  display: flex;
+  margin-top: 12px;
+}
+
+.news_img {
+}
+
+/* ------------------------------------ */
+/* swaiper */
+
+.swiper {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.swiper-wrapper {
+  background-color: #678;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  height: 100%;
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  position: relative;
+}
+
+.swipe_a {
+  width: 100%;
+  max-width: 750px;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.swiper-pagination-bullets {
+  position: static;
+  margin-top: 8px;
+}
+
+.swiper-pagination-bullet {
+  width: 12px !important;
+  height: 12px !important;
+  margin: 0 0 0 10px !important;
+  background: #ffbc0d !important;
+}
+
+.swiper-pagination-bullet:first-child {
+  margin: 0 !important;
+}
+
+/* 注意喚起 */
+
+.icon-arrow:before {
+  content: "\e900";
+}
+
+.icon-arrow {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  margin-top: -7.5px;
+  font-size: 15px;
+}
+
+/* gl */
+
+.swiper2 {
+  width: 80%;
+  height: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.girl-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  height: 100%;
+  width: 400px;
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  position: relative;
+}
+
+.girl-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* news */
+.swiper3 {
+  width: 95%;
+  height: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.news-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  height: 30%;
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  position: relative;
+}
+
+.news-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* header出したり消えたり */
+
+.sa {
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.sa.show {
+  opacity: 1;
+  transform: none;
+}
