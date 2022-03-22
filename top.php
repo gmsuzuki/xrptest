@@ -34,18 +34,30 @@
   <meta name="msapplication-TileImage" content="画像のURL" />
   <meta name="msapplication-TileColor" content="カラーコード" />
 
-  <!--css javascript-->
+  <!--css-->
+  <!-- リセット -->
   <link rel="stylesheet" href="css/reset.css">
+  <!-- ローディング -->
+  <link rel="stylesheet" type="text/css" href="css/loading.css" />
+  <!-- swiper css は先読み -->
   <link rel="stylesheet" href="css/swiper.min.css">
+  <link rel="stylesheet" href="css/myswiper.css">
+  <!-- 共通 -->
   <link rel="stylesheet" type="text/css" href="css/style.css" />
   <link rel="stylesheet" type="text/css" href="css/header.css" />
   <link rel="stylesheet" type="text/css" href="css/accordion.css" />
+  <link rel="stylesheet" type="text/css" href="css/footer.css" />
+  <!-- ページ毎 -->
+  <link rel="stylesheet" type="text/css" href="css/top.css" />
+  <!-- 特殊？ -->
   <link rel="stylesheet" type="text/css" href="css/under_nav.css" />
 
+  <!--javascript-->
    <script src="js/swiper.min.js" defer></script>
   <script src="js/swiper_conf.js" defer></script>
   <script src="js/script.js" defer></script>
   <script src="js/header.js" defer></script>
+  <script src="js/accordion.js" defer></script>
   <script src="js/loading.js" defer></script>
 
   <!-- フォントオーサム -->
@@ -122,12 +134,12 @@
 
 <!-- 即 -->
 
-<section class="container under_space">
+<section id="right_away" class="container under_space">
 <div class="content_wrapper">
 <!-- タウンの仕様がよくわからないのでサイズ指定は後回し -->
 <h2 class="block_title">Right away</h2>
 
-<iframe class="dto-sw2" id="dto-sw2-218" src="https://www.dto.jp/shop/6471/standby-widget-v2?mr=5&amp;l=10&amp;fc=000000&amp;if=dto-sw2-17569" width="100%" frameborder="0" scrolling="no" style="width: 414px; height: 290px;"></iframe>
+<iframe class="dto-sw2" id="dto-sw2-218" src="https://www.dto.jp/shop/6471/standby-widget-v2?mr=5&amp;l=10&amp;fc=000000&amp;if=dto-sw2-17569" width="100%" frameborder="0" scrolling="no" style="height: 290px;"></iframe>
   <script type="text/javascript">
 (function(){
 var _d = document.createElement('script');
@@ -142,39 +154,274 @@ document.getElementsByTagName('head')[0].appendChild(_d);
 
 <!-- おわり即 -->
 
-<section class="container under_space">
+
 
 <!-- 最新ニュース -->
-
+<section id="whats_new" class="container under_space">
 <div class="content_wrapper">
 
   <h2 class="block_title">What's New</h2>
 
   <!-- イチ記事 -->
-    <article class="topic">
-      <a href="" class="top">
-
-      </a>
-
-</article>
-
-
-<a href="">
-  <div class="news_box">
-    <div class="news_img">
-      <img src="img/88x31.png" alt="">
-    </div>
+  <article class="topic">
+    <a href="">
+    <div class="news_box">
+      <figure class="news_img">
+        <img src="img/200x40.png" alt="" width="128px">
+      </figure>
     <div class="news_contents">
-      あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほ
+      <h2 class="news_title">
+        あいうえおかきくけこさしすせそたちつてとなにぬねのは<br>ひふへほま<br>みむめもあいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめも
+      </h2>
+      <div class="news_kinds">
+        割引情報
+      </div>
     </div>
-
   </div>
-</a>
+  </a>
+  </article>
+  <!-- ------- -->
+
+
+
+
+  <div class="goto_list button_small">
+    <a href="" class="btn_color_red btn_active btn_font01">一覧へ</a>
+  </div>
+
 
 </div>
 </section>
 
 
+<!-- Event -->
+<section id="event" class="container under_space">
+<div class="content_wrapper">
+
+  <h2 class="block_title">Event</h2>
+
+  <!-- イチ記事 -->
+  <article class="event">
+    <div class="banner_max event_banner">
+      <img src="img/468x60.png" alt="">
+    </div>
+  </article>
+  <!-- --- -->
+
+  <!-- イチ記事 -->
+  <article class="event">
+    <div class="banner_max event_banner">
+      <img src="img/468x60.png" alt="">
+    </div>
+  </article>
+  <!-- --- --> 
+
+<div class="goto_list button_small">
+  <a href="" class="btn_color_red btn_active btn_font01">一覧へ</a>
+</div>
+
+</div>
+</section>
+
+<!-- 日記 -->
+<section id="diary" class="container under_space">
+  <div class="content_wrapper">
+  <!-- タウンの仕様がよくわからないのでサイズ指定は後回し -->
+  <h2 class="block_title">Diary</h2>
+
+  <iframe class="dto-dw4" id="dto-dw4-218" src="https://www.dto.jp/shop/218/diary-widget-v4?l=11&amp;fc=000000&amp;if=dto-dw4-17569" width="100%" frameborder="0" scrolling="no"></iframe>
+  <script type="text/javascript">
+     (function(){
+      var _d = document.createElement('script');
+        _d.src = 'https://www.dto.jp/js/dto.diary-widget-v4-2.js';
+        _d.type = 'text/javascript';
+        document.getElementsByTagName('head')[0].appendChild(_d);
+        })();
+  </script>
+  
+  </div>
+</section>
+
+<!-- --- -->
+
+<!-- 本日の出勤 -->
+<section id="today_staff" class="container under_space">
+  <div class="content_wrapper">
+
+    <h2 class="block_title">Today Staff</h2>
+
+    <div class="staff_bg">
+      <ul class="today_staff_list">
+
+        <li class="staff_list">
+          <a href="">
+            <!-- 時間 -->
+            <span class="time_area">
+              <p>12:00~22:00</p>
+            </span>
+            <!-- 写真 -->
+            <span class="staff_thumbnail_wrap">
+              <span class="staff_thumbnail_position">
+                <img src="img/concept02.jpeg" alt="">
+              </span>
+              <span class="nameArea">
+                <dl>
+                  <dt class="name">
+                    <span>KIRARA</span>キララ
+                    <b>(23)</b>
+                  </dt>
+                  <dd class="name-border"></dd>
+                  <dd class="size">
+                    T.<b>155</b>B.<b>84(C)</b>W.<b>58</b>H.<b>85</b>
+                  </dd>
+                </dl>
+                <p class="smokeMark">
+                  <img src="/pc/img/smoke.png" alt="禁煙 タバコ吸わない">
+                </p>
+              </span>
+
+            </span>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+  
+  </div>
+
+</section>
+
+<!-- --- -->
+
+
+<!-- 新人またはピックアップ -->
+
+<section id="new_face" class="under_space">
+
+  <h2 class="block_title">New Face</h2>
+<div class="swiper_custom_parent">
+      <div class="swiper2 GlSwiper">
+        <div class="swiper-wrapper">
+          <!-- foreach で数だけ取る -->
+          <div class="swiper-slide girl-slide">
+              <a href="staff/staff00.php?name=test" class="swipe_a">
+              <!-- ここの画像がでかくなるとbodyが動くのではみ出したら切る -->
+              <img src="img/newface01.jpeg" alt="">
+              <div class="staff_data">
+                <p class="name_age">
+                  <span class="name">名 前</span>
+                  <span class="age">(20)</span>
+                </p>
+                <p class="body_size">
+                  T/165&nbsp;B88(F)&nbsp;W60&nbsp;H88
+                </p>
+              </div>
+            </a>
+          </div>
+<!-- ２人目 -->
+          <div class="swiper-slide girl-slide">
+              <a href="staff/staff00.php?name=test" class="swipe_a">
+              <!-- ここの画像がでかくなるとbodyが動くのではみ出したら切る -->
+              <img src="img/newface02.jpeg" alt="">
+              <div class="staff_data">
+                <p class="name_age">
+                  <span class="name">名前</span>
+                  <span class="age">(20)</span>
+                </p>
+                <p class="body_size">
+                  T/165&nbsp;B88(F)&nbsp;W60&nbsp;H88
+                </p>
+              </div>
+            </a>
+          </div>
+<!-- 3人目 -->
+          <div class="swiper-slide girl-slide">
+              <a href="staff/staff00.php?name=test" class="swipe_a">
+              <!-- ここの画像がでかくなるとbodyが動くのではみ出したら切る -->
+              <img src="img/newface03.jpeg" alt="">
+              <div class="staff_data">
+                <p class="name_age">
+                  <span class="name">名前</span>
+                  <span class="age">(20)</span>
+                </p>
+                <p class="body_size">
+                  T/165&nbsp;B88(F)&nbsp;W60&nbsp;H88
+                </p>
+              </div>
+            </a>
+          </div>
+
+        </div>
+          <div class="swiper-pagination page2">aaaa</div>
+      </div>
+
+          <div class="swiper-button-next next2 swiper_arrow"></div>
+          <div class="swiper-button-prev prev2 swiper_arrow"></div>
+
+
+
+
+</div>
+</section><!-- 新人終わり -->
+
+<!-- クチコミ -->
+
+<section id="reviews" class="under_space">
+
+<div class="content_wrapper">
+  <h2 class="block_title">Reviews</h2>
+
+
+  <div class="staff_review_wrap">
+ 
+  <!-- クチコミ1 -->
+    <article class="staff_review_contents">
+      <div class="staff_review_bg">
+        <img src="img/concept00.jpeg" alt="">
+      </div>
+      <div class="staff_review_comment">
+        <p class="reviewer_name">名前たろうさん</p>
+        <p class="assessment">満足度<span>★★★★★</span></p>
+        <p class="reviewer_title">あいうえおかきくけこさしすせそ</p>
+      </div>
+    </article>
+
+  <!-- クチコミ2 -->
+    <article class="staff_review_contents">
+      <div class="staff_review_bg">
+        <img src="img/concept02.jpeg" alt="">
+        <div class="staff_review_name">
+         <p>田中　さん</p>
+        </div>
+      </div>
+      <div class="staff_review_comment">
+        <p class="reviewer_title">あいうえおかきくけこさしすせそ</p>
+        <p class="assessment">満足度<span>★★★★★</span></p>
+        <p class="review_data">
+          <spsan class="reviewer_name">名前たろうさん</spsan>
+          <span class="date_use">１月１日</span>
+        </p>
+
+      </div>
+    </article>
+
+  <!-- クチコミ3 -->
+    <article class="staff_review_contents">
+      <div class="staff_review_bg">
+        <img src="img/concept01.jpeg" alt="">
+      </div>
+      <div class="staff_review_comment">
+        <p class="reviewer_name">名前たろうさん</p>
+        <p class="assessment">満足度<span>★★★★★</span></p>
+        <p class="reviewer_title">あいうえおかきくけこさしすせそ</p>
+      </div>
+    </article>
+
+
+  </div>
+  
+</section>
 
 <!-- 注意点 -->
     <br>
@@ -228,20 +475,6 @@ document.getElementsByTagName('head')[0].appendChild(_d);
 
 
 
-      <!-- Slider main container -->
-      <h4>スワイパーテスト2
-      </h4>
-      <div class="swiper2 GlSwiper">
-        <div class="swiper-wrapper">
-          <!-- foreach で数だけ取る -->
-          <div class="swiper-slide girl-slide">Slide 1</div>
-          <div class="swiper-slide girl-slide">Slide 2</div>
-          <div class="swiper-slide girl-slide">Slide 3</div>
-          <div class="swiper-slide girl-slide">Slide 4</div>
-          <div class="swiper-slide girl-slide">Slide 5</div>
-        </div>
-
-      </div>
 
 
       <br>
@@ -264,9 +497,9 @@ document.getElementsByTagName('head')[0].appendChild(_d);
           <div class="swiper-slide news-slide">slide 9</div>
         </div>
 
-        <div class="swiper-button-next next2"></div>
-        <div class="swiper-button-prev prev2"></div>
-        <div class="swiper-pagination page2"></div>
+        <div class="swiper-button-next next3"></div>
+        <div class="swiper-button-prev prev3"></div>
+        <div class="swiper-pagination page3"></div>
       </div>
 
 
@@ -288,17 +521,15 @@ document.getElementsByTagName('head')[0].appendChild(_d);
       require_once("accordion.php");
       ?>
 
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
+
 
     </main>
 
+    <?php
+        require_once("footer.php");
+    ?>
 
-  </div>
+  </div><!-- wrapper -->
 </body>
 
 </html>

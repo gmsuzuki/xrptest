@@ -34,12 +34,15 @@
   <meta name="msapplication-TileImage" content="画像のURL" />
   <meta name="msapplication-TileColor" content="カラーコード" />
 
-  <!--css javascript-->
+  <!--css -->
   <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" type="text/css" href="css/loading.css" />
   <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="css/index.css" />
   <link rel="stylesheet" type="text/css" href="css/accordion.css" />
   <link rel="stylesheet" type="text/css" href="css/footer.css" />
 
+  <!--javascript-->
   <!-- <script src="js/swiper.min.js" defer></script> -->
   <!-- <script src="js/script.js" defer></script> -->
   <script src="js/accordion.js" defer></script>
