@@ -42,7 +42,24 @@ const swiper2 = new Swiper(".GlSwiper", {
   },
 });
 
-const swiper3 = new Swiper(".newsSwiper", {
+const swiper3 = new Swiper(".couponSwiper", {
+  slidesPerView: 1.6,
+  spaceBetween: 10,
+  centeredSlides: false,
+  loop: true,
+  pagination: {
+    el: ".page3",
+    clickable: true,
+  },
+  autoplay: {
+    delay: 500000,
+    stopOnLastSlide: false,
+    disableOnInteraction: false,
+    reverseDirection: false,
+  },
+});
+
+const swiper4 = new Swiper(".newsSwiper", {
   // 一列辺り
   slidesPerColumn: 3,
   // 見えている列の数
@@ -50,11 +67,11 @@ const swiper3 = new Swiper(".newsSwiper", {
   slidesPerColumnFill: "column",
   spaceBetween: 10,
   pagination: {
-    el: ".page3",
+    el: ".page4",
     clickable: true,
   },
   navigation: {
-    nextEl: ".next3",
-    prevEl: ".prev3",
+    nextEl: ".next4",
+    prevEl: ".prev4",
   },
 });

@@ -46,7 +46,8 @@
   <!-- <script src="js/swiper.min.js" defer></script> -->
   <!-- <script src="js/script.js" defer></script> -->
   <script src="js/accordion.js" defer></script>
- <script src="js/loading.js" defer></script>
+  <script src="js/loading.js" defer></script>
+<!-- noscriptを入れるか迷う -->
 
   <!-- フォントオーサム -->
   <!-- 最後はダウンロードしてスピードを出す -->
@@ -55,6 +56,8 @@
 </head>
 
 <body id="body">
+
+
 
  <!-- ローディング画面 -->
   <div id="loading-wrapper">
@@ -303,6 +306,7 @@
 
 
   </div> <!-- wrapper -->
+
 
 </body>
 

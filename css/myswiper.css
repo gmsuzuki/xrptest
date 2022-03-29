@@ -11,7 +11,7 @@
 }
 
 .swiper-wrapper {
-  background-color: #678;
+  /* background-color: #678; */
 }
 
 .swiper-slide {
@@ -38,6 +38,7 @@
 .swipe_a {
   width: 100%;
   max-width: 768x;
+  display: block;
 }
 
 .swiper-slide img {
@@ -75,7 +76,7 @@
   margin-right: auto;
   overflow: hidden;
   position: relative;
-  padding: 32px 0;
+  /* padding: 24px 0; */
 }
 
 .girl-slide {
@@ -117,8 +118,13 @@
 .swiper-pagination.page2 {
 }
 
-/* newsーーーーーーーーーーーー */
+/* クーポンーーーーーーーーーーーー */
 .swiper3 {
+  /* padding: 24px 0; */
+}
+
+/* newsーーーーーーーーーーーー */
+.swiper4 {
   width: 95%;
   height: 200px;
   margin-left: auto;
