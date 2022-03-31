@@ -10,20 +10,6 @@
 
 /* topページ */
 
-/* 日本語表題 */
-h2.head_ja {
-  font-size: 1.5rem;
-  line-height: 2.8rem;
-  margin: 10px 0;
-}
-
-h2.block_title {
-  font-size: 2.4rem;
-  line-height: 2.8rem;
-  padding-top: 12px;
-  padding-left: 5px;
-}
-
 /* ニュースのところ */
 .topic {
   overflow: hidden;
@@ -36,7 +22,6 @@ h2.block_title {
 .news_box {
   display: flex;
   align-items: center;
-  margin-top: 12px;
 }
 
 .news_img {
@@ -75,20 +60,20 @@ h2.block_title {
 }
 
 .goto_list {
-  margin-top: 5px;
+  margin-top: 24px;
   margin-right: 10px;
   margin-bottom: 10px;
-  float: right;
 }
+
+/* イベント */
 
 .event_banner {
   margin: 12px 0;
 }
 
+/* 今日の出勤　くちこみのところと合体 */
+
 /* 新人情報 */
-#new_face {
-  background-color: #ffebee;
-}
 
 #new_face .swiper2 .swiper-wrapper .girl-slide a {
   color: rgb(95, 94, 94);
@@ -104,46 +89,216 @@ h2.block_title {
   color: black;
 }
 
-/* くちこみ */
+/*今日の出勤 くちこみ */
+/* 共通 */
 
-.staff_review_wrap {
+.staff_review_wrap,
+.today_staff_wrap {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
+.today_staff_wrap {
+  /* background-color: pink; */
+}
 
-.staff_review_contents {
+.staff_review,
+.staff_card {
   width: 49%;
-  height: 200px;
-  background-color: #fff;
   margin: 10px 0;
-  border-radius: 10px;
   overflow: hidden;
 }
 
-.staff_review_contents .staff_review_bg {
+.staff_review_content,
+.today_staff_profile {
+  width: 100%;
+  height: 100%;
+}
+
+.staff_review_bg img,
+.today_staff_card .staff_photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+/* 今日の出勤 */
+
+/* 出勤 */
+.staff_list {
+  border: 2px solid;
+  border-color: pink;
+}
+
+/* パネル写真エリア */
+.staff_photo_area {
+  position: relative;
+}
+
+/*状態  */
+.staff_state_mark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  -ms-writing-mode: tb-rl;
+  writing-mode: vertical-rl;
+  background: rgba(255, 133, 146, 0.5);
+  color: #fff;
+  margin: 4px;
+  padding: 4px 0;
+  letter-spacing: 0.3rem;
+  border-radius: 5%;
+}
+
+.panel_icon_samall {
+  display: block;
+  text-align: center;
+  font-size: 1rem;
+  padding: 2px 4px;
+  line-height: 1.2rem;
+}
+
+.staff_photo_area .staff_original_contents {
+  display: flex;
+  position: absolute;
+  bottom: 2px;
+  right: 0;
+  font-size: 0.8rem;
+}
+
+.staff_original_contents .panel_icon_samall {
+  color: #fff;
+  border-radius: 0 6px;
+  margin: 0 2px;
+}
+
+/* パネルアイコン */
+/* ムービー */
+.panel_movie_icon {
+  background-color: red;
+}
+/* 日記 */
+.panel_diary_icon {
+  background-color: orange;
+}
+
+/* TWITTER */
+.panel_twitter_icon {
+  background-color: skyblue;
+}
+
+/* ーーープロフィールエリアーーー */
+
+.staff_profile_area {
+  margin: 10px 0;
+  text-align: center;
+}
+
+/* 名前年齢 */
+.staff_profile_area .name_age p {
+  margin-bottom: 4px;
+  line-height: 1.7rem;
+}
+
+/* 新人 */
+.staff_profile_area .name_age p .new_staff {
+  font-size: 0.8rem;
+  color: #fff;
+  background-color: rgb(247, 55, 87);
+  padding: 2px 8px;
+  border-radius: 8px;
+  vertical-align: top;
+}
+/* 名前 */
+.staff_profile_area .name_age p .staff_name {
+  font-size: 1.7rem;
+}
+
+/* 年齢 */
+.staff_profile_area .name_age p .staff_age {
+  font-size: 1.3rem;
+  margin-left: 4px;
+  letter-spacing: 0.2rem;
+}
+
+/* スタイル */
+.bodysize {
+  font-size: 1.3rem;
+  line-height: 1.3rem;
+  letter-spacing: 0.3rem;
+}
+
+/* 時間 */
+
+.time_area {
+  background-color: rgb(212, 90, 110);
+  color: #fff;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 1.3rem;
+  letter-spacing: 0.2rem;
+}
+
+/* れびゅー */
+
+.staff_review {
+  height: 200px;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.staff_review_content .staff_review_bg {
   width: 100%;
   height: 60%;
   position: relative;
 }
 
 .staff_review_bg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
   object-position: 0% 0%;
 }
 
-.staff_review_bg .staff_review_name {
+.staff_review_bg .assessment {
   position: absolute;
   bottom: 0;
-  background-color: rgba(255, 179, 187, 0.8);
+  background-color: rgba(255, 133, 146, 0.8);
   width: 100%;
   text-align: center;
   color: #fff;
 }
 
-.staff_review_comment {
+.staff_review_bg .assessment span {
+  margin-left: 5px;
+}
+
+.staff_review_title {
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  font-weight: bold;
+  margin: 10px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  height: 32px;
+  overflow: hidden;
+}
+
+.reviewer_data {
+  width: 100%;
+  text-align: center;
+  background-color: rgb(202, 200, 200);
+  padding-bottom: 10px;
+  padding-top: 2px;
+}
+
+.reviewer_data .reviewer_name {
+  font-size: 1.1rem;
+  line-height: 1.4rem;
+}
+.reviewer_data .date_use {
+  font-size: 0.9rem;
+  color: gray;
+  line-height: 1rem;
 }
 
 /* 注意喚起 */
@@ -170,4 +325,65 @@ h2.block_title {
 .sa.show {
   opacity: 1;
   transform: none;
+}
+
+/* -------------------------------- */
+/* クーポン */
+.coupon {
+  width: 250px;
+  border-radius: 0.5rem;
+  background: #ddf404;
+}
+
+.coupon .btn {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  padding: 1rem 4rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-align: center;
+  vertical-align: middle;
+  letter-spacing: 0.1em;
+  color: #212529;
+}
+
+.coupon .btn-coupon {
+  line-height: 1.2;
+  padding: 2rem 3rem;
+  border-radius: 0;
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+}
+
+a.btn-coupon .coupon_name {
+}
+a.btn-coupon .coupon_price {
+  font-family: "Roboto", sans-serif;
+  font-size: 3rem;
+}
+
+.coupon .btn-coupon:before,
+.coupon .btn-coupon:after {
+  position: absolute;
+  top: calc(50% - 15px);
+  width: 30px;
+  height: 30px;
+  content: "";
+  border-radius: 50%;
+  background: #e8e8e8;
+}
+
+.coupon .btn-coupon:before {
+  left: -15px;
+}
+
+.coupon .btn-coupon:after {
+  right: -15px;
 }
