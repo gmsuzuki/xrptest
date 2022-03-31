@@ -73,6 +73,8 @@
   <div id="loading-wrapper">
     <div class="loader"></div>
     <p>Loading...</p>
+
+    てｓつ
   </div>
   <!-- コンテンツ部分 -->
 
