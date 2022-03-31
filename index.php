@@ -63,6 +63,7 @@
   <div id="loading-wrapper">
     <div class="loader"></div>
     <p>Loading...</p>
+テスト中
   </div>
   <!-- コンテンツ部分 -->
 
