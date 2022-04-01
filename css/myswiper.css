@@ -4,7 +4,6 @@
 
 .swiper {
   width: 100%;
-  height: 100%;
   margin: 0 auto;
   overflow: hidden;
   position: relative;
@@ -39,6 +38,8 @@
   width: 100%;
   max-width: 768x;
   display: block;
+  /* これがswiperのサイズに対しての画像高さ */
+  height: 100%;
 }
 
 .swiper-slide img {
@@ -103,12 +104,16 @@
   border: 1em solid rgba(133, 133, 133, 0.01);
 }
 
+.swiper-button-next.next1.swiper_arrow,
+.swiper-button-prev.prev1.swiper_arrow,
 .swiper-button-next.next2.swiper_arrow,
 .swiper-button-prev.prev2.swiper_arrow {
   color: #fff;
   font-size: 12px;
 }
 
+.swiper-button-next.next1.swiper_arrow::after,
+.swiper-button-prev.prev1.swiper_arrow::after,
 .swiper-button-next.next2.swiper_arrow::after,
 .swiper-button-prev.prev2.swiper_arrow::after {
   font-size: 12px;

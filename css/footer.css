@@ -85,6 +85,8 @@ footer {
   margin: 0 auto;
 }
 
+/* リボンは使ってない */
+
 .ribbon {
   font-size: 1.5rem;
   line-height: 30px;

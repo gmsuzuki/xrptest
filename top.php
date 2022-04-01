@@ -54,7 +54,7 @@
 
   <!--javascript-->
   <script src="js/swiper.min.js" defer></script>
-  <script src="js/swiper_conf.js" defer></script>
+    <script src="js/swiper_conf.js" defer></script>
   <script src="js/script.js" defer></script>
   <script src="js/header.js" defer></script>
   <script src="js/accordion.js" defer></script>
@@ -73,8 +73,6 @@
   <div id="loading-wrapper">
     <div class="loader"></div>
     <p>Loading...</p>
-
-    てｓつ
   </div>
   <!-- コンテンツ部分 -->
 
@@ -96,7 +94,7 @@
         <div class="swiper-wrapper">
           <!-- foreach で数だけ取る -->
           <div class="swiper-slide">
-            <a href="staff/staff00.php?name=test" class="swipe_a">
+            <a href="girls.php" class="swipe_a">
               <!-- ここの画像がでかくなるとbodyが動くのではみ出したら切る -->
               <img src="img/sw01.jpeg" alt="">
             </a>
@@ -120,9 +118,9 @@
         <div class="swiper-pagination page1"></div>
       </div>
 
-<!-- スワイパー① -->
+<!-- スワイパー①ここまで -->
     
-<!-- 注意点 -->
+<!-- 重要おしらせ -->
 
 
 <section id="attention" class="container under_space">
@@ -267,7 +265,7 @@ document.getElementsByTagName('head')[0].appendChild(_d);
 
       <!-- 1人目 -->
         <li class="staff_card">
-          <a href="" class="today_staff_card block_wrap_a">
+          <a href="girls.php" class="today_staff_card block_wrap_a">
             <!-- 写真 -->
             <div class="staff_photo_area">
               <div class="staff_photo">
