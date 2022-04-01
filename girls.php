@@ -33,18 +33,36 @@
   <meta name="msapplication-TileImage" content="画像のURL" />
   <meta name="msapplication-TileColor" content="カラーコード" />
 
-  <!--css javascript-->
+  <!--css-->
+  <!-- リセット -->
   <link rel="stylesheet" href="css/reset.css">
+  <!-- ローディング -->
+  <link rel="stylesheet" type="text/css" href="css/loading.css" />
+  <!-- swiper css は先読み -->
   <link rel="stylesheet" href="css/swiper.min.css">
+  <link rel="stylesheet" href="css/myswiper.css">
+  <!-- 共通 -->
   <link rel="stylesheet" type="text/css" href="css/style.css" />
   <link rel="stylesheet" type="text/css" href="css/header.css" />
   <link rel="stylesheet" type="text/css" href="css/accordion.css" />
+  <link rel="stylesheet" type="text/css" href="css/footer.css" />
+  <!-- ページ毎 -->
+  <link rel="stylesheet" type="text/css" href="css/girls_profile.css" />
+  <!-- 特殊？ -->
   <link rel="stylesheet" type="text/css" href="css/under_nav.css" />
 
+
+
+    <!-- javascript -->
   <script src="js/swiper.min.js" defer></script>
+  <script src="js/swiper_conf.js" defer></script>
   <script src="js/script.js" defer></script>
+  <script src="js/accordion.js" defer></script>
+  <script src="js/fadein.js" defer></script>
   <script src="js/header_sp.js" defer></script>
   <script src="js/under_nav.js" defer></script>
+  <!-- SP画面転換時のインパクトのときは、onloadをまとめてheader_spへ -->
+  <!-- <script src="js/loading.js" defer></script> -->
   <!-- フォントオーサム -->
   <!-- 最後はダウンロードしてスピードを出す -->
   <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
@@ -53,12 +71,121 @@
 
 <body id="body">
 
+ <!-- ローディング画面 -->
+  <div id="loading-wrapper">
+    <div class="loader"></div>
+    <p>Loading...</p>
+  </div>
+
+  <!-- コンテンツ部分 -->
+
 
 <div id="wrapper">
 
+  <!-- 特殊ヘッダー -->
+  <?php require_once("header_girl.php")?>
+  <!------------------>
 
-    <?php require_once("header_girl.php")?>
-    <br>
+  <main>
+  
+  <article id="girls_profile">
+
+<!-- スワイパー① -->
+      <div class="swiper mySwiper girl_profile_imgs">
+        <div class="swiper-wrapper">
+          <!-- foreach で数だけ取る -->
+          <div class="swiper-slide">
+            <a href="staff/staff00.php?name=test" class="swipe_a">
+              <!-- ここの画像がでかくなるとbodyが動くのではみ出したら切る -->
+              <img src="img/girl01.jpeg" alt="" class="profile_img">
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="staff/staff00.php?name=test" class="swipe_a">
+              <!-- ここの画像がでかくなるとbodyが動くのではみ出したら切る -->
+              <img src="img/girl02.jpeg" alt="">
+            </a>  
+          </div>
+          <div class="swiper-slide">
+            <a href="staff/staff00.php?name=test" class="swipe_a">
+              <!-- ここの画像がでかくなるとbodyが動くのではみ出したら切る -->
+              <img src="img/girl03.jpeg" alt="">
+            </a>  
+          </div>
+        </div>
+
+        <div class="swiper-button-next next1 swiper_arrow"></div>
+        <div class="swiper-button-prev prev1 swiper_arrow"></div>
+        <div class="swiper-pagination page1"></div>
+      </div>
+
+<!-- スワイパー①ここまで -->
+
+<!-- ここからprofileデータ -->
+<section id="girls_data" class="container under_space">
+  <div class="content_wrapper">
+
+  <!-- 名前　年齢 -->
+  <div class="girls_basic_plofile">
+    <div class="basic_plofile_left">
+      <h1 class="girl_name_age">
+        <span class="girl_name">江口 寿史</span>
+        <span class="girl_age">(20)</span>
+      </h1>
+      <p>T/165&nbsp;B88(F)&nbsp;W60&nbsp;H88</p>
+    </div>
+    <div class="girl_ather_service">
+      <span class="girl_sns">twitter</span>
+      <span class="girl_sns">diary</span>
+      <span class="girl_sns">movie</span>
+    </div>
+  </div>
+
+  <div class="girls_name_age_type under_space">
+    <div class="girls_play_type">
+      <span class="play_type_tag">aaaaa</span>
+      <span class="play_type_tag">bbbbb</span>
+      <span class="play_type_tag">ccccc</span>
+      <span class="play_type_tag">ddddd</span>
+      <span class="play_type_tag">eeeee</span>
+      <span class="play_type_tag">aaaaa</span>
+      <span class="play_type_tag">bbbbb</span>
+    </div>
+  </div>
+
+  </div><!-- content_wrapperここまで -->
+</section>
+
+<!-- スケジュール -->
+
+<!-- スタッフのスケジュール -->
+<section id="girl_schedule" class="under_space scroll-up">
+  <div class="content_wrapper">
+    <h2 class="block_title"><span>Schedule</span></h2>
+    <h3 class="block_title_caption">今週のスケジュール</h3>
+
+    <!-- ここからスケジュール表 -->
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+
+      <div class="goto_list button">
+         <a href="" class="anime_btn btn_active btn_font01">週間スケジュール</a>
+      </div>
+
+  </div> <!-- コンテントラッパーここまで -->
+
+</section>
+
+
+
+<br>
 
       <br>
       <br>
@@ -90,41 +217,27 @@
     <br>
     <br>
   
-   <main>
-   
-      <br>
-      <br>
+</article>
+<!-- profileここまで -->
+
       <?php require_once("under_nav.php");?>
       <br>
       <br>
       <br>
       <br>
 
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
       <?php
       require_once("accordion.php");
       ?>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
+
     </main>
 
+    <?php
+        require_once("footer.php");
+    ?>
 
 </div>
+<!-- wrapper ここまで -->
 
 
     </body>

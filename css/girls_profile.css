@@ -1,0 +1,72 @@
+@charset "utf-8";
+
+#girls_profile {
+  position: relative;
+  top: -45px;
+}
+
+.girl_profile_imgs {
+  height: 90vh;
+}
+
+.profile_img {
+  object-fit: cover;
+}
+.swiper-pagination-bullets {
+  position: absolute;
+}
+
+/*　profileデータ */
+#girls_data {
+  margin-top: 32px;
+}
+
+.girls_basic_plofile {
+  display: flex;
+  align-items: center;
+}
+
+.girl_ather_service {
+  margin-left: 16px;
+  height: 20px;
+}
+
+.girl_sns {
+  background-color: skyblue;
+  margin: 0 6px;
+  padding: 2px 10px;
+  border-radius: 4px;
+}
+
+.girl_body_size {
+  font-size: 1rem;
+}
+
+/* 名前年齢とか */
+.girls_name_age_type {
+  width: 100%;
+  margin: 10px auto;
+}
+
+.girls_play_type {
+  width: 100%;
+  color: white;
+  text-align: center;
+  line-height: 1.2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.play_type_tag {
+  display: block;
+  background-color: pink;
+  padding: 4px 12px;
+  margin: 4px 8px;
+  border-radius: 4px;
+}
+
+/* スケジュール */
+#girl_schedule {
+  background-color: #e8e8e8;
+}

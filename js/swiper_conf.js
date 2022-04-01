@@ -1,5 +1,6 @@
 // swaiper
 
+// トップのでかいやつ
 const swiper1 = new Swiper(".mySwiper", {
   slidesPerView: 1,
   spaceBetween: 0,
@@ -20,6 +21,7 @@ const swiper1 = new Swiper(".mySwiper", {
   },
 });
 
+// ピックアップ　新人用
 const swiper2 = new Swiper(".GlSwiper", {
   slidesPerView: 1,
   spaceBetween: 0,
@@ -42,6 +44,7 @@ const swiper2 = new Swiper(".GlSwiper", {
   },
 });
 
+// クーポン
 const swiper3 = new Swiper(".couponSwiper", {
   slidesPerView: 1.6,
   spaceBetween: 10,
@@ -59,6 +62,7 @@ const swiper3 = new Swiper(".couponSwiper", {
   },
 });
 
+// ３段とかのスライダー
 const swiper4 = new Swiper(".newsSwiper", {
   // 一列辺り
   slidesPerColumn: 3,

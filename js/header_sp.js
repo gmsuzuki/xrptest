@@ -1,4 +1,6 @@
 window.onload = () => {
+  const loader = document.getElementById("loading-wrapper");
+  loader.classList.add("completed");
   const header = document.getElementById("header");
   const hH = 5;
   // 現在地を示す変数を定義
