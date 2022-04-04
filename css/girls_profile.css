@@ -42,10 +42,17 @@
   font-size: 1rem;
 }
 
+/* 新人マーク */
+.girls_special_tag {
+  padding: 0 12px;
+  border-radius: 4px;
+  font-size: 1rem;
+  line-height: 1rem;
+}
 /* 名前年齢とか */
 .girls_name_age_type {
   width: 100%;
-  margin: 10px auto;
+  margin: 5px auto;
 }
 
 .girls_play_type {
@@ -55,7 +62,7 @@
   line-height: 1.2;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  /* justify-content: center; */
 }
 
 .play_type_tag {
@@ -69,12 +76,22 @@
 /* スケジュール */
 #girl_schedule {
   background-color: #e8e8e8;
+  padding-bottom: 32px;
+}
+.girl_enquete_list,
+.weekly_schedule_list {
+  border-radius: 0.5rem;
+  padding: 0 0.7rem;
+  width: 100%;
+}
+
+.girl_enquete_list {
+  border-radius: 4px;
+  border: 1px solid #6e6e73;
 }
 
 .weekly_schedule_list {
   background-color: #f7f7f7;
-  border-radius: 0.5rem;
-  padding: 0 0.7rem;
 }
 
 .weekly_schedule_list li {
@@ -82,4 +99,21 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  line-height: 5rem;
+}
+
+.weekly_schedule_list li span {
+  width: 50%;
+  display: block;
+  text-align: center;
+}
+
+/* お店から一言 */
+.shop_comment_text {
+  padding: 0 5%;
+  line-height: 1.6;
+}
+
+.girl_catchphrase {
+  font-weight: bold;
 }

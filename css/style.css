@@ -10,6 +10,17 @@
 
 /* 全体ーーーーーーーーーー */
 
+html {
+  font-size: 62.5%;
+}
+
+/* block内包a */
+
+.block_wrap_a {
+  display: block;
+  color: black;
+}
+
 body {
   /* ゴシック */
   font-family: "Avenir", "Helvetica Neue", "Helvetica", "Arial",
@@ -134,15 +145,29 @@ h3.block_title_caption {
   text-align: center;
 }
 
-html {
-  font-size: 62.5%;
+.anime_text_bg {
+  animation: txtbgPlayAnm 5s ease-in-out infinite alternate;
+  /* background-color: rgba(255, 149, 187, 1); */
+  color: #fff;
 }
 
-/* block内包a */
-
-.block_wrap_a {
-  display: block;
-  color: black;
+/* テキストbgのアニメ */
+@keyframes txtbgPlayAnm {
+  0% {
+    background-color: rgba(255, 149, 187, 1);
+  }
+  25% {
+    background-color: rgb(253, 82, 145, 1);
+  }
+  50% {
+    background-color: rgb(253, 25, 25, 1);
+  }
+  75% {
+    background-color: rgba(253, 82, 145, 1);
+  }
+  100% {
+    background-color: rgba(255, 149, 187, 1);
+  }
 }
 
 /* ボタン系 */
