@@ -165,8 +165,13 @@
     <h3 class="block_title_caption">今週のスケジュール</h3>
 
     <!-- ここからスケジュール表 -->
-    <ul>
-      <li></li>
+    <ul class="weekly_schedule_list">
+      <li>
+        <span class="date">wwwwwwwwww</span>
+        <span class="time">
+          tekitou
+        </span>
+      </li>
       <li></li>
       <li></li>
       <li></li>

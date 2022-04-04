@@ -70,3 +70,16 @@
 #girl_schedule {
   background-color: #e8e8e8;
 }
+
+.weekly_schedule_list {
+  background-color: #f7f7f7;
+  border-radius: 0.5rem;
+  padding: 0 0.7rem;
+}
+
+.weekly_schedule_list li {
+  border-bottom: 2px solid #c5c5c5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
