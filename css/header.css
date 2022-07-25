@@ -268,7 +268,7 @@ header {
 /* 通常ナビ */
 #sp_nav {
   top: -120%;
-  height: 40vh;
+  height: 60vh;
   padding: 25px 0;
 }
 
@@ -278,6 +278,7 @@ header {
 }
 
 /* メニュー出ると下は動かない */
+/* iosのSafariだと動くのが問題 */
 .nav_deploy_h,
 .nav_deploy_s {
   overflow: hidden;
@@ -342,7 +343,7 @@ header {
   height: 0px;
 }
 
-.close_banner {
+#close_banner {
   position: absolute;
   left: 10px;
   top: 35%;

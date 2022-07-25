@@ -1,0 +1,164 @@
+@charset "utf-8";
+.netreserve_attention {
+  margin: 5%;
+  padding: 10px;
+}
+
+.netreserve_attention_title {
+  margin: 10px 0;
+}
+
+.netreserve_attention_text {
+  font-size: 1rem;
+  line-height: 1.4rem;
+}
+
+.line_link_banner p {
+  font-size: 1rem;
+  padding-left: 1rem;
+}
+
+/* フォーム */
+
+.reserve_from_body form {
+  margin: 0 auto;
+  text-align: left;
+  border: 1px solid pink;
+  font-size: 1.4rem;
+  padding: 2rem 5%;
+}
+
+.reserve_from_body form dl {
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid pink;
+  margin-bottom: 0.5rem;
+  padding: 2rem 0;
+}
+
+.reserve_from_body form dt {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding: 1rem 0;
+  font-weight: bold;
+}
+
+.reserve_from_body form em {
+  display: inline-block;
+  background-color: rgb(193, 0, 0);
+  border-radius: 3px;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0.5rem 1rem;
+  margin-left: 1.5rem;
+  vertical-align: top;
+  color: white;
+}
+
+.reserve_from_body form dd {
+  font-size: 1rem;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding: 0;
+  font-weight: bold;
+  color: #000000;
+}
+.reserve_from_body form input[type="text"],
+.reserve_from_body form input[type="tel"],
+.reserve_from_body form select {
+  width: 100%;
+  background: white;
+  border: 1px solid #bebebe;
+  font-size: 1.6rem;
+  padding: 1rem;
+}
+
+.reserve_from_body form select {
+  border-radius: 0%;
+  font-size: 1.6rem;
+  height: 4rem;
+  margin-bottom: 30px;
+}
+
+.reserve_from_body form input[type="radio"],
+.reserve_from_body form input[type="checkbox"] {
+  position: relative;
+  top: -2px;
+  margin-right: 2px; /*追加*/
+}
+
+/* 利用場所 */
+
+.play_place {
+  border: 1px solid #bebebe;
+  font-size: 1.6rem;
+  padding: 5px 10px 5px 5px;
+  margin-right: 10%;
+}
+.play_place_title {
+  display: block;
+  margin-top: 20px;
+}
+
+.play_place_title input[type="text"] {
+  margin-top: 10px;
+}
+
+.play_place_select,
+.option_select {
+  display: inline-block;
+  margin: 8px;
+}
+
+/* 利用日時 */
+.play_date_time {
+  margin-bottom: 15px;
+}
+
+.reserve_from_body form dl dd textarea {
+  width: 100%;
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+
+.reserve_from_body form .submit {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.reserve_from_body form .submit input[type="submit"] {
+  border: none;
+  background-color: pink;
+  display: block;
+  width: 90%;
+  margin: 0 auto;
+  padding: 10px 0;
+  transition: 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0%;
+  font-size: 1.7rem;
+}
+
+.reserve_from_body form .submit input[type="submit"]:active {
+  border: none;
+  background-color: red;
+  color: white;
+  display: block;
+  width: 90%;
+  margin: 0 auto;
+  padding: 10px 0;
+  transform: translateY(2px);
+}
+
+/* alert */
+.mini_alert {
+  color: red;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-left: 5px;
+  vertical-align: baseline;
+  line-height: 1rem;
+}

@@ -18,102 +18,382 @@
 
 /*　profileデータ */
 #girls_data {
-  margin-top: 32px;
+  margin-top: 24px;
 }
 
 .girls_basic_plofile {
-  display: flex;
-  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
 }
 
-.girl_ather_service {
-  margin-left: 16px;
-  height: 20px;
+.girl_punchline {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
 }
-
-.girl_sns {
-  background-color: skyblue;
-  margin: 0 6px;
-  padding: 2px 10px;
-  border-radius: 4px;
-}
-
-.girl_body_size {
-  font-size: 1rem;
+.girl_name {
+  display: inline-block;
+  font-size: 3.3rem;
+  line-height: 5rem;
+  letter-spacing: 0.3rem;
+  position: relative;
 }
 
 /* 新人マーク */
 .girls_special_tag {
-  padding: 0 12px;
-  border-radius: 4px;
+  position: absolute;
+  left: -60px;
+  top: 10px;
+  padding: 5px 6px;
+  border-radius: 2px;
   font-size: 1rem;
   line-height: 1rem;
 }
-/* 名前年齢とか */
-.girls_name_age_type {
-  width: 100%;
-  margin: 5px auto;
+
+/* さんとかちゃんとか */
+.girl_name .san_chan {
+  position: absolute;
+  right: -5rem;
+  bottom: -0.7rem;
+  font-size: 2rem;
 }
 
-.girls_play_type {
-  width: 100%;
-  color: white;
-  text-align: center;
-  line-height: 1.2;
+/* サイズ */
+
+.girl_age_size {
+  margin-top: 10px;
+  font-size: 2rem;
+}
+
+.girl_age_size span:not(:last-child):not(:nth-child(3)) {
+  margin-right: 1rem;
+}
+
+/* profile以外のタグ */
+
+/* キャラクタータグ */
+
+.girl_characteristic {
+  width: 95%;
+  text-align: left;
+  margin: 18px auto 0 auto;
   display: flex;
-  flex-wrap: wrap;
-  /* justify-content: center; */
+}
+
+.play_type_tag_title {
+  color: black;
+  font-size: 2rem;
+  font-style: italic;
+  font-family: "Roboto", sans-serif;
+  font-weight: 200;
+  margin-right: 4px;
 }
 
 .play_type_tag {
-  display: block;
-  background-color: pink;
-  padding: 4px 12px;
-  margin: 4px 8px;
-  border-radius: 4px;
+  color: #3f3f3f;
+  padding: 2px 6px;
+  margin: 0 0 10px 6px;
+  border-radius: 2px;
+  border: 1px solid gray;
+  display: inline-block;
 }
 
-/* スケジュール */
-#girl_schedule {
+.girl_sns {
+  background-color: skyblue;
+  border: none;
+  color: white;
+}
+
+/* ムービー */
+
+.video_wrapper {
+  width: 100%;
+  max-height: 250px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+/* オプション */
+.girl_option_list {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.6rem;
+  line-height: 2.6rem;
+  flex-wrap: wrap;
+  text-align: center;
+  margin-bottom: 12px;
+}
+.girl_option_list .option_card {
+  display: flex;
+  width: 48%;
+  border-radius: 10px;
+  background-color: #f7f7f7;
+  overflow: hidden;
+  margin: 3px;
+  color: #ff759e;
+  border: 1px solid #ff759e;
+}
+
+.girl_option_list .option_card .option_q {
+  width: 80%;
+  background-color: pink;
+}
+
+.girl_option_list .option_card .option_a {
+  width: 20%;
+  font-family: monospace;
+  font-weight: bold;
+}
+
+/* option NG */
+.girl_option_list .option_card.option_ng {
+  border: 1px solid #3f3f3f;
+}
+
+.girl_option_list .option_card .option_q.option_ng {
+  width: 80%;
+  background-color: gray;
+  color: #3f3f3f;
+}
+
+.girl_option_list .option_card .option_a.option_ng {
+  color: gray;
+}
+
+/* スケジュール インタビュー　レビュー オプション　共通 */
+
+/* スケジュール変更 */
+
+.schedule_box {
+  padding: 32px 10px;
+  background-color: #fff;
+}
+
+.schedule_day_tip a {
+  color: #3f3f3f;
+  width: 100%;
+}
+.schedule_day_tip {
+  background-color: #fff;
+  padding-bottom: 20px;
+  border: 1px solid grey;
+  border-radius: 10px;
+  box-shadow: 3px 3px 5px 0px rgb(0 0 0 / 40%);
+  overflow: hidden;
+}
+
+*.week_sun {
+  border: 1px solid red;
+}
+*.week_sun p {
+  background-color: red;
+}
+
+*.week_sat {
+  border: 1px solid blue;
+}
+
+*.week_sat p {
+  background-color: blue;
+}
+
+.schedule_date {
+  width: 100%;
+  padding: 4px 0;
+  background-color: grey;
+  color: #fff;
+}
+
+.attendance_time {
+  padding-top: 20px;
+}
+.attendance_time span {
+  display: block;
+}
+
+.girl_reserve_btn {
+  margin-top: 1rem;
+  padding: 4px 0;
+  color: white;
+}
+
+#girl_option,
+#girl_schedule,
+#girl_interview,
+#girls_review {
   background-color: #e8e8e8;
   padding-bottom: 32px;
 }
-.girl_enquete_list,
-.weekly_schedule_list {
+
+.girl_interview_list,
+.girl_review_list {
   border-radius: 0.5rem;
   padding: 0 0.7rem;
   width: 100%;
 }
 
-.girl_enquete_list {
-  border-radius: 4px;
-  border: 1px solid #6e6e73;
-}
-
-.weekly_schedule_list {
+.girl_interview_list {
   background-color: #f7f7f7;
+  padding: 10px 0.7rem;
 }
 
-.weekly_schedule_list li {
-  border-bottom: 2px solid #c5c5c5;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  line-height: 5rem;
+/* アンケート、scheduleと共通あり */
+.girl_interview_list dl {
+  line-height: 1.5;
 }
 
-.weekly_schedule_list li span {
-  width: 50%;
+.girl_interview_list dl:not(:last-child) {
+  margin-bottom: 15px;
+  border-bottom: 1px dotted #9c8b5b;
+}
+
+.girl_interview_list dl dt {
+  position: relative;
+  color: #9c8b5b;
+  padding-left: 1.7rem;
+}
+
+.girl_interview_list dl dt::before {
+  color: #e3dbc6;
+  content: "＃";
   display: block;
-  text-align: center;
+  position: absolute;
+  left: 0.5rem;
+  top: 0;
+  font-weight: bold;
+}
+
+.girl_interview_list dl dd {
+  font-size: 1.8rem;
+  /* border-bottom: 1px dotted #9c8b5b; */
+  padding: 5px 0 10px 1em;
 }
 
 /* お店から一言 */
 .shop_comment_text {
   padding: 0 5%;
   line-height: 1.6;
+  margin-bottom: 32px;
 }
 
+/* キャッチフレーズ */
 .girl_catchphrase {
   font-weight: bold;
+  padding: 2px 10px;
+  background-color: red;
+  margin: 0 0 12px 0;
+  -webkit-transform: skew(-15deg);
+  transform: skew(-15deg);
+  color: #fff;
+}
+
+/* TWITTER */
+#girls_twitter {
+  padding-bottom: 32px;
+}
+
+/* クチコミ */
+
+.girl_review_wrap {
+  width: 100%;
+  margin: 0 0.2%;
+}
+
+.girl_review_head {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.girl_review_head::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 3px;
+  background: linear-gradient(-45deg, #7a1036, #ff7ebe, #f5d0e2, #ffdea5);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  margin: auto;
+  z-index: 1;
+}
+
+.girl_review_head::after {
+  position: absolute;
+  content: "";
+  top: 0;
+  bottom: 2px;
+  right: 10px;
+  border-top: 2px solid #ffffff;
+  border-right: 2px solid #ffffff;
+  width: 6px;
+  height: 6px;
+  margin: auto;
+  transition: all 0.5s ease-in-out;
+  -webkit-transform: rotate(135deg);
+  transform: rotate(135deg);
+  z-index: 2;
+}
+
+/* 名前 */
+.girl_review_head .reviewer_name {
+  width: 40%;
+}
+
+/* 星 */
+.girl_review_head .review_fav {
+  width: 30%;
+}
+
+.girl_review_head .review_date {
+  width: 30%;
+}
+
+/* レビュー本文 */
+.girl_review_body {
+  max-height: 0;
+  width: 98%;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out;
+  margin: 0 auto 2px auto;
+  background-color: white;
+  border-radius: 8px;
+}
+
+/* レビュー開いたら */
+.girl_review_wrap.is-open .girl_review_head::after {
+  bottom: 0px;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  transition: all 0.5s ease-in-out;
+}
+
+.girl_review_wrap.is-open .girl_review_body {
+  max-height: 550px;
+  margin: 0 auto 2px auto;
+}
+
+.girl_review_list dl:not(:last-child) {
+  border-bottom: 1px dotted #ff7ebe;
+}
+
+.review_content {
+  padding: 1rem;
+}
+
+.review_content .visit_date {
+  margin-bottom: 10px;
+}
+
+.review_content .visit_date span {
+  margin-right: 2rem;
+}
+
+.goto_review_write {
+  margin-top: 20px;
 }

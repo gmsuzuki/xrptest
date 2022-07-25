@@ -83,10 +83,13 @@
   <div id="wrapper">
 
     <!-- 特殊ヘッダー -->
-    <?php require_once("header_girl.php") ?>
+    <?php
+        require_once( dirname(__FILE__). '/parts/header_girl.php');
+        require_once( dirname(__FILE__). '/data.php');
+     ?>
     <!------------------>
 
-    <main>
+    <main id="main">
 
       <article id="girls_profile">
 
@@ -125,40 +128,97 @@
         <section id="girls_data" class="container under_space">
           <div class="content_wrapper">
 
-            <!-- 新人とか -->
-            <span class="girls_special_tag anime_text_bg">
-              新人
-            </span>
-            <!-- 名前　年齢 -->
             <div class="girls_basic_plofile">
-              <div class="basic_plofile_left">
-                <h1 class="girl_name_age">
-                  <span class="girl_name">江口 寿史</span>
-                  <span class="girl_age">(20)</span>
-                </h1>
-                <p>T/165&nbsp;B88(F)&nbsp;W60&nbsp;H88</p>
-              </div>
-              <div class="girl_ather_service">
-                <span class="girl_sns">twitter</span>
-                <span class="girl_sns">diary</span>
-                <span class="girl_sns">movie</span>
-              </div>
-            </div>
+              <p class="girl_punchline">ストップひばりくんで有名な！</p>
+              <h1 class="girl_name">江口 寿史
+                <!-- 新人とか -->
+                <span class="girls_special_tag anime_text_bg_pink">
+                  新人
+                </span>
+                <span class="san_chan">さん</span>
+              </h1>
+              <p class="girl_age_size">
+                age:<span class="girl_age">20</span>
+                T:<span class="girl_age">165</span>
+                B:<span class="girl_bust">88</span>
+                <span class="girl_cup">(F)</span>
+                W:<span class="girl_west">60</span>
+                H:<span class="girl_hip">88</span>
+              </p>
 
-            <div class="girls_name_age_type under_space">
-              <p>#タイプ</p>
-              <div class="girls_play_type">
-                <span class="play_type_tag">aaaaa</span>
-                <span class="play_type_tag">bbbbb</span>
-                <span class="play_type_tag">ccccc</span>
-                <span class="play_type_tag">ddddd</span>
-                <span class="play_type_tag">eeeee</span>
-                <span class="play_type_tag">aaaaa</span>
-                <span class="play_type_tag">bbbbb</span>
+              <!-- スタッフキャラタグ -->
+              <div class="girl_characteristic">
+                <h2 class="play_type_tag_title">#type</h2>
+                <!-- リスト -->
+                <ul>
+                  <li class="play_type_tag girl_sns anime_text_bg_blue">twitter</li>
+                  <li class="play_type_tag girl_sns">日記</li>
+                  <li class="play_type_tag girl_sns anime_text_bg_pink">movie</li>
+                  <li class="play_type_tag girl_sns">グラビア</li>
+                  <li class="play_type_tag">aaaaa</li>
+                  <li class="play_type_tag">bbbbbb</li>
+                  <li class="play_type_tag">cccccc</li>
+                  <li class="play_type_tag">あいうえおか</li>
+                </ul>
               </div>
-            </div>
-
+            </div> <!-- profileここまで -->
           </div><!-- content_wrapperここまで -->
+        </section>
+
+
+
+        <!-- ムービー -->
+        <!-- 再生回数をアナリティクスで数えるようにする -->
+        <section id="girl_video" class="under_space scroll-up">
+          <div class="content_wrapper">
+            <h2 class="block_title"><span>Video</span></h2>
+            <h3 class="block_title_caption">動画</h3>
+            <div class="video_wrapper">
+              <video preload=“none” muted controls loop playsinline poster="./img/movie_pic.jpeg" width="100%"
+                height="100%">
+                <source src="./data/video02.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </section>
+
+
+
+        <!-- オプション -->
+
+        <section id="girl_option" class="under_space scroll-up">
+          <div class="content_wrapper">
+            <h2 class="block_title"><span>Option</span></h2>
+            <h3 class="block_title_caption">可能オプション</h3>
+
+            <ul class="girl_option_list">
+
+              <li class="option_card">
+                <p class="option_q">オプション名</p>
+                <p class="option_a">○</p>
+              </li>
+              <li class="option_card">
+                <p class="option_q">オプション名</p>
+                <p class="option_a">○</p>
+              </li>
+              <li class="option_card">
+                <p class="option_q">オプション名</p>
+                <p class="option_a">○</p>
+              </li>
+              <li class="option_card">
+                <p class="option_q">オプション名</p>
+                <p class="option_a">○</p>
+              </li>
+              <li class="option_card option_ng">
+                <p class="option_q option_ng">スペシャル</p>
+                <p class="option_a option_ng">ｘ</p>
+              </li>
+            </ul>
+
+
+
+
+          </div>
         </section>
 
 
@@ -168,8 +228,10 @@
           <div class="content_wrapper">
             <h2 class="block_title"><span>Comment</span></h2>
             <h3 class="block_title_caption">お店からの一言</h3>
-            <div class="shop_comment_text">
-              <p class="girl_catchphrase">#キャッチフレーズ</p>
+
+            <div class="shop_comment_text omit_wrap_size">
+              <div class="readmore_wrapper"></div>
+              <p class="girl_catchphrase anime_text_bg_blue">#キャッチフレーズ</p>
               キラ星のごとく馬橋に現れたショートボブが似合う
               パッチリ二重お目目はもちろんのこと、カワイイお顔立ちに心ときめいちゃいます。
               性格もおっとりしているので居心地もよく
@@ -181,49 +243,68 @@
               責めても責められてもどちらもお楽しみ頂けると思います♪
               フレッシュな子とのお時間を是非とも味わって下さいませ♪
             </div>
+            <button class="omit_btn" type=”button” onclick="open_omit(this)">
+            </button>
+
+
           </div>
+
+
         </section>
 
 
 
-        <!-- アンケート -->
+        <!-- インタビュー -->
 
-        <section id="girl_enquete" class="under_space scroll-up">
+        <section id="girl_interview" class="under_space scroll-up">
           <div class="content_wrapper">
             <h2 class="block_title"><span>En quete</span></h2>
             <h3 class="block_title_caption">アンケート</h3>
-            <ul class="girl_enquete_list">
-              <li>
-                <span class="question">どこ生まれ？</span>
-                <span class="anser">地球の日本</span>
-              </li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-            </ul>
+            <!-- ここからアンケートリスト -->
+            <div class="girl_interview_list  omit_wrap_size">
+              <div class="readmore_wrapper"></div>
+              <dl class="q_and_a">
+                <dt class="question">０１２３４５６７８９０</dt>
+                <dd class="anser">B型</dd>
+              </dl>
+              <dl class="q_and_a">
+                <dt class="question">０１２３４５６７８９０</dt>
+                <dd class="anser">B型</dd>
+              </dl>
+              <dl class="q_and_a">
+                <dt class="question">０１２３４５６７８９０</dt>
+                <dd class="anser">B型</dd>
+              </dl>
+              <dl class="q_and_a">
+                <dt class="question">０１２３４５６７８９０</dt>
+                <dd class="anser">B型</dd>
+              </dl>
+              <dl class="q_and_a">
+                <dt class="question">０１２３４５６７８９０</dt>
+                <dd class="anser">B型</dd>
+              </dl>
+              <dl class="q_and_a">
+                <dt class="question">０１２３４５６７８９０</dt>
+                <dd class="anser">B型</dd>
+              </dl>
+              <dl class="q_and_a">
+                <dt class="question">０１２３４５６７８９０</dt>
+                <dd class="anser">B型</dd>
+              </dl>
+              <dl class="q_and_a">
+                <dt class="question">０１２３４５６７８９０</dt>
+                <dd class="anser">B型</dd>
+              </dl>
+
+            </div>
+            <button class="omit_btn" type=”button” onclick="open_omit(this)">
+            </button>
 
           </div>
         </section>
 
 
 
-        <!-- ムービー -->
-        <!-- 再生回数をアナリティクスで数えるようにする -->
-        <section id="girl_video" class="under_space scroll-up">
-          <div class="content_wrapper">
-            <h2 class="block_title"><span>Video</span></h2>
-            <h3 class="block_title_caption">動画</h3>
-            <video muted="" controls autoplay="" loop="" width="100%">
-              <source src="./data/video02.mp4" type="video/mp4">
-            </video>
-          </div>
-        </section>
 
 
         <!-- スケジュール -->
@@ -233,41 +314,176 @@
           <div class="content_wrapper">
             <h2 class="block_title"><span>Schedule</span></h2>
             <h3 class="block_title_caption">今週のスケジュール</h3>
+          </div> <!-- コンテントラッパーここまで -->
 
-            <!-- ここからスケジュール表 -->
-            <ul class="weekly_schedule_list">
-              <li>
-                <span class="date">04月1日(月)</span>
-                <span class="time">10:00~19:00</span>
+          <div class="swiper6 scheduleSwiper schedule_box">
+            <!-- <div class="swiper-wrapper"> -->
+
+            <!-- <div class="swiper-wrapper"> -->
+
+
+            <ul class="swiper-wrapper">
+              <?php for($i = 0; $i < 7; $i ++) : ?>
+              <!-- 曜日で背景色を変える -->
+              <?php if($today->format("w") == 0) :?>
+              <li class="swiper-slide schedule_day_tip week_sun">
+
+                <!-- 土曜日なら -->
+                <?php elseif($today->format("w") == 6) :?>
+              <li class="swiper-slide schedule_day_tip week_sat">
+                <?php else :?>
+                <!-- 平日なら -->
+              <li class="swiper-slide schedule_day_tip">
+                <?php endif ?>
+                <!-- ーーーー背景色ここまで-------- -->
+                <a href="" class="btn">
+                  <p class="schedule_date">
+                    <?php echo "{$today->format('m/d')}" ?>
+                    (<?php echo $week_name[$today->format("w")];?>)
+                  </p>
+                  <div class="attendance_time">
+                    <span>00:00</span>
+                    ~
+                    <span>00:00</span>
+                  </div>
+                  <div class="block_anime girl_reserve_btn">
+                    予約する
+                  </div>
+                </a>
               </li>
-              <li>
-                <span class="date">04月1日(月)</span>
-                <span class="time">10:00~19:00</span>
-              </li>
-              <li>
-                <span class="date">04月1日(月)</span>
-                <span class="time">10:00~19:00</span>
-              </li>
-              <li>
-                <span class="date">04月1日(月)</span>
-                <span class="time">10:00~19:00</span>
-              </li>
-              <li>
-                <span class="date">04月1日(月)</span>
-                <span class="time">10:00~19:00</span>
-              </li>
-              <li>
-                <span class="date">04月1日(月)</span>
-                <span class="time">10:00~19:00</span>
-              </li>
-              <li>
-                <span class="date">04月1日(月)</span>
-                <span class="time">10:00~19:00</span>
-              </li>
+              <?php $today->modify("+1 day") ;?>
+              <?php endfor ?>
             </ul>
 
+            <!-- </div> -->
+          </div>
 
-          </div> <!-- コンテントラッパーここまで -->
+
+
+        </section>
+
+
+        <!-- スタッフ日記 -->
+
+        <section id="girls_diary" class="block_anime under_space scroll-up">
+          <div class="content_wrapper">
+            <h2 class="block_title_white"><span>Diary</span></h2>
+            <h3 class="block_title_caption_white">スタッフの日記</h3>
+            <iframe class="dto-dw4" id="dto-dw4-6471-2973418" width="100%" frameborder="0" scrolling="no"
+              src="https://www.dto.jp/shop/6471/diary-widget-v4?g=2973418&amp;dt=1&amp;l=15&amp;fc=000000&amp;if=dto-dw4-6471-2973418"
+              style="width: 394px; height: 230px;"></iframe>
+          </div>
+        </section>
+
+
+        <!-- TWITTER -->
+
+        <section id="girls_twitter" class="block_anime_blue under_space scroll-up">
+          <div class="content_wrapper timeline_space">
+            <h2 class="block_title_white"><span>Twitter</span></h2>
+            <h3 class="block_title_caption_white">スタッフのTwitter</h3>
+            <div class="twitter_wrapper">
+              <a class="twitter-timeline" data-chrome="noheader nofooter"
+                href="https://twitter.com/kinoshita07?ref_src=twsrc%5Etfw" data-tweet-limit="5">
+                Tweets by kinoshita07</a>
+              <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
+          </div>
+        </section>
+
+
+
+        <!-- クチコミ -->
+
+        <section id="girls_review" class="under_space scroll-up">
+          <div class="content_wrapper">
+            <h2 class="block_title"><span>Reviews</span></h2>
+            <a href="">
+              <h3 class="block_title_caption">江口さんへのクチコミ
+                <span>(10)</span>
+              </h3>
+            </a>
+            <div class="girl_review_list">
+              <!-- レビュー -->
+              <dl class="girl_review_wrap">
+                <dt class="girl_review_head">
+                  <p class="reviewer_name">投稿者の名前</p>
+                  <p class="review_fav">★★★★★</p>
+                  <p class="review_date">2022/04/06</p>
+                </dt>
+                <dd class="girl_review_body">
+                  <div class="review_content">
+                    <p class="visit_date"><span>2022/04/06</span>ご利用</p>
+                    <p>
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                    </p>
+                  </div>
+                </dd>
+              </dl>
+              <!-- レビュー -->
+              <dl class="girl_review_wrap">
+                <dt class="girl_review_head">
+                  <p class="reviewer_name">投稿者の名前</p>
+                  <p class="review_fav">★★★★★</p>
+                  <p class="review_date">2022/04/06</p>
+                </dt>
+                <dd class="girl_review_body">
+                  <div class="review_content">
+                    <p class="visit_date"><span>2022/04/06</span>ご利用</p>
+                    <p>
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                    </p>
+                  </div>
+                </dd>
+              </dl>
+              <!-- レビュー -->
+              <dl class="girl_review_wrap">
+                <dt class="girl_review_head">
+                  <p class="reviewer_name">投稿者の名前</p>
+                  <p class="review_fav">★★★★★</p>
+                  <p class="review_date">2022/04/06</p>
+                </dt>
+                <dd class="girl_review_body">
+                  <div class="review_content">
+                    <p class="visit_date"><span>2022/04/06</span>ご利用</p>
+                    <p>
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                      あいうえおかきくけこさしすせそたちつてと
+                    </p>
+                  </div>
+                </dd>
+              </dl>
+
+            </div>
+            <!-- レビューリストここまで -->
+            <div class="button goto_review_write">
+              <a href="" class="anime_btn btn_active btn_font01">クチコミを投稿する</a>
+            </div>
+
+          </div>
 
         </section>
 
@@ -315,13 +531,13 @@
       <br>
 
       <?php
-      require_once("accordion.php");
+          require_once( dirname(__FILE__). '/parts/accordion.php');
       ?>
 
     </main>
 
     <?php
-    require_once("footer.php");
+        require_once( dirname(__FILE__). '/parts/footer.php');
     ?>
 
   </div>

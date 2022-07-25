@@ -2,6 +2,8 @@
 /* ローディング画面 */
 /* 実験的に入れてみる */
 
+/* 別ろーでぃんぐ */
+
 #loading-wrapper {
   position: fixed;
   top: 0;
@@ -15,6 +17,10 @@
   align-items: center;
   transition: all 0.5s;
   z-index: 9999;
+}
+
+#loading-wrapper p {
+  margin-top: 40px;
 }
 
 .loader {

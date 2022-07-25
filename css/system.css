@@ -1,0 +1,189 @@
+@charset "utf-8";
+
+/* 料金表 */
+
+#pickup_course {
+  width: 100%;
+}
+
+/* 料金小見出し */
+.price_caption {
+  padding: 0.5rem 3rem;
+  display: inline-block;
+  margin-bottom: 10px;
+  min-width: 40%;
+  text-align: center;
+}
+
+/* 共通の下地 */
+.course_price,
+.other_price,
+.option_price {
+  display: table;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  border: 1px solid #d7d7d7;
+}
+.course_price {
+  background-color: rgb(255, 149, 187);
+}
+.other_price {
+  background-color: rgb(71, 168, 230);
+}
+
+.option_price {
+  background-color: rgb(71, 168, 230);
+}
+
+.course_price dt,
+.other_price dt,
+.option_price dt {
+  color: #6e6e73;
+  display: table-cell;
+  padding: 0.5em;
+  text-align: center;
+  vertical-align: middle;
+  background: #d7d7d7;
+  background: -webkit-linear-gradient(
+    top,
+    #ffffff 60%,
+    #ffffff 60%,
+    #ebebeb 100%
+  );
+  background: linear-gradient(
+    to bottom,
+    #ffffff 60%,
+    #ffffff 60%,
+    #ebebeb 100%
+  );
+}
+
+/* 横サイズがまちまち */
+.course_price dt,
+.other_price dt {
+  width: 25%;
+  max-width: 100px;
+}
+.option_price dt {
+  width: 50%;
+  max-width: 350px;
+}
+
+.course_price dd,
+.other_price dd,
+.option_price dd {
+  font-size: 1.6rem;
+  display: table-cell;
+  padding: 0.5rem;
+  text-align: center;
+  vertical-align: middle;
+  color: white;
+}
+
+.course_price_lists dl dd span,
+.other_price_lists dl dd span,
+.option_play_lists dl dd span {
+  font-size: 1.2rem;
+}
+
+/* 一番上だけ */
+.course_price_lists dl dd span.attention {
+  display: block;
+  color: red;
+  background-color: #fff;
+}
+
+/* 料金注意事項 */
+.price_comment {
+  font-size: 0.8rem;
+  margin-left: 1rem;
+}
+
+/* 交通費 */
+.carfare {
+  background: #ffffff;
+  background: -moz-linear-gradient(top, #ffffff 76%, #ffffff 76%, #ebebeb 100%);
+  border: 1px solid #d7d7d7;
+  width: 49%;
+  margin-bottom: 1em;
+}
+.carfare_flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.carfare dt {
+  font-size: 1.6rem;
+  padding: 0.5rem 0;
+  text-align: center;
+  color: #ffffff;
+}
+
+.carfare span {
+  font-size: 1rem;
+}
+
+.carfare dd {
+  font-size: 1.2rem;
+  padding: 0.7rem;
+}
+
+.carfare_color_yellow {
+  background-color: #f7e83a;
+}
+
+.carfare_color_orange {
+  background-color: #faad48;
+}
+.carfare_color_red {
+  background-color: #f3856c;
+}
+
+/* プレイリスト */
+
+.basic_play {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.basic_play li {
+  color: #6e6e73;
+  border: 1px solid #d7d7d7;
+  width: 49%;
+  margin-bottom: 2px;
+  padding: 0.5em;
+  text-align: center;
+  vertical-align: middle;
+  background: #d7d7d7;
+  background: -webkit-linear-gradient(
+    top,
+    #ffffff 60%,
+    #ffffff 60%,
+    #ebebeb 100%
+  );
+  background: linear-gradient(
+    to bottom,
+    #ffffff 60%,
+    #ffffff 60%,
+    #ebebeb 100%
+  );
+}
+
+/* カード決済 */
+.card_img {
+  width: 50%;
+  display: block;
+  margin: 0 auto;
+}
+
+.use_card_text {
+  width: 95%;
+  line-height: 1.6rem;
+  margin: 30px auto;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+/* プレイの流れ */

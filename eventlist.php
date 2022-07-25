@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
   <!--サイトの説明 -->
   <title>testページ</title>
   <meta name="description" content="就職用ホームページです" />
@@ -22,6 +21,7 @@
   <meta property="og:locale" content="ja_JP" />
   <meta property="fb:app_id" content="appIDを入力" />
 
+
   <!--リンク関連-->
   <link rel="canonical" href="正規化するURL" />
   <!--ファビコンアイコン-->
@@ -34,69 +34,96 @@
   <meta name="msapplication-TileImage" content="画像のURL" />
   <meta name="msapplication-TileColor" content="カラーコード" />
 
-  <!--css javascript-->
+  <!--css-->
+  <!-- リセット -->
   <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/swiper.min.css">
-  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <!-- ローディング -->
+  <link rel="stylesheet" type="text/css" href="css/loading.css" />
+  <!-- swiper css は先読み -->
 
-  <script src="js/swiper.min.js" defer></script>
+  <!-- 共通 -->
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="css/header.css" />
+  <link rel="stylesheet" type="text/css" href="css/accordion.css" />
+  <link rel="stylesheet" type="text/css" href="css/footer.css" />
+  <!-- ページ毎 -->
+  <link rel="stylesheet" type="text/css" href="css/event.css" />
+  <!-- 特殊？ -->
+  <link rel="stylesheet" type="text/css" href="css/under_nav.css" />
+
+  <!--javascript-->
   <script src="js/script.js" defer></script>
+  <script src="js/header.js" defer></script>
+  <script src="js/accordion.js" defer></script>
+  <script src="js/loading.js" defer></script>
+  <script src="js/fadein.js" defer></script>
 
   <!-- フォントオーサム -->
+  <!-- 最後はダウンロードしてスピードを出す -->
   <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
 
 </head>
 
 <body id="body">
 
+  <!-- ローディング画面 -->
+  <div id="loading-wrapper">
+    <div class="loader"></div>
+    <p>Loading...</p>
+  </div>
+  <!-- コンテンツ部分 -->
 
   <div id="wrapper">
 
 
     <!-- header読み込み -->
     <?php
-    require_once("header.php");
+      require_once( dirname(__FILE__). '/parts/header.php');
+      require_once( dirname(__FILE__). '/data.php');
     ?>
     <!------------------>
 
-    <main>
+    <main id="main">
 
-      <br>
-      <br>
-      <h1>ログイン</h1>
-      <form action="">
-        <h2>userid</h2>
-        <input type="text">
-        <h2>password</h2>
-        <input type="password">
-        <input type="submit">
-      </form>
 
-      <br>
-      <br>
-      <a href="setting/setting_index.php">セッティングへ</a>
-      <br>
-      <br>
-      <a href="setting/setting_index.php">個人ページへ</a>
-      <br>
-      <br>
+
+
+      <article id="event_list" class="under_space">
+        <div class="content_wrapper">
+          <h1 class="fixpage_title"><span>Event List</span></h1>
+          <h3 class="block_title_caption">イベント一覧</h3>
+          <ul class="event_list">
+            <?php foreach($events as $event) :?> <li>
+              <a href="event.php?eventid=<?php echo $event->getEventId() ?>">
+                <img src="<?php echo $event->getEventImg() ?>" alt="">
+                <div class="event_title">
+                  <p><?php echo $event->getEventName() ?></p>
+                </div>
+              </a>
+            </li>
+            <?php endforeach ?>
+
+          </ul>
+
+        </div><!-- content_wrapper -->
+      </article>
+
+
 
 
       <?php
         require_once( dirname(__FILE__). '/parts/accordion.php');
       ?>
 
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
+
 
     </main>
 
+    <?php
+      require_once( dirname(__FILE__). '/parts/footer.php');
+    ?>
 
-  </div>
+  </div><!-- wrapper -->
 </body>
 
 </html>

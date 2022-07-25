@@ -1,0 +1,133 @@
+@charset "utf-8";
+
+.reviewed_girl {
+  display: flex;
+  margin: 5px;
+}
+
+.reviewed_girl img {
+  width: 25%;
+  height: 25%;
+  max-width: 768px;
+  height: auto;
+  overflow: hidden;
+  padding: 5px;
+}
+
+.reviewed_girl_data {
+  margin-top: 5px;
+}
+
+.review_button {
+  padding: 10px 0;
+}
+
+/* レビューする側 */
+.reviewer {
+  padding: 5px;
+  background-color: rgb(214, 214, 215);
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.reviewer a {
+  display: flex;
+  color: #6e6e73;
+  align-items: center;
+}
+
+.reviewer_data {
+  height: 100%;
+  font-size: 1rem;
+  line-height: 1.2rem;
+  margin-left: 10px;
+}
+
+.reviewer_data .user_name {
+  font-size: 1.6rem;
+  display: inline;
+}
+
+.user_icon {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.user_icon img {
+  position: absolute;
+  left: -100%;
+  right: -100%;
+  margin: auto;
+  width: 100%;
+}
+
+.review_body {
+  background-color: rgb(237, 237, 238);
+  padding: 10px;
+}
+
+/* レビュー　ヘッダー */
+
+.review_header {
+  font-size: 1.2rem;
+}
+.review_header .assessment {
+  color: rgb(255, 133, 146);
+}
+
+.review_header .stars {
+  font-size: 2rem;
+  line-height: 2.5rem;
+  margin-top: 5px;
+}
+
+.review_rate {
+  display: flex;
+  color: #b6b6bb;
+  border-bottom: 1px grey solid;
+}
+
+.review_rate li {
+  margin-right: 5%;
+}
+
+.review_rate li span {
+  margin-left: 5px;
+}
+
+.review_main {
+  padding: 20px 0;
+}
+
+.review_main .review_title,
+.review_reply .reply_title {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.review_main .review_text,
+.review_reply .reply_text {
+  font-size: 1.2rem;
+  padding: 10px 0;
+}
+
+.review_footer,
+.reply_footer {
+  color: #b6b6bb;
+}
+
+/* 返信 */
+.review_reply {
+  background-color: #f2f2f2;
+  padding-left: 5%;
+  padding-top: 10px;
+  border-radius: 10px;
+}
+
+.review_reply .reply_title {
+  font-size: 1.6rem;
+  font-weight: bold;
+}

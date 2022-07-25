@@ -22,7 +22,7 @@ const swiper1 = new Swiper(".mySwiper", {
 });
 
 // ピックアップ　新人用
-const swiper2 = new Swiper(".GlSwiper", {
+const swiper2 = new Swiper(".glSwiper", {
   slidesPerView: 1,
   spaceBetween: 0,
   centeredSlides: true,
@@ -42,6 +42,31 @@ const swiper2 = new Swiper(".GlSwiper", {
     disableOnInteraction: false,
     reverseDirection: false,
   },
+});
+
+// プレイの流れ用
+const swiper5 = new Swiper(".playSwiper", {
+  slidesPerView: 1,
+  spaceBetween: 0,
+  centeredSlides: true,
+  loop: false,
+
+  pagination: {
+    el: ".page2",
+    clickable: true,
+  },
+  navigation: {
+    nextEl: ".next2",
+    prevEl: ".prev2",
+  },
+});
+
+// スケジュール
+const swiper6 = new Swiper(".scheduleSwiper", {
+  slidesPerView: 3.3,
+  spaceBetween: 20,
+  centeredSlides: false,
+  loop: false,
 });
 
 // クーポン

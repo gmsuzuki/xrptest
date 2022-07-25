@@ -96,7 +96,7 @@
 /* next prev 矢印関連 */
 /* グレイの背景 */
 .swiper_arrow {
-  top: 40%;
+  top: 45%;
   width: 32px;
   height: 32px;
   background-color: rgba(133, 133, 133, 0.5);
@@ -164,4 +164,56 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* プレイの流れ */
+.swiper5 {
+  width: 80%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  position: relative;
+  /* padding: 24px 0; */
+}
+
+.play-slide {
+  height: 100%;
+  width: 400px;
+  /* Center slide text vertically */
+}
+
+.play_card {
+  width: 100%;
+  max-width: 768x;
+  height: 100%;
+}
+
+.play_text {
+  margin-top: 30px;
+  font-size: 1.4rem;
+}
+
+.play_text_title {
+  text-align: center;
+  background-color: grey;
+  padding: 20px 10%;
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+  color: white;
+}
+
+.prohibited_matter {
+  margin: 10px;
+  background-color: white;
+  padding: 10px;
+  font-size: 1rem;
+}
+.prohibited_matter_attention {
+  margin: 20px;
+}
+
+.prohibited_matter_attention p {
+  color: red;
+  font-size: 1.2rem;
 }
