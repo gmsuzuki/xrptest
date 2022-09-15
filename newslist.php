@@ -79,28 +79,12 @@
     <!-- header読み込み -->
     <?php
     require_once( dirname(__FILE__). '/parts/header.php');
+    require_once( dirname(__FILE__). '/data.php');
     ?>
     <!------------------>
 
 
     <main id="main">
-
-
-
-      <!-- 重要おしらせ -->
-
-
-      <section id="attention" class="container under_space">
-
-        <h2 class="head_ja">特別なお知らせ</h2>
-        <h3 class="button_arrow">
-          <a href="" class="btn_color_pink btn_font01">
-            コロナウィルス感染予防対策について</a>
-        </h3>
-
-
-      </section>
-
 
 
 
@@ -112,52 +96,58 @@
           <h3 class="block_title_caption">最新情報</h3>
           <ul class="topics">
 
-            <!-- foreach テストでやってみる -->
-
-            <!-- 配列sqlで持ってきたやつ -->
             <?php
-              $news = array(
-              array('今日','なのか'),
-              array('昨日','だよね'),
-              array('一昨日','の可能性'),
-              array('昔','だったかも')
-              );
+
+            define('MAX','5'); // 1ページの記事の表示数
+
+
+            $news_num = count($news_list ); // トータルデータ件数
+
+            $max_page = ceil($news_num / MAX); // トータルページ数※ceilは小数点を切り捨てる関数
+
+            if(!isset($_GET['page_id'])){ // $_GET['page_id'] はURLに渡された現在のページ数
+            $now = 1; // 設定されてない場合は1ページ目にする
+            }else{
+            $now = $_GET['page_id'];
+
+            }
+
+            $start_no = ($now - 1) * MAX; // 配列の何番目から取得すればよいか
+
+            // array_sliceは、配列の何番目($start_no)から何番目(MAX)まで切り取る関数
+            $disp_data = array_slice($news_list, $start_no, MAX, true);
             ?>
-
-            <!-- 配列の他所分繰り返す -->
-            <?php foreach($news as $book) : ?>
-
-            <!--　回数表示みたいなもの -->
-            <?php echo "<h3>{$book[1]}</h3>" ?>
-            <!-- イチ記事 -->
-            <li class="topic scroll-up">
-              <a href="" class="block_wrap_a">
-                <div class="news_box">
-                  <figure class="news_img_height">
-                    <img src="img/200x40.png" alt="" width="128px">
-                  </figure>
-                  <div class="news_contents">
-                    <p>2022/04/28</p>
-                    <h2 class="news_title">
-                      あいうえおかきくけこさしすせそたちつてと
-                    </h2>
-                    <p class="news_kinds">
-                      割引情報
-                    </p>
-                    <p class="news_text">
-                      あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほま<br>みむめもあいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめも
-                    </p>
-
-                  </div>
-                </div>
-              </a>
+            <!-- 記事一覧表示 -->
+            <?php foreach($disp_data as $news) :?>
+            <li class="topic">
+              <div class="news_data">
+                <time><?php echo $news[0]?></time>
+                <span class="news_kinds"><?php echo $news[1]?></span>
+              </div>
+              <div class="news_top_title">
+                <a href="" class="block_wrap_a">
+                  <?php echo $news[2] ?>
+                </a>
+              </div>
             </li>
-
-            <?php endforeach ; ?>
-
-            <!-- ------- -->
+            <?php endforeach ?>
+            <!-- イチ記事 -->
 
           </ul>
+
+          <nav class="nav_links">
+            <?php for($i = 1; $i <= $max_page; $i++):?>
+            <!-- // 最大ページ数分リンクを作成 -->
+            <?php if ($i==$now):?>
+            <!-- // 現在表示中のページ数の場合はリンクを貼らない -->
+            <span class="page-numbers current"><?php echo $now ?></span>
+            <?php else :?>
+            <?php echo "<a href='./newslist.php?page_id={$i}' class='page-numbers'>{$i}</a>" ?>
+            <?php endif?>
+            <?php endfor?>
+
+          </nav>
+
 
 
         </div>
@@ -165,42 +155,6 @@
 
 
 
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-
-
-      <!---------------------------------------------------->
-
-
-      <br>
-      <br>
-
-
-
-
-
-      <br>
-      <br>
-
-
-
-
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-
-
-      <br>
-      <br>
-      <br>
-      <br>
       <?php
           require_once( dirname(__FILE__). '/parts/accordion.php');
       ?>

@@ -80,6 +80,7 @@
     <!-- header読み込み -->
     <?php
     require_once( dirname(__FILE__). '/parts/header.php');
+    require_once( dirname(__FILE__). '/data.php');
     ?>
     <!------------------>
 
@@ -91,32 +92,29 @@
           <h3 class="block_title_caption">お客様の声</h3>
 
 
-          <section class="under_space">
-            <div class="banner_max event_banner under_half_space">
-              <img src="img/review_discount.png" alt="口コミ割引">
-            </div>
-            <figure class="reviewed_girl gradient-border">
-              <img src="img/concept00.jpeg" alt="">
-              <figcaption class="reviewed_girl_data">
+          <section class="review_head under_space">
+            <h2 class="girl_content_head">
+              <figure class="reviewed_girl">
+                <img src="img/concept00.jpeg" alt="">
+              </figure>
+              <figcaption class="reviewed_girl_title"><?php echo $_GET['review'] ?>さんへの口コミ</figcaption>
+            </h2>
 
-                <ul class="row_girl_data">
-                  <li class="name_age">
-                    <span class="staff_name">
-                      <?php echo $_GET['review'] ?>さん
-                    </span>
-                    <span class="staff_age">(20)</span>
-                  </li>
-                  <li class="bodysize">
-                    <p>T/155&nbsp;B/88(F)&nbsp;H/92</p>
-                  </li>
-                  <li class="shop_comment">お店からのイチオシコメント</li>
-                  <li>コメント数　10</li>
-                  <li>☆☆☆☆☆</li>
-                </ul>
-              </figcaption>
-            </figure>
+
+            <div class="reviewed_girl_data">
+
+              <div class="assessment">
+                <p class="stars" style="--rating: 3.3;">3.3</p>
+                <span class="comment_count"><i class="fas fa-comment"></i>10</span>
+              </div>
+
+              <p class="shop_comment">お店からのイチオシコメント</p>
+
+            </div>
+
+
             <p class="button_arrow review_button">
-              <a href="" class="btn_color_pink btn_font01">
+              <a href="reviewform.php" class="btn_color_pink btn_font01">
                 <?php echo $_GET['review'] ?>さんの口コミを書く
               </a>
             </p>
@@ -124,49 +122,13 @@
         </div><!-- content_wrapper -->
         </section>
 
-        <!-- ここから口コミ -->
 
-        <!-- データ持ってきてる -->
+        <!-- <div class="banner_max event_banner under_space"> -->
+        <!-- <img src="img/review_discount.png" alt="口コミ割引"> -->
+        <!-- </div> -->
 
-        <?php
-          class Reviewers
-          {
-              private $name;
-              private $review_comment;
-              public function __construct(
-                $name,
-                $review_comment,
-                $comment_count
-                )
-              {
-                  $this->name = $name;
-                  $this->review_comment = $review_comment;
-                  $this->comment_count = $comment_count;
-              }
-              public function getName()
-              {
-                  return $this->name;
-              }
-              public function getComment()
-              {
-                  return $this->review_comment;
-              }
-              public function getComment_count()
-              {
-                  return $this->comment_count;
-              }
-            }
-          // とりあえず３人ほど作っておく
 
-          $tanaka = new Reviewers("田中","とても良かった",3);
-          $yoshida = new Reviewers("佐竹","良かったかもしれない",4);
-          $yamada = new Reviewers("森本","すげーまずかった",10);
-
-          $reviews =[$tanaka,$yoshida,$yamada];
-          
-          ?>
-
-        <?php foreach($reviews as $review) :?>
+        <?php foreach($reviews_class as $review) :?>
         <!--レビューカード  -->
         <section class="review_card">
           <div class="review_header content_wrapper under_space">
@@ -228,16 +190,16 @@
                 </div>
             </section>
 
-            <div class="goto_list button_small">
-              <a href="eventlist.php" class="btn_color_red btn_active btn_font01">一覧へ</a>
+            <div class="goto_list">
+              <a href="reviewlist.php">
+                <i class="fas fa-chevron-circle-right"></i><span>一覧を見る</span></a>
             </div>
 
-          </div><!-- content_wrapper -->
+
+          </div>
 
         </section>
         <?php endforeach ?>
-
-
 
 
 

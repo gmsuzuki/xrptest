@@ -84,7 +84,8 @@ if( !empty($_POST['btn_confirm']) ) {
   <link rel="stylesheet" type="text/css" href="css/accordion.css" />
   <link rel="stylesheet" type="text/css" href="css/footer.css" />
   <!-- ページ毎 -->
-  <link rel="stylesheet" type="text/css" href="css/reserve.css" />
+  <!-- <link rel="stylesheet" type="text/css" href="css/reserve.css" /> -->
+  <link rel="stylesheet" type="text/css" href="css/review.css" />
   <!-- 特殊？ -->
   <link rel="stylesheet" type="text/css" href="css/under_nav.css" />
 
@@ -95,7 +96,8 @@ if( !empty($_POST['btn_confirm']) ) {
   <script src="js/header.js" defer></script>
   <script src="js/accordion.js" defer></script>
   <script src="js/fadein.js" defer></script>
-  <script src="js/reserve_form.js" defer></script>
+  <script src="js/review_form.js" defer></script>
+
 
   <!-- フォントオーサム -->
   <!-- 最後はダウンロードしてスピードを出す -->
@@ -124,42 +126,44 @@ if( !empty($_POST['btn_confirm']) ) {
 
     <main id="main">
 
+
+      <!-- 口コミの注意事項 -->
       <div class="popup" id="js-popup">
         <div class="popup-inner">
           <div class="close-btn" id="js-close-btn">
             <i class="fas fa-times-circle"></i>
           </div>
-
-          <h2 class="netreserve_attention_title">ご予約の注意</h2>
-          <p class="netreserve_attention_text">
-            メールご予約は当店1回以上ご利用された会員様に限ります。<br>
-            ご指名が有る場合、出勤表をご確認の上、コンパニオンの名前を入力して下さい。<br>
-            インターネット予約では、ご予約日の1週間前の深夜0時から受付開始となります。<br>
-            尚、当日のご予約はお電話のみになります。<br>
-            360分以上のコースをご希望のお客様は、お手数ですがお電話にてのご確認をお願い致します。<br>
-            このフォームではご予約成立とはなりません。<br>
-            ご予約受付後、24時間以内にお返事を お返ししております。<br>
-            その内容を以って、ご予約の成立となります。<br>
-            万が一、24時間経過後もお返事のメールが届かない場合は、お手数ですがお電話にてのご確認をお願い致します。<br>
-            (迷惑メールフォルダに入っている場合も御座いますので、届いてない場合はご確認下さい。)<br>
-            尚、予約が殺到した場合には、下記を理由に選考させていただきます。<br>
-            (メルマガ会員様、当店のご利用頻度、地域・時間的な問題、コンパニオンからの苦情の有無(本番強要・店外デート等の勧誘・部屋が汚い等)
-            ご利用の携帯電話によっては特定のドメインからのメールの受信を拒否する機能(ドメイン指定受信) が設定されている場合がありますので、
-            [hips-matsudo.jp]を受信可能にしてから、ご登録下さいませ。<br>
-          </p>
-
-
+          <h2 class="netreserve_attention_title">口コミ投稿の注意事項</h2>
+          <div class="description attension">
+            <h3>投稿に際しては必ず以下のガイドラインをご確認ください。</h3>
+            <ul class="guideline">
+              <li>実際に利用されていない場合の投稿を禁止します</li>
+              <li>記号の多用、日本語以外での記述を禁止します</li>
+              <li>お店や女の子への誹謗中傷を禁止します</li>
+              <li>事実確認が困難な内容の投稿を禁止します</li>
+              <li>プライバシーの侵害に配慮してください</li>
+              <li>著作権を侵害する投稿を禁止します</li>
+              <li>60日以内の体験談を投稿してください</li>
+              <li>同じ体験に対して複数回口コミを投稿することを禁止します</li>
+            </ul>
+            <ul class="guideline_attention">
+              <li>以上のガイドラインに反する投稿は掲載できません。</li>
+              <li>非掲載となった場合、その理由は説明しておりません。</li>
+              <li>一度承認、掲載された場合でも、その後非掲載となる場合があります。</li>
+              <li>記載された内容の意図が変わらない範囲での誤字、脱字等の編集をする場合があります。</li>
+            </ul>
+          </div>
         </div>
         <div class="black-background" id="js-black-bg"></div>
       </div>
 
-
+      <!-- ここまで口コミの注意事項 -->
 
 
       <article id="reserve" class="under_space">
         <div class="content_wrapper">
-          <h1 class="fixpage_title"><span>Reserve</span></h1>
-          <h3 class="block_title_caption">ネット予約</h3>
+          <h1 class="fixpage_title"><span>Review Form</span></h1>
+          <h3 class="block_title_caption">口コミ投稿フォーム</h3>
 
           <!-- 確認画面 -->
           <?php if( $page_flag === 1 ): ?>
@@ -544,149 +548,60 @@ if( !empty($_POST['btn_confirm']) ) {
 
 
 
+          <!-- 予約フォーム -->
 
+          <div class="review_from_body">
+            <form method="post" id="form" name="form1" action="" onsubmit="return verifyContactForm();">
 
-          <section class="line_link_banner">
-            <h2 class="banner_max">
-              <a href="linereserve.php">
-                <img src="img/line.jpeg" alt="LINEで予約">
-              </a>
-            </h2>
-            <p>Lineでご予約の方は上記をタップして友達登録お願いします。</p>
-          </section>
-
-
-          <section>
-            <h2 class=" block_title"><span>Reserve Form</span></h2>
-            <h3 class="block_title_caption">予約フォーム</h3>
-            <!-- 予約フォーム -->
-
-            <div class="reserve_from_body">
-              <form method="post" id="form" name="form1" action="" onsubmit="return verifyContactForm();">
+              <!-- 投稿者名 -->
+              <dl class="review_item_wrap">
+                <dt>
+                  投稿者名<em>必須</em>
+                  <span class="mini_alert">記号は使えません</span>
+                </dt>
+                <dd><input type="text" id="reviewer_name" name="reviewer_name" maxlength="20" placeholder="20文字以内（例）武田優"
+                    required onblur="CheckGuestInfo(this)"
+                    pattern="^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,20}">
+                </dd>
+              </dl>
+              <div class="review_item_wrap">
                 <dl>
-                  <dt class="test">
-                    お名前<em>必須</em>
-                    <span class="mini_alert">記号は使えません</span>
-                  </dt>
-                  <dd><input type="text" id="guest_name" name="name" maxlength="20" placeholder="20文字以内（例）武田優" required
-                      onblur="CheckGuestInfo(this)"
-                      pattern="^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,20}">
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>電話番号<em>必須</em>
-                    <span class="mini_alert">数字以外は使えません</span>
-                  </dt>
-                  <dd>
-                    <input type="tel" id="guest_phone" name="phone" placeholder="ハイフンなし（例）09012345678" required
-                      onblur="CheckGuestInfo(this)" pattern="^0[0-9]{9,10}$">
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>メールアドレス<em>必須</em>
+                  <dt>メールアドレス
+                    <p class="review_tips">他者に公開されることはございません。</p>
                     <span class="mini_alert">ご登録できない形式です</span>
                   </dt>
-                  <dd><input type="text" name="customer_mail" placeholder="メールアドレス" id="mail1" required
+                  <dd><input type="text" name="customer_mail" placeholder="メールアドレス" id="mail1"
                       onblur="CheckGuestEmail(this)" pattern="^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$">
                   </dd>
                 </dl>
 
                 <dl>
-                  <dt>メールアドレス(確認)<em>必須</em>
+                  <dt class="review_tips">メールアドレス(確認)
                     <span class="mini_alert">メールアドレスが異なります</span>
                   </dt>
                   <dd><input type="text" disabled name="customer_mail_check" placeholder="メールアドレス(確認)" id="mail2"
-                      required onblur="SameCheck(this)"></dd>
+                      onblur="SameCheck(this)"></dd>
+                </dl>
+              </div>
+
+              <!-- 指名 -->
+              <div class="review_item_wrap review_girl_item">
+                <dl class="played_program_item">
+                  <dt>遊んだ女の子<em>必須</em></dt>
+                  <select name="played/girl" required>
+                    <option value="" hidden>選択</option>
+                    <?php foreach($sample_names as $sample_name) : ?>
+                    <?php echo '<option value="'.$sample_name[0].'">' ?>
+                    <?php echo $sample_name[0] ?>
+                    </option>
+                    <?php endforeach ?>
+                  </select>
                 </dl>
 
-
-                <dl>
-                  <dt>ご利用予定場所<em>必須</em>
-                    <span class="mini_alert">記号は使えません</span>
-                  </dt>
-
-                  <dd>
-                    <label class="play_place">
-                      <input class="js-check" checked type="radio" name="play_place" value="1"
-                        onclick="formSwitch()">ホテル
-                    </label>
-
-                    <label class="play_place">
-                      <input class="js-check" type="radio" name="play_place" value="2" onclick="formSwitch()">ご自宅
-                    </label>
-                  </dd>
-
-                  <!-- ホテルの場所 -->
-
-                  <div id="hotel_list">
-                    <div class="form-check">
-                      <span class="play_place_title">ご利用駅</span>
-                      <?php foreach($hotels as $index => $hotel ): ?>
-                      <label class="play_place_select">
-                        <input class="form-check-input" type="radio" value="<?php echo $hotel[0] ?>" name="hotel_area" <?php if($index == 'hotel1'){
-                          echo "checked";} ?>>
-                        <?php echo $hotel[0] ?>
-                      </label>
-                      <?php endforeach ?>
-                    </div>
-                  </div>
-
-                  <!-- 住所 -->
-                  <div id="house_address" class="play_place_title">ご住所
-                    <input id="house_address_input" type="text" name="customer_address" placeholder="100文字以内です"
-                      size="30" onblur="CheckGuestInfo(this)"
-                      pattern="^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,100}">
-                  </div>
-                </dl>
-
-                <!-- ご予約日 -->
-                <dl>
-                  <dt>ご予約日時<em>必須</em></dt>
-                  <p>ご希望日</p>
-                  <select class="play_date_time select_check" required name="play_date">
-                    <option value="" hidden>ご利用日をお選びください</option>
-
-                    <?php for($i = 0; $i < 7; $i ++) : ?>
-                    <?php echo '<option value="'.$today->format('m/d').'('.$week_name[$today->format("w")].')">' ?>
-                    <?php echo "{$today->format('m/d')}" ?>
-                    (<?php echo $week_name[$today->format("w")];?>)
-                    </option>
-                    <?php $today->modify("+1 day") ;?>
-                    <?php endfor ?>
-                  </select>
-
-                  <p>ご希望スタート時間</p>
-                  <select class="play_date_time select_check" required name="play_daytime">
-                    <option value="" hidden>ご希望スタート時間をお選びください</option>
-                    <option value="特になし">特になし</option>
-
-                    <?php for($i = 0; $i < 27; $i ++) : ?>
-                    <?php echo '<option value="'.$shop_start->format('H:i').'">' ?>
-                    <?php echo "{$shop_start->format('H:i')}" ?>
-                    </option>
-                    <?php $shop_start->modify("+30 minute") ;?>
-                    <?php endfor ?>
-                  </select>
-
-                  <p>ご調整可能時間</p>
-                  <select class="play_date_time select_check" required name="adjustment">
-                    <option value="" hidden>調整可能時間をお選びください
-                    </option>
-                    <option value="調整不可">調整不可</option>
-                    <option value="後ろ1時間">後1時間</option>
-                    <option value="後ろ2時間">後2時間</option>
-                    <option value="後ろ2時間以上">後2時間以上</option>
-                    <option value="前1時間">前1時間</option>
-                    <option value="前2時間">前2時間</option>
-                    <option value="前2時間以上">前2時間以上</option>
-                    <option value="前後1時間">前後1時間</option>
-                    <option value="前後2時間以上">前後2時間以上</option>
-                  </select>
-
-                </dl>
-                <dl>
+                <!-- 利用コース -->
+                <dl class="played_program_item">
                   <dt>ご利用コース<em>必須</em></dt>
-                  <select name="playtime select_check" required>
+                  <select name="played_time" required>
                     <option value="" hidden>ご利用コース</option>
                     <?php for($i = 60; $i < 361; $i+=30) : ?>
                     <?php echo '<option value="'.$i.'">' ?>
@@ -697,53 +612,145 @@ if( !empty($_POST['btn_confirm']) ) {
                   </select>
                 </dl>
 
-                <!-- 指名 -->
-                <dl>
-                  <dt>ご指名<em>必須</em></dt>
-                  <select name="nomination select_check" required>
-                    <option value="" hidden>選択</option>
-                    <option value="フリー">フリー</option>
-                    <?php foreach($sample_names as $sample_name) : ?>
-                    <?php echo '<option value="'.$sample_name[0].'">' ?>
-                    <?php echo $sample_name[0] ?>
-                    </option>
-                    <?php endforeach ?>
+                <!-- ご利用日 -->
+                <dl class="played_date_item">
+                  <dt>ご利用日時ssss<em>必須</em></dt>
 
-                  </select>
-                </dl>
-
-                <!-- オプション -->
-                <dl>
-                  <dt>オプション</dt>
-                  <?php foreach ($options as $num => $option_select) :?>
-                  <label class="option_select">
-                    <input type="checkbox" value="<?php echo $num ?>" name="option[]">
-                    <?php echo $option_select ?>
+                  <label class="date-edit">
+                    <input type="date" name="played_date" max="<?php echo date('Y-m-d'); ?>" required>
                   </label>
-                  <?php endforeach ?>
                 </dl>
+              </div>
 
-                <!-- テキストエリアにはパタン属性はない -->
-                <dl>
-                  <dt>ご質問・ご相談内容(1,000文字以内)
+              <!-- 評価1 -->
+              <div class="review_item_wrap">
+                <dl class="review_item_card">
+                  <dt>項目１
+                    <p class="review_tips">項目１の説明文</p>
                   </dt>
-                  <dd>
-                    <textarea rows=7 name="request" maxlength="1000" placeholder="例）電話連絡は18時以降にお願いいたします。"
-                      onblur="checkTxt(this)"></textarea>
-                    <input type="hidden" id="request_text_body" name="request_body">
+                  <dd class="stars">
+                    <input id="check1_star5" type="radio" name="check1_star" value="5" required />
+                    <label for="check1_star5">★</label>
+                    <input id="check1_star4" type="radio" name="check1_star" value="4" />
+                    <label for="check1_star4">★</label>
+                    <input id="check1_star3" type="radio" name="check1_star" value="3" />
+                    <label for="check1_star3">★</label>
+                    <input id="check1_star2" type="radio" name="check1_star" value="2" />
+                    <label for="check1_star2">★</label>
+                    <input id="check1_star1" type="radio" name="check1_star" value="1" />
+                    <label for="check1_star1">★</label>
                   </dd>
                 </dl>
 
-                <div class="submit">
-                  <input type="submit" name="btn_confirm" disabled id="reserve_button" value="入力が完了していません"
-                    class="sendButton btn_active ">
-                </div>
+                <!-- 評価２ -->
+                <dl class="review_item_card">
+                  <dt>項目2</dt>
+                  <dd class="stars">
+                    <input id="check2_star5" type="radio" name="check2_star" value="5" required />
+                    <label for="check2_star5">★</label>
+                    <input id="check2_star4" type="radio" name="check2_star" value="4" />
+                    <label for="check2_star4">★</label>
+                    <input id="check2_star3" type="radio" name="check2_star" value="3" />
+                    <label for="check2_star3">★</label>
+                    <input id="check2_star2" type="radio" name="check2_star" value="2" />
+                    <label for="check2_star2">★</label>
+                    <input id="check2_star1" type="radio" name="check2_star" value="1" />
+                    <label for="check2_star1">★</label>
+                  </dd>
+                </dl>
+                <!-- 評価3 -->
+                <dl class="review_item_card">
+                  <dt>項目3</dt>
+                  <dd class="stars">
+                    <input id="check3_star5" type="radio" name="check3_star" value="5" required />
+                    <label for="check3_star5">★</label>
+                    <input id="check3_star4" type="radio" name="check3_star" value="4" />
+                    <label for="check3_star4">★</label>
+                    <input id="check3_star3" type="radio" name="check3_star" value="3" />
+                    <label for="check3_star3">★</label>
+                    <input id="check3_star2" type="radio" name="check3_star" value="2" />
+                    <label for="check3_star2">★</label>
+                    <input id="check3_star1" type="radio" name="check3_star" value="1" />
+                    <label for="check3_star1">★</label>
+                  </dd>
+                </dl>
+                <!-- 評価4 -->
+                <dl class="review_item_card">
+                  <dt>項目4</dt>
+                  <dd class="stars">
+                    <input id="check4_star5" type="radio" name="check4_star" value="5" required />
+                    <label for="check4_star5">★</label>
+                    <input id="check4_star4" type="radio" name="check4_star" value="4" />
+                    <label for="check4_star4">★</label>
+                    <input id="check4_star3" type="radio" name="check4_star" value="3" />
+                    <label for="check4_star3">★</label>
+                    <input id="check4_star2" type="radio" name="check4_star" value="2" />
+                    <label for="check4_star2">★</label>
+                    <input id="check4_star1" type="radio" name="check4_star" value="1" />
+                    <label for="check4_star1">★</label>
+                  </dd>
+                </dl>
+                <!-- 評価5 -->
+                <dl class="review_item_card">
+                  <dt>項目5</dt>
+                  <dd class="stars">
+                    <input id="check5_star5" type="radio" name="check5_star" value="5" required />
+                    <label for="check5_star5">★</label>
+                    <input id="check5_star4" type="radio" name="check5_star" value="4" />
+                    <label for="check5_star4">★</label>
+                    <input id="check5_star3" type="radio" name="check5_star" value="3" />
+                    <label for="check5_star3">★</label>
+                    <input id="check5_star2" type="radio" name="check5_star" value="2" />
+                    <label for="check5_star2">★</label>
+                    <input id="check5_star1" type="radio" name="check5_star" value="1" />
+                    <label for="check5_star1">★</label>
+                  </dd>
+                </dl>
 
-              </form>
+              </div>
+              <!-- 口コミタイトル -->
+              <div class="review_item_wrap">
+                <dl>
+                  <dt>
+                    口コミのタイトル<em>必須</em>
+                    <span class="mini_alert">記号は使えません</span>
+                  </dt>
+                  <dd>
+                    <p id="review_title_count">残り：32文字</p>
+                    <input type="text" id="review_title" name="review_title" maxlength="32" placeholder="32文字以内でお願いします"
+                      required onblur="CheckGuestInfo(this)" required
+                      pattern="^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,20}"
+                      oninput="CountStr('review_title_count',value,32)">
+                  </dd>
+                </dl>
 
 
-            </div>
-          </section>
+                <!-- テキストエリアにはパターン属性はない -->
+
+                <dl>
+                  <dt>口コミ本文<em>必須</em>
+                    <p>(100文字以上、1,000文字以内)</p>
+                  </dt>
+                  <dd>
+                    <textarea rows=7 name="review_body" minlength="100" maxlength="1000" placeholder="ご自由にお願いします。"
+                      onblur="checkTxt(this)" oninput="CountStrNow('review_count',value,1000)"></textarea>
+                    <input type="hidden" id="request_text_body" name="request_body">
+                    <p id="not_enough">文字数がたりません</p>
+                    <p id="review_count"></p>
+
+                  </dd>
+                </dl>
+              </div>
+              <div class="submit">
+                <input type="submit" name="btn_confirm" disabled id="review_button" value="入力が完了していません"
+                  class="sendButton btn_active ">
+              </div>
+
+            </form>
+
+
+          </div>
+
 
           <?php endif?>
 

@@ -16,7 +16,6 @@
     ?>
 
 
-
   <!-- 二段目 -->
 
   <div id="header_contents">

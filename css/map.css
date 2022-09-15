@@ -5,14 +5,15 @@
 .area_lists {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-around;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
 .area_lists li {
-  width: calc(100% / 3);
-  padding: 3px;
+  width: calc(100% / 4);
   text-align: center;
+  padding: 5px;
 }
 
 .area_lists li a {
@@ -26,5 +27,28 @@
   display: block;
   width: 90%;
   height: 640px;
-  margin: 50px auto;
+  margin: 30px auto;
+}
+
+.hotel_area label {
+  display: block;
+  background-color: #ecebeb;
+  color: #6e6e73;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 1.6rem;
+  line-height: 3.6rem;
+  border-radius: 6px;
+  border: 1px solid white;
+}
+
+.hotel_area input:checked + label {
+  background: #beeaff;
+  color: #fff;
+}
+
+.hotel_area input {
+  display: none;
 }

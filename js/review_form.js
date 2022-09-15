@@ -1,4 +1,38 @@
-// 入力の警告文をはじめは出さないために消去
+function loadingSecond() {
+  const loader = document.getElementById("loading-wrapper");
+  loader.classList.add("completed");
+}
+
+// 予約警告ポップアップ注意事項
+function load(call_back) {
+  const loader = document.getElementById("loading-wrapper");
+  loader.classList.add("completed");
+  call_back();
+  // スクロールを止める
+  nonScrollStart();
+}
+
+function call_popup() {
+  var popup = document.getElementById("js-popup");
+  if (!popup) return;
+  popup.classList.add("is-show");
+  var blackBg = document.getElementById("js-black-bg");
+  var closeBtn = document.getElementById("js-close-btn");
+
+  closePopUp(blackBg);
+  closePopUp(closeBtn);
+
+  function closePopUp(elem) {
+    if (!elem) return;
+    elem.addEventListener("click", function () {
+      popup.classList.remove("is-show");
+      // スクロール復活
+      nonScrollStop();
+    });
+  }
+}
+
+// 入力ミスの警告をはじめは出さないために消去
 var mini = document.getElementsByClassName("mini_alert");
 function alert_delete() {
   for (var i = 0; i < mini.length; i++) {
@@ -6,48 +40,12 @@ function alert_delete() {
   }
 }
 
-// https://www.torat.jp/css-radiobotton/
-// ここを参考にした
-// 使用する場所用
-
-var house_box = document.getElementById("house_address");
-var house_input = document.getElementById("house_address_input");
-var hotel_box = document.getElementById("hotel_list");
-function formSwitch() {
-  check = document.getElementsByClassName("js-check");
-  console.log(check.length);
-  // ホテルを選んだら
-  if (check[0].checked) {
-    hotel_box.style.display = "block";
-    house_box.style.display = "none";
-    var inputText = document
-      .getElementById("house_address")
-      .getElementsByTagName("input");
-    inputText[0].value = "";
-    const alert_span = house_box.closest("dl").getElementsByTagName("span");
-    alert_span[0].style.display = "none";
-    // 住所を入れる強制をはずす
-    house_input.required = false;
-  } else if (check[1].checked) {
-    // 自宅選んだら　ホテルの場所のチェックを全部外す処理
-    var inputItem = document
-      .getElementById("hotel_list")
-      .getElementsByTagName("input");
-    for (var i = 0; i < inputItem.length; i++) {
-      inputItem[i].checked = "";
-    }
-    inputItem[0].checked = true;
-    house_box.style.display = "block";
-    house_input.required = true;
-    hotel_box.style.display = "none";
-  } else {
-    house_box.style.display = "none";
-    hotel_box.style.display = "none";
-    house_box.style.required = false;
-  }
-}
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ここから入力系
 
 // 各種文字入力チェック
+// html5の新機能.checkValidity()を使う
+
 function CheckGuestInfo(input) {
   const input_ok = input.checkValidity();
   const alert_span = input.closest("dl").getElementsByTagName("span");
@@ -104,11 +102,10 @@ function checkTxt(textarea) {
   document.getElementById("request_text_body").value = regExpEscape;
 }
 
-// お問い合わせフォーム用
-
+// バリデーションをクリアしたら
 // 送信できるようにする
 const form = document.getElementById("form");
-const reserve_button = document.getElementById("reserve_button");
+const reserve_button = document.getElementById("review_button");
 
 form.addEventListener("input", update);
 form.addEventListener("change", update);
@@ -126,43 +123,40 @@ function update() {
   }
 }
 
-function load(call_back) {
-  const loader = document.getElementById("loading-wrapper");
-  loader.classList.add("completed");
-  call_back();
-  // スクロールを止める
-  nonScrollStart();
-}
+// ーーーーーーーーーーーーーーーーーーーーーー
+// 文字カウント
+// ーーーーーーーーーーーーーーーーーーーーーー
 
-function call_popup() {
-  var popup = document.getElementById("js-popup");
-  if (!popup) return;
-  popup.classList.add("is-show");
-  var blackBg = document.getElementById("js-black-bg");
-  var closeBtn = document.getElementById("js-close-btn");
+function CountStr(id, str, max) {
+  const restr = str.replace(/\s+/g, "");
+  // document.getElementById(id).innerHTML = "文字数：" +(max - restr.length) + "文字";
+  document.getElementById(id).innerHTML =
+    "残り：" + (max - restr.length) + "文字";
 
-  closePopUp(blackBg);
-  closePopUp(closeBtn);
-
-  function closePopUp(elem) {
-    if (!elem) return;
-    elem.addEventListener("click", function () {
-      popup.classList.remove("is-show");
-      // スクロール復活
-      nonScrollStop();
-    });
+  if (max - restr.length < 0) {
+    document.getElementById(id).style = "color: red;";
   }
 }
 
-function loadingSecond() {
-  const loader = document.getElementById("loading-wrapper");
-  loader.classList.add("completed");
+// ーーーーーーーーーーーーーーーーーーーーーー
+// 文字カウント　現在
+// ーーーーーーーーーーーーーーーーーーーーーー
+
+function CountStrNow(id, str, max) {
+  const restrnow = str.replace(/\s+/g, "");
+  // document.getElementById(id).innerHTML = "文字数：" +(max - restr.length) + "文字";
+  document.getElementById(id).innerHTML =
+    "現在：" + restrnow.length + "/" + max + "文字";
+  if (restrnow.length >= 100) {
+    document.getElementById("not_enough").style = "display: none;";
+  } else {
+    document.getElementById("not_enough").style = "display: block;";
+  }
+  if (max - restrnow.length < 0) {
+    document.getElementById(id).style = "color: red;";
+  }
 }
 
-window.addEventListener(
-  "load",
-  call_popup(),
-  loadingSecond(),
-  formSwitch(),
-  alert_delete()
-);
+//読み込み時に起動するもの
+
+window.addEventListener("load", loadingSecond(), call_popup(), alert_delete());

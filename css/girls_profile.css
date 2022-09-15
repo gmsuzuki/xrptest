@@ -22,79 +22,143 @@
 }
 
 .girls_basic_plofile {
-  width: 100%;
+  width: 90%;
   margin: 0 auto;
-  text-align: center;
+  padding: 10px 0;
 }
 
-.girl_punchline {
-  font-size: 1.3rem;
-  margin-bottom: 10px;
-}
-.girl_name {
+/* タグ */
+/* 新人マーク */
+.girls_special_tag {
+  font-size: 1rem;
+  color: #fff;
+  border-radius: 10px;
+  line-height: initial;
+  padding: 4px 14px;
+  margin: 0px 0px 8px;
   display: inline-block;
-  font-size: 3.3rem;
-  line-height: 5rem;
+}
+
+/* パンチライン */
+.girl_punchline {
+  font-size: 1.2rem;
+  color: #c8b39a;
+}
+
+/* 名前SNS */
+.girl_name_sns {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+/* 名前 */
+.girl_name_sns h1 {
+  display: inline-block;
+  font-size: 3rem;
+  line-height: 3rem;
   letter-spacing: 0.3rem;
   position: relative;
 }
 
-/* 新人マーク */
-.girls_special_tag {
-  position: absolute;
-  left: -60px;
-  top: 10px;
-  padding: 5px 6px;
-  border-radius: 2px;
-  font-size: 1rem;
-  line-height: 1rem;
+/* さんとかちゃんとか */
+.girl_name_sns .san_chan {
+  font-size: 2rem;
 }
 
-/* さんとかちゃんとか */
-.girl_name .san_chan {
+/* snsmark */
+.girl_name_sns .sns_mark_list {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.girl_name_sns .sns_mark_list .circle_icon {
+  margin: 0 0 0 8px;
+}
+
+.girl_name_sns .sns_mark_list .circle_icon a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  color: #383838;
+  border-radius: 18px;
+  text-align: center;
+  position: relative;
+}
+
+.girl_name_sns .sns_mark_list .circle_icon a i {
   position: absolute;
-  right: -5rem;
-  bottom: -0.7rem;
-  font-size: 2rem;
+  text-align: center;
 }
 
 /* サイズ */
 
-.girl_age_size {
-  margin-top: 10px;
-  font-size: 2rem;
-}
-
-.girl_age_size span:not(:last-child):not(:nth-child(3)) {
-  margin-right: 1rem;
+.girl_age_size_review {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.3rem;
 }
 
 /* profile以外のタグ */
 
+/* girlContents */
+#girl_contents {
+}
+
+#girl_contents .girl_content_head .girl_content_img {
+  display: block;
+  margin: 0 auto 8px auto;
+  width: 128px;
+  height: 128px;
+  overflow: hidden;
+  border-radius: 64px;
+}
+
+#girl_contents .girl_content_head .girl_content_img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#girl_contents .girl_content_title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: block;
+}
 /* キャラクタータグ */
 
 .girl_characteristic {
-  width: 95%;
+  width: 90%;
   text-align: left;
-  margin: 18px auto 0 auto;
+  margin: 32px auto;
   display: flex;
+  align-items: baseline;
 }
 
-.play_type_tag_title {
+.girl_tag_title {
   color: black;
   font-size: 2rem;
   font-style: italic;
   font-family: "Roboto", sans-serif;
-  font-weight: 200;
-  margin-right: 4px;
+  font-weight: bold;
+  margin-right: 18px;
+  line-height: 1.8;
 }
 
 .play_type_tag {
-  color: #3f3f3f;
-  padding: 2px 6px;
-  margin: 0 0 10px 6px;
-  border-radius: 2px;
-  border: 1px solid gray;
+  font-size: 1rem;
+  color: #fff;
+  border-radius: 10px;
+  line-height: initial;
+  padding: 4px 14px;
+  margin: 0px 0px 8px;
   display: inline-block;
 }
 
@@ -104,20 +168,68 @@
   color: white;
 }
 
-/* ムービー */
+/* Q&A */
 
-.video_wrapper {
+.girl_qanda {
+  width: 90%;
+  text-align: left;
+  margin: 32px auto;
+}
+
+.qandaSwiper {
+  margin-top: 10px;
+}
+
+.question_title {
+  text-align: left;
+  line-height: 1.8;
+}
+
+.q_list {
   width: 100%;
-  max-height: 250px;
-  overflow: hidden;
+  text-align: left;
+}
+
+.q_item .qanda_question {
+  margin-left: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
   margin-bottom: 12px;
 }
 
+.q_item .qanda_answer {
+  font-size: 1.1rem;
+  background: #eceff1;
+  padding: 24px;
+  border-radius: 16px;
+  position: relative;
+}
+
+.q_item .qanda_answer::before {
+  content: "";
+  background: #ebeff1;
+  width: 24px;
+  height: 24px;
+  top: -4px;
+  left: 14px;
+  border-radius: 4px;
+  transform: rotate(45deg);
+  position: absolute;
+  z-index: -9;
+}
+
 /* オプション */
+#girl_option {
+  width: 90%;
+  text-align: left;
+  margin: 32px auto;
+  display: flex;
+  align-items: baseline;
+}
 .girl_option_list {
   display: flex;
   justify-content: space-between;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   line-height: 2.6rem;
   flex-wrap: wrap;
   text-align: center;
@@ -160,6 +272,49 @@
   color: gray;
 }
 
+/* ムービー */
+
+.pic_title {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.video_wrapper {
+  width: 100%;
+  max-height: 250px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.video_wrapper video {
+  border-radius: 16px;
+}
+
+/* グラビア */
+
+.gravure_card {
+  padding: 8px 8px 12px 8px;
+  width: 100%;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  box-shadow: 0px 12px 8px -4px rgb(0 0 0 / 10%);
+  background-color: #fff;
+}
+
+.gravure_card figure img {
+  margin-bottom: 12px;
+}
+
+.gravure_card figure figcaption {
+  font-weight: bold;
+}
+
+/* sns */
+.sns_title {
+  width: 90%;
+  margin: 0 auto;
+  color: white;
+}
+
 /* スケジュール インタビュー　レビュー オプション　共通 */
 
 /* スケジュール変更 */
@@ -183,18 +338,18 @@
 }
 
 *.week_sun {
-  border: 1px solid red;
+  border: 1px solid #f78da7;
 }
 *.week_sun p {
-  background-color: red;
+  background-color: #f78da7;
 }
 
 *.week_sat {
-  border: 1px solid blue;
+  border: 1px solid #0693e3;
 }
 
 *.week_sat p {
-  background-color: blue;
+  background-color: #0693e3;
 }
 
 .schedule_date {
@@ -205,94 +360,153 @@
 }
 
 .attendance_time {
-  padding-top: 20px;
+  padding: 20px;
 }
 .attendance_time span {
   display: block;
 }
 
 .girl_reserve_btn {
-  margin-top: 1rem;
-  padding: 4px 0;
+  padding: 4px 8px;
   color: white;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  box-shadow: 2px 2px 3px 0px rgb(0 0 0 / 40%);
 }
 
-#girl_option,
 #girl_schedule,
-#girl_interview,
 #girls_review {
   background-color: #e8e8e8;
   padding-bottom: 32px;
 }
 
-.girl_interview_list,
 .girl_review_list {
   border-radius: 0.5rem;
   padding: 0 0.7rem;
   width: 100%;
 }
 
-.girl_interview_list {
-  background-color: #f7f7f7;
-  padding: 10px 0.7rem;
+/* sns TWITTER diary */
+
+.twitter_area {
+  margin-bottom: 24px;
 }
 
-/* アンケート、scheduleと共通あり */
-.girl_interview_list dl {
-  line-height: 1.5;
+.twitter_wrapper {
+  height: 240px;
+  padding: 10px 3%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+}
+.twitter_wrapper > iframe {
+  width: 100vw !important;
 }
 
-.girl_interview_list dl:not(:last-child) {
-  margin-bottom: 15px;
-  border-bottom: 1px dotted #9c8b5b;
-}
-
-.girl_interview_list dl dt {
-  position: relative;
-  color: #9c8b5b;
-  padding-left: 1.7rem;
-}
-
-.girl_interview_list dl dt::before {
-  color: #e3dbc6;
-  content: "＃";
-  display: block;
-  position: absolute;
-  left: 0.5rem;
-  top: 0;
-  font-weight: bold;
-}
-
-.girl_interview_list dl dd {
-  font-size: 1.8rem;
-  /* border-bottom: 1px dotted #9c8b5b; */
-  padding: 5px 0 10px 1em;
-}
-
-/* お店から一言 */
-.shop_comment_text {
-  padding: 0 5%;
-  line-height: 1.6;
-  margin-bottom: 32px;
-}
-
-/* キャッチフレーズ */
-.girl_catchphrase {
-  font-weight: bold;
-  padding: 2px 10px;
-  background-color: red;
-  margin: 0 0 12px 0;
-  -webkit-transform: skew(-15deg);
-  transform: skew(-15deg);
-  color: #fff;
-}
-
-/* TWITTER */
-#girls_twitter {
-  padding-bottom: 32px;
+.diary_area .diary_wrap {
+  width: 95%;
+  margin: 0 auto;
 }
 
 /* クチコミ */
+
+#shop_comment,
+#pickup_recommend,
+#customer_review {
+  width: 90%;
+  text-align: left;
+  margin: 18px auto 0 auto;
+  align-items: baseline;
+}
+
+/* お店から一言 */
+
+#shop_comment .review_content_head .review_content_img {
+  display: block;
+  margin: 0 auto 8px auto;
+  width: 64px;
+  height: 64px;
+  overflow: hidden;
+  border-radius: 32px;
+}
+
+#shop_comment .review_content_head .review_content_img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#shop_comment .shop_comment_title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: block;
+}
+
+.shop_comment_text {
+  font-size: 1.1rem;
+  background: #eceff1;
+  padding: 20px;
+  border-radius: 16px;
+  position: relative;
+}
+
+/* pickup レビュー */
+#pickup_recommend .pickup_recommend_head .pickup_recommend_img {
+  display: block;
+  margin: 0 auto 8px auto;
+  width: 64px;
+  height: 64px;
+  overflow: hidden;
+  border-radius: 32px;
+}
+
+#pickup_recommend .pickup_recommend_head .pickup_recommend_img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#pickup_recommend .pickup_recommend_name {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: block;
+}
+
+.pickup_recommend_title {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+.pickup_recommend_contents {
+  margin-top: 12px;
+  font-size: 1.1rem;
+  background: #eceff1;
+  padding: 20px;
+  border-radius: 16px;
+  position: relative;
+}
+
+.pickup_recommend_text {
+  margin-top: 12px;
+}
+.pick_up_mark {
+  background-color: red;
+  color: white;
+  font-size: 2rem;
+  position: absolute;
+}
+
+.date_of_use {
+  margin-left: 24px;
+}
+
+.fukidashi_red {
+  background-color: #08a517;
+}
+
+.review_title {
+}
 
 .girl_review_wrap {
   width: 100%;

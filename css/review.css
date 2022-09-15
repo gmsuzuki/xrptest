@@ -1,21 +1,38 @@
 @charset "utf-8";
 
 .reviewed_girl {
-  display: flex;
-  margin: 5px;
+  display: block;
+  margin: 0 auto 8px auto;
+  width: 128px;
+  height: 128px;
+  overflow: hidden;
+  border-radius: 64px;
 }
 
 .reviewed_girl img {
-  width: 25%;
-  height: 25%;
-  max-width: 768px;
-  height: auto;
-  overflow: hidden;
-  padding: 5px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reviewed_girl_title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: block;
 }
 
 .reviewed_girl_data {
-  margin-top: 5px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.reviewed_girl_data .stars {
+  display: inline-block;
+}
+
+.comment_count {
+  margin-left: 2rem;
 }
 
 .review_button {
@@ -130,4 +147,481 @@
 .review_reply .reply_title {
   font-size: 1.6rem;
   font-weight: bold;
+}
+
+/* レビューフォーム */
+
+.netreserve_attention_title {
+  margin: 10px 0;
+}
+
+.netreserve_attention_text {
+  font-size: 1rem;
+  line-height: 1.4rem;
+}
+
+.line_link_banner p {
+  font-size: 1rem;
+  padding-left: 1rem;
+}
+
+/* フォーム */
+
+/* 全体 */
+.review_from_body form,
+.reserve_check_form {
+  margin: 0 auto;
+  text-align: left;
+  font-size: 1.4rem;
+}
+
+/* １項目 */
+.review_item_wrap,
+.reserve_check_form dl {
+  background-color: #fff;
+  border-radius: 10px;
+  display: block;
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 0.5rem;
+}
+/* レビューする項目の注意点 */
+.review_tips {
+  font-size: 1rem;
+  color: #6e6e73;
+  padding-left: 1rem;
+}
+.review_from_body form dt,
+.reserve_check_form dt {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: cornflowerblue;
+}
+
+.review_from_body form dt::before {
+  content: "●";
+}
+
+/* 必須表示 */
+.review_from_body form em {
+  display: inline-block;
+  background-color: rgb(193, 0, 0);
+  border-radius: 3px;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0.5rem 1rem;
+  margin-left: 1.5rem;
+  vertical-align: top;
+  color: white;
+}
+
+.review_from_body form dd,
+.reserve_check_form dd {
+  font-size: 1rem;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding: 0;
+  font-weight: bold;
+  color: #000000;
+}
+
+/* 一つに複数の項目を入れるために作った */
+.review_girl_item {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* 遊んだ人と時間 */
+.review_girl_item .played_program_item {
+  width: 48%;
+}
+
+/* 遊んだ日 */
+.review_girl_item .played_date_item {
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* カレンダー系 */
+.review_from_body form input[type="date"] {
+  width: 100%;
+  background: white;
+  border: 1px solid #bebebe;
+  font-size: 1.6rem;
+  padding: 1rem;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.date-edit {
+  position: relative;
+}
+
+/* ボタン部分 */
+.date-edit::before {
+  /* background: url(../img/now.png) no-repeat center center / cover #f7d94c; */
+  border: solid 5px #cdcdcd;
+  background-color: #000;
+  content: "";
+  position: absolute;
+  top: -15px;
+  right: -65px;
+  border-radius: 28px;
+  height: 50px;
+  width: 50px;
+}
+
+/* 評価項目ひとつづつ */
+.review_item_card {
+  padding-bottom: 20px;
+}
+
+/* 入力枠テキスト */
+.review_from_body form input[type="text"],
+.review_from_body form input[type="date"],
+.review_from_body form select {
+  width: 100%;
+  background: white;
+  border: 1px solid #bebebe;
+  font-size: 1.6rem;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.reserve_from_body form select {
+  border-radius: 0%;
+  font-size: 1.6rem;
+  height: 4rem;
+  margin-bottom: 30px;
+}
+
+.reserve_from_body form input[type="radio"],
+.reserve_from_body form input[type="checkbox"] {
+  position: relative;
+  top: -2px;
+  margin-right: 2px; /*追加*/
+}
+
+/* 利用場所 */
+
+.play_place {
+  border: 1px solid #bebebe;
+  font-size: 1.6rem;
+  padding: 5px 10px 5px 5px;
+  margin-right: 10%;
+}
+.play_place_title {
+  display: block;
+  margin-top: 20px;
+}
+
+.play_place_title input[type="text"] {
+  margin-top: 10px;
+}
+
+.play_place_select,
+.option_select {
+  display: inline-block;
+  margin: 8px;
+}
+
+/* 利用日時 */
+.play_date_time {
+  margin-bottom: 15px;
+}
+
+.reserve_from_body form dl dd textarea {
+  width: 100%;
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+
+.reserve_from_body form .submit {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.reserve_from_body form .submit input[type="submit"] {
+  border: none;
+  background-color: pink;
+  display: block;
+  width: 90%;
+  margin: 0 auto;
+  padding: 10px 0;
+  transition: 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0%;
+  font-size: 1.7rem;
+}
+
+.reserve_from_body form .submit input[type="submit"]:active {
+  border: none;
+  background-color: red;
+  color: white;
+  display: block;
+  width: 90%;
+  margin: 0 auto;
+  padding: 10px 0;
+  transform: translateY(2px);
+}
+
+/* 星レーティング */
+
+.stars {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: right;
+}
+.stars input[type="radio"] {
+  display: none;
+}
+.stars label {
+  padding-right: 10px;
+  color: #ccc;
+  font-size: 30px;
+  cursor: pointer;
+}
+.stars label:hover,
+.stars label:hover ~ label,
+.stars input[type="radio"]:checked ~ label {
+  color: #fc0;
+}
+
+/* alert */
+.mini_alert {
+  color: red;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-left: 5px;
+  vertical-align: baseline;
+  line-height: 1rem;
+}
+
+/* 確認画面 */
+
+.check_attention {
+  margin-bottom: 20px;
+}
+
+.check_form_submit {
+  display: flex;
+  text-align: center;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.check_form_submit input[type="submit"],
+.check_form_submit input[type="button"] {
+  border: none;
+  display: block;
+  width: 50%;
+  padding: 10px 0;
+  transition: 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0%;
+  font-size: 1.7rem;
+}
+.check_form_submit .form_back {
+  margin-right: 10px;
+}
+
+.check_form_submit .form_next {
+  background-color: pink;
+}
+
+.check_form_submit input[type="submit"]:active,
+.check_form_submit input[type="button"]:active {
+  transform: translateY(2px);
+}
+
+.check_form_submit input[type="submit"]:active {
+  background-color: rgb(129, 58, 70);
+}
+
+/* 入力された事項だけ見やすく */
+.reserve_check_form dd {
+  font-size: 1.6rem;
+  padding-left: 2rem;
+}
+
+.form_alert {
+  width: 90%;
+  text-align: center;
+  margin: 0 auto;
+  padding: 30px 0;
+}
+.form_alert h3 {
+  font-weight: bold;
+  font-size: 2rem;
+  padding-bottom: 10px;
+}
+
+.form_alert p {
+  font-size: 1.3rem;
+}
+
+.back_to_top {
+  margin: 20px auto;
+  line-height: 5rem;
+  width: 80%;
+  border-radius: 20px;
+}
+
+/* ポップアップ */
+
+.popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.6s;
+}
+.popup.is-show {
+  opacity: 1;
+  visibility: visible;
+}
+.popup-inner {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 600px;
+  padding: 30px 15px;
+  background-color: #fff;
+  z-index: 2;
+}
+.popup-inner img {
+  width: 100%;
+}
+.close-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  cursor: pointer;
+}
+.close-btn i {
+  font-size: 20px;
+  color: #333;
+}
+.black-background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1;
+  cursor: pointer;
+}
+
+/* line予約関連 */
+.line_box {
+  width: 98%;
+  border: solid 1px #06c755;
+  margin: 0 auto;
+  padding: 20px 15px;
+}
+
+.line_box h2 {
+  margin-bottom: 10px;
+}
+
+.line_box h2 span {
+  color: #06c755;
+}
+
+.line_box .mobile_line_btn {
+  display: inline-block;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.line_box .mobile_line_btn img {
+  object-fit: cover;
+  width: 60%;
+}
+
+.line_box .pc_line_btn {
+  width: 25%;
+  height: 25%;
+  display: block;
+  margin: 0 auto;
+}
+
+#line_reserve_procedure {
+  padding-top: 32px;
+}
+
+#line_reserve_procedure .content_wrapper {
+  background-color: #06c755;
+}
+
+#line_reserve_procedure h2 {
+  margin: 20px 5px;
+  color: #fff;
+}
+.line_reserve_contents_list {
+  margin: 10px;
+}
+
+.line_reserve_contents_list_inner {
+  background-color: #fff;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+.line_reserve_contents_title {
+  font-size: 2rem;
+  margin: 5px;
+  border-bottom: solid 2px #06c755;
+}
+.line_reserve_contents_title span {
+  color: #06c755;
+}
+
+.line_reserve_attention {
+  font-size: 1rem;
+  color: #fff;
+  line-height: 1.2rem;
+}
+
+#line_reserve_terms {
+  background-color: #e8e8e8;
+  padding: 10px 10px 30px 10px;
+}
+
+#line_reserve_terms h2 {
+  margin: 20px 5px;
+}
+
+#line_reserve_terms p {
+  font-size: 1.2rem;
+}
+
+/* 口コミフォーム */
+
+.guideline {
+  padding: 10px 0 10px 15px;
+  font-size: 1rem;
+  line-height: 1.4rem;
+  list-style-type: decimal;
+}
+
+.guideline_attention {
+  font-size: 1.2rem;
+  line-height: 1.6rem;
 }

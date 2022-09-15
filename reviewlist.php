@@ -40,7 +40,8 @@
   <!-- ローディング -->
   <link rel="stylesheet" type="text/css" href="css/loading.css" />
   <!-- swiper css は先読み -->
-
+  <link rel="stylesheet" href="css/swiper.min.css">
+  <link rel="stylesheet" href="css/myswiper.css">
   <!-- 共通 -->
   <link rel="stylesheet" type="text/css" href="css/style.css" />
   <link rel="stylesheet" type="text/css" href="css/header.css" />
@@ -49,10 +50,13 @@
   <!-- ページ毎 -->
   <link rel="stylesheet" type="text/css" href="css/review.css" />
   <link rel="stylesheet" type="text/css" href="css/girl_list.css" />
+  <link rel="stylesheet" type="text/css" href="css/girls_profile.css" />
   <!-- 特殊？ -->
   <link rel="stylesheet" type="text/css" href="css/under_nav.css" />
 
   <!--javascript-->
+  <script src="js/swiper.min.js" defer></script>
+  <script src="js/swiper_conf.js" defer></script>
   <script src="js/script.js" defer></script>
   <script src="js/header.js" defer></script>
   <script src="js/accordion.js" defer></script>
@@ -80,76 +84,100 @@
     <!-- header読み込み -->
     <?php
     require_once( dirname(__FILE__). '/parts/header.php');
+    require_once( dirname(__FILE__). '/data.php');
     ?>
     <!------------------>
 
-    <!-- データ持ってきてる -->
-    <?php
-    $nums = ["１人め","２人め","3人め","4人め","5人め","6人め","7人め"];
-    ?>
     <main id="main">
 
       <article id="review" class="under_space">
         <div class="content_wrapper">
           <h1 class="fixpage_title"><span>Review</span></h1>
           <h3 class="block_title_caption">口コミ</h3>
+        </div><!-- content_wrapper -->
 
-          <div class="staff_bg">
-            <ul class="review_page_wrap">
-              <!-- foreachで回す -->
-              <!-- サンプルとして名前に各データ入れてみる -->
-              <?php foreach($nums as $num) :?>
+        <section id="new_reviews">
+          <h2 class="girl_tag_title new_review_title">#new reviews</h2>
 
-              <!-- クチコミ1 -->
-              <li class="staff_review_list">
-                <a href="review.php?review=<?php echo $num?>" class="staff_review_content block_wrap_a">
-                  <div class="staff_review_bg">
-                    <img src="img/concept00.jpeg" alt="">
-                    <div class="review_date">
-                      <p class="girl_name">
-                        <?php echo $num ?>
+          <div class="newreview_wrap">
+            <!-- foreachで回す -->
+            <!-- サンプルとして名前に各データ入れてみる -->
+            <div class="swiper10 newreviewSwiper">
+              <ul class="swiper-wrapper">
+                <!-- 一枚目 -->
+                <?php foreach($sample_names as $sample_name) :?>
+                <!-- クチコミ1 -->
+                <li class="swiper-slide new_review_card">
+                  <a href="review.php?review=<?php echo $sample_name[0]?>"
+                    class="new_staff_review_content block_wrap_a">
+                    <figure class="new_staff_review_photo">
+                      <img src='<?php echo $sample_name[1]?>' alt="">
+                    </figure>
+
+                    <div class="new_review_date">
+                      <div class="assessment">
+                        <p class="stars" style="--rating: 3.3;">3.3</p>
+                      </div>
+                      <figcaption class="girl_name">
+                        <?php echo $sample_name[0] ?>
+                      </figcaption>
+                      <p class="review_comment">
+                        あいうえおかきくえこさしすせそたちつ<br>
+                        あいうえおかきくえこさしすせそたちつ<br>
+                        あいうえおかきくえこさしすせそたちつ<br>
+                        あいうえおかきくえこさしすせそたちつ<br>
+                        あいうえおかきくえこさしすせそたちつ
                       </p>
-                      <p class="update_review"><span>○月○日</span>更新</p>
+                      <div class="new_reviewer_data">
+                        <p>０月０日訪問</p>
+                        <span>投稿者名</span>
+                        <span>○月○日更新</span>
+                      </div>
+                      <p class=" detail_under_right">
+                        <i class="fas fa-chevron-circle-right"></i><span>詳しく</span>
+                      </p>
                     </div>
-                    <p class="review_count">10</p>
-                  </div>
-                </a>
-              </li>
+                  </a>
+                </li>
+                <?php endforeach ?>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 全員のレビュー -->
+        <section id="all_reviews">
+          <h2 class="girl_tag_title all_review_title">#all reviews</h2>
+
+          <ul class="review_page_wrap">
+            <!-- 一枚目 -->
+            <?php foreach($sample_names as $sample_name) :?>
+            <!-- クチコミ1 -->
+            <li class="staff_review_list">
+              <p class="review_num"><span>1</span></p>
+              <a href="review.php?review=<?php echo $sample_name[0]?>" class="staff_review_content block_wrap_a">
+                <figure class="staff_review_photo">
+                  <img src='<?php echo $sample_name[1]?>' alt="">
+                </figure>
+                <div class="review_date">
+                  <p class="update_review"><span>00月00日</span>更新</p>
+                  <figcaption class="girl_name">
+                    <?php echo $sample_name[0] ?>
+                  </figcaption>
+                </div>
+              </a>
+            </li>
+            <?php endforeach ?>
+          </ul>
 
 
 
-              <?php endforeach ?>
+        </section>
 
 
-            </ul>
-
-
-
-
-          </div><!-- content_wrapper -->
       </article>
 
 
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
 
       <?php
         require_once( dirname(__FILE__). '/parts/accordion.php');

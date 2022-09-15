@@ -79,6 +79,7 @@
     <!-- header読み込み -->
     <?php
     require_once( dirname(__FILE__). '/parts/header.php');
+    require_once( dirname(__FILE__). '/data.php');
     ?>
     <!------------------>
 
@@ -90,54 +91,26 @@
           <h3 class="block_title_caption">出張エリア内のホテルマップ</h3>
 
           <ul class="area_lists">
+
+            <?php $num=1 ?>
+            <?php foreach($hotels as $key => $hotel) :?>
             <li class="hotel_area">
-              <a href="https://www.google.com/maps/d/embed?mid=1JWZXXQd4QNSoqlmTiDk_0B8oqrbvF8NQ" target="map"
-                class="btn_color_pink btn_font01 btn_active">
-                松戸</a>
+              <?php if($num == 1):?>
+              <input type="radio" id='<?php echo $key ?>' value='<?php echo $hotel[1] ?>' name="select_hotel"
+                onclick="window.open(href=this.value,'map'); this.checked=true" checked>
+              <?php else: ?>
+              <input type="radio" id='<?php echo $key ?>' value='<?php echo $hotel[1] ?>' name="select_hotel"
+                onclick="window.open(href=this.value,'map'); this.checked=true">
+              <?php endif ?>
+              <label for='<?php echo $key ?>'><?php echo $hotel[0] ?></label>
             </li>
-            <li class="hotel_area">
-              <a href=" https://www.google.com/maps/d/embed?mid=1EoKGNrr6DPs0qepj8L0-p57LjEJO-GcH" target="map"
-                class="btn_color_pink btn_font01 btn_active">
-                新松戸</a>
-            </li>
-            <li class="hotel_area">
-              <a href="https://www.google.com/maps/d/embed?mid=1UgWbBDAP4gfRZumiAaZz8Z-T4h3MiniX" target="map"
-                class="btn_color_pink btn_font01 btn_active">
-                馬橋</a>
-            </li>
-            <li class="hotel_area">
-              <a href="https://www.google.com/maps/d/embed?mid=1HhoEih1_YYKIpp-Eqzxat8KNB3yW2i8q" target="map"
-                class="btn_color_pink btn_font01 btn_active">
-                北松戸</a>
-            </li>
-            <li class="hotel_area">
-              <a href="https://www.google.com/maps/d/embed?mid=1Zl9G9387hF3XN-DcsEBJchMTqfhulZDf" target="map"
-                class="btn_color_pink btn_font01 btn_active">
-                柏</a>
-            </li>
-            <li class="hotel_area">
-              <a href="https://www.google.com/maps/d/embed?mid=1212JJviYmk1qlclqAP_Airc7Nu_rspsW" target="map"
-                class="btn_color_pink btn_font01 btn_active">
-                南柏</a>
-            </li>
-            <li class="hotel_area">
-              <a href="https://www.google.com/maps/d/embed?mid=1AApytABKq4lxDXeYlmH8KZqDn1E1domg" target="map"
-                class="btn_color_pink btn_font01 btn_active">
-                北柏</a>
-            </li>
-            <li class="hotel_area">
-              <a href="https://www.google.com/maps/d/embed?mid=1wviEBagFedVZpJf3ItfRr_xnIKIucTmr" target="map"
-                class="btn_color_pink btn_font01 btn_active">
-                八柱</a>
-            </li>
-            <li class="hotel_area">
-              <a href="https://www.google.com/maps/d/embed?mid=1KmcatTOsv9e1WKWLfvnMp0MCFFbFaNhs" target="map"
-                class="btn_color_pink btn_font01 btn_active">
-                三郷</a>
-            </li>
+            <?php $num = $num+1 ?>
+            <?php endforeach ?>
+            <?php for( $i=0; $i<(4-count($hotels)%4) ; $i++ ) :?>
+            <li></li>
+            <?php endfor ?>
 
           </ul>
-
 
           <iframe src="https://www.google.com/maps/d/embed?mid=1JWZXXQd4QNSoqlmTiDk_0B8oqrbvF8NQ"
             class="google_map_monitor" name="map"></iframe>

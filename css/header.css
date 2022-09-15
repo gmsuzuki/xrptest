@@ -268,7 +268,7 @@ header {
 /* 通常ナビ */
 #sp_nav {
   top: -120%;
-  height: 60vh;
+  height: auto;
   padding: 25px 0;
 }
 
@@ -288,34 +288,76 @@ header {
 /* メニューの中身 */
 
 #sp_nav ul {
-  padding: 0 20px;
+  padding: 0 5px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 #sp_nav ul li {
-  border-bottom: solid 1px #555;
   list-style: none;
+  display: block;
+  cursor: pointer;
+  margin-bottom: 5px;
+  width: 30vmin;
+  height: 20vmin;
+  padding: 2px;
 }
 
 #sp_nav ul li a {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  font-size: 1.5rem;
+  height: 100%;
   box-sizing: border-box;
   color: #ffffff;
   text-decoration: none;
-  padding: 10px 15px 10px 0;
   position: relative;
 }
 
-#sp_nav ul li a::before {
+#sp_nav ul li a img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* #sp_nav ul li a::after { */
+.black_cleanness {
   content: "";
-  width: 7px;
-  height: 7px;
-  border-top: solid 2px #ffffff;
-  border-right: solid 2px #ffffff;
-  transform: rotate(45deg);
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
   position: absolute;
-  right: 11px;
-  top: 17px;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+#sp_nav ul li dl {
+  position: absolute;
+  display: block;
+  z-index: 10;
+  text-align: center;
+  margin-top: 10px;
+}
+
+#sp_nav ul li dl dt {
+  font-size: 2rem;
+  font-weight: bold;
+}
+#sp_nav ul li dl dd {
+  font-size: 1.2rem;
+}
+
+#sp_nav ul:after {
+  content: "";
+  display: block;
+  width: 32%; /* .boxに指定したwidthと同じ幅を指定する */
+  height: 0;
 }
 
 /* ////////////////////////////// */

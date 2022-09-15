@@ -55,10 +55,10 @@
 }
 
 .swiper-pagination-bullet {
-  width: 12px !important;
-  height: 12px !important;
+  width: 12px;
+  height: 12px;
   margin: 0 0 0 10px !important;
-  background: #ffbc0d !important;
+  background: #ffbc0d;
 }
 
 .swiper-pagination-bullet:first-child {
@@ -216,4 +216,10 @@
 .prohibited_matter_attention p {
   color: red;
   font-size: 1.2rem;
+}
+
+.swiper-pagination.page7 .swiper-pagination-bullet {
+  background-color: black;
+  width: 6px;
+  height: 6px;
 }

@@ -33,21 +33,16 @@
 /* 共通 */
 
 .staff_review_wrap,
-.today_staff_wrap,
-.review_page_wrap {
+.today_staff_wrap {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-}
-.today_staff_wrap {
-  /* background-color: pink; */
 }
 
 .staff_review,
 .staff_card {
   width: 49%;
   margin: 10px 0;
-  overflow: hidden;
 }
 
 .staff_review_card {
@@ -56,13 +51,11 @@
   overflow: hidden;
 }
 
-.staff_review_content,
 .today_staff_profile {
   width: 100%;
   height: 100%;
 }
 
-.staff_review_bg img,
 .today_staff_card .staff_photo img {
   width: 100%;
   height: 100%;
@@ -81,21 +74,6 @@
 /* パネル写真エリア */
 .staff_photo_area {
   position: relative;
-}
-
-/*状態  */
-.staff_state_mark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  -ms-writing-mode: tb-rl;
-  writing-mode: vertical-rl;
-  background: rgba(255, 133, 146, 0.5);
-  color: #fff;
-  margin: 4px;
-  padding: 4px 0;
-  letter-spacing: 0.3rem;
-  border-radius: 5%;
 }
 
 .panel_icon_samall {
@@ -148,15 +126,6 @@
   line-height: 1.7rem;
 }
 
-/* 新人 */
-.staff_profile_area .name_age p .new_staff {
-  font-size: 0.8rem;
-  color: #fff;
-  background-color: rgb(247, 55, 87);
-  padding: 2px 8px;
-  border-radius: 8px;
-  vertical-align: top;
-}
 /* 名前 */
 .staff_profile_area .name_age p .staff_name,
 .row_girl_data .name_age p .staff_name {
@@ -174,19 +143,10 @@
 .bodysize {
   font-size: 1.3rem;
   line-height: 1.3rem;
-  letter-spacing: 0.3rem;
+  letter-spacing: 0.1rem;
 }
 
 /* 時間 */
-
-.time_area {
-  background-color: rgb(212, 90, 110);
-  color: #fff;
-  border-radius: 6px;
-  text-align: center;
-  font-size: 1.3rem;
-  letter-spacing: 0.2rem;
-}
 
 .row_time_area {
   display: inline-block;
@@ -249,27 +209,120 @@
 }
 
 /* 口コミページ */
-.staff_review_list {
-  width: 31%;
+
+/*  */
+#new_reviews {
+  background-color: #fff;
+  padding: 24px 0;
+}
+.new_review_title,
+.all_review_title {
+  margin-left: 2%;
+}
+
+.newreview_wrap {
+  margin: 24px 0;
+}
+
+.new_staff_review_content {
+  padding: 4px 0;
+  width: 100%;
+  display: block;
+  text-decoration: none;
+}
+
+.new_staff_review_photo {
+  height: 140px;
+  object-fit: cover;
+}
+
+.new_review_card {
+  background-color: #f5f5f7;
   border-radius: 10px;
+  height: 400px;
   overflow: hidden;
+}
+
+.review_comment {
+  font-size: 1.4rem;
+  margin: 17px 0;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+}
+
+.new_review_date {
+  width: 100%;
+  font-size: 1.2rem;
+  text-align: left;
+  padding: 17px;
+  margin-bottom: 10px;
+}
+/* オール */
+#all_reviews {
+  padding: 32px 0;
+}
+
+/* 口コミカード */
+.staff_review_list {
+  width: 33%;
   margin-bottom: 20px;
   position: relative;
-  box-shadow: 0 2px 4px rgb(0 0 0 / 30%);
+}
+
+/* 口コミ数 */
+.review_num {
+  margin: -12px 0 -12px -12px;
+  position: relative;
+  z-index: 2;
+}
+
+.review_num span {
+  text-align: center;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-color: #454545;
+  border-radius: 12px;
+  line-height: 24px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.staff_review_content {
+  padding: 4px 4px 0 4px;
+  width: 100%;
+  display: block;
+  text-decoration: none;
 }
 
 .review_date {
   width: 100%;
-  padding: 2px;
   font-size: 1.2rem;
-  background-color: rgba(255, 133, 146, 0.5);
   text-align: center;
+  margin: 10px 0;
 }
 
-.review_date .update_review {
-  font-size: 1rem;
+.review_date .girl_name {
   font-weight: bold;
-  line-height: 1rem;
+  font-size: 1.4rem;
+  margin-top: 10px;
+}
+
+.review_page_wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 90%;
+  margin: 24px auto;
+}
+
+.staff_review_list {
+  width: 30%;
 }
 
 .review_count {
@@ -286,6 +339,29 @@
   font-weight: bold;
 }
 
+.staff_review_photo img {
+  vertical-align: bottom;
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.update_review {
+  font-size: 1rem;
+  padding: 2px 8px;
+  margin-left: 0;
+  font-weight: 600;
+  border-radius: 100px;
+  background: #fe77a7;
+  color: #fff;
+  display: inline-block;
+  line-height: 1.6rem;
+}
+
+.update_review span {
+  margin-right: 1rem;
+}
 /* ランキング */
 .ranking_head {
   font-size: 2rem;
@@ -338,4 +414,76 @@
   color: white;
   border-radius: 50%;
   font-size: 1.5rem;
+}
+
+/* 新しい表示 */
+.staff_bg ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+.staff_bg ul li {
+  display: block;
+  background: #fff;
+  box-shadow: 0px 12px 20px -4px rgb(0 0 0 / 10%);
+  position: relative;
+  width: 47%;
+  margin: 5px 5px 30px 5px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.staff_bg ul li .today_staff_card {
+  margin: 0 auto;
+  padding: 8px 8px 0 8px;
+  display: block;
+  text-decoration: none;
+}
+
+.today_staff_card .staff_photo img {
+  padding: 3px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.time_area {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  font-weight: bold;
+  letter-spacing: 0.2rem;
+}
+
+.time_area ::before {
+  content: "●";
+}
+
+/* 新人 */
+.girl_types {
+  vertical-align: top;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+.girl_type {
+  font-size: 1rem;
+  color: #fff;
+  border-radius: 10px;
+  padding: 0 8px;
+  margin-left: 4px;
+  margin-bottom: 4px;
+}
+.staff_name_age {
+  font-weight: bold;
+  font-size: 1.6rem;
+}
+.staff_age {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.staff_original_contents {
+  margin: 0 10px;
+  padding-bottom: 10px;
+  text-align: right;
+  font-size: 2rem;
 }

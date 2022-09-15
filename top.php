@@ -49,6 +49,7 @@
   <link rel="stylesheet" type="text/css" href="css/footer.css" />
   <!-- ページ毎 -->
   <link rel="stylesheet" type="text/css" href="css/girl_list.css" />
+  <link rel="stylesheet" type="text/css" href="css/news.css" />
   <link rel="stylesheet" type="text/css" href="css/top.css" />
 
   <!-- 特殊？ -->
@@ -84,6 +85,7 @@
     <!-- header読み込み -->
     <?php
     require_once( dirname(__FILE__). '/parts/header.php');
+    require_once( dirname(__FILE__). '/data.php');
     ?>
     <!------------------>
 
@@ -122,19 +124,76 @@
 
       <!-- スワイパー①ここまで -->
 
-      <!-- 重要おしらせ -->
+
+      <!-- 最新ニュース -->
+      <section id="whats_new" class="container under_space scroll-up">
+        <div class="content_wrapper">
+
+          <h2 class="block_title"><span>News</span></h2>
+          <h3 class="block_title_caption">最新情報</h3>
+          <ul class="topics">
+            <!-- 最新３記事 -->
+            <!-- イチ記事 -->
+            <?php  $x = 1; $num = 3;?>
+            <?php foreach($news_list as $news) :?>
+            <?php if( $x > $num ) :?>
+            <?php break ?>
+            <?php else :?>
+            <li class="topic">
+              <div class="news_data">
+                <time><?php echo $news[0]?></time>
+                <span class="news_kinds"><?php echo $news[1]?></span>
+              </div>
+              <div class="news_top_title">
+                <a href="" class="block_wrap_a">
+                  <?php echo $news[2] ?>
+                </a>
+              </div>
+            </li>
+            <?php endif ?>
+            <?php $x++ ?>
+
+            <?php endforeach ?>
+            <!-- ------- -->
+          </ul>
+
+          <div class="goto_list">
+            <a href="newslist.php">
+              <i class="fas fa-chevron-circle-right"></i><span>一覧を見る</span></a>
+          </div>
 
 
-      <section id="attention" class="container under_space">
-
-        <h2 class="head_ja">特別なお知らせ</h2>
-        <h3 class="button_arrow">
-          <a href="" class="btn_color_pink btn_font01">
-            コロナウィルス感染予防対策について</a>
-        </h3>
-
-
+        </div>
       </section>
+
+      <!-- バナーリスト -->
+
+
+      <section id="pic_bunner_area" class="under_space scroll-up">
+        <div class="content_wrapper">
+
+          <div class="swiper8 picbunnerSwiper">
+            <ul class="swiper-wrapper">
+
+              <!-- 一枚目 -->
+              <?php foreach($picbunners as $picbunner) :?>
+              <li class="swiper-slide pic_bunner_box">
+                <a href="<?php echo $picbunner[1] ?>" class="">
+                  <img src="<?php echo $picbunner[0]?>" alt="">
+                </a>
+              </li>
+
+              <?php endforeach ?>
+
+            </ul>
+            <div class="swiper-pagination page8"></div>
+          </div>
+
+        </div>
+      </section>
+
+
+
 
       <!-- 即 -->
 
@@ -162,42 +221,6 @@
       <!-- おわり即 -->
 
 
-
-      <!-- 最新ニュース -->
-      <section id="whats_new" class="container under_space scroll-up">
-        <div class="content_wrapper">
-
-          <h2 class="block_title"><span>News</span></h2>
-          <h3 class="block_title_caption">最新情報</h3>
-          <ul class="topics">
-            <!-- イチ記事 -->
-            <li class="topic">
-              <a href="" class="block_wrap_a">
-                <div class="news_box">
-                  <figure class="news_img">
-                    <img src="img/200x40.png" alt="" width="128px">
-                  </figure>
-                  <div class="news_contents">
-                    <h2 class="news_title">
-                      あいうえおかきくけこさしすせそたちつてとなにぬねのは<br>ひふへほま<br>みむめもあいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめも
-                    </h2>
-                    <div class="news_kinds">
-                      割引情報
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <!-- ------- -->
-          </ul>
-
-          <div class="goto_list button_small">
-            <a href="newslist.php" class="btn_color_blue btn_active btn_font01">一覧へ</a>
-          </div>
-
-
-        </div>
-      </section>
 
 
       <!-- Event -->
@@ -260,146 +283,73 @@
       <!-- --- -->
 
       <!-- 本日の出勤 -->
-      <section id="today_staff" class="under_space scroll-up">
+      <section id="today_staff" class="under_space scroll-up content_bg_black">
         <div class="content_wrapper">
           <h2 class="block_title"><span>Today Staff</span></h2>
           <h3 class="block_title_caption">2022/03/29の出勤</h3>
+
 
           <!-- ここからスタッフカード -->
           <div class="staff_bg">
             <ul class="today_staff_wrap">
 
+              <!-- foreachdeで回します -->
+              <?php foreach($sample_names as $sample_name) :?>
+
               <!-- 1人目 -->
               <li class="staff_card">
+
+                <!-- アイコン -->
+                <!-- 今すぐとか -->
+                <p class="staff_state_mark fukidashi_green">即ご案内</p>
+
+
                 <a href="girls.php" class="today_staff_card block_wrap_a">
                   <!-- 写真 -->
                   <div class="staff_photo_area">
-                    <div class="staff_photo">
-                      <img src="img/newface01.jpeg" alt="">
-                    </div>
-
-                    <!-- アイコン -->
-                    <!-- 今すぐとか -->
-                    <div class="staff_state_mark">
-                      <p>即ご案内</p>
-                    </div>
-                    <!-- 日記とか動画とか -->
-                    <ul class="staff_original_contents">
-                      <li class="panel_icon_samall panel_movie_icon">Movie</li>
-                      <li class="panel_icon_samall panel_diary_icon">Diary</li>
-                      <li class="panel_icon_samall panel_twitter_icon">Twitter</li>
-                    </ul>
-                  </div>
-                  <!-- profile -->
-                  <div class="staff_profile_area">
-                    <div class="name_age">
-                      <p>
-                        <span class="new_staff">新人</span>
-                        <span class="staff_name">おなまえ</span>
-                        <span class="staff_age">(20)</span>
-                      </p>
-                    </div>
-                    <div class="bodysize">
-                      <p>T/155&nbsp;B/88(F)&nbsp;H/92</p>
-                    </div>
+                    <figure class="staff_photo">
+                      <img src='<?php echo $sample_name[1] ?>' alt="">
+                    </figure>
                   </div>
                   <!-- 時間 -->
-                  <div class="time_area">
-                    <p>12:00~22:00</p>
+                  <p class="time_area"><i class="fas fa-clock"></i>
+                    12:00~22:00</p>
+                  <!-- 属性 -->
+                  <div class="girl_types">
+                    <span class="girl_type btn_color_blue">新人</span>
+                    <span class="girl_type btn_color_pink">体験入店</span>
+                    <span class="girl_type btn_color_red">人気No1</span>
+                    <span class="girl_type btn_color_pink">やさしい</span>
                   </div>
-                </a>
-              </li>
 
-              <!-- 2人目 -->
-              <li class="staff_card">
-                <a href="" class="today_staff_card block_wrap_a">
-                  <!-- 写真 -->
-                  <div class="staff_photo_area">
-                    <div class="staff_photo">
-                      <img src="img/newface02.jpeg" alt="">
-                    </div>
-
-                    <!-- アイコン -->
-                    <!-- 今すぐとか -->
-                    <div class="staff_state_mark">
-                      <p>即ご案内</p>
-                    </div>
-                    <!-- 日記とか動画とか -->
-                    <ul class="staff_original_contents">
-                      <li class="panel_icon_samall panel_movie_icon">Movie</li>
-                      <li class="panel_icon_samall panel_diary_icon">Diary</li>
-                      <li class="panel_icon_samall panel_twitter_icon">Twitter</li>
-                    </ul>
-                  </div>
                   <!-- profile -->
-                  <div class="staff_profile_area">
-                    <div class="name_age">
-                      <p>
-                        <span class="new_staff">新人</span>
-                        <span class="staff_name">おなまえ</span>
-                        <span class="staff_age">(20)</span>
-                      </p>
-                    </div>
-                    <div class="bodysize">
-                      <p>T/155&nbsp;B/88(F)&nbsp;H/92</p>
-                    </div>
+
+                  <span class="staff_name_age"><?php echo $sample_name[0]?></span>
+                  <span class="staff_name_age">(<?php echo $sample_name[2]?>)</span>
+                  <span class="bodysize">
+                    <?php echo 'T/'.$sample_name[3].'&nbsp;B/'.$sample_name[4].'('.$sample_name[5].')&nbsp;H/'.$sample_name[6]?>
+                  </span>
+
+                  <!-- sns -->
+                  <div class="staff_original_contents">
+                    <a href=""><i class="fab fa-twitter twitter_color"></i></a>
+                    <a href=""><i class="fas fa-pen-nib diary_color"></i></a>
+                    <a href=""><i class="fas fa-video video_color"></i></a>
+                    <a href=""><i class="fas fa-camera gravure_color"></i></a>
                   </div>
-                  <!-- 時間 -->
-                  <div class="time_area">
-                    <p>12:00~22:00</p>
-                  </div>
+
+
+
                 </a>
               </li>
-
-              <!-- 3人目 -->
-              <li class="staff_card">
-                <a href="" class="today_staff_card block_wrap_a">
-                  <!-- 写真 -->
-                  <div class="staff_photo_area">
-                    <div class="staff_photo">
-                      <img src="img/newface03.jpeg" alt="">
-                    </div>
-
-                    <!-- アイコン -->
-                    <!-- 今すぐとか -->
-                    <div class="staff_state_mark">
-                      <p>即ご案内</p>
-                    </div>
-                    <!-- 日記とか動画とか -->
-                    <ul class="staff_original_contents">
-                      <li class="panel_icon_samall panel_movie_icon">Movie</li>
-                      <li class="panel_icon_samall panel_diary_icon">Diary</li>
-                      <li class="panel_icon_samall panel_twitter_icon">Twitter</li>
-                    </ul>
-                  </div>
-                  <!-- profile -->
-                  <div class="staff_profile_area">
-                    <div class="name_age">
-                      <p>
-                        <span class="new_staff">新人</span>
-                        <span class="staff_name">おなまえ</span>
-                        <span class="staff_age">(20)</span>
-                      </p>
-                    </div>
-                    <div class="bodysize">
-                      <p>T/155&nbsp;B/88(F)&nbsp;H/92</p>
-                    </div>
-                  </div>
-                  <!-- 時間 -->
-                  <div class="time_area">
-                    <p>12:00~22:00</p>
-                  </div>
-                </a>
-              </li>
-
+              <?php endforeach ?>
             </ul>
             <div class="goto_list button">
               <a href="scheduleweek.php" class="anime_btn btn_active btn_font01">週間スケジュール</a>
             </div>
           </div>
 
-        </div>
-        <!-- </div> -->
+        </div><!-- コンテントラッパー閉じる -->
 
       </section>
 
@@ -468,8 +418,6 @@
               <div class="swiper-pagination page2"></div>
             </div>
 
-            <div class="swiper-button-next next2 swiper_arrow"></div>
-            <div class="swiper-button-prev prev2 swiper_arrow"></div>
 
 
 
@@ -600,7 +548,7 @@
               <div class="swiper-slide coupon">
                 <a href="" class="btn btn-coupon">
                   <span class="coupon_name">今日だけクーポン</span>
-                  <span class="coupon_price">10%OFF</span>
+                  <span class="coupon_price">2%OFF</span>
                 </a>
               </div>
 
@@ -608,7 +556,7 @@
               <div class="swiper-slide coupon">
                 <a href="" class="btn btn-coupon">
                   <span class="coupon_name">ご新規割引クーポン</span>
-                  <span class="coupon_price">10%OFF</span>
+                  <span class="coupon_price">3%OFF</span>
                 </a>
               </div>
 
