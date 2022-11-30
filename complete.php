@@ -39,6 +39,11 @@
     <h2><a href="https://note.com/ayanapeace/n/n1d607ce2981e">ノート</a></h2>
     <h2><a href="https://financial-note.com/make-circula/">Amazon特有</a></h2>
 
+    <p>軽量化</p>
+    <h2><a href="https://coosy.co.jp/blog/website-lightening/">軽量化</a></h2>
+
+    <p>SEO</p>
+    <h2><a href="https://www.youtube.com/watch?v=KrMldc4sreQ"></a>seo</h2>
 
   </div>
 </body>

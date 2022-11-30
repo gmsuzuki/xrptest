@@ -165,120 +165,95 @@ if( !empty($_POST['btn_confirm']) ) {
           <h1 class="fixpage_title"><span>Review Form</span></h1>
           <h3 class="block_title_caption">口コミ投稿フォーム</h3>
 
+
+
           <!-- 確認画面 -->
           <?php if( $page_flag === 1 ): ?>
           <!-- セッションにトークン入れる -->
 
           <p class="check_attention">
             お客様のご入力頂いた内容の入力確認になります。
-            <br>下記の内容でご予約を承りますがよろしいでしょうか？
+            <br>下記の内容で口コミを投稿しますがよろしいでしょうか？
           </p>
           <div class="reserve_check_form">
-            <form method="post" id="form" name="form1" action="" onsubmit="return verifyContactForm();">
+            <form method="post" id="form" name="review_form2" action="" onsubmit="return verifyContactForm();">
               <dl>
                 <dt class="test">お名前</dt>
-                <dd><?php echo $_POST['name']; ?></dd>
-                <input type="hidden" name="name" value="<?php echo $_POST['name']; ?>">
-              </dl>
-              <dl>
-                <dt>電話番号</dt>
-                <dd><?php echo $_POST['phone'];?></dd>
-                <input type="hidden" name="phone" value="<?php echo $_POST['phone']; ?>">
+                <dd><?php echo $_POST['reviewer_name']; ?></dd>
+                <input type="hidden" name="reviewer_name" value="<?php echo $_POST['reviewer_name']; ?>">
               </dl>
               <dl>
                 <dt>メールアドレス</dt>
                 <dd><?php echo $_POST['customer_mail'];?></dd>
                 <input type="hidden" name="customer_mail" value="<?php echo $_POST['customer_mail']; ?>">
               </dl>
+
+              <!-- 指名 -->
               <dl>
-                <dt>ご利用予定場所</dt>
-                <!-- ホテルか？家か？ -->
-                <dd>
-                  <?php $play_place = $_POST['play_place']; ?>
-                  <!-- ホテルだったら -->
-                  <?php if ($play_place == '1') :?>
-                  <?php echo 'ホテル' ?>
-                  <input type="hidden" name="play_place" value="<?php echo $play_place; ?>">
-                  <!-- ご自宅 -->
-                  <?php elseif ($play_place == '2') :?>
-                  <?php echo 'ご自宅'; ?>
-                  <input type="hidden" name="play_place" value="<?php echo $play_place; ?>">
-                  <!-- 場所の選択が変だった場合、３を渡して次のエラーチェックで引っ掛ける -->
-                  <?php else :?>
-                  <input type="hidden" name="play_place" value="3" ; ?>">
-                  <?php endif ?>
-                </dd>
+                <dt>ご指名</dt>
+                <dd><?php echo $_POST['played_girl'];?></dd>
+                <input type="hidden" name="played_girl" value="<?php echo $_POST['played_girl']; ?>">
               </dl>
-              <!-- エリアか？住所か？ -->
+
+              <!-- ご利用日 -->
               <dl>
-                <dt>
-                  <?php if($play_place == '1') :?>
-                  <?php echo 'ご希望エリア</dt><dd>'.$_POST['hotel_area'].'</dd>'; ?>
-                  <input type="hidden" name="hotel_area" value="<?php echo $_POST['hotel_area']; ?>">
-                  <?php elseif($play_place == '2') :?>
-                  <?php echo 'ご住所</dt><dd>' .$_POST['customer_address'].'</dd>'; ?>
-                  <input type="hidden" name="customer_address" value="<?php echo $_POST['customer_address']; ?>">
-                  <?php else:?>
-                  <?php echo '入力ミス'; ?>
-                  <?php endif ?>
-                </dt>
-              </dl>
-              <!-- ご予約日 -->
-              <p>ご予約内容</p>
-              <dl>
-                <dt>ご希望日</dt>
-                <dd><?php echo $_POST['play_date'];?></dd>
-                <input type="hidden" name="play_date" value="<?php echo $_POST['play_date']; ?>">
-              </dl>
-              <dl>
-                <dt>ご希望スタート時間</dt>
-                <dd><?php echo $_POST['play_daytime'];?></dd>
-                <input type="hidden" name="play_daytime" value="<?php echo $_POST['play_daytime']; ?>">
-              </dl>
-              <dl>
-                <dt>ご調整可能時間</dt>
-                <dd><?php echo $_POST['adjustment'];?></dd>
-                <input type="hidden" name="adjustment" value="<?php echo $_POST['adjustment']; ?>">
+                <dt>ご利用日</dt>
+                <dd><?php echo $_POST['played_date'];?></dd>
+                <input type="hidden" name="played_date" value="<?php echo $_POST['played_date']; ?>">
               </dl>
 
               <dl>
                 <dt>ご利用コース</dt>
-                <dd><?php echo $_POST['playtime_select_check'];?>分</dd>
-                <input type="hidden" name="playtime_select_check"
-                  value="<?php echo $_POST['playtime_select_check']; ?>">
+                <dd><?php echo $_POST['played_time'];?>分</dd>
+                <input type="hidden" name="played_time" value="<?php echo $_POST['played_time']; ?>">
               </dl>
-              <!-- 指名 -->
+
+              <!-- 評価 -->
+
               <dl>
-                <dt>ご指名</dt>
-                <dd><?php echo $_POST['nomination_select_check'];?></dd>
-                <input type="hidden" name="nomination_select_check"
-                  value="<?php echo $_POST['nomination_select_check']; ?>">
+                <dt>評価</dt>
+                <?php for( $i = 1; $i < 6; $i++){
+                $review_items_star_num += $_POST["check{$i}_star"];
+                };?>
+
+                <?php $review_star_average = $review_items_star_num / 5 ?>
+                <dd>総合評価（<?php echo $review_star_average ?>）</dd>
+                <div class="wrapp_item_detail">
+                  <ul class="review_item_detail">
+                    <?php for( $i = 1; $i < 6; $i++):?>
+                    <li class="star_detail"><?php echo '項目'.$i ?>
+                      <span>★</span><?php echo $_POST["check{$i}_star"];?>
+                    </li>
+                    <?php endfor ?>
+                  </ul>
+                </div>
               </dl>
-              <!-- オプション -->
-              <dl>
-                <dt>オプション</dt>
-                <!-- オプションが選ばれていれば -->
-                <?php if (isset($_POST['option']) && is_array($_POST['option'])):?>
-                <!-- オプションをint化した -->
-                <?php $option = $_POST["option"];?>
-                <?php $option = array_map('intval', $option); ?>
-                <!-- 選んだオプションをforeachですべて表示 -->
-                <?php foreach ( $option as $option_num) :?>
-                <?php echo '<dd>'.$options[$option_num].'</dd>';?>
-                <!-- 選んだオプションをinputですべてだす -->
-                <input type="hidden" name="option[]" value="<?php echo $option_num; ?>">
-                <?php endforeach ?>
-                <?php else :?>
-                <?php echo '<dd>なし</dd>'; ?>
-                <?php endif ?>
-              </dl>
+
+              name="check1_star"
+              name="check2_star"
+              name="check3_star"
+              name="check4_star"
+              name="check5_star"
+              name="review_title"
+
+
               <!-- テキストエリアにはパタン属性はない -->
+
               <dl>
-                <dt>ご質問・ご相談内容</dt>
-                <dd><?php echo $_POST['request'];?></dd>
-                <!-- textareaをinputに変更 -->
-                <input type="hidden" name="request_body" value="<?php echo $_POST['request_body']; ?>">
+                <dt>口コミタイトル</dt>
+                <dd><?php echo $_POST['reviewer_title']; ?></dd>
+                <input type="hidden" name="reviewer_title" value="<?php echo $_POST['reviewer_title']; ?>">
               </dl>
+
+
+              <dl>
+                <dt>口コミ内容</dt>
+                <dd><?php echo $_POST['review_body'];?></dd>
+                <!-- textareaをinputに変更 -->
+                <input type="hidden" name="review_text_body" value="<?php echo $_POST['review_body']; ?>">
+              </dl>
+
+
 
               <div class="check_form_submit">
                 <input type="button" value="戻る" onclick="history.back()" class="form_back">
@@ -547,11 +522,10 @@ if( !empty($_POST['btn_confirm']) ) {
 
 
 
-
-          <!-- 予約フォーム -->
+          <!-- 口コミフォーム -->
 
           <div class="review_from_body">
-            <form method="post" id="form" name="form1" action="" onsubmit="return verifyContactForm();">
+            <form method="post" id="form" name="review_form1" action="" onsubmit="return verifyContactForm();">
 
               <!-- 投稿者名 -->
               <dl class="review_item_wrap">
@@ -588,7 +562,7 @@ if( !empty($_POST['btn_confirm']) ) {
               <div class="review_item_wrap review_girl_item">
                 <dl class="played_program_item">
                   <dt>遊んだ女の子<em>必須</em></dt>
-                  <select name="played/girl" required>
+                  <select name="played_girl" required>
                     <option value="" hidden>選択</option>
                     <?php foreach($sample_names as $sample_name) : ?>
                     <?php echo '<option value="'.$sample_name[0].'">' ?>
@@ -614,12 +588,13 @@ if( !empty($_POST['btn_confirm']) ) {
 
                 <!-- ご利用日 -->
                 <dl class="played_date_item">
-                  <dt>ご利用日時ssss<em>必須</em></dt>
-
+                  <dt>ご利用日時<em>必須</em></dt>
                   <label class="date-edit">
-                    <input type="date" name="played_date" max="<?php echo date('Y-m-d'); ?>" required>
+                    <input id="played_date_form" type="date" name="played_date" max="<?php echo date('Y-m-d'); ?>"
+                      required>
                   </label>
                 </dl>
+
               </div>
 
               <!-- 評価1 -->
@@ -628,7 +603,7 @@ if( !empty($_POST['btn_confirm']) ) {
                   <dt>項目１
                     <p class="review_tips">項目１の説明文</p>
                   </dt>
-                  <dd class="stars">
+                  <dd class="stars_radio">
                     <input id="check1_star5" type="radio" name="check1_star" value="5" required />
                     <label for="check1_star5">★</label>
                     <input id="check1_star4" type="radio" name="check1_star" value="4" />
@@ -645,7 +620,7 @@ if( !empty($_POST['btn_confirm']) ) {
                 <!-- 評価２ -->
                 <dl class="review_item_card">
                   <dt>項目2</dt>
-                  <dd class="stars">
+                  <dd class="stars_radio">
                     <input id="check2_star5" type="radio" name="check2_star" value="5" required />
                     <label for="check2_star5">★</label>
                     <input id="check2_star4" type="radio" name="check2_star" value="4" />
@@ -661,7 +636,7 @@ if( !empty($_POST['btn_confirm']) ) {
                 <!-- 評価3 -->
                 <dl class="review_item_card">
                   <dt>項目3</dt>
-                  <dd class="stars">
+                  <dd class="stars_radio">
                     <input id="check3_star5" type="radio" name="check3_star" value="5" required />
                     <label for="check3_star5">★</label>
                     <input id="check3_star4" type="radio" name="check3_star" value="4" />
@@ -677,7 +652,7 @@ if( !empty($_POST['btn_confirm']) ) {
                 <!-- 評価4 -->
                 <dl class="review_item_card">
                   <dt>項目4</dt>
-                  <dd class="stars">
+                  <dd class="stars_radio">
                     <input id="check4_star5" type="radio" name="check4_star" value="5" required />
                     <label for="check4_star5">★</label>
                     <input id="check4_star4" type="radio" name="check4_star" value="4" />
@@ -693,7 +668,7 @@ if( !empty($_POST['btn_confirm']) ) {
                 <!-- 評価5 -->
                 <dl class="review_item_card">
                   <dt>項目5</dt>
-                  <dd class="stars">
+                  <dd class="stars_radio">
                     <input id="check5_star5" type="radio" name="check5_star" value="5" required />
                     <label for="check5_star5">★</label>
                     <input id="check5_star4" type="radio" name="check5_star" value="4" />
@@ -727,17 +702,15 @@ if( !empty($_POST['btn_confirm']) ) {
 
                 <!-- テキストエリアにはパターン属性はない -->
 
-                <dl>
+                <dl class="review_text_body">
                   <dt>口コミ本文<em>必須</em>
-                    <p>(100文字以上、1,000文字以内)</p>
+                    <p id="not_enough" class="review_limit">文字数がたりません。(100文字以上、1,000文字以内)</p>
                   </dt>
                   <dd>
                     <textarea rows=7 name="review_body" minlength="100" maxlength="1000" placeholder="ご自由にお願いします。"
-                      onblur="checkTxt(this)" oninput="CountStrNow('review_count',value,1000)"></textarea>
-                    <input type="hidden" id="request_text_body" name="request_body">
-                    <p id="not_enough">文字数がたりません</p>
-                    <p id="review_count"></p>
-
+                      onblur="checkTxt(this)" required oninput="CountStrNow('review_count',value,1000)"></textarea>
+                    <input type="hidden" id="review_text_body" name="review_text_body">
+                    <p id="review_count">現在:0/1000</p>
                   </dd>
                 </dl>
               </div>

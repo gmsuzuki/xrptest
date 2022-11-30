@@ -27,7 +27,7 @@
   text-align: center;
 }
 
-.reviewed_girl_data .stars {
+.reviewed_girl_data .stars_radio {
   display: inline-block;
 }
 
@@ -241,7 +241,7 @@
 
 /* 遊んだ日 */
 .review_girl_item .played_date_item {
-  width: 100%;
+  width: 60%;
   margin-top: 20px;
 }
 
@@ -263,15 +263,37 @@
 /* ボタン部分 */
 .date-edit::before {
   /* background: url(../img/now.png) no-repeat center center / cover #f7d94c; */
-  border: solid 5px #cdcdcd;
-  background-color: #000;
-  content: "";
+  background-color: #06c755;
+  content: "カレンダー表示";
   position: absolute;
-  top: -15px;
-  right: -65px;
-  border-radius: 28px;
+  top: -11px;
+  right: -140px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  padding: 10px 20px;
+}
+
+.review_from_body form input[type="date"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.review_from_body form input[type="date"]::-webkit-clear-button {
+  -webkit-appearance: none;
+}
+
+/* カレンダーを出すボタン */
+.review_from_body form input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: -140px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  padding: 0;
+  background: transparent;
+  /* background-color: rgba(0, 0, 0, 0.6); */
+  color: transparent;
+  cursor: pointer;
   height: 50px;
-  width: 50px;
+  width: 140px;
 }
 
 /* 評価項目ひとつづつ */
@@ -370,25 +392,26 @@
   transform: translateY(2px);
 }
 
-/* 星レーティング */
+/* 星レーティング入力 */
 
-.stars {
+.review_item_card .stars_radio {
   display: flex;
   flex-direction: row-reverse;
   justify-content: right;
 }
-.stars input[type="radio"] {
+
+.review_item_card .stars_radio input[type="radio"] {
   display: none;
 }
-.stars label {
+.stars_radio label {
   padding-right: 10px;
   color: #ccc;
   font-size: 30px;
   cursor: pointer;
 }
-.stars label:hover,
-.stars label:hover ~ label,
-.stars input[type="radio"]:checked ~ label {
+.stars_radio label:hover,
+.stars_radio label:hover ~ label,
+.stars_radio input[type="radio"]:checked ~ label {
   color: #fc0;
 }
 
@@ -400,6 +423,61 @@
   margin-left: 5px;
   vertical-align: baseline;
   line-height: 1rem;
+}
+
+/* 文字カウント */
+#review_title_count,
+#review_count,
+.review_limit {
+  margin-left: 1rem;
+}
+
+/* レビュー本文 */
+.review_text_body {
+  margin-top: 20px;
+}
+
+.review_limit {
+  font-size: 1rem;
+  color: #6e6e73;
+}
+
+.review_from_body form dl dd textarea {
+  width: 100%;
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+
+/* 送信ボタン */
+.review_from_body form .submit {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.review_from_body form .submit input[type="submit"] {
+  border: none;
+  background-color: pink;
+  display: block;
+  width: 90%;
+  margin: 0 auto;
+  padding: 10px 0;
+  transition: 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0%;
+  font-size: 1.7rem;
+}
+
+.review_from_body form .submit input[type="submit"]:active {
+  border: none;
+  background-color: red;
+  color: white;
+  display: block;
+  width: 90%;
+  margin: 0 auto;
+  padding: 10px 0;
+  transform: translateY(2px);
 }
 
 /* 確認画面 */
@@ -471,6 +549,27 @@
   line-height: 5rem;
   width: 80%;
   border-radius: 20px;
+}
+
+/* 評価各種 */
+.wrapp_item_detail {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.review_item_detail {
+  display: -webkit-flex; /* Safari */
+  display: flex;
+  -webkit-justify-content: space-between; /* Safari */
+  justify-content: space-between;
+}
+
+/* 星の色 */
+.star_detail {
+  color: #6e6e73;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.2rem;
 }
 
 /* ポップアップ */

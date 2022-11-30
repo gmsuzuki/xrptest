@@ -356,7 +356,7 @@ header {
 #sp_nav ul:after {
   content: "";
   display: block;
-  width: 32%; /* .boxに指定したwidthと同じ幅を指定する */
+  width: 30vmin; /* .boxに指定したwidthと同じ幅を指定する */
   height: 0;
 }
 

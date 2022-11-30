@@ -15,7 +15,6 @@ var house_input = document.getElementById("house_address_input");
 var hotel_box = document.getElementById("hotel_list");
 function formSwitch() {
   check = document.getElementsByClassName("js-check");
-  console.log(check.length);
   // ホテルを選んだら
   if (check[0].checked) {
     hotel_box.style.display = "block";
@@ -126,31 +125,32 @@ function update() {
   }
 }
 
-function load(call_back) {
-  const loader = document.getElementById("loading-wrapper");
-  loader.classList.add("completed");
-  call_back();
-  // スクロールを止める
-  nonScrollStart();
-}
-
+//ロード後のアテンション
 function call_popup() {
-  var popup = document.getElementById("js-popup");
-  if (!popup) return;
-  popup.classList.add("is-show");
-  var blackBg = document.getElementById("js-black-bg");
-  var closeBtn = document.getElementById("js-close-btn");
+  // 1回目のアクセスかどうか
+  if (sessionStorage.getItem("acs") === null) {
+    // 1回目の場合はWebStorageを設定
+    sessionStorage.setItem("acs", "on");
 
-  closePopUp(blackBg);
-  closePopUp(closeBtn);
+    var popup = document.getElementById("js-popup");
+    if (!popup) return;
+    popup.classList.add("is-show");
+    var blackBg = document.getElementById("js-black-bg");
+    var closeBtn = document.getElementById("js-close-btn");
 
-  function closePopUp(elem) {
-    if (!elem) return;
-    elem.addEventListener("click", function () {
-      popup.classList.remove("is-show");
-      // スクロール復活
-      nonScrollStop();
-    });
+    closePopUp(blackBg);
+    closePopUp(closeBtn);
+    // スクロール止めて
+    nonScrollStart();
+
+    function closePopUp(elem) {
+      if (!elem) return;
+      elem.addEventListener("click", function () {
+        popup.classList.remove("is-show");
+        // スクロール復活
+        nonScrollStop();
+      });
+    }
   }
 }
 
@@ -164,5 +164,6 @@ window.addEventListener(
   call_popup(),
   loadingSecond(),
   formSwitch(),
-  alert_delete()
+  alert_delete(),
+  console.log(sessionStorage)
 );

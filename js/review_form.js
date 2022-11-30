@@ -4,34 +4,33 @@ function loadingSecond() {
 }
 
 // 予約警告ポップアップ注意事項
-function load(call_back) {
-  const loader = document.getElementById("loading-wrapper");
-  loader.classList.add("completed");
-  call_back();
-  // スクロールを止める
-  nonScrollStart();
-}
-
 function call_popup() {
-  var popup = document.getElementById("js-popup");
-  if (!popup) return;
-  popup.classList.add("is-show");
-  var blackBg = document.getElementById("js-black-bg");
-  var closeBtn = document.getElementById("js-close-btn");
+  // 1回目のアクセスかどうか
+  if (sessionStorage.getItem("rev") === null) {
+    // 1回目の場合はWebStorageを設定
+    sessionStorage.setItem("rev", "on");
 
-  closePopUp(blackBg);
-  closePopUp(closeBtn);
+    var popup = document.getElementById("js-popup");
+    if (!popup) return;
+    popup.classList.add("is-show");
+    var blackBg = document.getElementById("js-black-bg");
+    var closeBtn = document.getElementById("js-close-btn");
 
-  function closePopUp(elem) {
-    if (!elem) return;
-    elem.addEventListener("click", function () {
-      popup.classList.remove("is-show");
-      // スクロール復活
-      nonScrollStop();
-    });
+    closePopUp(blackBg);
+    closePopUp(closeBtn);
+    // スクロール止めて
+    nonScrollStart();
+
+    function closePopUp(elem) {
+      if (!elem) return;
+      elem.addEventListener("click", function () {
+        popup.classList.remove("is-show");
+        // スクロール復活
+        nonScrollStop();
+      });
+    }
   }
 }
-
 // 入力ミスの警告をはじめは出さないために消去
 var mini = document.getElementsByClassName("mini_alert");
 function alert_delete() {
@@ -99,7 +98,7 @@ function checkTxt(textarea) {
   var str = textarea.value;
   var regExpEscape = str.replace(/[-\/\\^$*+?.()|\[\]{}]/g, "\\$&");
   console.log(regExpEscape);
-  document.getElementById("request_text_body").value = regExpEscape;
+  document.getElementById("review_text_body").value = regExpEscape;
 }
 
 // バリデーションをクリアしたら
