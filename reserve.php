@@ -95,6 +95,7 @@ if( !empty($_POST['btn_confirm']) ) {
   <script src="js/header.js" defer></script>
   <script src="js/accordion.js" defer></script>
   <script src="js/fadein.js" defer></script>
+  <script src="js/popup.js" defer></script>
   <script src="js/reserve_form.js" defer></script>
 
   <!-- フォントオーサム -->
@@ -246,7 +247,7 @@ if( !empty($_POST['btn_confirm']) ) {
               <!-- 指名 -->
               <dl>
                 <dt>ご指名</dt>
-                <dd><?php echo $_POST['nomination_select_check'];?></dd>
+                <dd><?php echo $sample_names[$_POST['nomination_select_check']][1];?></dd>
                 <input type="hidden" name="nomination_select_check"
                   value="<?php echo $_POST['nomination_select_check']; ?>">
               </dl>
@@ -289,7 +290,6 @@ if( !empty($_POST['btn_confirm']) ) {
 
           <!-- 送信済み -->
           <?php elseif( $page_flag === 2 ): ?>
-
           <?php
           // POSTされたトークンとセッション変数のトークンの比較
           if($token != "" && $token == $session_token) {
@@ -705,7 +705,7 @@ if( !empty($_POST['btn_confirm']) ) {
                     <option value="フリー">フリー</option>
                     <?php foreach($sample_names as $sample_name) : ?>
                     <?php echo '<option value="'.$sample_name[0].'">' ?>
-                    <?php echo $sample_name[0] ?>
+                    <?php echo $sample_name[1] ?>
                     </option>
                     <?php endforeach ?>
 

@@ -437,7 +437,8 @@ h3.block_title_caption_white {
   text-align: center;
 }
 
-.goto_list {
+.goto_list,
+.goto_list_w {
   float: right;
   font-weight: bold;
   font-size: 1.1rem;
@@ -449,7 +450,13 @@ h3.block_title_caption_white {
 .goto_list a {
   color: black;
 }
-.goto_list a span {
+
+.goto_list_w a {
+  color: white;
+}
+
+.goto_list a span,
+.goto_list_w a span {
   margin-left: 4px;
 }
 

@@ -251,9 +251,11 @@
             <!-- --- -->
           </ul>
 
-          <div class="goto_list button_small">
-            <a href="" class="btn_color_red btn_active btn_font01">一覧へ</a>
+          <div class="goto_list">
+            <a href="">
+              <i class="fas fa-chevron-circle-right"></i><span>一覧を見る</span></a>
           </div>
+
 
         </div>
       </section>
@@ -308,7 +310,7 @@
                   <!-- 写真 -->
                   <div class="staff_photo_area">
                     <figure class="staff_photo">
-                      <img src='<?php echo $sample_name[1] ?>' alt="">
+                      <img src='<?php echo $sample_name[2] ?>' alt="">
                     </figure>
                   </div>
                   <!-- 時間 -->
@@ -324,10 +326,10 @@
 
                   <!-- profile -->
 
-                  <span class="staff_name_age"><?php echo $sample_name[0]?></span>
-                  <span class="staff_name_age">(<?php echo $sample_name[2]?>)</span>
+                  <span class="staff_name_age"><?php echo $sample_name[1]?></span>
+                  <span class="staff_name_age">(<?php echo $sample_name[3]?>)</span>
                   <span class="bodysize">
-                    <?php echo 'T/'.$sample_name[3].'&nbsp;B/'.$sample_name[4].'('.$sample_name[5].')&nbsp;H/'.$sample_name[6]?>
+                    <?php echo 'T/'.$sample_name[4].'&nbsp;B/'.$sample_name[5].'('.$sample_name[6].')&nbsp;H/'.$sample_name[7]?>
                   </span>
 
                   <!-- sns -->
@@ -344,11 +346,11 @@
               </li>
               <?php endforeach ?>
             </ul>
-            <div class="goto_list button">
-              <a href="scheduleweek.php" class="anime_btn btn_active btn_font01">週間スケジュール</a>
-            </div>
           </div>
-
+          <div class="goto_list_w">
+            <a href="scheduleweek.php">
+              <i class="fas fa-chevron-circle-right"></i><span>週間スケジュール</span></a>
+          </div>
         </div><!-- コンテントラッパー閉じる -->
 
       </section>
@@ -432,94 +434,57 @@
       <section id="reviews" class="container under_space scroll-up">
 
         <div class="content_wrapper">
-          <h2 class="block_title"><span>Reviews</span></h2>
-          <h3 class="block_title_caption">クチコミ情報</h3>
+          <h2 class="block_title"><span>New Reviews</span></h2>
+          <h3 class="block_title_caption">新着クチコミ</h3>
 
-
-          <ul class="staff_review_wrap">
-
-            <!-- クチコミ1 -->
-            <li class="staff_review">
-              <a href="" class="staff_review_content block_wrap_a">
-                <div class="staff_review_bg">
-                  <img src="img/concept00.jpeg" alt="">
-                  <div class="assessment">
-                    <p class="stars" style="--rating: 3.3;"></p>
+          <div class="swiper10 newreviewSwiper">
+            <ul class="swiper-wrapper">
+              <?php foreach($new_reviews as $new_review) :?>
+              <!-- クチコミ1 -->
+              <li class="swiper-slide staff_review">
+                <a href='review.php?review=<?php echo $new_review[3] ?>' class="staff_review_content block_wrap_a">
+                  <div class="staff_review_bg">
+                    <!-- 画像 -->
+                    <figure class="subtitles_img">
+                      <img src='<?php echo $sample_names[$new_review[3]][2]?>' alt="">
+                      <!-- 名前 -->
+                      <figcaption>
+                        <?php echo $sample_names[$new_review[3]][1] ?>(<?php echo $sample_names[$new_review[3]][3] ?>)
+                      </figcaption>
+                    </figure>
+                    <!-- タイトル -->
+                    <div class="staff_review_title">
+                      <p><?php echo $new_review[11] ?></p>
+                    </div>
+                    <!-- 評価星 -->
+                    <div class="assessment">
+                      <?php for($i=6; $i<10; $i++){$new_review_items_star_num += $new_review[$i];}?>
+                      <?php $new_review_star_average = $new_review_items_star_num / 5 ?>
+                      <p class="total_evaluation"><span class="stars"
+                          style='--rating: <?php echo $new_review_star_average?>;'>
+                        </span>
+                      </p>
+                    </div>
+                    <!-- 評価本文 -->
+                    <p class="staff_review_text">
+                      <?php echo $new_review[12] ?>
+                    </p>
                   </div>
-                </div>
-                <div class="staff_review_title">
-                  <p>あいうえおかきくけこさしすせそたちつてとなにぬねのはまやらわ</p>
-                </div>
-                <div class="reviewer_data">
-                  <p class="reviewer_name">名前たろう様</p>
-                  <p class="date_use">ご利用日2020年1月1日</p>
-                </div>
-              </a>
-            </li>
-
-            <!-- クチコミ2 -->
-            <li class="staff_review">
-              <a href="" class="staff_review_content block_wrap_a">
-                <div class="staff_review_bg">
-                  <img src="img/concept01.jpeg" alt="">
-                  <div class="assessment">
-                    <p class="stars" style="--rating: 3.3;"></p>
+                  <div class="reviewer_data">
+                    <p class="date_use">掲載日:<?php echo $new_review[4] ?></p>
                   </div>
-                </div>
-                <div class="staff_review_title">
-                  <p>あいうえおかきくけこさしすせそたちつてとなにぬねのはまやらわ</p>
-                </div>
-                <div class="reviewer_data">
-                  <p class="reviewer_name">名前たろう様</p>
-                  <p class="date_use">ご利用日2020年1月1日</p>
-                </div>
-              </a>
-            </li>
-
-            <!-- クチコミ3 -->
-            <li class="staff_review">
-              <a href="" class="staff_review_content block_wrap_a">
-                <div class="staff_review_bg">
-                  <img src="img/concept02.jpeg" alt="">
-                  <div class="assessment">
-                    <p class="stars" style="--rating: 3.3;"></p>
-                  </div>
-                </div>
-                <div class="staff_review_title">
-                  <p>あいうえおかきくけこさしすせそたちつてとなにぬねのはまやらわ</p>
-                </div>
-                <div class="reviewer_data">
-                  <p class="reviewer_name">名前たろう様</p>
-                  <p class="date_use">ご利用日2020年1月1日</p>
-                </div>
-              </a>
-            </li>
-
-            <!-- クチコミ4 -->
-            <li class="staff_review">
-              <a href="#" class="staff_review_content block_wrap_a">
-                <div class="staff_review_bg">
-                  <img src="img/concept00.jpeg" alt="">
-                  <div class="assessment">
-                    <p class="stars" style="--rating: 3.3;"></p>
-                  </div>
-                </div>
-                <div class="staff_review_title">
-                  <p>あいうえおかきくけこさしすせそたちつてとなにぬねのはまやらわ</p>
-                </div>
-                <div class="reviewer_data">
-                  <p class="reviewer_name">名前たろう様</p>
-                  <p class="date_use">ご利用日2020年1月1日</p>
-                </div>
-              </a>
-            </li>
-
-
-          </ul>
-
-          <div class="goto_list button_small">
-            <a href="reviewlist.php" class="btn_color_red btn_active btn_font01">一覧へ</a>
+                </a>
+              </li>
+              <?php $new_review_items_star_num = 0 ?>
+              <?php $new_review_star_average = 0 ?>
+              <?php endforeach ?>
+            </ul>
           </div>
+          <div class="goto_list">
+            <a href="reviewlist.php">
+              <i class="fas fa-chevron-circle-right"></i><span>一覧へ</span></a>
+          </div>
+
 
       </section>
 

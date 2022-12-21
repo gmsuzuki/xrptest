@@ -95,9 +95,10 @@
           <section class="review_head under_space">
             <h2 class="girl_content_head">
               <figure class="reviewed_girl">
-                <img src="img/concept00.jpeg" alt="">
+                <img src='<?php echo $sample_names[$_GET['review']][2]?>' alt="">
               </figure>
-              <figcaption class="reviewed_girl_title"><?php echo $_GET['review'] ?>さんへの口コミ</figcaption>
+              <figcaption class="reviewed_girl_title"><?php echo $sample_names[$_GET['review']][1]?>さんへの口コミ
+              </figcaption>
             </h2>
 
 
@@ -114,8 +115,9 @@
 
 
             <p class="button_arrow review_button">
-              <a href="reviewform.php" class="btn_color_pink btn_font01">
-                <?php echo $_GET['review'] ?>さんの口コミを書く
+              <a href="reviewform.php?reviewed=<?php echo $sample_names[$_GET['review']][0]?>"
+                class="btn_color_pink btn_font01">
+                <?php echo $sample_names[$_GET['review']][1] ?>さんの口コミを書く
               </a>
             </p>
 

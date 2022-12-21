@@ -7,30 +7,13 @@ function loadingSecond() {
 function call_popup() {
   // 1回目のアクセスかどうか
   if (sessionStorage.getItem("rev") === null) {
-    // 1回目の場合はWebStorageを設定
+    //1回目の場合はWebStorageを設定
     sessionStorage.setItem("rev", "on");
-
-    var popup = document.getElementById("js-popup");
-    if (!popup) return;
-    popup.classList.add("is-show");
-    var blackBg = document.getElementById("js-black-bg");
-    var closeBtn = document.getElementById("js-close-btn");
-
-    closePopUp(blackBg);
-    closePopUp(closeBtn);
-    // スクロール止めて
-    nonScrollStart();
-
-    function closePopUp(elem) {
-      if (!elem) return;
-      elem.addEventListener("click", function () {
-        popup.classList.remove("is-show");
-        // スクロール復活
-        nonScrollStop();
-      });
-    }
+    //popup.jsの関数
+    popup();
   }
 }
+
 // 入力ミスの警告をはじめは出さないために消去
 var mini = document.getElementsByClassName("mini_alert");
 function alert_delete() {
@@ -103,22 +86,24 @@ function checkTxt(textarea) {
 
 // バリデーションをクリアしたら
 // 送信できるようにする
-const form = document.getElementById("form");
-const reserve_button = document.getElementById("review_button");
 
+const form = document.getElementById("form");
+const review_button = document.getElementById("review_button");
 form.addEventListener("input", update);
 form.addEventListener("change", update);
 
 function update() {
-  const isRequired = form.checkValidity();
-  if (isRequired) {
-    reserve_button.disabled = false;
-    reserve_button.value = "確認画面へ";
-    return;
-    // 文字はOKだけどセレクトされてない
-  } else {
-    reserve_button.disabled = true;
-    reserve_button.value = "入力が完了していません";
+  if (document.getElementById("form")) {
+    const isRequired = form.checkValidity();
+    if (isRequired) {
+      review_button.disabled = false;
+      review_button.value = "確認画面へ";
+      return;
+      // 文字はOKだけどセレクトされてない
+    } else {
+      review_button.disabled = true;
+      review_button.value = "入力が完了していません";
+    }
   }
 }
 

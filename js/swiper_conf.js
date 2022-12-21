@@ -141,9 +141,9 @@ const swiper9 = new Swiper(".gravureSwiper", {
 
 //新レビュー
 const swiper10 = new Swiper(".newreviewSwiper", {
-  slidesPerView: 1.4,
-  spaceBetween: 30,
+  slidesPerView: 2.3,
+  spaceBetween: 10,
   loop: true,
   centeredSlides: false,
-  slidesOffsetBefore: 30,
+  slidesOffsetBefore: 0,
 });

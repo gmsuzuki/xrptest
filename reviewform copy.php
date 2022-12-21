@@ -588,7 +588,7 @@ if( !empty($_POST['btn_confirm']) ) {
               <div class="review_item_wrap review_girl_item">
                 <dl class="played_program_item">
                   <dt>遊んだ女の子<em>必須</em></dt>
-                  <select name="played/girl" required>
+                  <select name="played_girl" required>
                     <option value="" hidden>選択</option>
                     <?php foreach($sample_names as $sample_name) : ?>
                     <?php echo '<option value="'.$sample_name[0].'">' ?>

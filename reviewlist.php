@@ -104,44 +104,48 @@
             <!-- サンプルとして名前に各データ入れてみる -->
             <div class="swiper10 newreviewSwiper">
               <ul class="swiper-wrapper">
-                <!-- 一枚目 -->
-                <?php foreach($sample_names as $sample_name) :?>
+                <?php foreach($new_reviews as $new_review) :?>
                 <!-- クチコミ1 -->
-                <li class="swiper-slide new_review_card">
-                  <a href="review.php?review=<?php echo $sample_name[0]?>"
-                    class="new_staff_review_content block_wrap_a">
-                    <figure class="new_staff_review_photo">
-                      <img src='<?php echo $sample_name[1]?>' alt="">
-                    </figure>
-
-                    <div class="new_review_date">
+                <li class="swiper-slide staff_review">
+                  <a href='review.php?review=<?php echo $new_review[3] ?>' class="staff_review_content block_wrap_a">
+                    <div class="staff_review_bg">
+                      <!-- 画像 -->
+                      <figure class="subtitles_img">
+                        <img src='<?php echo $sample_names[$new_review[3]][2]?>' alt="">
+                        <!-- 名前 -->
+                        <figcaption>
+                          <?php echo $sample_names[$new_review[3]][1] ?>(<?php echo $sample_names[$new_review[3]][3] ?>)
+                        </figcaption>
+                      </figure>
+                      <!-- タイトル -->
+                      <div class="staff_review_title">
+                        <p><?php echo $new_review[11] ?></p>
+                      </div>
+                      <!-- 評価星 -->
                       <div class="assessment">
-                        <p class="stars" style="--rating: 3.3;">3.3</p>
+                        <?php for($i=6; $i<10; $i++){$new_review_items_star_num += $new_review[$i];}?>
+                        <?php $new_review_star_average = $new_review_items_star_num / 5 ?>
+                        <p class="total_evaluation"><span class="stars"
+                            style='--rating: <?php echo $new_review_star_average?>;'>
+                          </span>
+                        </p>
                       </div>
-                      <figcaption class="girl_name">
-                        <?php echo $sample_name[0] ?>
-                      </figcaption>
-                      <p class="review_comment">
-                        あいうえおかきくえこさしすせそたちつ<br>
-                        あいうえおかきくえこさしすせそたちつ<br>
-                        あいうえおかきくえこさしすせそたちつ<br>
-                        あいうえおかきくえこさしすせそたちつ<br>
-                        あいうえおかきくえこさしすせそたちつ
+                      <!-- 評価本文 -->
+                      <p class="staff_review_text">
+                        <?php echo $new_review[12] ?>
                       </p>
-                      <div class="new_reviewer_data">
-                        <p>０月０日訪問</p>
-                        <span>投稿者名</span>
-                        <span>○月○日更新</span>
-                      </div>
-                      <p class=" detail_under_right">
-                        <i class="fas fa-chevron-circle-right"></i><span>詳しく</span>
-                      </p>
+                    </div>
+                    <div class="reviewer_data">
+                      <p class="date_use">掲載日:<?php echo $new_review[4] ?></p>
                     </div>
                   </a>
                 </li>
+                <?php $new_review_items_star_num = 0 ?>
+                <?php $new_review_star_average = 0 ?>
                 <?php endforeach ?>
               </ul>
             </div>
+
           </div>
         </section>
 
@@ -155,14 +159,14 @@
             <!-- クチコミ1 -->
             <li class="staff_review_list">
               <p class="review_num"><span>1</span></p>
-              <a href="review.php?review=<?php echo $sample_name[0]?>" class="staff_review_content block_wrap_a">
+              <a href="review.php?review=<?php echo $sample_name[1]?>" class="staff_review_content block_wrap_a">
                 <figure class="staff_review_photo">
-                  <img src='<?php echo $sample_name[1]?>' alt="">
+                  <img src='<?php echo $sample_name[2]?>' alt="">
                 </figure>
                 <div class="review_date">
                   <p class="update_review"><span>00月00日</span>更新</p>
                   <figcaption class="girl_name">
-                    <?php echo $sample_name[0] ?>
+                    <?php echo $sample_name[1] ?>
                   </figcaption>
                 </div>
               </a>

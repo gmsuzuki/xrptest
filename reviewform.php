@@ -96,6 +96,7 @@ if( !empty($_POST['btn_confirm']) ) {
   <script src="js/header.js" defer></script>
   <script src="js/accordion.js" defer></script>
   <script src="js/fadein.js" defer></script>
+  <script src="js/popup.js" defer></script>
   <script src="js/review_form.js" defer></script>
 
 
@@ -159,12 +160,10 @@ if( !empty($_POST['btn_confirm']) ) {
 
       <!-- ここまで口コミの注意事項 -->
 
-
       <article id="reserve" class="under_space">
         <div class="content_wrapper">
           <h1 class="fixpage_title"><span>Review Form</span></h1>
           <h3 class="block_title_caption">口コミ投稿フォーム</h3>
-
 
 
           <!-- 確認画面 -->
@@ -175,99 +174,132 @@ if( !empty($_POST['btn_confirm']) ) {
             お客様のご入力頂いた内容の入力確認になります。
             <br>下記の内容で口コミを投稿しますがよろしいでしょうか？
           </p>
+
           <div class="reserve_check_form">
             <form method="post" id="form" name="review_form2" action="" onsubmit="return verifyContactForm();">
-              <dl>
-                <dt class="test">お名前</dt>
-                <dd><?php echo $_POST['reviewer_name']; ?></dd>
-                <input type="hidden" name="reviewer_name" value="<?php echo $_POST['reviewer_name']; ?>">
-              </dl>
-              <dl>
-                <dt>メールアドレス</dt>
-                <dd><?php echo $_POST['customer_mail'];?></dd>
-                <input type="hidden" name="customer_mail" value="<?php echo $_POST['customer_mail']; ?>">
-              </dl>
 
-              <!-- 指名 -->
-              <dl>
-                <dt>ご指名</dt>
-                <dd><?php echo $_POST['played_girl'];?></dd>
-                <input type="hidden" name="played_girl" value="<?php echo $_POST['played_girl']; ?>">
-              </dl>
+              <!-- ここからプレビュー的にやってみる -->
+              <!-- 女の子の -->
+              <section class="reviewed_head under_space">
+                <h2 class="girl_content_head">
+                  <!-- 口コミから来てる？　それとも女のこのページ？ -->
+                  <?php $select_played_girl = filter_input(INPUT_GET, 'reviewed')?>
+                  <?php if($select_played_girl == null){
+                    $select_played_girl = filter_input(INPUT_POST, 'played_girl');
+                  } ?>
+                  <!-- ちゃんといる人を選んでるよね？ -->
+                  <?php if(in_array( $select_played_girl, array_column( $sample_names, 0))) :?>
 
-              <!-- ご利用日 -->
-              <dl>
-                <dt>ご利用日</dt>
-                <dd><?php echo $_POST['played_date'];?></dd>
-                <input type="hidden" name="played_date" value="<?php echo $_POST['played_date']; ?>">
-              </dl>
+                  <div class="reviewed_girl">
+                    <img src='<?php echo $sample_names[$select_played_girl][2]?>' alt="">
+                  </div>
+                  <p class="reviewed_girl_title"><?php echo $sample_names[$select_played_girl][1]?>さんへの口コミ
+                  </p>
+                  <!-- なんかエラーです -->
+                  <?php else :?>
+                  <h3>指定された情報がまちがっています</h3>
+                  <?php endif ?>
+                </h2>
+                <input type="hidden" name="played_girl" value="<?php echo $select_played_girl ?>">
 
-              <dl>
-                <dt>ご利用コース</dt>
-                <dd><?php echo $_POST['played_time'];?>分</dd>
-                <input type="hidden" name="played_time" value="<?php echo $_POST['played_time']; ?>">
-              </dl>
+                <!-- 実際の画面の感じにする -->
+                <section class="review_card">
+                  <div class="review_header content_wrapper">
+                    <figure class="reviewer card">
+                      <a href="">
+                        <span class="user_icon">
+                          <img src="img/user_face.png" alt="">
+                        </span>
+                        <figcaption class="reviewer_data">
+                          <h2 class="user_name">
+                            <?php echo $_POST['reviewer_name']; ?>様
+                            <input type="hidden" name="reviewer_name" value="<?php echo $_POST['reviewer_name']; ?>">
+                          </h2>
+                        </figcaption>
+                      </a>
+                    </figure>
+                    <section class="writen_by card">
+                      ご連絡先<span class="hidden_alert">口コミ画面に表示されることはありません</span>
+                      <h3><?php echo $_POST['customer_mail'];?></h3>
+                      <input type="hidden" name="customer_mail" value="<?php echo $_POST['customer_mail']; ?>">
+                      <ul class="review_present">
+                        <li>★割引クーポンやお得な特典をお送りさせて頂く場合があります</li>
+                        <li>★ご投稿に対して質問等させて頂く場合があります</li>
+                      </ul>
+                    </section>
 
-              <!-- 評価 -->
 
-              <dl>
-                <dt>評価</dt>
-                <?php for( $i = 1; $i < 6; $i++){
-                $review_items_star_num += $_POST["check{$i}_star"];
-                };?>
+                    <section class="review_body card">
+                      <div class="review_header">
+                        <p>ご利用日
+                          <span>
+                            <?php $re_date =filter_input(INPUT_POST,'played_date') ?>
+                            <?php echo date('Y年m月d日',strtotime($re_date))?>
+                            <input type="hidden" name="played_date" value="<?php echo $_POST['played_date']; ?>">
+                          </span>
+                        </p>
+                        <p>ご利用コース
+                          <span><?php echo $_POST['played_time'];?>分</span>
+                          <input type="hidden" name="played_time" value="<?php echo $_POST['played_time']; ?>">
+                        </p>
 
-                <?php $review_star_average = $review_items_star_num / 5 ?>
-                <dd>総合評価（<?php echo $review_star_average ?>）</dd>
-                <div class="wrapp_item_detail">
-                  <ul class="review_item_detail">
-                    <?php for( $i = 1; $i < 6; $i++):?>
-                    <li class="star_detail"><?php echo '項目'.$i ?>
-                      <span>★</span><?php echo $_POST["check{$i}_star"];?>
-                    </li>
-                    <?php endfor ?>
-                  </ul>
+                        <!-- 評価 -->
+                        <?php for( $i = 1; $i < 6; $i++){
+                          $review_items_star_num += $_POST["check{$i}_star"];
+                          };?>
+
+                        <?php $review_star_average = $review_items_star_num / 5 ?>
+                        <p class="total_evaluation">総合評価 <span class="stars stars_gray"
+                            style='--rating: <?php echo $review_star_average?>;'><?php echo $review_star_average?>
+                          </span>
+                        </p>
+
+                        <ul class="review_rate">
+                          <?php for( $i = 1; $i < 6; $i++):?>
+                          <?php $n = $i-1?>
+                          <li class="star_detail"><?php echo $reviews_question[$n][0] ?>
+                            <?php echo $_POST["check{$i}_star"];?>
+                            <input type="hidden" name='check<?php echo $i ?>_star'
+                              value='<?php echo $_POST["check{$i}_star"];?>'>
+                          </li>
+                          <?php endfor ?>
+                        </ul>
+
+                        <div class="review_main">
+                          <!-- 口コミタイトル -->
+                          <h3 class="review_title">
+                            <?php echo $_POST['review_title']; ?>
+                            <input type="hidden" name="review_title" value="<?php echo $_POST['review_title']; ?>">
+                          </h3>
+                          <p class="review_text">
+                            <?php echo nl2br($_POST['review_body']);?>
+                            <!-- textareaをinputに変更 -->
+                            <input type="hidden" name="review_text_body" value="<?php echo $_POST['review_body']; ?>">
+                          </p>
+                        </div>
+                      </div>
+                    </section>
+
+
+                  </div>
+                </section>
+                <!-- ここまで実際の画面の感じにする -->
+
+
+                <div class="check_form_submit">
+                  <input type="button" value="戻る" onclick="history.back()" class="form_back">
+                  <input type="submit" name="btn_submit" value="投稿する" class="form_next">
                 </div>
-              </dl>
-
-              name="check1_star"
-              name="check2_star"
-              name="check3_star"
-              name="check4_star"
-              name="check5_star"
-              name="review_title"
-
-
-              <!-- テキストエリアにはパタン属性はない -->
-
-              <dl>
-                <dt>口コミタイトル</dt>
-                <dd><?php echo $_POST['reviewer_title']; ?></dd>
-                <input type="hidden" name="reviewer_title" value="<?php echo $_POST['reviewer_title']; ?>">
-              </dl>
-
-
-              <dl>
-                <dt>口コミ内容</dt>
-                <dd><?php echo $_POST['review_body'];?></dd>
-                <!-- textareaをinputに変更 -->
-                <input type="hidden" name="review_text_body" value="<?php echo $_POST['review_body']; ?>">
-              </dl>
-
-
-
-              <div class="check_form_submit">
-                <input type="button" value="戻る" onclick="history.back()" class="form_back">
-                <input type="submit" name="btn_submit" value="送信" class="form_next">
-              </div>
-              <!-- セッション送る -->
-              <input type="hidden" name="token" value="<?php echo $token;?>">
+                <!-- セッション送る -->
+                <input type="hidden" name="token" value="<?php echo $token;?>">
+              </section>
             </form>
           </div>
           <!-- 確認画面ここまで -->
 
-
           <!-- 送信済み -->
           <?php elseif( $page_flag === 2 ): ?>
+          <p id="form">疑似idフォームがないとjsがこける</p>
 
           <?php
           // POSTされたトークンとセッション変数のトークンの比較
@@ -276,34 +308,27 @@ if( !empty($_POST['btn_confirm']) ) {
             require 'libs/validation.php';
  
           //POSTされたデータを変数に格納（値の初期化とデータの整形：前後にあるホワイトスペースを削除）
-          $e_name = trim( filter_input(INPUT_POST, 'name') );
-          $e_phone = trim( filter_input(INPUT_POST, 'phone') );
-          $e_customer_mail = trim( filter_input(INPUT_POST, 'customer_mail') );
-          // 遊ぶ場所
-          $e_play_place = trim( filter_input(INPUT_POST, 'play_place') );
-          // ホテルのとき
-          if($e_play_place == '1'){
-            $e_hotel_area = trim( filter_input(INPUT_POST, 'hotel_area') );
-            $e_customer_address =""; 
-          // 自宅のとき
-          }elseif($e_play_place == '2'){
-            $e_hotel_area = "";
-            $e_customer_address = trim( filter_input(INPUT_POST, 'customer_address') ); 
-          }
-          $e_play_date = trim( filter_input(INPUT_POST, 'play_date') );
-          $e_play_daytime = trim( filter_input(INPUT_POST, 'play_daytime') );
-          $e_adjustment = trim( filter_input(INPUT_POST, 'adjustment') );
-          $e_playtime_select_check = trim( filter_input(INPUT_POST, 'playtime_select_check') );
-          $e_nomination_select_check = trim( filter_input(INPUT_POST, 'nomination_select_check') );
-          // オプションは配列
-          if (is_array($_POST['option']) ){
-            $e_option = filter_input(INPUT_POST, 'option', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
-            }
-          // 要望
-          if (isset($_POST['request_body']) ){
-          $e_request_body = trim( filter_input(INPUT_POST, 'request_body') );
-          }
-
+          // 投稿者名  reviewer_name
+          $apply_reviewer_name = trim( filter_input(INPUT_POST, 'reviewer_name') );
+          // 投稿者連絡先 customer_mail
+          $apply_customer_mail = trim( filter_input(INPUT_POST, 'customer_mail') );
+          // 指名 played_girl
+          $apply_played_girl = trim( filter_input(INPUT_POST, 'played_girl') );
+          // プレイ日時   played_date
+          $aplly_played_date = trim( filter_input(INPUT_POST, 'played_date') );
+          // コース   played_time
+          $aplly_played_time = trim( filter_input(INPUT_POST, 'played_time') );
+          // 評価 check1-5_star
+          $aplly_check1_star = trim( filter_input(INPUT_POST, 'check1_star') );
+          $aplly_check2_star = trim( filter_input(INPUT_POST, 'check2_star') );
+          $aplly_check3_star = trim( filter_input(INPUT_POST, 'check3_star') );
+          $aplly_check4_star = trim( filter_input(INPUT_POST, 'check4_star') );
+          $aplly_check5_star = trim( filter_input(INPUT_POST, 'check5_star') );
+          // 口コミタイトル reviewe_title
+          $aplly_review_title = trim( filter_input(INPUT_POST, 'review_title') );
+          // 口コミ本文
+          $aplly_review_text_body = trim( filter_input(INPUT_POST, 'review_text_body') );
+          
           //送信ボタンが押された場合の処理
           if (isset($_POST['btn_submit'])) {
 
@@ -312,185 +337,98 @@ if( !empty($_POST['btn_confirm']) ) {
 
           //エラーメッセージを保存する配列の初期化
           $errors = array();
+
           //値の検証
           // 名前
-          if ( $e_name == '' ) {
-          $errors['e_name'] = '*お名前は必須項目です。';
+          if ( $apply_reviewer_name == '' ) {
+          $errors['apply_reviewer_name'] = '*お名前は必須項目です。';
           //制御文字でないことと文字数をチェック
-          } elseif ( preg_match( '/\A[[:^cntrl:]]{1,20}\z/u', $e_name ) == 0 ) {
-          $errors['e_name'] = '*お名前は20文字以内でお願いします。';
-          }
-        //  電話番号を数値へ
-          if ( $e_phone == ''){
-          $errors['e_phone'] = '*お電話番号は必須項目です。';
-          } elseif (preg_match( '/^0[0-9]{9,10}\z/', $e_phone ) == 0 ) {
-          $errors['e_phone'] = '電話番号の形式が正しくありません。';
+          } elseif ( preg_match( '/\A[[:^cntrl:]]{1,20}\z/u', $apply_reviewer_name ) == 0 ) {
+          $errors['apply_reviewer_name'] = '*お名前は20文字以内でお願いします。';
           }
           // メール
-          if ( $e_customer_mail == '' ) {
-          $errors['e_customer_mail'] = '*メールアドレスは必須です。';
+          if ( $apply_customer_mail == '' ) {
+          $errors['apply_customer_mail'] = '*メールアドレスは必須です。';
           } else { //メールアドレスを正規表現でチェック
           $pattern = '/\A([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}\z/uiD';
-          if ( !preg_match( $pattern, $e_customer_mail ) ) {
-          $errors['e_customer_mail'] = '*メールアドレスの形式が正しくありません。';
+          if ( !preg_match( $pattern, $apply_customer_mail ) ) {
+          $errors['apply_customer_mail'] = '*メールアドレスの形式が正しくありません。';
           }
-          }
-          // 場所
-          if ( $e_play_place == '' ){
-          $errors['e_play_place'] = '場所が選ばれていません。';
-          }elseif (preg_match( '/^[12]{1}\z/', $e_play_place ) == 0){
-          $errors['e_play_place'] = '場所が選ばれていません。';
-          }
-          // 場所詳細
-          if( $e_play_place == '1' && $e_hotel_area == ''){
-             $errors['e_hotel_area'] = 'ホテルエリアが選ばれていません。';
-          }elseif( $e_play_place == '2' && $e_customer_address == ''){
-             $errors['e_customer_address'] = 'ご自宅住所が記入されていません。';
-          }
-          // 予約日時
-          if( $e_play_date == '' || $e_play_daytime == '' || $e_adjustment == ''){
-             $errors['e_play_date'] = '予約日時が未入力です';
-          }
-          // プレイ時間
-          if( $e_playtime_select_check == ''){
-             $errors['e_playtime_select_check'] = 'プレイ時間が未入力です。';
           }
           // 指名
-          if ( $e_nomination_select_check == ''){
-           $errors['nomination_select_check'] = '担当指名が未入力です。';  
+          if ( $apply_played_girl == ''){
+           $errors['apply_played_girl'] = '担当指名が未入力です。';  
           }
-          // オプション最大９個
-          if (is_array( $e_option ) ){
-            foreach( $e_option as $e_option_checked){
-              if( preg_match( '/^[0-9]{1}\z/', $e_option_checked ) == 0 ) {
-              $errors['option'] = 'オプションで引っかかってる';
-              }
-            }
+          // 予約日時
+          if( $aplly_played_date == '' ){
+             $errors['aplly_played_date'] = '予約日時が未入力です';
           }
-          // 要望
-          if ( $e_request_body !== '' && preg_match( '/\A[\r\n\t[:^cntrl:]]{1,1000}\z/u', $e_request_body ) == 0 ) {
-          $errors['body'] = '要望に問題あり';
-          } 
-        
+          // プレイ時間
+          if( $aplly_played_time == ''){
+             $errors['aplly_played_time'] = 'プレイ時間が未入力です。';
+          }
+          // 口コミタイトル
+          if ( $aplly_review_title == '' ) {
+          $errors['aplly_review_title'] = '口コミタイトルが未入力です';
+          //制御文字でないことと文字数をチェック
+          } elseif ( preg_match( '/\A[[:^cntrl:]]{1,20}\z/u', $aplly_review_title ) == 0 ) {
+          $errors['aplly_review_title'] = '*口コミタイトルは20文字以内でお願いします。';
+          }
+
+          // 口コミ本文
+          if ( $aplly_review_text_body == '' ) {
+          $errors['aplly_review_text_body'] = '口コミ本文が未入力です';
+          //制御文字でないことと文字数をチェック
+          } elseif ( preg_match( '/\A[[:^cntrl:]]{1,1000}\z/u', $aplly_review_text_body ) == 0 ) {
+          $errors['aplly_review_text_body'] = '口コミ本文に問題があります';
+          }
+
+
           //エラーがなく且つ POST でのリクエストの場合
-          if (empty($errors) && $_SERVER['REQUEST_METHOD']==='POST') {      
+          if (empty($errors) && $_SERVER['REQUEST_METHOD']==='POST') {
 
-          //メールアドレス等を記述したファイルの読み込み
-          require 'libs/maildata.php';
-          //メール本文の組み立て
-          $subject = h($e_name) . "様からのご予約";
-          $mail_body = 'ネット予約からの送信' . "\n\n";
+            // ------------------------------
+            // ここからサーバー書き込みになるとおもう
+            // ------------------------------
 
-          $mail_body .= "お名前： " .h($e_name) . "\n";
-          $mail_body .= "お電話番号： " . h($e_phone) . "\n" ;
-          $mail_body .= "Email： " . h($e_customer_mail) . "\n\n" ;
-          if( $e_play_place == '1' ){
-            $mail_body .= "ご利用予定場所： " . h('ホテル') . "\n" ;
-            $mail_body .= "ご希望エリア： " . h($e_hotel_area) . "\n\n" ;
-          }elseif($e_play_place == '2'){
-            $mail_body .= "ご利用予定場所： " . h('ご自宅') . "\n" ;
-            $mail_body .= "ご住所： " . h($e_customer_address) . "\n\n" ;
-          }
-          $mail_body .= "ご希望日： " . h($e_play_date) . "\n" ;
-          $mail_body .= "ご希望スタート時間： " . h($e_play_daytime) . "\n" ;
-          $mail_body .= "ご調整可能時間： " . h($e_adjustment) . "\n\n" ;
 
-          $mail_body .= "ご指名： " . h($e_nomination_select_check) . "\n" ;
-          $mail_body .= "ご利用コース： " . h($e_playtime_select_check) . "分コース\n" ;
-          if (is_array($e_option)){
-            foreach($e_option as $option_chip){
-            $mail_body .= "オプション： " . h($option_chip) . "\n" ;
-            }
-          }else{
-            $mail_body .= "オプション： " . h('なし') . "\n" ;
-          }
-
-          $mail_body .= "＜お問い合わせ内容＞" . "\n" . h($e_request_body);
-
-          //--------sendmail------------
-          //メールの宛先（名前<メールアドレス> の形式）。値は mailvars.php に記載
-            $mailTo = mb_encode_mimeheader(MAIL_TO_NAME) ."<" . MAIL_TO. ">" ;
-             //Return-Pathに指定するメールアドレス
-              $returnMail=MAIL_RETURN_PATH; 
-              // //mbstringの日本語設定
-              mb_language( 'ja' ); mb_internal_encoding( 'UTF-8' );
-               //送信者情報（From ヘッダー）の設定
-              $header="From: " . mb_encode_mimeheader($e_name) ."<" . MAIL_FROM. ">\n" ;
-              // $header .="Cc: ". mb_encode_mimeheader(MAIL_CC_NAME) ."<" . MAIL_CC.">\n";
-              // $header .= "Bcc: <" . MAIL_BCC.">";
-                //メールの送信
-                //メールの送信結果を変数に代入
-                if ( ini_get( 'safe_mode' ) ) {
-                //セーフモードがOnの場合は第5引数が使えない
-                $result = mb_send_mail( $mailTo, $subject, $mail_body, $header );
-                } else {
-                $result = mb_send_mail( $mailTo, $subject, $mail_body, $header, '-f' . $returnMail );
-                }
 
                 //メール送信の結果判定
                 if ( $result ) {
                   
-                  //自動返信メール
-                  //ヘッダー情報
-                  $ar_header = "MIME-Version: 1.0\n";
-                  $ar_header .= "From: " . mb_encode_mimeheader( AUTO_REPLY_NAME ) . " <" . MAIL_TO . ">\n";
-                  $ar_header .= "Reply-To: " . mb_encode_mimeheader( AUTO_REPLY_NAME ) . " <" . MAIL_TO . ">\n";
-                  //件名
-                  $ar_subject = 'ご予約自動返信メール';
-                  //本文
-                  $ar_body = $e_name." 様\n\n";
-                  $ar_body .= "この度は、お問い合わせ頂き誠にありがとうございます。" . "\n\n";
-                  $ar_body .= "下記の内容でお問い合わせを受け付けました。\n\n";
-                  $ar_body .= "お問い合わせ日時：" . date("Y年m月d日 D H時i分") . "\n\n";
-                  $ar_body .= $mail_body;
-      
-                //自動返信メールを送信（送信結果を変数 $result2 に代入）
-                if ( ini_get( 'safe_mode' ) ) {
-                  $result2 = mb_send_mail( $e_customer_mail , $ar_subject, $ar_body , $ar_header  );
-                  } else {
-                  $result2 = mb_send_mail( $e_customer_mail , $ar_subject, $ar_body , $ar_header , '-f' . $returnMail );
-                }
-                // 事実上　$result　$result２が成功したら
-                if ($result2){
-
                 $_POST = array(); //空の配列を代入し、すべてのPOST変数を消去
                 //変数の値も初期化
-                 $e_name = '';
-                 $e_phone = '';
-                 $e_customer_mail = '';
-                 $e_play_place = '';
-                 $e_hotel_area = '';
-                 $e_customer_address = '';
-                 $e_play_date = '';
-                 $e_play_daytime = '';
-                 $e_adjustment = '';
-                 $e_playtime_select_check = '';
-                 $e_nomination_select_check = '';
-                 $e_option = '';
-                 $e_request_body = '';
-                 $mailTo = '';
-                 $subject = '';
-                 $mail_body = '';
-                 $header = '';
-                 $token = '';
-                 $session_token = '';
-                //  メール送信もOKだし返信メールもOKだった
+                $apply_reviewer_name = '';
+                $apply_customer_mail = '';
+                $apply_played_girl = '';
+                $aplly_played_date = '';
+                $aplly_played_time = '';
+                $aplly_check1_star = '';
+                $aplly_check2_star = '';
+                $aplly_check3_star = '';
+                $aplly_check4_star = '';
+                $aplly_check5_star = '';
+                $aplly_review_title = '';
+                $aplly_review_text_body = '';
+
+          //  サーバー書き込みがOKだったら
+
                 echo "<div class='form_alert'>
-                <h3>ご予約承りました</h3>
-                <p>ご登録のメールアドレスに確認のメールをお送りしました</p>
-                <p>確認メールが届かない場合はお手数ですがもう一度予約フォームよりお問い合わせください。</p>
+                <h3>口コミを投稿しました</h3>
+                <p>スタッフ確認のうえ、掲載させていただきます</p>
                 <a href='top.php' class='anime_btn btn_active btn_font01 back_to_top'>トップページへ戻る</a>
                 </div>";
                 }
                 else{
                 echo "<div class='form_alert'>
-                <h3>確認のメールが送信できません</h3>
-                <p>ご登録のメールアドレス宛に確認のメールが遅れませんでした</p>
-                <p>お手数ですがもう一度予約フォームよりお問い合わせください。</p>
+                ドルリザルトに何も入ってないんだからそりゃこっちがくるよね
+                <h3>サーバーに遅れませんでした</h3>
+                <p>お手数ですがしばらく経ってからもう一度投稿をお願いします。</p>
                 <a href='top.php' class='anime_btn btn_active btn_font01 back_to_top'>トップページへ戻る</a>
                 </div>";
                   }
-               }//メール送信成功      
+              
+
               // これ以下はバリデーションは成功失敗のelse  
               }else{
                 echo "<div class='form_alert'>
@@ -498,7 +436,7 @@ if( !empty($_POST['btn_confirm']) ) {
                 foreach($errors as $error){
                   echo "<p>$error</p>";
                 };
-                echo "<a href='reserve.php' class='anime_btn btn_active btn_font01 back_to_top'>再入力する</a></div>";
+                echo "<a href='reviewform.php' class='anime_btn btn_active btn_font01 back_to_top'>再入力する</a></div>";
               }
               }//送信ボタンを押したら  終わり
             
@@ -507,7 +445,6 @@ if( !empty($_POST['btn_confirm']) ) {
           echo "<div class='form_alert'>
           <h3>不正な操作です</h3>
           <p>一度送信したのち、リロード等は行わないでください。</p>
-          <p>確認メールが届かない場合はお手数ですがもう一度予約フォームよりお問い合わせください。</p>
           <a href='top.php' class='anime_btn btn_active btn_font01 back_to_top'>トップページへ戻る</a>
           </div>";
 
@@ -527,50 +464,45 @@ if( !empty($_POST['btn_confirm']) ) {
           <div class="review_from_body">
             <form method="post" id="form" name="review_form1" action="" onsubmit="return verifyContactForm();">
 
-              <!-- 投稿者名 -->
-              <dl class="review_item_wrap">
-                <dt>
-                  投稿者名<em>必須</em>
-                  <span class="mini_alert">記号は使えません</span>
-                </dt>
-                <dd><input type="text" id="reviewer_name" name="reviewer_name" maxlength="20" placeholder="20文字以内（例）武田優"
-                    required onblur="CheckGuestInfo(this)"
-                    pattern="^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,20}">
-                </dd>
-              </dl>
-              <div class="review_item_wrap">
-                <dl>
-                  <dt>メールアドレス
-                    <p class="review_tips">他者に公開されることはございません。</p>
-                    <span class="mini_alert">ご登録できない形式です</span>
-                  </dt>
-                  <dd><input type="text" name="customer_mail" placeholder="メールアドレス" id="mail1"
-                      onblur="CheckGuestEmail(this)" pattern="^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$">
-                  </dd>
-                </dl>
+              <!-- 女の子から飛んだ場合 -->
+              <?php if(isset($_GET['reviewed'])):?>
+              <div class="review_head under_space">
+                <h2 class="girl_content_head">
+                  <figure class="reviewed_girl">
+                    <img src='<?php echo $sample_names[$_GET['reviewed']][2]?>' alt="">
+                  </figure>
+                  <figcaption class="reviewed_girl_title"><?php echo $sample_names[$_GET['reviewed']][1]?>さんへの口コミを書く
+                  </figcaption>
+                </h2>
 
-                <dl>
-                  <dt class="review_tips">メールアドレス(確認)
-                    <span class="mini_alert">メールアドレスが異なります</span>
-                  </dt>
-                  <dd><input type="text" disabled name="customer_mail_check" placeholder="メールアドレス(確認)" id="mail2"
-                      onblur="SameCheck(this)"></dd>
-                </dl>
+                <input type="hidden" name="played_girl" value='<?php echo $sample_names[$_GET['reviewed']][0]?>'>
+
+
               </div>
-
-              <!-- 指名 -->
-              <div class="review_item_wrap review_girl_item">
+              <?php else :?>
+              <!-- 女の子から飛んでない場合 -->
+              <div class="review_item_wrap reviewed_bg_pink">
                 <dl class="played_program_item">
                   <dt>遊んだ女の子<em>必須</em></dt>
                   <select name="played_girl" required>
                     <option value="" hidden>選択</option>
                     <?php foreach($sample_names as $sample_name) : ?>
                     <?php echo '<option value="'.$sample_name[0].'">' ?>
-                    <?php echo $sample_name[0] ?>
+                    <?php echo $sample_name[1] ?>
                     </option>
                     <?php endforeach ?>
                   </select>
                 </dl>
+              </div>
+              <?php echo $_get['reviewed']?>
+
+              <?php endif?>
+
+              <!-- 遊んだ情報 -->
+
+
+              <!-- コース -->
+              <div class="review_item_wrap review_girl_item">
 
                 <!-- 利用コース -->
                 <dl class="played_program_item">
@@ -594,95 +526,30 @@ if( !empty($_POST['btn_confirm']) ) {
                       required>
                   </label>
                 </dl>
-
               </div>
 
               <!-- 評価1 -->
               <div class="review_item_wrap">
+                <?php $counter += 1 ?>
+                <?php foreach($reviews_question as $review_question) :?>
                 <dl class="review_item_card">
-                  <dt>項目１
-                    <p class="review_tips">項目１の説明文</p>
+                  <dt><?php echo $review_question[0]?>
+                    <p class="review_tips"><?php echo $review_question[1]?></p>
                   </dt>
                   <dd class="stars_radio">
-                    <input id="check1_star5" type="radio" name="check1_star" value="5" required />
-                    <label for="check1_star5">★</label>
-                    <input id="check1_star4" type="radio" name="check1_star" value="4" />
-                    <label for="check1_star4">★</label>
-                    <input id="check1_star3" type="radio" name="check1_star" value="3" />
-                    <label for="check1_star3">★</label>
-                    <input id="check1_star2" type="radio" name="check1_star" value="2" />
-                    <label for="check1_star2">★</label>
-                    <input id="check1_star1" type="radio" name="check1_star" value="1" />
-                    <label for="check1_star1">★</label>
+                    <?php for($i = 5; $i > 0; $i = $i-1): ?>
+                    <input id='check<?php echo $counter ?>_star<?php echo $i ?>' type="radio"
+                      name="check<?php echo $counter ?>_star" value='<?php echo $i ?>'
+                      <?php if($i == 5){echo 'required';} ?> />
+                    <label for="check<?php echo $counter ?>_star<?php echo $i ?>">★</label>
+                    <?php endfor ?>
                   </dd>
                 </dl>
-
-                <!-- 評価２ -->
-                <dl class="review_item_card">
-                  <dt>項目2</dt>
-                  <dd class="stars_radio">
-                    <input id="check2_star5" type="radio" name="check2_star" value="5" required />
-                    <label for="check2_star5">★</label>
-                    <input id="check2_star4" type="radio" name="check2_star" value="4" />
-                    <label for="check2_star4">★</label>
-                    <input id="check2_star3" type="radio" name="check2_star" value="3" />
-                    <label for="check2_star3">★</label>
-                    <input id="check2_star2" type="radio" name="check2_star" value="2" />
-                    <label for="check2_star2">★</label>
-                    <input id="check2_star1" type="radio" name="check2_star" value="1" />
-                    <label for="check2_star1">★</label>
-                  </dd>
-                </dl>
-                <!-- 評価3 -->
-                <dl class="review_item_card">
-                  <dt>項目3</dt>
-                  <dd class="stars_radio">
-                    <input id="check3_star5" type="radio" name="check3_star" value="5" required />
-                    <label for="check3_star5">★</label>
-                    <input id="check3_star4" type="radio" name="check3_star" value="4" />
-                    <label for="check3_star4">★</label>
-                    <input id="check3_star3" type="radio" name="check3_star" value="3" />
-                    <label for="check3_star3">★</label>
-                    <input id="check3_star2" type="radio" name="check3_star" value="2" />
-                    <label for="check3_star2">★</label>
-                    <input id="check3_star1" type="radio" name="check3_star" value="1" />
-                    <label for="check3_star1">★</label>
-                  </dd>
-                </dl>
-                <!-- 評価4 -->
-                <dl class="review_item_card">
-                  <dt>項目4</dt>
-                  <dd class="stars_radio">
-                    <input id="check4_star5" type="radio" name="check4_star" value="5" required />
-                    <label for="check4_star5">★</label>
-                    <input id="check4_star4" type="radio" name="check4_star" value="4" />
-                    <label for="check4_star4">★</label>
-                    <input id="check4_star3" type="radio" name="check4_star" value="3" />
-                    <label for="check4_star3">★</label>
-                    <input id="check4_star2" type="radio" name="check4_star" value="2" />
-                    <label for="check4_star2">★</label>
-                    <input id="check4_star1" type="radio" name="check4_star" value="1" />
-                    <label for="check4_star1">★</label>
-                  </dd>
-                </dl>
-                <!-- 評価5 -->
-                <dl class="review_item_card">
-                  <dt>項目5</dt>
-                  <dd class="stars_radio">
-                    <input id="check5_star5" type="radio" name="check5_star" value="5" required />
-                    <label for="check5_star5">★</label>
-                    <input id="check5_star4" type="radio" name="check5_star" value="4" />
-                    <label for="check5_star4">★</label>
-                    <input id="check5_star3" type="radio" name="check5_star" value="3" />
-                    <label for="check5_star3">★</label>
-                    <input id="check5_star2" type="radio" name="check5_star" value="2" />
-                    <label for="check5_star2">★</label>
-                    <input id="check5_star1" type="radio" name="check5_star" value="1" />
-                    <label for="check5_star1">★</label>
-                  </dd>
-                </dl>
-
+                <?php $counter += 1 ?>
+                <?php endforeach ?>
               </div>
+
+
               <!-- 口コミタイトル -->
               <div class="review_item_wrap">
                 <dl>
@@ -714,6 +581,50 @@ if( !empty($_POST['btn_confirm']) ) {
                   </dd>
                 </dl>
               </div>
+
+
+
+              <!-- 投稿者名 -->
+              <div class="review_item_wrap reviewed_bg_blue">
+                <dl class="review_item_card">
+                  <dt>
+                    投稿者名<em>必須</em>
+                    <span class="mini_alert">記号は使えません</span>
+                  </dt>
+                  <dd><input type="text" id="reviewer_name" name="reviewer_name" maxlength="20"
+                      placeholder="20文字以内（例）武田優" required onblur="CheckGuestInfo(this)"
+                      pattern="^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,20}">
+                  </dd>
+                </dl>
+
+                <p>★メールアドレスを入力しませんか？</p>
+                <p>登録されるとオトクな情報やクーポンが届きます。</p>
+
+
+
+                <dl class="review_mailinglist">
+                  <dt>メールアドレス
+                    <p class="review_tips">他者に公開されることはございません。</p>
+                    <span class="mini_alert">ご登録できない形式です</span>
+                  </dt>
+                  <dd><input type="text" name="customer_mail" placeholder="メールアドレス" id="mail1"
+                      onblur="CheckGuestEmail(this)" pattern="^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$">
+                  </dd>
+                </dl>
+
+                <dl class="review_mailinglist">
+                  <dt class="review_tips">メールアドレス(確認)
+                    <span class="mini_alert">メールアドレスが異なります</span>
+                  </dt>
+                  <dd><input type="text" disabled name="customer_mail_check" placeholder="メールアドレス(確認)" id="mail2"
+                      onblur="SameCheck(this)"></dd>
+                </dl>
+
+
+              </div>
+
+
+
               <div class="submit">
                 <input type="submit" name="btn_confirm" disabled id="review_button" value="入力が完了していません"
                   class="sendButton btn_active ">
@@ -723,6 +634,9 @@ if( !empty($_POST['btn_confirm']) ) {
 
 
           </div>
+
+
+
 
 
           <?php endif?>

@@ -40,6 +40,11 @@
 }
 
 /* レビューする側 */
+
+.card {
+  border-radius: 10px;
+}
+
 .reviewer {
   padding: 5px;
   background-color: rgb(214, 214, 215);
@@ -90,6 +95,7 @@
 
 .review_header {
   font-size: 1.2rem;
+  margin-top: 12px;
 }
 .review_header .assessment {
   color: rgb(255, 133, 146);
@@ -101,9 +107,14 @@
   margin-top: 5px;
 }
 
+.total_evaluation {
+  margin: 5px 0;
+}
+
 .review_rate {
   display: flex;
   color: #b6b6bb;
+  padding-bottom: 10px;
   border-bottom: 1px grey solid;
 }
 
@@ -111,12 +122,8 @@
   margin-right: 5%;
 }
 
-.review_rate li span {
-  margin-left: 5px;
-}
-
 .review_main {
-  padding: 20px 0;
+  padding: 20px 5px 0 5px;
 }
 
 .review_main .review_title,
@@ -131,7 +138,14 @@
   padding: 10px 0;
 }
 
-.review_footer,
+.writen_by {
+  background-color: rgb(220 233 218);
+  padding: 10px;
+  margin: 6px 0;
+  font-size: 1.4rem;
+}
+
+.writen_by .review_footer,
 .reply_footer {
   color: #b6b6bb;
 }
@@ -185,6 +199,15 @@
   padding: 15px;
   margin-bottom: 0.5rem;
 }
+
+.reviewed_bg_pink {
+  background-color: rgb(249, 232, 232);
+}
+
+.reviewed_bg_blue {
+  background-color: rgb(236, 232, 249);
+}
+
 /* レビューする項目の注意点 */
 .review_tips {
   font-size: 1rem;
@@ -236,7 +259,7 @@
 
 /* 遊んだ人と時間 */
 .review_girl_item .played_program_item {
-  width: 48%;
+  width: 100%;
 }
 
 /* 遊んだ日 */
@@ -404,7 +427,7 @@
   display: none;
 }
 .stars_radio label {
-  padding-right: 10px;
+  padding-right: 15px;
   color: #ccc;
   font-size: 30px;
   cursor: pointer;
@@ -416,13 +439,21 @@
 }
 
 /* alert */
-.mini_alert {
+.mini_alert,
+.hidden_alert {
   color: red;
   font-size: 1rem;
   font-weight: bold;
   margin-left: 5px;
   vertical-align: baseline;
   line-height: 1rem;
+}
+
+.review_present {
+  font-size: 1rem;
+  color: #6e6e73;
+  line-height: 1.2rem;
+  padding: 10px 0;
 }
 
 /* 文字カウント */
@@ -446,6 +477,10 @@
   width: 100%;
   font-size: 1.5rem;
   line-height: 1.6;
+}
+
+.review_mailinglist {
+  padding: 0 10px;
 }
 
 /* 送信ボタン */
@@ -553,7 +588,7 @@
 
 /* 評価各種 */
 .wrapp_item_detail {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
 }
 
@@ -570,6 +605,17 @@
   font-size: 1rem;
   font-weight: bold;
   letter-spacing: 0.2rem;
+}
+
+.stars_gray::before {
+  --star-color: #c1c1c1;
+}
+
+/* 確認画面 */
+.reviewed_head {
+  padding: 15px 10px;
+  background-color: rgb(230, 218, 218);
+  border-radius: 10px;
 }
 
 /* ポップアップ */
