@@ -1,49 +1,137 @@
 @charset "utf-8";
 
-body {
-  box-sizing: border-box;
-  background-color: #98d4f3;
-}
+/* setting_index02 */
 
-#wrapper {
-  max-width: 768px;
-  width: 95%;
+body {
+  background-color: rgb(217, 216, 196);
+}
+main {
+  width: 90%;
   margin: 0 auto;
 }
 
-main {
-  padding-top: 12px;
-  padding-bottom: 12px;
+/* header */
+
+header {
+  height: 40px;
+  background-color: #04384c;
+  font-size: 1.2rem;
 }
 
-.img_preview {
-  width: 100px;
+header a {
+  color: white;
+  padding: 0 10px;
 }
 
-h1 {
-  font-size: 32px;
-  text-align: center;
-  margin-top: 24px;
-  margin-bottom: 24px;
+header h1 {
+  padding-left: 1rem;
 }
 
-h2 {
-  font-size: 18px;
-  color: #5ab4bd;
-  margin-top: 1rem;
+.sheader_lists {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
 }
 
-h3 {
-  margin-top: 1rem;
-  font-size: 12px;
-  color: red;
+.setting_head_left {
+  float: left;
 }
-.setting_btn {
-  margin-bottom: 12px;
+
+.setting_head_right {
+  float: right;
+}
+
+#setting_index {
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
 }
+
+/*選択されているタブのコンテンツのみを表示*/
+#basic_setting:checked ~ #basic_setting_lists,
+#approval_setting:checked ~ #approval_setting_lists,
+#register_setting:checked ~ #register_setting_lists {
+  display: block;
+}
+
+.list_flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 5%;
+}
+
+.list_flex_box {
+  display: block;
+  width: 47%;
+  height: 150px;
+  margin-bottom: 30px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.list_flex_box a {
+  height: 100%;
+  display: block;
+}
+
+.setting_icon {
+  text-align: center;
+}
+
+.basic_setting_link a {
+  border: 1px solid #00b5ad;
+}
+
+.approval_setting_link a {
+  border: 1px solid #b5005b;
+}
+
+.register_setting_link a {
+  border: 1px solid #b5b500;
+}
+
+.list_flex_box a span {
+  line-height: 150px;
+  padding: 0.4rem;
+  border-radius: 3px;
+}
+
+.basic_setting_link a span {
+  color: #00b5ad;
+  border: 1px solid #00b5ad;
+}
+
+.approval_setting_link a span {
+  color: #b5005b;
+  border: 1px solid #b5005b;
+}
+
+.register_setting_link a span {
+  color: #b5b500;
+  border: 1px solid #b5b500;
+}
+
+/*選択されているタブのスタイルを変える*/
+.tabs input:checked + .tab_item {
+  /* background-color: #000000; */
+  color: #fff;
+}
+
+.tabs input:checked + .tab_item.basic_tab {
+  background-color: #00b5ad;
+}
+
+.tabs input:checked + .tab_item.approval_tab {
+  background-color: #b5005b;
+}
+
+.tabs input:checked + .tab_item.register_tab {
+  background-color: #b5b500;
+}
+
+/* サンプル */
+
+/* //プログレスバー */
 
 /* ーーーーエラー系ーーーー */
 .errmessage {
@@ -57,8 +145,154 @@ h3 {
 input {
   margin-top: 1rem;
   width: 100%;
-  height: 2rem;
+  height: 2.5rem;
+}
+
+input[type="text"] {
   font-size: 16px;
+  border-radius: 20px;
+  padding-left: 1rem;
+  border: 2px solid #04384c;
+}
+
+select {
+  font-size: 16px;
+  border-radius: 20px;
+  min-width: 100px;
+  text-align: center;
+  padding: 3px;
+  border: 2px solid #04384c;
+}
+
+select#age,
+select#blood {
+  float: right;
+  margin-right: 10px;
+}
+
+#phase2 select {
+  display: block;
+  width: 100%;
+  margin: 10px auto 0 auto;
+  font-size: 1.3rem;
+}
+
+/* チェックボックス */
+/* チェックボックス02 */
+input[type="checkbox"],
+input[type="radio"] {
+  display: none;
+}
+
+.option_tag_ul {
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.optioncheck {
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-block;
+  padding: 15px 30px;
+  position: relative;
+  width: auto;
+  font-size: 16px;
+}
+.optioncheck::before {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  content: "";
+  display: block;
+  height: 16px;
+  left: 5px;
+  margin-top: -6px;
+  position: absolute;
+  top: 50%;
+  width: 16px;
+}
+.optioncheck::after {
+  border-right: 6px solid #00cccc;
+  border-bottom: 3px solid #00cccc;
+  content: "";
+  display: block;
+  height: 20px;
+  left: 10px;
+  margin-top: -13px;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  transform: rotate(45deg);
+  width: 9px;
+}
+input[type="checkbox"]:checked + .optioncheck::before {
+  border-color: #666;
+}
+input[type="checkbox"]:checked + .optioncheck::after {
+  opacity: 1;
+}
+
+/* ラジオボタン */
+
+.girl_tag_ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.girl_tag_space {
+  display: block;
+  width: 90%;
+  content: "";
+  border: 1px solid #e1e1e1;
+  margin: 30px auto;
+}
+
+.girl_tag_radio_list {
+  display: block;
+  width: 48%;
+  height: 2rem;
+  text-align: center;
+  margin: 15px 0;
+}
+
+.girl_tag_label_txt {
+  display: block;
+  width: 100%;
+  line-height: 2rem;
+  border-radius: 2rem;
+  border: 1px solid #666;
+}
+
+.girl_tag_label:checked + label {
+  background-color: pink;
+}
+
+/* 次へボタン */
+
+.step_button_wrap {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 50px auto 10px auto;
+}
+
+.step_button_wrap button {
+  width: 100px;
+  margin-left: 20px;
+}
+
+.step_next {
+  background-color: #04384c;
+  color: white;
+  display: inline-block;
+  padding: 10px 10px;
+  border-radius: 4px;
+  border: none;
 }
 
 /* 入力エラー系 */
@@ -76,8 +310,10 @@ textarea:required {
   border-color: #c20c33;
 }
 
-form {
+.new_girl_form {
+  margin-top: 32px;
   margin-bottom: 32px;
+  width: 100%;
 }
 
 textarea {
@@ -116,23 +352,68 @@ textarea {
   box-shadow: 0 2px 0 #aaaaaa;
 }
 
-/* 新人登録のタブ切り替え用 */
+/* ステップ入力基本 */
+
+form#multiphase > #phase2,
+#phase3,
+#phase4,
+#phase5,
+#phase6,
+#phase7,
+#phase8,
+#phase9,
+#phase10,
+#show_all_data {
+  display: none;
+}
+
+li {
+  list-style: none;
+}
+
+.bace_wrap {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.step_wrap {
+  margin-bottom: 50px;
+}
+
+.step_list_wrap {
+  margin-bottom: 1rem;
+  margin-left: 10%;
+}
+
+.step_q {
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #04384c;
+}
+
+.step_a {
+  background-color: #04384c;
+  color: white;
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+/* チェックボックスだったら */
 
 /*タブ切り替え全体のスタイル*/
 .tabs {
-  margin-top: 50px;
-  padding-bottom: 40px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+  background-color: #f2f4f5;
   width: 100%;
-  margin: 0 auto;
 }
 
 /*タブのスタイル*/
 .tab_item {
   width: calc(100% / 3);
   height: 50px;
-  border-bottom: 3px solid #5ab4bd;
   background-color: #d9d9d9;
   line-height: 50px;
   font-size: 16px;
@@ -156,7 +437,7 @@ input[name="tab_item"] {
 /*タブ切り替えの中身のスタイル*/
 .tab_content {
   display: none;
-  padding: 20px 20px 0;
+  padding: 40px 0;
   clear: both;
   overflow: hidden;
 }
@@ -168,63 +449,88 @@ input[name="tab_item"] {
   display: block;
 }
 
-/*選択されているタブのスタイルを変える*/
-.tabs input:checked + .tab_item {
-  background-color: #5ab4bd;
-  color: #fff;
+/* 結果発表 */
+.rookie_sample_img {
+  display: block;
+  margin: 0 auto 8px auto;
+  width: 128px;
+  height: 128px;
+  overflow: hidden;
+  border-radius: 64px;
+  border: 4px solid pink;
+}
+
+.rookie_sample_img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.set_wrap {
+  padding: 10px 0px 10px 5px;
+  margin: 15px 0 20px 0;
+  border-radius: 10px;
+  background-color: rgb(245, 202, 200);
+}
+
+.set_tag {
+  color: white;
+  font-size: 1rem;
+  font-style: italic;
+
+  margin-right: 18px;
+  line-height: 1.8;
+}
+
+.set_data {
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 10px 0 10px 2rem;
+  font-size: 1.2rem;
+}
+
+.set_data li {
+  margin-right: 1rem;
+}
+
+/* 名前 */
+.set_name li:last-child {
+  margin-right: 0;
+}
+
+/* スリーサイズ */
+.three_size_wrap li:nth-child(2) {
+  margin-right: 0;
+}
+
+/* カップ */
+/* 年齢 */
+#display_age::after,
+#display_gbreastsize::after {
+  content: "）";
+}
+#display_age::before,
+#display_gbreastsize::before {
+  content: "（";
+}
+
+#display_gheight::before {
+  content: "H:";
+}
+
+#display_gbreast::before {
+  content: "B:";
+}
+
+#display_gwaist::before {
+  content: "W:";
+}
+#display_ghip::before {
+  content: "H:";
 }
 
 /* ---------------------------------------------- */
 /* スタッフ一覧のテスト用　ほんとに適当 */
-ul {
-  list-style: none;
-  padding-left: 0;
-  display: flex;
-  flex-wrap: wrap;
-  text-align: center;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-li {
-  width: 45%;
-  margin: 6px;
-}
-
-li a {
-  display: block;
-  padding: 6px;
-  color: #fff;
-  text-decoration: none;
-  box-sizing: border-box;
-  border: dotted 2px #fff;
-  border-radius: 8px;
-  transition: 1s;
-  /*色替え用*/
-  background: #0d47a1;
-  box-shadow: 0px 0px 0px 4px #0d47a1;
-}
-
-.bbb {
-  background-color: black;
-  width: 100%;
-  color: #d9d9d9;
-}
-
-.example {
-  position: relative;
-}
-
-.example p {
-  /*aタグを画像の真ん中に*/
-  position: absolute;
-  top: 90%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
 
 /* ---------------------------------------------- */
 

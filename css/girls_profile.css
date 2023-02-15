@@ -556,16 +556,16 @@
 
 /* 名前 */
 .girl_review_head .reviewer_name {
-  width: 40%;
+  width: 33%;
 }
 
 /* 星 */
 .girl_review_head .review_fav {
-  width: 30%;
+  width: 33%;
 }
 
 .girl_review_head .review_date {
-  width: 30%;
+  width: 33%;
 }
 
 /* レビュー本文 */

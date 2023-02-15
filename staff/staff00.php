@@ -35,11 +35,21 @@
   <meta name="msapplication-TileColor" content="カラーコード" />
 
   <!--css javascript-->
+  <!-- リセット -->
   <link rel="stylesheet" href="../css/reset.css">
-  <link rel="stylesheet" href="../css/swiper.min.css">
-  <link rel="stylesheet" type="text/css" href="../css/style.css" />
 
-  <script src="../js/swiper.min.js" defer></script>
+  <!-- swiper css は先読み -->
+  <!-- 共通 -->
+  <link rel="stylesheet" type="text/css" href="../css/style.css" />
+  <link rel="stylesheet" type="text/css" href="../css/header.css" />
+  <link rel="stylesheet" type="text/css" href="../css/accordion.css" />
+  <link rel="stylesheet" type="text/css" href="../css/footer.css" />
+  <!-- ページ毎 -->
+
+  <!-- 特殊？ -->
+  <link rel="stylesheet" type="text/css" href="css/under_nav.css" />
+
+
   <script src="../js/script.js" defer></script>
 
   <!-- フォントオーサム -->
@@ -54,35 +64,18 @@
 
     <!-- header読み込み -->
     <?php
-    require_once("../header.php");
+    require_once( dirname(__FILE__). '/../parts/header.php');
     require_once('../db_connect.php');
     ?>
     <!------------------>
 
     <main>
 
-      <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-          <!-- foreach で数だけ取る -->
-          <div class="swiper-slide">
-            <a href="">
-              <img src="../img/nat1.jpg" alt="">
-            </a>
-            <span>test</span>
-          </div>
-          <div class="swiper-slide">Slide 2</div>
-          <div class="swiper-slide">Slide 3</div>
-        </div>
-
-        <div class="swiper-button-next next1"></div>
-        <div class="swiper-button-prev prev1"></div>
-        <div class="swiper-pagination page1"></div>
-      </div>
-
 
       <br>
       <br>
       <br>
+      <h1><a href="../setting/setting_index.php">セッティング</a></h1>
       <br>
       <br>
 
@@ -125,48 +118,25 @@
 
 
 
-
-
-
       ?>
 
 
 
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      aaaa
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <div>
-        test
-      </div>
 
     </main>
 
     <script>
-      const scrollAnimationElm = document.querySelectorAll('.sa');
-      const scrollAnimationFunc = function() {
-        for (const i = 0; i < scrollAnimationElm.length; i++) {
-          var triggerMargin = 300;
-          if (window.innerHeight > scrollAnimationElm[i].getBoundingClientRect().top + triggerMargin) {
-            scrollAnimationElm[i].classList.add('show');
-          }
+    const scrollAnimationElm = document.querySelectorAll('.sa');
+    const scrollAnimationFunc = function() {
+      for (const i = 0; i < scrollAnimationElm.length; i++) {
+        var triggerMargin = 300;
+        if (window.innerHeight > scrollAnimationElm[i].getBoundingClientRect().top + triggerMargin) {
+          scrollAnimationElm[i].classList.add('show');
         }
       }
-      window.addEventListener('load', scrollAnimationFunc);
-      window.addEventListener('scroll', scrollAnimationFunc);
+    }
+    window.addEventListener('load', scrollAnimationFunc);
+    window.addEventListener('scroll', scrollAnimationFunc);
     </script>
 
 

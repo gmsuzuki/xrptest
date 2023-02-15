@@ -32,30 +32,38 @@
 /*今日の出勤 くちこみ */
 /* 共通 */
 
-.today_staff_wrap {
+.staff_wrap {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
 .staff_card {
-  width: 49%;
-  margin: 10px 0;
+  display: block;
+  background: #fff;
+  /* box-shadow: 0px 12px 20px -4px rgb(0 0 0 / 10%); */
+  position: relative;
+  width: 47%;
+  margin: 5px 5px 30px 5px;
+  border-radius: 8px;
+  padding: 8px;
+  text-decoration: none;
 }
 
-.today_staff_profile {
-  width: 100%;
-  height: 100%;
+.staff_card_link {
+  display: block;
+  text-decoration: none;
+  margin-bottom: 5px;
 }
 
-.today_staff_card .staff_photo img {
+.staff_photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: 50% 50%;
+  border-radius: 4px;
+  margin-bottom: 8px;
 }
-
-/* 今日の出勤 */
 
 /* 出勤 */
 .staff_list {
@@ -88,6 +96,13 @@
   color: #fff;
   border-radius: 0 6px;
   margin: 0 2px;
+}
+
+.time_area {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  font-weight: bold;
+  letter-spacing: 0.2rem;
 }
 
 /* パネルアイコン */
@@ -150,56 +165,6 @@
   padding: 2px 5px;
 }
 
-/* 横一列での表示 */
-
-.row_staff_wapp {
-  width: 100%;
-}
-
-.row_girl_card {
-  padding: 15px 5px;
-  border-bottom: 1px dotted #a1a1a1;
-}
-
-.row_girl_card a {
-  display: flex;
-}
-
-.row_girl_photo_area {
-  width: 33%;
-}
-
-.row_girl_data {
-  margin-left: 10px;
-}
-
-.row_shop_comment_text {
-  font-size: 1.4rem;
-}
-
-.row_girl_tag {
-  display: flex;
-}
-
-.row_girl_tag li {
-  padding: 0 5px;
-  margin-top: 5px;
-  margin-right: 5px;
-  border-radius: 5%;
-  line-height: 2rem;
-}
-
-.row_shop_comment_text {
-  margin-top: 10px;
-  height: 40px;
-  font-size: 1.4rem;
-  line-height: 2rem;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-}
-
 /* 口コミページ */
 
 /*  */
@@ -240,6 +205,7 @@
   object-fit: cover;
   width: 100%;
   height: 100%;
+  border-radius: 4px;
 }
 
 .staff_review_bg .subtitles_img figcaption {
@@ -303,6 +269,13 @@
 /* オール */
 #all_reviews {
   padding: 32px 0;
+}
+
+/* ------------------------ */
+/* レビュー */
+.staff_review_wrap {
+  display: flex;
+  flex-wrap: nowrap;
 }
 
 /* 口コミカード */
@@ -401,6 +374,7 @@
 .update_review span {
   margin-right: 1rem;
 }
+
 /* ランキング */
 .ranking_head {
   font-size: 2rem;
@@ -455,46 +429,6 @@
   font-size: 1.5rem;
 }
 
-/* 新しい表示 */
-.staff_bg ul {
-  display: flex;
-  flex-wrap: wrap;
-}
-.staff_bg ul li {
-  display: block;
-  background: #fff;
-  box-shadow: 0px 12px 20px -4px rgb(0 0 0 / 10%);
-  position: relative;
-  width: 47%;
-  margin: 5px 5px 30px 5px;
-  border-radius: 8px;
-  position: relative;
-}
-
-.staff_bg ul li .today_staff_card {
-  margin: 0 auto;
-  padding: 8px 8px 0 8px;
-  display: block;
-  text-decoration: none;
-}
-
-.today_staff_card .staff_photo img {
-  padding: 3px;
-  border-radius: 4px;
-  margin-bottom: 8px;
-}
-
-.time_area {
-  font-size: 1.2rem;
-  line-height: 1.8;
-  font-weight: bold;
-  letter-spacing: 0.2rem;
-}
-
-.time_area ::before {
-  content: "●";
-}
-
 /* 新人 */
 .girl_types {
   vertical-align: top;
@@ -525,4 +459,62 @@
   padding-bottom: 10px;
   text-align: right;
   font-size: 2rem;
+}
+
+/*  */
+
+/*タブ切り替え全体のスタイル*/
+.tabs {
+  margin-top: 50px;
+  padding-bottom: 40px;
+  background-color: #fff;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
+  width: 100%;
+  margin: 0 auto;
+}
+
+/*タブのスタイル*/
+.tab_item {
+  width: calc(100% / 3);
+  height: 50px;
+  border-bottom: 3px solid #5ab4bd;
+  background-color: #d9d9d9;
+  line-height: 50px;
+  font-size: 16px;
+  text-align: center;
+  color: #565656;
+  display: block;
+  float: left;
+  text-align: center;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+.tab_item:hover {
+  opacity: 0.75;
+}
+
+/*ラジオボタンを全て消す*/
+input[name="tab_item"] {
+  display: none;
+}
+
+/*タブ切り替えの中身のスタイル*/
+.tab_content {
+  display: none;
+  padding: 20px 20px 0;
+  clear: both;
+  overflow: hidden;
+}
+
+/*選択されているタブのコンテンツのみを表示*/
+#all_girl:checked ~ #all_girl_content,
+#today_girl:checked ~ #today_girl_content,
+#new_girl:checked ~ #new_girl_content {
+  display: block;
+}
+
+/*選択されているタブのスタイルを変える*/
+.tabs input:checked + .tab_item {
+  background-color: #5ab4bd;
+  color: #fff;
 }

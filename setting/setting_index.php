@@ -55,6 +55,14 @@
 
     <main>
       <h1>各種設定</h1>
+
+
+      <br>
+      <div class="setting_btn">
+        <a href="setting_index02.php">基本設定</a>
+      </div>
+      <br>
+
       <div class="setting_btn">
         <a href="shop_set.php?setting=shop">お店の基本設定</a>
       </div>

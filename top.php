@@ -97,24 +97,14 @@
       <div class="swiper mySwiper">
         <div class="swiper-wrapper">
           <!-- foreach で数だけ取る -->
+          <?php foreach($sw_events as $sw_event) :?>
           <div class="swiper-slide">
-            <a href="girls.php" class="swipe_a">
+            <a href='event.php?sw_eventid=<?php echo $sw_event->getEventId() ?>' class="swipe_a">
               <!-- ここの画像がでかくなるとbodyが動くのではみ出したら切る -->
-              <img src="img/sw01.jpeg" alt="">
+              <img src='<?php echo $sw_event->getEventImg() ?>' alt="">
             </a>
           </div>
-          <div class="swiper-slide">
-            <a href="staff/staff00.php?name=test" class="swipe_a">
-              <!-- ここの画像がでかくなるとbodyが動くのではみ出したら切る -->
-              <img src="img/sw02.jpeg" alt="">
-            </a>
-          </div>
-          <div class="swiper-slide">
-            <a href="staff/staff00.php?name=test" class="swipe_a">
-              <!-- ここの画像がでかくなるとbodyが動くのではみ出したら切る -->
-              <img src="img/sw03.jpeg" alt="">
-            </a>
-          </div>
+          <?php endforeach ?>
         </div>
 
         <!-- <div class="swiper-button-next next1"></div> -->
@@ -174,6 +164,9 @@
 
           <div class="swiper8 picbunnerSwiper">
             <ul class="swiper-wrapper">
+
+
+              <!-- スワイパーに持ってくるデータをどうするか？ -->
 
               <!-- 一枚目 -->
               <?php foreach($picbunners as $picbunner) :?>
@@ -288,12 +281,13 @@
       <section id="today_staff" class="under_space scroll-up content_bg_black">
         <div class="content_wrapper">
           <h2 class="block_title"><span>Today Staff</span></h2>
-          <h3 class="block_title_caption">2022/03/29の出勤</h3>
+          <h3 class="block_title_caption"><?php echo "{$today->format('m/d')}" ;?>
+            <?php echo $week_name[$today->format("w")] ;?>の出勤</h3>
 
 
           <!-- ここからスタッフカード -->
           <div class="staff_bg">
-            <ul class="today_staff_wrap">
+            <ul class="staff_wrap">
 
               <!-- foreachdeで回します -->
               <?php foreach($sample_names as $sample_name) :?>
@@ -304,45 +298,47 @@
                 <!-- アイコン -->
                 <!-- 今すぐとか -->
                 <p class="staff_state_mark fukidashi_green">即ご案内</p>
+                <!-- 新人 -->
+                <div class="staff_card_wrap">
+                  <span class="tag new_cast">新人</span>
+                  <!-- アイコン -->
 
 
-                <a href="girls.php" class="today_staff_card block_wrap_a">
-                  <!-- 写真 -->
-                  <div class="staff_photo_area">
-                    <figure class="staff_photo">
-                      <img src='<?php echo $sample_name[2] ?>' alt="">
-                    </figure>
-                  </div>
-                  <!-- 時間 -->
-                  <p class="time_area"><i class="fas fa-clock"></i>
-                    12:00~22:00</p>
-                  <!-- 属性 -->
-                  <div class="girl_types">
-                    <span class="girl_type btn_color_blue">新人</span>
-                    <span class="girl_type btn_color_pink">体験入店</span>
-                    <span class="girl_type btn_color_red">人気No1</span>
-                    <span class="girl_type btn_color_pink">やさしい</span>
-                  </div>
+                  <a href="girls.php" class="staff_card_link block_wrap_a">
+                    <!-- 写真 -->
+                    <div class="staff_photo_area">
+                      <figure class="staff_photo">
+                        <img src='<?php echo $sample_name[2] ?>' alt="">
+                      </figure>
+                    </div>
+                    <!-- 時間 -->
+                    <p class="time_area"><i class="fas fa-clock"></i>
+                      12:00~22:00</p>
+                    <!-- 属性 -->
+                    <div class="girl_types">
+                      <span class="girl_type btn_color_blue">新人</span>
+                      <span class="girl_type btn_color_pink">体験入店</span>
+                      <span class="girl_type btn_color_red">人気No1</span>
+                      <span class="girl_type btn_color_pink">やさしい</span>
+                    </div>
 
-                  <!-- profile -->
+                    <!-- profile -->
 
-                  <span class="staff_name_age"><?php echo $sample_name[1]?></span>
-                  <span class="staff_name_age">(<?php echo $sample_name[3]?>)</span>
-                  <span class="bodysize">
-                    <?php echo 'T/'.$sample_name[4].'&nbsp;B/'.$sample_name[5].'('.$sample_name[6].')&nbsp;H/'.$sample_name[7]?>
-                  </span>
+                    <span class="staff_name_age"><?php echo $sample_name[1]?></span>
+                    <span class="staff_name_age">(<?php echo $sample_name[3]?>)</span>
+                    <span class="bodysize">
+                      <?php echo 'T/'.$sample_name[4].'&nbsp;B/'.$sample_name[5].'('.$sample_name[6].')&nbsp;H/'.$sample_name[7]?>
+                    </span>
 
-                  <!-- sns -->
-                  <div class="staff_original_contents">
-                    <a href=""><i class="fab fa-twitter twitter_color"></i></a>
-                    <a href=""><i class="fas fa-pen-nib diary_color"></i></a>
-                    <a href=""><i class="fas fa-video video_color"></i></a>
-                    <a href=""><i class="fas fa-camera gravure_color"></i></a>
-                  </div>
-
-
-
-                </a>
+                    <!-- sns -->
+                    <div class="staff_original_contents">
+                      <a href=""><i class="fab fa-twitter twitter_color"></i></a>
+                      <a href=""><i class="fas fa-pen-nib diary_color"></i></a>
+                      <a href=""><i class="fas fa-video video_color"></i></a>
+                      <a href=""><i class="fas fa-camera gravure_color"></i></a>
+                    </div>
+                  </a>
+                </div>
               </li>
               <?php endforeach ?>
             </ul>
@@ -439,6 +435,7 @@
 
           <div class="swiper10 newreviewSwiper">
             <ul class="swiper-wrapper">
+
               <?php foreach($new_reviews as $new_review) :?>
               <!-- クチコミ1 -->
               <li class="swiper-slide staff_review">

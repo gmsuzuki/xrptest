@@ -111,7 +111,7 @@
           <div id="other_service" class="parts_index">
             <ul>
               <li>
-                <a href="">
+                <a href="setting/setting_index.php">
                   <img src="img/btn_yes.png" alt="">
                 </a>
               </li>

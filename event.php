@@ -80,9 +80,19 @@
     <?php
       require_once( dirname(__FILE__). '/parts/header.php');
       require_once( dirname(__FILE__). '/data.php');
-
+      // url からイベントidとってきて
+      if($_GET["eventid"]){
       $selectedId = $_GET["eventid"];
+      // イベント配列の何番目か？見てる
       $selectedEvent = $events[$selectedId];
+      }elseif($_GET["sw_eventid"] !== null){
+      $selectedId = $_GET["sw_eventid"];
+      // イベント配列の何番目か？見てる
+      $selectedEvent = $sw_events[$selectedId];
+      }else{
+        echo "エラー";
+    };
+
     ?>
     <!------------------>
 
@@ -92,6 +102,7 @@
         <div class="content_wrapper">
           <h1 class="fixpage_title"><span>Event</span></h1>
           <h3 class="block_title_caption">イベント</h3>
+
           <section class="event_card block_anime">
             <div class="event_description">
               <img src="<?php echo $selectedEvent->getEventImg() ?>" alt="">
@@ -99,8 +110,9 @@
               <p class="event_description_text"><?php echo $selectedEvent->getEventContent() ?></p>
             </div>
           </section>
-          <div class="goto_list button_small">
-            <a href="eventlist.php" class="btn_color_red btn_active btn_font01">一覧へ</a>
+          <div class="goto_list">
+            <a href="eventlist.php">
+              <i class="fas fa-chevron-circle-right"></i><span>一覧を見る</span></a>
           </div>
 
         </div><!-- content_wrapper -->

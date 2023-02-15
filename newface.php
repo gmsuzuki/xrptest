@@ -79,13 +79,11 @@
     <!-- header読み込み -->
     <?php
     require_once( dirname(__FILE__). '/parts/header.php');
+    require_once( dirname(__FILE__). '/data.php');
     ?>
     <!------------------>
 
-    <!-- データ持ってきてる -->
-    <?php
-    $nums = ["１人目","２人め","3人め","4人め","5人め","6人め","7人め"];
-    ?>
+
 
     <main id="main">
 
@@ -95,64 +93,61 @@
           <h1 class="fixpage_title"><span>New Face</span></h1>
           <h3 class="block_title_caption">新人紹介</h3>
 
-          <div class="staff_bg">
-            <ul class="today_staff_wrap">
 
+          <div class="staff_bg">
+            <ul class="staff_wrap">
               <!-- foreachで回す -->
               <!-- サンプルとして名前に各データ入れてみる -->
-              <?php foreach($nums as $num) :?>
+              <?php foreach($sample_names as $sample_name) :?>
 
-              <!-- 1人目 -->
               <li class="staff_card scroll-expansion">
-                <a href="girls.php" class="today_staff_card block_wrap_a">
-                  <p class="entry_day">○月○日 入店</p>
-                  <!-- 写真 -->
-                  <div class="staff_photo_area">
-                    <div class="staff_photo">
-                      <img src="img/newface01.jpeg" alt="">
-                    </div>
 
-                    <!-- アイコン -->
-                    <!-- 今すぐとか -->
-                    <div class="staff_state_mark">
-                      <p>即ご案内</p>
-                    </div>
-                    <!-- 日記とか動画とか -->
-                    <ul class="staff_original_contents">
-                      <li class="panel_icon_samall panel_movie_icon">Movie</li>
-                      <li class="panel_icon_samall panel_diary_icon">Diary</li>
-                      <li class="panel_icon_samall panel_twitter_icon">Twitter</li>
-                    </ul>
-                  </div>
-                  <!-- profile -->
-                  <div class="staff_profile_area">
-                    <div class="name_age">
-                      <p>
-                        <span class="new_staff">新人</span>
-                        <span class="staff_name">
-                          <?php echo $num ?>
-                        </span>
-                        <span class="staff_age">(20)</span>
-                      </p>
-                    </div>
-                    <div class="bodysize">
-                      <p>T/155&nbsp;B/88(F)&nbsp;H/92</p>
-                    </div>
-                  </div>
-                  <!-- 時間 -->
-                  <div class="time_area">
-                    <p>12:00~22:00</p>
-                  </div>
-                </a>
+
+                <!-- アイコン -->
+                <!-- 今すぐとか -->
+                <p class="staff_state_mark fukidashi_green">即ご案内</p>
+                <!-- 新人 -->
+                <div class="staff_card_wrap">
+                  <span class="tag new_cast">新人</span>
+                  <!-- アイコン -->
+
+
+                  <a href="girls.php" class="staff_card_link block_wrap_a">
+
+
+                    <a href="girls.php" class="staff_card_link block_wrap_a">
+                      <!-- 写真 -->
+                      <div class="staff_photo_area">
+                        <figure class="staff_photo">
+                          <img src='<?php echo $sample_name[2] ?>' alt="">
+                        </figure>
+                      </div>
+                      <!-- 時間 -->
+                      <p class="time_area"><i class="fas fa-clock"></i>
+                        12:00~22:00</p>
+                      <!-- 属性 -->
+                      <div class="girl_types">
+                        <span class="girl_type btn_color_blue">新人</span>
+                        <span class="girl_type btn_color_pink">体験入店</span>
+                        <span class="girl_type btn_color_red">人気No1</span>
+                        <span class="girl_type btn_color_pink">やさしい</span>
+                      </div>
+
+                      <!-- profile -->
+
+                      <span class="staff_name_age"><?php echo $sample_name[1]?></span>
+                      <span class="staff_name_age">(<?php echo $sample_name[3]?>)</span>
+                      <span class="bodysize">
+                        <?php echo 'T/'.$sample_name[4].'&nbsp;B/'.$sample_name[5].'('.$sample_name[6].')&nbsp;H/'.$sample_name[7]?>
+                      </span>
+
+                    </a>
+                </div>
               </li>
               <?php endforeach ?>
-
-
             </ul>
-
-
-
           </div>
+        </div>
       </article>
 
 

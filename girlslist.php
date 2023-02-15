@@ -80,17 +80,12 @@
     <!-- header読み込み -->
     <?php
     require_once( dirname(__FILE__). '/parts/header.php');
+    require_once( dirname(__FILE__). '/data.php');
     ?>
     <!------------------>
 
 
     <main id="main">
-
-      <!-- データ持ってきてる -->
-      <?php
-    $nums = ["１人目","２人め","3人め","4人め","5人め","6人め","7人め"];
-    ?>
-
 
 
       <article id="girllist" class="under_space">
@@ -98,67 +93,173 @@
           <h1 class="fixpage_title"><span>Girl List</span></h1>
           <h3 class="block_title_caption">在籍一覧</h3>
 
-          <div class="staff_bg">
-            <ul class="row_staff_wrap">
-              <!-- foreachで回す -->
-              <!-- サンプルとして名前に各データ入れてみる -->
-              <?php foreach($nums as $num) :?>
+          <!-- 選択肢をつける -->
+          <div class="tabs">
+            <!-- タブ設定 -->
+            <input id="today_girl" type="radio" name="tab_item" checked>
+            <label class="tab_item" for="today_girl">本日の出勤</label>
 
-              <li class="row_girl_card scroll-expansion">
-                <a href="girls.php" class="today_staff_card block_wrap_a">
-                  <div class="row_girl_photo_area">
-                    <div class="staff_photo">
-                      <img src="img/newface01.jpeg" alt="">
-                    </div>
+            <input id="all_girl" type="radio" name="tab_item">
+            <label class="tab_item" for="all_girl">全員</label>
+
+            <input id="new_girl" type="radio" name="tab_item">
+            <label class="tab_item" for="new_girl">新人</label>
+            <!--  -->
+
+            <!-- 本日の出勤 -->
+            <div id="today_girl_content" class="staff_bg tab_content">
+              <ul class="staff_wrap">
+                <!-- foreachで回す -->
+                <!-- サンプルとして名前に各データ入れてみる -->
+                <?php foreach($today_names as $today_name) :?>
+                <li class="staff_card scroll-expansion">
+                  <!-- アイコン -->
+                  <!-- 今すぐとか -->
+                  <p class="staff_state_mark fukidashi_green">即ご案内</p>
+                  <!-- 新人 -->
+                  <div class="staff_card_wrap">
+                    <span class="tag new_cast">新人</span>
+                    <!-- アイコン -->
+
+
+                    <a href="girls.php" class="staff_card_link block_wrap_a">
+                      <!-- 写真 -->
+                      <div class="staff_photo_area">
+                        <figure class="staff_photo">
+                          <img src='<?php echo $today_name[2] ?>' alt="">
+                        </figure>
+                      </div>
+                      <!-- 時間 -->
+                      <p class="time_area"><i class="fas fa-clock"></i>
+                        12:00~22:00</p>
+                      <!-- 属性 -->
+                      <div class="girl_types">
+                        <span class="girl_type btn_color_blue">新人</span>
+                        <span class="girl_type btn_color_pink">体験入店</span>
+                        <span class="girl_type btn_color_red">人気No1</span>
+                        <span class="girl_type btn_color_pink">やさしい</span>
+                      </div>
+
+                      <!-- profile -->
+
+                      <span class="staff_name_age"><?php echo $today_name[1]?></span>
+                      <span class="staff_name_age">(<?php echo $today_name[3]?>)</span>
+                      <span class="bodysize">
+                        <?php echo 'T/'.$today_name[4].'&nbsp;B/'.$today_name[5].'('.$today_name[6].')&nbsp;H/'.$today_name[7]?>
+                      </span>
+
+                    </a>
                   </div>
-                  <div class="row_girl_data">
-                    <div class="name_age">
-                      <p>
-                        <span class="staff_name">
-                          適当な名前
-                        </span>
-                        <span class="staff_age">(20)</span>
-                      </p>
-                    </div>
-                    <div class="bodysize">
-                      <p>T/155&nbsp;B/88(F)&nbsp;H/92</p>
-                    </div>
-                    <ul class="row_girl_tag">
-                      <li class="anime_text_bg_blue">大きい</li>
-                      <li class="anime_text_bg_blue">小さい</li>
-                      <li class="anime_text_bg_blue">うまい</li>
-                    </ul>
-                    <!-- 時間 -->
-                    <div class="row_time_area">
-                      <p>12:00~22:00</p>
-                    </div>
+                </li>
+                <?php endforeach ?>
+              </ul>
+            </div>
+            <!-- 本日ここまで -->
 
-                    <div class="row_girl_review">
-                      <p><span class="anime_text_bg_pink">★口コミ★</span>100件</p>
-                    </div>
+            <!-- 全員 -->
+            <div id="all_girl_content" class="staff_bg tab_content">
+              <ul class="staff_wrap">
+                <!-- foreachで回す -->
+                <!-- サンプルとして名前に各データ入れてみる -->
+                <?php foreach($sample_names as $sample_name) :?>
+                <li class="staff_card scroll-expansion">
+                  <!-- アイコン -->
+                  <!-- 今すぐとか -->
+                  <p class="staff_state_mark fukidashi_green">即ご案内</p>
+                  <!-- 新人 -->
+                  <div class="staff_card_wrap">
+                    <span class="tag new_cast">新人</span>
+                    <!-- アイコン -->
 
-                    <div class="row_shop_comment_text">
-                      適当に書いていますかいています適当に。<br>
-                      適当に書いていますかいています。<br>
-                      適当に書いていますかいています。<br>
-                      適当に書いていますかいています。<br>
-                      適当に書いていますかいています。<br>
+                    <a href="girls.php" class="staff_card_link block_wrap_a">
+                      <!-- 写真 -->
+                      <div class="staff_photo_area">
+                        <figure class="staff_photo">
+                          <img src='<?php echo $sample_name[2] ?>' alt="">
+                        </figure>
+                      </div>
+                      <!-- 時間 -->
+                      <p class="time_area"><i class="fas fa-clock"></i>
+                        12:00~22:00</p>
+                      <!-- 属性 -->
+                      <div class="girl_types">
+                        <span class="girl_type btn_color_blue">新人</span>
+                        <span class="girl_type btn_color_pink">体験入店</span>
+                        <span class="girl_type btn_color_red">人気No1</span>
+                        <span class="girl_type btn_color_pink">やさしい</span>
+                      </div>
 
-                    </div>
+                      <!-- profile -->
+
+                      <span class="staff_name_age"><?php echo $sample_name[1]?></span>
+                      <span class="staff_name_age">(<?php echo $sample_name[3]?>)</span>
+                      <span class="bodysize">
+                        <?php echo 'T/'.$sample_name[4].'&nbsp;B/'.$sample_name[5].'('.$sample_name[6].')&nbsp;H/'.$sample_name[7]?>
+                      </span>
+
+                    </a>
                   </div>
+                </li>
+                <?php endforeach ?>
+              </ul>
+            </div>
+            <!-- 全員ここまで -->
 
-                </a>
-              </li>
 
 
-              <?php endforeach ?>
+            <!-- 新人 -->
+            <div id="new_girl_content" class="staff_bg tab_content">
+              <ul class="staff_wrap">
+                <!-- foreachで回す -->
+                <!-- サンプルとして名前に各データ入れてみる -->
+                <?php foreach($new_names as $new_name) :?>
+                <li class="staff_card scroll-expansion">
+                  <!-- アイコン -->
+                  <!-- 今すぐとか -->
+                  <p class="staff_state_mark fukidashi_green">即ご案内</p>
+                  <!-- 新人 -->
+                  <div class="staff_card_wrap">
+                    <span class="tag new_cast">新人</span>
+                    <!-- アイコン -->
+                    <a href="girls.php" class="staff_card_link block_wrap_a">
+                      <!-- 写真 -->
+                      <div class="staff_photo_area">
+                        <figure class="staff_photo">
+                          <img src='<?php echo $new_name[2] ?>' alt="">
+                        </figure>
+                      </div>
+                      <!-- 時間 -->
+                      <p class="time_area"><i class="fas fa-clock"></i>
+                        12:00~22:00</p>
+                      <!-- 属性 -->
+                      <div class="girl_types">
+                        <span class="girl_type btn_color_blue">新人</span>
+                        <span class="girl_type btn_color_pink">体験入店</span>
+                        <span class="girl_type btn_color_red">人気No1</span>
+                        <span class="girl_type btn_color_pink">やさしい</span>
+                      </div>
 
+                      <!-- profile -->
 
-            </ul>
+                      <span class="staff_name_age"><?php echo $new_name[1]?></span>
+                      <span class="staff_name_age">(<?php echo $new_name[3]?>)</span>
+                      <span class="bodysize">
+                        <?php echo 'T/'.$new_name[4].'&nbsp;B/'.$new_name[5].'('.$new_name[6].')&nbsp;H/'.$new_name[7]?>
+                      </span>
+
+                    </a>
+                  </div>
+                </li>
+                <?php endforeach ?>
+              </ul>
+            </div>
+            <!-- 新人ここまで -->
+
 
 
 
           </div>
+        </div>
       </article>
 
 

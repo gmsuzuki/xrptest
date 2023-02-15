@@ -679,7 +679,7 @@ h3.block_title_caption_white {
   border-radius: 20px;
   position: absolute;
   top: -1em;
-  left: -0.2em;
+  right: -0.2em;
   z-index: 10;
 }
 .staff_state_mark::before {
@@ -701,4 +701,33 @@ h3.block_title_caption_white {
 
 .staff_state_mark::before {
   border-top-color: #08a517;
+}
+
+/* マークがは見出せない場合 */
+.staff_card_wrap {
+  overflow: hidden;
+  position: relative;
+}
+
+/* 新人 */
+.tag {
+  display: block;
+  position: absolute;
+  font-size: 13px;
+  top: -9px;
+  left: -39px;
+  color: #fff;
+  font-weight: bold;
+  width: 100px;
+  height: 44px;
+  padding-top: 20px;
+  text-align: center;
+  transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  z-index: 1;
+}
+.new_cast {
+  color: #333;
+  background: #d4ba35 !important;
 }

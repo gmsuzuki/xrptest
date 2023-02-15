@@ -440,16 +440,26 @@
                   <figure class="pickup_recommend_img">
                     <img src="img/guest.jpeg" alt="">
                   </figure>
-                  <span class="pickup_recommend_name"><?php echo $reviews[0][0]?></span>
+                  <!-- ピックアップ投稿者名 -->
+                  <span class="pickup_recommend_name"><?php echo $reviews[0][1]?>様</span>
                 </h2>
-
+                <!-- ピックアップコンテンツ -->
                 <div class="pickup_recommend_contents">
+                  <!-- ピックアップマーク -->
                   <p class="fukidashi_red staff_state_mark">pick up</p>
-                  <p class="pickup_recommend_title"><?php echo $reviews[0][5]?></p>
-                  <p class="stars review_fav" style="--rating: <?php echo $reviews[0][4]?>;">
-                    <?php echo $reviews[0][4]?></p>
-                  <span class="date_of_use"><?php echo $reviews[0][2]?></span>
-                  <p class="pickup_recommend_text"><?php echo $reviews[0][6]?></p>
+                  <!-- ピックアップタイトル -->
+                  <p class="pickup_recommend_title"><?php echo $reviews[0][11]?></p>
+                  <!-- 星の平均 -->
+                  <?php for($i=6; $i<10; $i++){$pickup_review_items_star_num += $reviews[0][$i];}?>
+                  <?php $pickup_review_star_average = $pickup_review_items_star_num / 5 ?>
+                  <p><span class="stars" style='--rating: <?php echo $pickup_review_star_average?>;'>
+                    </span><?php echo $pickup_review_star_average?>
+                    <!-- 利用日 -->
+                    <span class="date_of_use">ご利用日:<?php echo $reviews[0][4]?></span>
+                  </p>
+
+
+                  <p class="pickup_recommend_text"><?php echo $reviews[0][12]?></p>
                 </div>
 
               </div>
@@ -462,6 +472,7 @@
               <h3 class="girl_tag_title review_title">#review</h3>
               <a href="">
                 <h3 class="block_title_caption">江口さんへのクチコミ
+                  <!-- 口コミ数をカウントしているが、sqlでなおす -->
                   <span>(<?php echo count($reviews) ?>)</span>
                 </h3>
               </a>
@@ -470,20 +481,27 @@
                 <!-- レビュー -->
                 <dl class="girl_review_wrap">
                   <dt class="girl_review_head">
-                    <p class="reviewer_name"><?php echo $review[0] ?></p>
-                    <p class="stars review_fav" style="--rating: <?php echo $review[4]?>;">
-                      <?php echo $review[4]?></p>
-                    <p class="review_date"><?php echo $review[3] ?></p>
+                    <!-- ユーザー名 -->
+                    <p class="reviewer_name"><?php echo $review[1] ?>様</p>
+                    <!-- 星の数 -->
+                    <?php for($i=6; $i<10; $i++){$review_items_star_num += $review[$i];}?>
+                    <?php $review_star_average = $review_items_star_num / 5 ?>
+                    <p class="stars review_fav" style="--rating: <?php echo $review_star_average?>;">
+                      <!-- <?php echo $review_star_average?></p> -->
+                      <!-- 掲載日 -->
+                    <p class="review_date"><?php echo $review[4] ?></p>
                   </dt>
                   <dd class="girl_review_body">
                     <div class="review_content">
-                      <p class="visit_date"><span><?php echo $review[2] ?></span>ご利用</p>
+                      <p class="visit_date"><span><?php echo $review[4] ?></span>ご利用</p>
                       <p>
-                        <?php echo $review[6] ?>
+                        <?php echo $review[12] ?>
                       </p>
                     </div>
                   </dd>
                 </dl>
+                <?php $review_items_star_num = 0 ?>
+                <?php $review_star_average = 0 ?>
                 <?php endforeach ?>
 
               </div>

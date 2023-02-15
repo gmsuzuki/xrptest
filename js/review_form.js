@@ -26,7 +26,7 @@ function alert_delete() {
 // ここから入力系
 
 // 各種文字入力チェック
-// html5の新機能.checkValidity()を使う
+// html5の新機能.checkValidity()を使うd
 
 function CheckGuestInfo(input) {
   const input_ok = input.checkValidity();
