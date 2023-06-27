@@ -19,7 +19,7 @@ function check_vh($imgName, $width, $height)
         $_SESSION[$imgName]['width'] % $width != 0 ||
         $_SESSION[$imgName]['height'] % $height != 0
     ) {
-        echo '縦横の比率が異なるため、表示が崩れる可能性があります。';
+        echo '画像の縦横比率が異なるため、<br>表示が崩れる可能性があります。';
     }
 }
 
@@ -80,7 +80,6 @@ function check_file_type($file)
 }
 function save_file($file)
 {
-
     // ファイルデータからSHA-1ハッシュを取ってファイル名を決定し，保存する
     if (!move_uploaded_file(
         $file['tmp_name'],

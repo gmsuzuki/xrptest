@@ -78,6 +78,7 @@ if( !empty($_POST['btn_confirm']) ) {
   <link rel="stylesheet" type="text/css" href="css/loading.css" />
   <!-- swiper css は先読み -->
 
+
   <!-- 共通 -->
   <link rel="stylesheet" type="text/css" href="css/style.css" />
   <link rel="stylesheet" type="text/css" href="css/header.css" />

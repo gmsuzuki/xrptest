@@ -93,7 +93,7 @@
           <h1 class="fixpage_title"><span>Event List</span></h1>
           <h3 class="block_title_caption">イベント一覧</h3>
           <ul class="event_list">
-            <?php foreach($events as $event) :?> <li>
+            <?php foreach($event_objects as $event) :?> <li>
               <a href="event.php?eventid=<?php echo $event->getEventId() ?>">
                 <img src="<?php echo $event->getEventImg() ?>" alt="">
                 <div class="event_title">

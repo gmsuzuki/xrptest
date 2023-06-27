@@ -97,7 +97,9 @@ if( !empty($_POST['btn_confirm']) ) {
   <script src="js/accordion.js" defer></script>
   <script src="js/fadein.js" defer></script>
   <script src="js/popup.js" defer></script>
+  <script src="js/text_count.js" defer></script>
   <script src="js/review_form.js" defer></script>
+  <!-- <script src="js/form_submit.js" defer></script> -->
 
 
   <!-- フォントオーサム -->
@@ -561,7 +563,7 @@ if( !empty($_POST['btn_confirm']) ) {
                     <p id="review_title_count">残り：32文字</p>
                     <input type="text" id="review_title" name="review_title" maxlength="32" placeholder="32文字以内でお願いします"
                       required onblur="CheckGuestInfo(this)" required
-                      pattern="^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,20}"
+                      pattern="^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,32}"
                       oninput="CountStr('review_title_count',value,32)">
                   </dd>
                 </dl>
@@ -575,13 +577,13 @@ if( !empty($_POST['btn_confirm']) ) {
                   </dt>
                   <dd>
                     <textarea rows=7 name="review_body" minlength="100" maxlength="1000" placeholder="ご自由にお願いします。"
-                      onblur="checkTxt(this)" required oninput="CountStrNow('review_count',value,1000)"></textarea>
+                      onblur="checkTxt(this,'review_text_body')" required
+                      oninput="CountStrNow('review_count',value,100,1000)"></textarea>
                     <input type="hidden" id="review_text_body" name="review_text_body">
                     <p id="review_count">現在:0/1000</p>
                   </dd>
                 </dl>
               </div>
-
 
 
               <!-- 投稿者名 -->
@@ -626,7 +628,7 @@ if( !empty($_POST['btn_confirm']) ) {
 
 
               <div class="submit">
-                <input type="submit" name="btn_confirm" disabled id="review_button" value="入力が完了していません"
+                <input type="submit" name="btn_confirm" disabled id="submit_button" value="入力が完了していません"
                   class="sendButton btn_active ">
               </div>
 

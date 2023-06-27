@@ -43,6 +43,8 @@
 
   <!-- <script src="../js/script.js" defer></script> -->
   <!--javascript-->
+  <script src="../js/set_basic.js" defer></script>
+  <script src="../js/error_set.js" defer></script>
   <script src="../js/newgirl_set.js" defer></script>
 
   <!-- フォントオーサム -->
@@ -69,10 +71,23 @@
       <article id="setting_index" class="under_space">
         <div class="content_wrapper">
 
+          <ul class="progressbar">
+            <?php for( $i = 0; $i < 10; $i++) :?>
+            <?php if($i==0):?>
+            <?php echo "<li id='status_1' class='active'>1</li>" ?>
+            <?php else:?>
+            <li id="status_<?php echo $i +1 ?>"><?php echo $i +1 ?></li>
+            <?php endif ?>
+            <?php endfor ?>
+          </ul>
+
           <!-- イベントコピペ -->
           <form id="multiphase" name="multiphase" onsubmit="return false" class="new_girl_form">
 
+
             <div id="phase1" class="bace_wrap">
+
+
               <h2 class="step_q">①お店で使う名前を決めてください</h2>
               <ul>
                 <li class="step_wrap">
@@ -80,14 +95,14 @@
                   <em class="mini_alert">記号は使えません</em>
                   <input type="text" id="firstname" name="firstname" maxlength="10" onblur="CheckGuestInfo(this)"
                     pattern="^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,10}"
-                    placeholder="10文字以内（省略可能）">
+                    placeholder="10文字以内（省略可能）" class="girl_ver">
                 </li>
                 <li class="step_wrap">
                   <span class="step_a">名前</span>
                   <em class="mini_alert">記号は使えません</em>
                   <input type="text" required id="lastname" name="lastname" maxlength="10" onblur="CheckGuestInfo(this)"
-                    pattern="^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,10}"
-                    placeholder="10文字以内（必須）">
+                    pattern="^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,10}" placeholder="10文字以内（必須）"
+                    class="girl_ver cancel_alert">
                 </li>
                 <li class="step_wrap">
                   <span class="step_a">年齢</span>
@@ -99,7 +114,7 @@
                 </li>
               </ul>
               <div class="step_button_wrap">
-                <button onclick="location.href='setting_index02.php'">キャンセル</button>
+                <button onclick="location.href='setting_index02.php'" class="step_back">キャンセル</button>
                 <button onclick="processPhase1()" class="step_next">次へ</button>
               </div>
             </div>
@@ -107,7 +122,7 @@
 
             <div id="phase2" class="bace_wrap">
               <h2 class="step_q">②スリーサイズを入力してください</h2>
-              <ul>
+              <ul class="threesize_ul">
                 <li class="step_wrap">
                   <span class="step_a">身長</span>
                   <select name="girlheight" id="girlheight" required>
@@ -194,8 +209,8 @@
                 <?php foreach( $options as $key=> $option) :?>
                 <li class="step_list_wrap">
                   <input type="checkbox" id='play_option<?php echo $key?>' name="play_option"
-                    value='<?php echo $key ?>'>
-                  <label for='play_option<?php echo $key?>' class="optioncheck"><?php echo $option ?></label>
+                    value='<?php echo $option ?>'>
+                  <label for='play_option<?php echo $key?>' class="boxcheck"><?php echo $option ?></label>
                 </li>
                 <?php endforeach ?>
               </ul>
@@ -218,8 +233,15 @@
                 <!-- 最初の値をなしする -->
                 <?php foreach($girls_style as $num => $girl_style) :?>
                 <li class="girl_tag_radio_list">
+
+                  <?php if($num == 0) :?>
                   <input type="radio" id='girl_style_tag_<?php echo $num ?>' name='girl_style'
-                    value='<?php echo $num ?>' class="girl_tag_label">
+                    value='<?php echo $girl_style ?>' class="radio_label_01" checked>
+                  <?php else :?>
+                  <input type="radio" id='girl_style_tag_<?php echo $num ?>' name='girl_style'
+                    value='<?php echo $girl_style ?>' class="radio_label_01">
+                  <?php endif ?>
+
                   <label class="girl_tag_label_txt"
                     for='girl_style_tag_<?php echo $num ?>'><?php echo $girl_style ?></label>
                 </li>
@@ -242,14 +264,21 @@
               <p class="step_a">外見</p>
 
               <ul class="girl_tag_ul">
-                <!-- 最初の値をなしする -->
+                <!-- 最初の値を選択済みに -->
                 <?php foreach($girls_appearance as $num => $girl_appearance) :?>
                 <li class="girl_tag_radio_list">
+
+                  <?php if($num == 0 ):?>
                   <input type="radio" id='girl_appearance_tag_<?php echo $num ?>' name='girl_appearance'
-                    value='<?php echo $num ?>' class="girl_tag_label">
+                    value='<?php echo $girl_appearance ?>' class="radio_label_01" checked>
+                  <?php else :?>
+                  <input type="radio" id='girl_appearance_tag_<?php echo $num ?>' name='girl_appearance'
+                    value='<?php echo $girl_appearance ?>' class="radio_label_01">
+                  <?php endif ?>
                   <label class="girl_tag_label_txt"
                     for='girl_appearance_tag_<?php echo $num ?>'><?php echo $girl_appearance ?></label>
                 </li>
+
                 <?php endforeach ?>
               </ul>
 
@@ -263,7 +292,7 @@
 
 
             <!-- プレイスタイル -->
-            <div id="phase5" class="bace_wrap">
+            <div id="phase6" class="bace_wrap">
               <h2 class="step_q">⑥あなたのプレイスタイルを決めましょう</h2>
 
               <p class="step_a">プレイスタイル</p>
@@ -271,8 +300,13 @@
 
                 <?php foreach($girls_play as $num => $girl_play) :?>
                 <li class="girl_tag_radio_list">
+                  <?php if( $num == 0) :?>
                   <input type="radio" checked id='girl_play_tag_<?php echo $num ?>' name='girl_play'
-                    value='<?php echo $num ?>' class="girl_tag_label">
+                    value='<?php echo $girl_play ?>' class="radio_label_01">
+                  <?php else :?>
+                  <input type="radio" id='girl_play_tag_<?php echo $num ?>' name='girl_play'
+                    value='<?php echo $girl_play ?>' class="radio_label_01">
+                  <?php endif ?>
                   <label class="girl_tag_label_txt"
                     for='girl_play_tag_<?php echo $num ?>'><?php echo $girl_play ?></label>
                 </li>
@@ -297,8 +331,13 @@
 
                 <?php foreach($girls_characteristic as $num => $girl_characteristic) :?>
                 <li class="girl_tag_radio_list">
+                  <?php if( $num == 0 ) :?>
                   <input type="radio" checked id='girl_characteristic_tag_<?php echo $num ?>' name='girl_characteristic'
-                    value='<?php echo $num ?>' class="girl_tag_label">
+                    value='<?php echo $girl_characteristic ?>' class="radio_label_02">
+                  <?php else :?>
+                  <input type="radio" id='girl_characteristic_tag_<?php echo $num ?>' name='girl_characteristic'
+                    value='<?php echo $girl_characteristic ?>' class="radio_label_02">
+                  <?php endif ?>
                   <label class="girl_tag_label_txt"
                     for='girl_characteristic_tag_<?php echo $num ?>'><?php echo $girl_characteristic ?></label>
                 </li>
@@ -323,10 +362,9 @@
 
                 <?php foreach($girls_plus as $num => $girl_plus) :?>
                 <li class="girl_tag_radio_list">
-                  <input type="radio" checked id='girl_plus_tag_<?php echo $num ?>' name='girl_plus'
-                    value='<?php echo $num ?>' class="girl_tag_label">
-                  <label class="girl_tag_label_txt"
-                    for='girl_plus_tag_<?php echo $num ?>'><?php echo $girl_plus ?></label>
+                  <input type="checkbox" id='girl_plus_tag_<?php echo $num ?>' name='girl_plus'
+                    value='<?php echo $girl_plus ?>'>
+                  <label for='girl_plus_tag_<?php echo $num ?>' class="boxcheck"><?php echo $girl_plus ?></label>
                 </li>
                 <?php endforeach ?>
 
@@ -351,10 +389,9 @@
                 <!-- 最初の値をなしする -->
                 <?php foreach($girls_secret as $num => $girl_secret ) :?>
                 <li class="girl_tag_radio_list">
-                  <input type="radio" id='girl_secret_tag_<?php echo $num ?>' name='girl_secret'
-                    value='<?php echo $num ?>' class="girl_tag_label">
-                  <label class="girl_tag_label_txt"
-                    for='girl_secret_tag_<?php echo $num ?>'><?php echo $girl_secret ?></label>
+                  <input type="checkbox" id='girl_secret_tag_<?php echo $num ?>' name='girl_secret'
+                    value='<?php echo $girl_secret ?>'>
+                  <label for='girl_secret_tag_<?php echo $num ?>' class="boxcheck"><?php echo $girl_secret ?></label>
                 </li>
                 <?php endforeach ?>
               </ul>
@@ -389,10 +426,6 @@
               </section>
 
 
-              <!-- 特記もたくさん選択できるようにする -->
-
-
-
 
               <section class="set_wrap">
                 <h3 class="set_tag">#スリーサイズ</h3>
@@ -410,38 +443,51 @@
 
               <section class="set_wrap">
                 <h3 class="set_tag">#可能オプション</h3>
-                <ul class="option_wrap set_data">
-                  <li id="display_goption"></li>
-                  <li id="display_goption2"></li>
-                  <li id="display_goption3"></li>
+                <span id="display_goption"></span>
+                <ul id="option_list" class="option_wrap set_data">
                 </ul>
               </section>
 
 
               <section class="set_wrap">
                 <h3 class="set_tag">#あなたのタグ</h3>
+                <h4 class="set_tag_middle">外見</h4>
                 <ul class="tag_wrap set_data">
-                  <li id="display_gappearance"></li>
-                  <li id="display_gstyle"></li>
-                  <li id="display_gplay"></li>
-                  <li id="display_gcharacteristic"></li>
+                  <li id="display_gappearance" class="tag_wrap"></li>
+                </ul>
+                <h4 class="set_tag_middle">体型</h4>
+                <ul class="tag_wrap set_data">
+                  <li id="display_gstyle" class="tag_wrap"></li>
+                </ul>
+                <h4 class="set_tag_middle">プレイスタイル</h4>
+                <ul class="tag_wrap set_data">
+                  <li id="display_gplay" class="tag_wrap">い</li>
+                </ul>
+                <h4 class="set_tag_middle">趣味</h4>
+                <ul class="tag_wrap set_data">
+                  <li id="display_gcharacteristic" class="tag_wrap"></li>
                 </ul>
               </section>
 
 
               <section class="set_wrap">
                 <h3 class="set_tag">#特記</h3>
-                <ul class="attention_wrap set_data">
-                  <li id="display_gattention"></li>
+                <span id="display_gplus"></span>
+                <ul id="plus_list" class="plus_wrap set_data">
+                </ul>
+              </section>
+
+              <section class="set_wrap">
+                <h3 class="set_tag">#秘密</h3>
+                <ul id="secret_list" class="secret_wrap set_data">
                 </ul>
               </section>
 
 
 
-
               <div class="step_button_wrap">
                 <button onclick="buck_processPhase(10)" class="step_back">戻る</button>
-                <button onclick="processPhase10()" class="step_next">次へ</button>
+                <button onclick="processPhase10()" class="step_next">登録へ</button>
               </div>
 
             </div>

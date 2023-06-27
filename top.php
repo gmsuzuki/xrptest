@@ -125,18 +125,20 @@
             <!-- 最新３記事 -->
             <!-- イチ記事 -->
             <?php  $x = 1; $num = 3;?>
-            <?php foreach($news_list as $news) :?>
+            <?php foreach($news_objects as $news) :?>
             <?php if( $x > $num ) :?>
             <?php break ?>
             <?php else :?>
             <li class="topic">
               <div class="news_data">
-                <time><?php echo $news[0]?></time>
-                <span class="news_kinds"><?php echo $news[1]?></span>
+                <time><?php echo $news->getNewsTime()?></time>
+                <span class="news_kinds" style="background-color:<?php echo $news->getNewsColor()?>">
+                  <?php echo $news->getNewsTitleBody()?>
+                </span>
               </div>
               <div class="news_top_title">
                 <a href="" class="block_wrap_a">
-                  <?php echo $news[2] ?>
+                  <?php echo $news->getNewsTitle() ?>
                 </a>
               </div>
             </li>

@@ -101,7 +101,9 @@
             define('MAX','5'); // 1ページの記事の表示数
 
 
-            $news_num = count($news_list ); // トータルデータ件数
+            $news_num = count($news_objects); // トータルデータ件数
+            // $news_num = count($news_list );
+
 
             $max_page = ceil($news_num / MAX); // トータルページ数※ceilは小数点を切り捨てる関数
 
@@ -115,21 +117,26 @@
             $start_no = ($now - 1) * MAX; // 配列の何番目から取得すればよいか
 
             // array_sliceは、配列の何番目($start_no)から何番目(MAX)まで切り取る関数
-            $disp_data = array_slice($news_list, $start_no, MAX, true);
+            $disp_data = array_slice($news_objects, $start_no, MAX, true);
+            // $disp_data = array_slice($news_list, $start_no, MAX, true);
             ?>
             <!-- 記事一覧表示 -->
             <?php foreach($disp_data as $news) :?>
-            <li class="topic">
-              <div class="news_data">
-                <time><?php echo $news[0]?></time>
-                <span class="news_kinds"><?php echo $news[1]?></span>
-              </div>
-              <div class="news_top_title">
-                <a href="" class="block_wrap_a">
-                  <?php echo $news[2] ?>
-                </a>
-              </div>
-            </li>
+            <a href="">
+              <li class="topic">
+                <div class="news_data">
+                  <time><?php echo $news->getNewsTime() ?></time>
+                  <span class="news_kinds" style="background-color:<?php echo $news->getNewsColor()?>">
+                    <?php echo $news->getNewsTitleBody()?>
+                  </span>
+                </div>
+                <div class="news_top_title">
+                  <span class="news_list_title">
+                    <?php echo $news->getNewsTitle() ?>
+                  </span>
+                </div>
+              </li>
+            </a>
             <?php endforeach ?>
             <!-- イチ記事 -->
 

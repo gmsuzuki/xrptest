@@ -26,6 +26,12 @@ html {
   color: #333;
 }
 
+.news_list_title {
+  display: block;
+  color: #333;
+  font-size: 1.2rem;
+}
+
 /* カラー */
 .twitter_color {
   color: #00a9eb;

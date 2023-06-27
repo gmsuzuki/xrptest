@@ -1,12 +1,13 @@
 // 画像プレビュー
 
-function imgPreView(event, targetId, sizeLimit) {
+// 変数は（イベント起きたら、targetの場所に、入力ボタン消す、サイズ制限）
+function imgPreView(event, targetId, set_img, sizeLimit) {
   if (event.target.files[0]) {
     // ファイルを入れる
     let file = event.target.files[0];
-
+    // サイズチェック
     if (file.size > sizeLimit) {
-      alert("ファイルサイズは1MB以下にしてください"); // エラーメッセージを表示
+      alert("ファイルサイズは10MB以下にしてください"); // エラーメッセージを表示
       let obj = document.getElementById("inp-" + targetId);
       // クリア
       obj.value = "";
@@ -28,6 +29,7 @@ function imgPreView(event, targetId, sizeLimit) {
       rmBtn.type = "button";
       rmBtn.name = "rmv-" + targetId;
       rmBtn.value = "削除";
+      rmBtn.className = "remove_set_img";
       rmBtn.onclick = function () {
         let element = document
           .getElementById("previewImage-" + targetId)
@@ -36,6 +38,8 @@ function imgPreView(event, targetId, sizeLimit) {
         // クリア
         obj.value = "";
         // 中身だけじゃなく全消ししてinputを書き直す方法もある
+        let label_del = document.getElementById(set_img);
+        label_del.style.display = "block";
       };
       // もしすでにプレビューに画像があれば消す
       if (previewImage != null) {
@@ -43,6 +47,8 @@ function imgPreView(event, targetId, sizeLimit) {
       }
       //  ファイルリーダー読み込み終わったらイベント
       reader.onload = function (event) {
+        let label_del = document.getElementById(set_img);
+        label_del.style.display = "none";
         // img設定
         let img = document.createElement("img");
         img.setAttribute("src", reader.result);

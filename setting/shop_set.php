@@ -13,7 +13,7 @@
 
   <!--css javascript-->
   <link rel="stylesheet" href="../css/reset.css">
-  <link rel="stylesheet" type="text/css" href="../css/set_style.css" />
+  <link rel="stylesheet" type="text/css" href="../css/old_set_style.css" />
   <script src="../js/setting.js" defer></script>
 
 
@@ -26,38 +26,48 @@
 
 
     <main>
-      <h1>お店の基本設定dd</h1>
+      <div id="all_top">
+        <h1>文章と画像を上げるサンプル</h1>
 
-      <a href="https://code-kitchen.dev/css/invalid/">入力フォームのバリデーション参考</a>
-      <a href="https://code-kitchen.dev/html/template/">入力完了</a>
-      <a href="https://esaura.jp/ux-blog/how-to-create-entry-form">入力欄参考</a>
-      <!-- フォーム,送り先、方法を設定 -->
-      <h3>送る先のphpファイルまだ決めてないです</h3>
-      <h3>ポストで送る名前決まってない</h3>
+        <a href="https://code-kitchen.dev/css/invalid/" class="test_bnt">入力フォームのバリデーション参考</a>
+        <a href="https://code-kitchen.dev/html/template/" class="test_bnt">入力完了</a>
+        <a href="https://esaura.jp/ux-blog/how-to-create-entry-form" class="test_bnt">入力欄参考</a>
+        <!-- フォーム,送り先、方法を設定 -->
+        <div class="memo">
+          <h3>送る先のphpファイルまだ決めてないです</h3>
+          <h3>ポストで送る名前決まってない</h3>
+        </div>
 
-      <br>
-      <?php if ($_GET['setting'] === "shop") {
+      </div>
+
+      <div class="root">
+        <?php if ($_GET['setting'] === "shop") {
         echo "正規のルートから来ました<br><br>";
       }
       ?>
+      </div>
 
+      <!-- 入力をクリアするボタンを押したら -->
       <?php
-
       if ($_POST['clear']) {
-
         session_start();
         $_SESSION = array();
       }
+      ?>
+      <!-- クリア終わり -->
 
-      //定数読み込み
+
+      <!-- ここから本格的にスタート -->
+      <?php
+      //定数読み込み、画像サイズとか
       require_once('const_set.php');
-      // 文章ぼバリデーション読み込み
+      // 文章バリデーション読み込み
       require_once('text_validate.php');
       // 画像のバリデーション読み込み
       require_once('image_validate.php');
 
 
-
+      // セッションスタートしてる
       session_start();
 
       // 戻るボタンでエラーしないように
@@ -65,16 +75,34 @@
       header('Cache-Control:');
       header('Pragma:');
 
+      // 入力モードにする
       $mode = 'input';
+      // エラー配列を作る
       $errmessage = array();
 
 
+// submitの種類でifを書いてる
+// もし送信・戻るの戻るを押したら
+// なにもしない
+// 画像をけすならセッションの中身消す
+// 確認ボタンが押された
+// クラスを作り
+// 各種バリデーションチェック
+// エラーがないならセッションに入れる
+// モードを確認に変更する
+// もし送信を押していたら
+// サーバ関連
+// セッションを消す
+// 最初に入ってきた場合
+// セッション変数を作る
 
-      // 戻るでインプットに入ってもなにもしない/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_
+
+      // 送信or戻るで戻るインプットに入ってもなにもしない/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_
       if (isset($_POST['back']) && $_POST['back']) {
 
-        // /_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_
-      } else if (isset($_POST['test']) && $_POST['test']) {
+        // 画像関連/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_
+        // 画像を削除した場合
+      } else if (isset($_POST['img_prv_delete']) && $_POST['img_prv_delete']) {
 
         $_SESSION['shop_permission']['data'] = '';
         $_SESSION['shop_permission']['type'] = '';
@@ -82,10 +110,9 @@
         $_SESSION['shop_permission']['height'] = '';
 
 
-        // 確認ページ/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_
+        // 確認（confirm）ページ/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_
       } else if (isset($_POST['confirm']) && $_POST['confirm']) {
         // 文字関連
-
 
 
         // 店名ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
@@ -138,7 +165,7 @@
 
 
         // 画像関連----------------------------------------
-        // 画像が選ばれていれば
+        // 画像が選ばれていれば'tmp_name'は一時保存名
         if (!empty($_FILES['shop_permission']['tmp_name'])) {
 
           try {
@@ -152,7 +179,18 @@
             $errmessage[] =  $e->getMessage();
           }
 
-          // 何一つ問題ない場合
+
+
+
+// ここでセッションに画像データ入れてる
+// ここでセッションに画像データ入れてる
+
+
+// ここでセッションに画像データ入れてる
+// ここでセッションに画像データ入れてる
+
+
+          // 何一つ問題エラーメッセージがない場合
           if (empty($errmessage)) {
             setSessionImg('shop_permission', $_FILES['shop_permission']);
           }
@@ -222,6 +260,7 @@
         html
       -------------------------------------->
 
+      <h4 style="color:red">ここはどこでしょう</h4>
 
 
       <!-- 入力画面 -->
@@ -229,8 +268,8 @@
 
 
 
-        <!-- エラーメッセージ -->
-        <?php
+      <!-- エラーメッセージがあるなら表示 -->
+      <?php
         if ($errmessage) {
           echo "<div class='errmessage'>";
           echo implode('<br>', $errmessage);
@@ -239,126 +278,129 @@
         ?>
 
 
-        <!-- データの送り先 -->
-        <!-- <form action="sent.php?setting=shop_info" method="POST" enctype="multipart/form-data"> -->
+      <!-- データの送り先 -->
+      <!-- <form action="sent.php?setting=shop_info" method="POST" enctype="multipart/form-data"> -->
 
-        <form action="./shop_set.php" method="POST" enctype="multipart/form-data">
+      <form action="./shop_set.php" method="POST" enctype="multipart/form-data">
 
-          <!-- MAX_FILE_SIZE でアップロードファイルのサイズを制限する（単位：バイト） -->
-          <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo Fix::MINIMG; ?>">
-          <!-- 店舗番号をこっそり送る -->
-          <input type="hidden" name="shop_no" value="0">
+        <!-- MAX_FILE_SIZE でアップロードファイルのサイズを制限する（単位：バイト） -->
+        <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo Fix::MINIMG; ?>">
+        <!-- 店舗番号をこっそり送る -->
+        <input type="hidden" name="shop_no" value="0">
 
-          <!-- 設定項目 -->
+        <!-- 設定項目 -->
 
-          <h2>ホームページタイトル（35字以内推奨〜100文字）</h2>
-          <h3>改行はできません</h3>
-          <!-- requiredは必須 maxlength最大長さ -->
+        <h2>ホームページタイトル（35字以内推奨〜100文字）</h2>
+        <h3>改行はできません</h3>
+        <!-- requiredは必須 maxlength最大長さ -->
 
-          <!-- 店の名前 -->
-          <?php if ($_SESSION['shop_name']['name']) : ?>
-            <p id="shop_name_count1">残り：<?php echo  Fix::SHOPNAME - $_SESSION['shop_name']['length']; ?>文字</p>
-          <?php else : ?>
-            <p id="shop_name_count1">残り：<?php echo Fix::SHOPNAME ?>文字</p>
-          <?php endif ?>
-          <input type="text" name="shop_name" required maxlength="100" value="<?php echo $_SESSION['shop_name']['name'] ?>" oninput="CountStr('shop_name_count1', value,<?php echo Fix::SHOPNAME; ?>)">
-
-
-          <!-- 店の説明 -->
-          <h2>お店の説明（80文字以内推奨〜150文字）</h2>
-          <h3>改行、スペースは反映されません</h3>
-
-          <?php if ($_SESSION['shop_description']['description']) : ?>
-            <p id="shop_name_count2">残り：<?php echo Fix::SHOPDISC - $_SESSION['shop_description']['length']; ?>文字</p>
-          <?php else : ?>
-            <p id="shop_name_count2">残り：<?php echo Fix::SHOPDISC; ?> 文字</p>
-          <?php endif ?>
-          <textarea name="shop_description" cols="30" rows="10" required maxlength="150" oninput="CountStr('shop_name_count2', value,<?php echo Fix::SHOPDISC; ?>);"><?php echo $_SESSION['shop_description']['description'] ?></textarea>
+        <!-- 店の名前 -->
+        <?php if ($_SESSION['shop_name']['name']) : ?>
+        <p id="shop_name_count1">残り：<?php echo  Fix::SHOPNAME - $_SESSION['shop_name']['length']; ?>文字</p>
+        <?php else : ?>
+        <p id="shop_name_count1">残り：<?php echo Fix::SHOPNAME ?>文字</p>
+        <?php endif ?>
+        <input type="text" name="shop_name" required maxlength="100"
+          value="<?php echo $_SESSION['shop_name']['name'] ?>"
+          oninput="CountStr('shop_name_count1', value,<?php echo Fix::SHOPNAME; ?>)">
 
 
-          <!-- 許可画像 -->
-          <h2>許可登録関係</h2>
-          <h3>画像形式</h3>
-          <input type="file" name="shop_permission" accept="image/png, image/jpeg, image/gif" id="inp-preview1" onChange="imgPreView(event, 'preview1',<?php echo Fix::MINIMG; ?>)">
+        <!-- 店の説明 -->
+        <h2>お店の説明（80文字以内推奨〜150文字）</h2>
+        <h3>改行、スペースは反映されません</h3>
 
-          <!-- 戻ってきた場合 -->
-
-          <?php if (!empty($_SESSION['shop_permission']['data'])) : ?>
-
-
-            <div id="preview1">
-              <figure id="previewImage-preview1">
-                <h3>現在選択中</h3>
-                <img src="data:<?php echo $_SESSION['shop_permission']['type']; ?>;base64,<?php echo $_SESSION['shop_permission']['data']; ?>">
-                <input type="submit" name="test" value="削除">
-              </figure>
-            </div>
-
-          <?php else : ?>
-            <div id="preview1"></div>
-
-          <?php endif; ?>
+        <?php if ($_SESSION['shop_description']['description']) : ?>
+        <p id="shop_name_count2">残り：<?php echo Fix::SHOPDISC - $_SESSION['shop_description']['length']; ?>文字</p>
+        <?php else : ?>
+        <p id="shop_name_count2">残り：<?php echo Fix::SHOPDISC; ?> 文字</p>
+        <?php endif ?>
+        <textarea name="shop_description" cols="30" rows="10" required maxlength="150"
+          oninput="CountStr('shop_name_count2', value,<?php echo Fix::SHOPDISC; ?>);"><?php echo $_SESSION['shop_description']['description'] ?></textarea>
 
 
+        <!-- 許可画像 -->
+        <h2>許可登録関係</h2>
+        <h3>画像形式</h3>
+        <h3>ここだここ</h3>
+        <input type="file" name="shop_permission" accept="image/png, image/jpeg, image/gif" id="inp-preview1"
+          onChange="imgPreView(event, 'preview1',<?php echo Fix::MINIMG; ?>)">
 
-          <input type="submit" name="confirm" value="確認">
-          <input type="submit" name="clear" value="クリア">
+        <!-- 戻ってきた場合 -->
+        <?php if (!empty($_SESSION['shop_permission']['data'])) : ?>
 
-        </form>
+        <div id="preview1">
+          <figure id="previewImage-preview1">
+            <h3>現在選択中</h3>
+            <img
+              src="data:<?php echo $_SESSION['shop_permission']['type']; ?>;base64,<?php echo $_SESSION['shop_permission']['data']; ?>">
+            <input type="submit" name="img_prv_delete" value="削除">
+          </figure>
+        </div>
+
+        <?php else : ?>
+        <!-- 通常時のプレビュー位置 -->
+        <div id="preview1"></div>
+
+        <?php endif; ?>
+        <!-- 終わり戻ってきた場合 -->
+
+
+        <input type="submit" name="confirm" value="確認">
+        <input type="submit" name="clear" value="クリア">
+
+      </form>
 
 
 
 
 
-        <!-- 確認画面 -->
+      <!-- 確認画面 -->
       <?php elseif ($mode == 'confirm') : ?>
 
-        <form action="./shop_set.php" method="POST" enctype="multipart/form-data">
+      <form action="./shop_set.php" method="POST" enctype="multipart/form-data">
 
-          <br>
-          <br>
-          <br>
-          店舗名：<?php echo $_SESSION['shop_name']['name'] ?><br>
-          店舗説明：<?php echo nl2br($_SESSION['shop_description']['description']) ?><br>
-          <br>
-          <br>
-          <br>
-          アップ画像
-          <!-- 画像をアップしたか？必須でない場合があるので -->
+        <br>
+        <br>
+        <br>
+        店舗名：<?php echo $_SESSION['shop_name']['name'] ?><br>
+        店舗説明：<?php echo nl2br($_SESSION['shop_description']['description']) ?><br>
+        <br>
+        <br>
+        <br>
+        アップ画像
+        <!-- 画像をアップしたか？必須でない場合があるので -->
 
-          <?php if (empty($_SESSION['shop_permission']['data'])) : ?>
-            <?php echo '画像は選択されていません'; ?>
-          <?php else : ?>
+        <?php if (empty($_SESSION['shop_permission']['data'])) : ?>
+        <?php echo '画像は選択されていません'; ?>
+        <?php else : ?>
 
-            <?php check_vh('shop_permission', Fix::sp_noswipe_bnner_w, Fix::sp_noswipe_bnner_h) ?>
-
-
-            <img src="data:<?php echo $_SESSION['shop_permission']['type']; ?>;base64,<?php echo $_SESSION['shop_permission']['data']; ?>">
-
-          <?php endif; ?>
+        <?php check_vh('shop_permission', Fix::sp_noswipe_bnner_w, Fix::sp_noswipe_bnner_h) ?>
 
 
+        <img
+          src="data:<?php echo $_SESSION['shop_permission']['type']; ?>;base64,<?php echo $_SESSION['shop_permission']['data']; ?>">
 
-          <br>
-          <br>
+        <?php endif; ?>
 
 
 
-          <input type="submit" name="back" value="戻る">
-          <input type="submit" name="send" value="送信">
-
-        </form>
 
 
+        <input type="submit" name="back" value="戻る">
+        <input type="submit" name="send" value="送信">
 
-        <!-- 送信画面 -->
+      </form>
+
+
+
+      <!-- 送信画面 -->
       <?php elseif ($mode == 'send') : ?>
 
-        <?php echo $_POST['shop']['name']; ?>
-        <?php echo $_SESSION['shop']['name']; ?>
+      <?php echo $_POST['shop']['name']; ?>
+      <?php echo $_SESSION['shop']['name']; ?>
 
       <?php else : ?>
-        <h3>エラーしてます</h3>
+      <h3>エラーしてます</h3>
 
       <?php endif; ?>
 

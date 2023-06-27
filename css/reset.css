@@ -200,3 +200,13 @@ img {
 ul {
   list-style: none;
 }
+
+/* スマホの何故か入力欄の角が丸くなるのをリセット */
+input[type="button"],
+input[type="text"],
+input[type="submit"],
+input[type="image"],
+textarea {
+  -webkit-appearance: none;
+  border-radius: 0;
+}

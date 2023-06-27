@@ -120,6 +120,9 @@
                 <li class="approval_setting_link list_flex_box ">
                   <a href=""><span>予約承認</span></a>
                 </li>
+                <li class="approval_setting_link list_flex_box ">
+                  <a href="https://web-tsuku.life/" target="_blank"><span>わかりやすいhtml.js</span></a>
+                </li>
 
 
               </ul>
@@ -131,22 +134,22 @@
 
               <ul class="register_setting_list list_flex">
                 <li class="register_setting_link list_flex_box ">
-                  <a href="new_girl_set.php"><span>新人登録/削除</span></a>
+                  <a href="new_girl_set.php?setting=cast"><span>新人登録</span></a>
                 </li>
                 <li class="register_setting_link list_flex_box ">
-                  <a href=""><span>イベント登録/削除</span></a>
+                  <a href="new_event_set.php?setting=event"><span>イベント登録</span></a>
                 </li>
                 <li class="register_setting_link list_flex_box ">
-                  <a href=""><span>スタッフ登録/削除</span></a>
+                  <a href="new_member_set.php?setting=staff"><span>スタッフ登録</span></a>
                 </li>
                 <li class="register_setting_link list_flex_box ">
-                  <a href=""><span>ニュース登録/削除</span></a>
+                  <a href="renew_set_event.php?setting=news"><span>ニュース登録</span></a>
                 </li>
                 <li class="register_setting_link list_flex_box ">
-                  <a href=""><span>店登録/削除</span></a>
+                  <a href=""><span>店舗</span></a>
                 </li>
                 <li class="register_setting_link list_flex_box ">
-                  <a href=""><span>店外観登録/削除</span></a>
+                  <a href=""><span>店外観</span></a>
                 </li>
 
               </ul>

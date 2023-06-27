@@ -84,7 +84,7 @@
       if($_GET["eventid"]){
       $selectedId = $_GET["eventid"];
       // イベント配列の何番目か？見てる
-      $selectedEvent = $event_objects[$selectedId];
+      $selectedEvent = $events[$selectedId];
       }elseif($_GET["sw_eventid"] !== null){
       $selectedId = $_GET["sw_eventid"];
       // イベント配列の何番目か？見てる
@@ -100,8 +100,8 @@
 
       <article id="event" class="under_space">
         <div class="content_wrapper">
-          <h1 class="fixpage_title"><span>Event</span></h1>
-          <h3 class="block_title_caption">イベント</h3>
+          <h1 class="fixpage_title"><span>News</span></h1>
+          <h3 class="block_title_caption">ニュース</h3>
 
           <section class="event_card block_anime">
             <div class="event_description">

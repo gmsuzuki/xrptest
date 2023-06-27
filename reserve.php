@@ -659,7 +659,6 @@ if( !empty($_POST['btn_confirm']) ) {
                   <select class="play_date_time select_check" required name="play_daytime">
                     <option value="" hidden>ご希望スタート時間をお選びください</option>
                     <option value="特になし">特になし</option>
-
                     <?php for($i = 0; $i < 27; $i ++) : ?>
                     <?php echo '<option value="'.$shop_start->format('H:i').'">' ?>
                     <?php echo "{$shop_start->format('H:i')}" ?>
@@ -682,7 +681,6 @@ if( !empty($_POST['btn_confirm']) ) {
                     <option value="前後1時間">前後1時間</option>
                     <option value="前後2時間以上">前後2時間以上</option>
                   </select>
-
                 </dl>
                 <dl>
                   <dt>ご利用コース<em>必須</em></dt>

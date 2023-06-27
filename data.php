@@ -10,32 +10,26 @@
   $today = new DateTime('now');
   $week_name = array("日", "月", "火", "水", "木", "金", "土");
   // 営業時間
-  $shop_start = $today->setTime(10,00,00);
+  $shop_start = clone $today;
+  $shop_start ->setTime(10,00,00);
 ?>
 
-
-
-<!-- 最新情報 -->
+<!-- postでもらってきた日時データかどうか判断 -->
 <?php
-$news_list = [
-  ['2022.08.23','イベント','1タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ','添付'],
-  ['2022.08.23','イベント','2タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ','添付'],
-  ['2022.08.23','イベント','3タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ','添付'],
-  ['2022.08.23','イベント','4タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ','添付'],
-  ['2022.08.24','イベント','5タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ','添付'],
-  ['2022.08.25','イベント','6タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ','添付'],
-  ['2022.08.25','イベント','7タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ','添付'],
-  ['2022.08.26','イベント','8タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ','添付'],
-  ['2022.08.27','イベント','9タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ','添付'],
-  ['2022.08.28','イベント','10タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ','添付'],
-  ['2022.08.29','イベント','11タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ','添付'],
-  ['2022.08.29','イベント','12タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ','添付'],
-  ['2022.08.29','イベント','13タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ','添付'],
-  ['2022.08.23','イベント','14タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ','添付'],
-  ['2022.08.23','イベント','15タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ','添付'],
-  ]
+// 2021/10/08とこんな感じの日時にpostで受けっとった日時はなってるか？
+function validateDateFormat($date) {
+    $format = 'Y/m/d';
+    $dateTime = DateTime::createFromFormat($format, $date);
+    return $dateTime && $dateTime->format($format) === $date;
+};
+//10:00とこんな感じの時間にpostで受け取った時間はなっているか？判断 
+function isValidTimeFormat($time) {
+    $pattern = '/^(0[0-9]|1[0-9]|2[0-3]):00$/';
+    return preg_match($pattern, $time) === 1;
+}
 
 ?>
+
 
 <!-- picbunner -->
 <?php
@@ -63,6 +57,7 @@ $sample_names = [
 [8,'前田　洋子','img/newface09.jpeg',30,150,78,'A',95],
 [9,'石川　彩乃','img/newface10.jpeg',20,152,90,'G',91]
 ];
+
 
 $new_names;
 for($i=1; $i<6; $i++){
@@ -125,7 +120,10 @@ $sample_qandas = array_combine($sample_question, $sample_answer);
 $options = [
   'おにぎり',
   'のりまき',
-  'おいなりさん'
+  'おいなりさん',
+  'かっぱまき',
+  'まぐろ',
+  'いくら',
   ]
 ?>
 
@@ -218,6 +216,134 @@ $hotels = array(
 
 ?>
 
+
+<!-- ニュース -->
+<?php
+class News
+{
+    private $news_id;
+    private $news_time;
+    private $news_type;
+    private $news_img;
+    private $news_title;
+    private $news_content;
+    public function __construct(
+      $news_id,
+      $news_time,
+      $news_type,
+      $news_img,
+      $news_title,
+      $news_content
+      )
+      {
+        $this->news_id = $news_id;
+        $this->news_time = $news_time;
+        $this->news_type = $news_type;
+        $this->news_img = $news_img;
+        $this->news_title = $news_title;
+        $this->news_content = $news_content;
+    }
+    public function getNewstId()
+    {
+        return $this->news_id;
+    }
+    public function getNewsTime()
+    {
+        return $this->news_time;
+    }
+    public function getNewsType()
+    {
+        return $this->news_type;
+    }
+    public function getNewsImg()
+    {
+        return $this->news_img;
+    }
+        public function getNewsTitle()
+    {
+        return $this->news_title;
+    }
+    public function getNewsContent()
+    {
+        return $this->news_content;
+    }
+    public function getNewsColor()
+    {
+        if ($this->news_type == 1) {
+            return 'pink'; // ピンク
+        } elseif ($this->news_type == 2) {
+            return 'rgb(114 151 197)'; // 青
+        } elseif ($this->news_type == 3) {
+            return 'rgb(118 227 77)'; // 緑
+        }elseif ($this->news_type == 4) {
+            return 'rgb(237, 192, 255)'; // 紫
+        }  else {
+            return 'black'; // デフォルトは黒色
+        }
+    }
+    public function getNewsTitleBody()
+    {
+        if ($this->news_type == 1) {
+            return 'イベント';
+        } elseif ($this->news_type == 2) {
+            return 'お知らせ'; // 青
+        } elseif ($this->news_type == 3) {
+            return '新人紹介'; // 緑
+        }elseif ($this->news_type == 4) {
+            return 'その他'; // 紫
+        }  else {
+            return 'エラー'; // デフォルトは黒色
+        }
+    }
+
+  }
+
+?>
+
+<!-- 最新情報 -->
+<?php
+$news_list = [
+  [1,'2022.08.23',1,'img/bunner.jpeg','1タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ'],
+  [2,'2022.08.23',3,'img/bunner.jpeg','2タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ'],
+  [3,'2022.08.23',3,'img/bunner.jpeg','3タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ'],
+  [4,'2022.08.23',2,'img/bunner.jpeg','4タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ'],
+  [5,'2022.08.24',1,'img/bunner.jpeg','5タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ'],
+  [6,'2022.08.25',1,'img/bunner.jpeg','6タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ'],
+  [7,'2022.08.25',2,'img/bunner.jpeg','7タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ'],
+  [8,'2022.08.26',2,'img/bunner.jpeg','8タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ'],
+  [9,'2022.08.27',3,'img/bunner.jpeg','9タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ'],
+  [10,'2022.08.28',1,'img/bunner.jpeg','10タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ'],
+  [11,'2022.08.29',4,'img/bunner.jpeg','11タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ'],
+  [12,'2022.08.29',1,'img/bunner.jpeg','12タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ'],
+  [13,'2022.08.29',2,'img/bunner.jpeg','13タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ'],
+  [14,'2022.08.23',1,'img/bunner.jpeg','14タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ'],
+  [15,'2022.08.23',2,'img/bunner.jpeg','15タイトルあいうえおかきくけこさしすせそ','内容ああああああああああああああ'],
+];
+
+// この中にイベントオブジェクトが入る
+$news_objects = array();
+
+foreach( $news_list as $news_data){
+    $news_id = $news_data[0];
+    $news_time = $news_data[1];
+    $news_type = $news_data[2];
+    $news_img = $news_data[3];
+    $news_title = $news_data[4];
+    $news_content = $news_data[5];
+    $news_objects[] = new News(
+      $news_id,
+      $news_time,
+      $news_type,
+      $news_img,
+      $news_title,
+      $news_content
+
+);
+}
+?>
+
+
+
 <!-- イベントページ -->
 <?php
 class Events
@@ -257,44 +383,35 @@ class Events
   }
 // とりあえず5人ほど作っておく
 
-$event1 = new Events(
-  1,
-  "ご新規様割引",
-  "img/event00.png",
-  "あいうえおかきくけこさしすせそたちつてと"
-);
-$event2 = new Events(
-  2,
-  "コミコミ割引",
-  "img/event01.png",
-  "あいうえおかきくけこさしすせそたちつてと"
-);
-$event3 = new Events(
-  3,
-  "スタンプ倍増キャンペーン",
-  "img/event02.png",
-  "あいうえおかきくけこさしすせそたちつてと"
-);
-$event4 = new Events(
-  4,
-  "ロングお得キャンペーン",
-  "img/event03.png",
-  "あいうえおかきくけこさしすせそたちつてと"
-);
-$event5 = new Events(
-  5,
-  "口コミ割引",
-  "img/event04.png",
-  "あいうえおかきくけこさしすせそたちつてと"
-);
 
-$events =[
-  $event1,
-  $event2,
-  $event3,
-  $event4,
-  $event5                        
+
+$events_list = [
+[1,"ご新規様割引","img/event00.png","あいうえおかきくけこさしすせそたちつてと"],
+[2,"コミコミ割引","img/event01.png","あいうえおかきくけこさしすせそたちつてと"],
+[3,"スタンプ倍増キャンペーン","img/event02.png","あいうえおかきくけこさしすせそたちつてと"],
+[4,"ロングお得キャンペーン","img/event03.png","あいうえおかきくけこさしすせそたちつてと"],
+[5,"口コミ割引","img/event04.png","あいうえおかきくけこさしすせそたちつてと"]
 ];
+
+
+
+// この中にイベントオブジェクトが入る
+$event_objects = array();
+
+foreach( $events_list as $events_data){
+    $event_id = $events_data[0];
+    $event_name = $events_data[1];
+    $event_img = $events_data[2];
+    $event_content = $events_data[3];
+    $event_objects[] = new Events(
+    $event_id,
+    $event_name,
+    $event_img,
+    $event_content
+);
+}
+
+
 
 // スワイパーに乗るもの
 

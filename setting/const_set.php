@@ -5,9 +5,18 @@ class Fix
 
     // 各種定数
     // 入力文字制限
+    // お店系
     const SHOPNAME = 20;
     const SHOPDISC = 150;
-
+    // イベント系
+    const EVENTTITLE = 32;
+    const EVENTBODY = 1000;
+    // イベントの種類
+    const EVENTTYPE = 4;
+    // 更新よてい
+    const EVENTPOST = 2;
+    // newsに載せるのか？
+    const NEWSPOST = 2;
 
     // 画像最大容量
     // 10MB
@@ -34,5 +43,7 @@ class Fix
 
     // pc番バナー
     // 468x60が一番でかい？
+
+
 
 }

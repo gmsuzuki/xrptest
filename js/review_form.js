@@ -75,20 +75,8 @@ function SameCheck(input) {
   }
 }
 
-// textareaにはpattern属性がないみたい
-function checkTxt(textarea) {
-  console.log("外れたよ");
-  var str = textarea.value;
-  var regExpEscape = str.replace(/[-\/\\^$*+?.()|\[\]{}]/g, "\\$&");
-  console.log(regExpEscape);
-  document.getElementById("review_text_body").value = regExpEscape;
-}
-
-// バリデーションをクリアしたら
-// 送信できるようにする
-
 const form = document.getElementById("form");
-const review_button = document.getElementById("review_button");
+const review_button = document.getElementById("submit_button");
 form.addEventListener("input", update);
 form.addEventListener("change", update);
 
@@ -104,40 +92,6 @@ function update() {
       review_button.disabled = true;
       review_button.value = "入力が完了していません";
     }
-  }
-}
-
-// ーーーーーーーーーーーーーーーーーーーーーー
-// 文字カウント
-// ーーーーーーーーーーーーーーーーーーーーーー
-
-function CountStr(id, str, max) {
-  const restr = str.replace(/\s+/g, "");
-  // document.getElementById(id).innerHTML = "文字数：" +(max - restr.length) + "文字";
-  document.getElementById(id).innerHTML =
-    "残り：" + (max - restr.length) + "文字";
-
-  if (max - restr.length < 0) {
-    document.getElementById(id).style = "color: red;";
-  }
-}
-
-// ーーーーーーーーーーーーーーーーーーーーーー
-// 文字カウント　現在
-// ーーーーーーーーーーーーーーーーーーーーーー
-
-function CountStrNow(id, str, max) {
-  const restrnow = str.replace(/\s+/g, "");
-  // document.getElementById(id).innerHTML = "文字数：" +(max - restr.length) + "文字";
-  document.getElementById(id).innerHTML =
-    "現在：" + restrnow.length + "/" + max + "文字";
-  if (restrnow.length >= 100) {
-    document.getElementById("not_enough").style = "display: none;";
-  } else {
-    document.getElementById("not_enough").style = "display: block;";
-  }
-  if (max - restrnow.length < 0) {
-    document.getElementById(id).style = "color: red;";
   }
 }
 
