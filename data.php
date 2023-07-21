@@ -59,6 +59,20 @@ $sample_names = [
 ];
 
 
+$sample_pics = [
+[0,'img/newface01.jpeg','img/newface03.jpeg','img/newface05.jpeg','img/newface02.jpeg','img/newface07.jpeg',],
+[1,'img/newface04.jpeg','img/newface03.jpeg','img/newface10.jpeg','img/newface10.jpeg','img/newface04.jpeg'],
+[2,'img/newface05.jpeg','img/newface04.jpeg','img/newface06.jpeg','img/newface07.jpeg','img/newface05.jpeg',],
+[3,'img/newface07.jpeg','img/newface06.jpeg','img/newface04.jpeg','img/newface08.jpeg','img/newface06.jpeg',],
+[4,'img/newface08.jpeg','img/newface07.jpeg','img/newface02.jpeg','img/newface06.jpeg','img/newface07.jpeg',],
+[5,'img/newface09.jpeg','img/newface09.jpeg','img/newface01.jpeg','img/newface02.jpeg','img/newface07.jpeg',],
+[6,'img/newface10.jpeg','img/newface09.jpeg','img/newface10.jpeg','img/newface03.jpeg','img/newface08.jpeg',],
+[7,'img/newface02.jpeg','img/newface08.jpeg','img/newface07.jpeg','img/newface02.jpeg','img/newface09.jpeg',],
+[8,'img/newface03.jpeg','img/newface10.jpeg','img/newface05.jpeg','img/newface03.jpeg','img/newface10.jpeg',],
+[9,'img/newface07.jpeg','img/newface06.jpeg','img/newface04.jpeg','img/newface03.jpeg','img/newface01.jpeg',]
+];
+
+
 $new_names;
 for($i=1; $i<6; $i++){
 $new_names[] =$sample_names[$i];

@@ -4,6 +4,19 @@ html {
   font-size: 62.5%;
 }
 
+body {
+  /* ゴシック */
+  font-family: "Avenir", "Helvetica Neue", "Helvetica", "Arial",
+    "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo",
+    "游ゴシック", "Yu Gothic", "ＭＳ Ｐゴシック", sans-serif;
+  /* 明朝 */
+  /* font-family: 'ヒラギノ明朝 Pro W3', 'Hiragino Mincho Pro', '游明朝','Yu Mincho', '游明朝体', 'YuMincho','ＭＳ Ｐ明朝', 'MS PMincho', serif; */
+  font-size: 1.4em;
+  line-height: 2.24rem;
+  box-sizing: border-box;
+  color: #333;
+}
+
 /* スマホの何故か入力欄の角が丸くなるのをリセット */
 input[type="button"],
 input[type="text"],
@@ -190,7 +203,7 @@ input[type="text"] {
   font-size: 1.8rem;
 }
 
-input[type="text"].girl_ver {
+#girl_input input[type="text"] {
   border-radius: 20px;
   padding-left: 1rem;
   border: 2px solid #04384c;
@@ -359,6 +372,10 @@ input[type="checkbox"]:checked + .boxcheck::after {
 
 .pink,
 .radio_label_01:checked + label {
+  background-color: pink;
+}
+
+.radio_label_01:checked ~ .bace_wrap {
   background-color: pink;
 }
 
@@ -531,12 +548,32 @@ li {
   border: 5px solid #ffdbec;
 }
 
+.news_post_bg {
+  border: 5px solid rgb(192 220 255);
+}
+
+.cast_info_post_bg {
+  border: 5px solid rgb(192, 255, 203);
+}
+
 .step_wrap {
   margin-bottom: 32px;
 }
 
 .step_wrap_post {
   margin-bottom: 48px;
+}
+
+.step_radio_wrap {
+  margin: 12px 0;
+}
+
+.step_select_wrap {
+  margin: 24px 0 48px 0;
+}
+
+#cast_select {
+  width: 100%;
 }
 
 .step_list_wrap {
@@ -668,12 +705,12 @@ input[name="tab_item"] {
 
 /* 名前 */
 .set_name li:last-child {
-  margin-right: 0;
+  /* margin-right: 0; */
 }
 
 /* スリーサイズ */
 .three_size_wrap li:nth-child(2) {
-  margin-right: 0;
+  /* margin-right: 0; */
 }
 
 /* カップ */
@@ -955,6 +992,7 @@ h4.block_title_caption {
   letter-spacing: 0.3rem;
   color: #6e6e73;
   margin-left: 8px;
+  margin-bottom: 24px;
 }
 
 /* イベントタイトル */
@@ -1034,6 +1072,60 @@ h4.block_title_caption {
 .confirm_event_description_text {
   font-size: 1.4rem;
   margin: 20px;
+}
+
+/* 画像オート */
+
+.radio_pic {
+  width: 33%;
+  padding: 5% 2%;
+}
+
+.radio_pic img {
+  width: 100%;
+}
+
+#selectedCast {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.select_pic_att {
+  font-size: 1.2rem;
+  color: rgb(234, 112, 189);
+  padding: 1rem;
+}
+
+input[name="picRadio"]:checked + label.radio_pic img {
+  border: 5px solid rgb(255 157 219);
+}
+
+/* 新人確認 */
+
+.top_newface_demo {
+  background-color: #ffebee;
+  border: 5px solid #ffebee;
+  margin: 32px 0;
+}
+
+.newface_demo_pic {
+  width: 100%;
+}
+
+.newface_data_demo {
+  padding: 24px 0;
+  text-align: center;
+}
+
+.demo_name_age .name {
+  font-weight: bold;
+  font-size: 2rem;
+  color: black;
+}
+
+.newface_demo_picwrap {
+  width: 80%;
+  margin: 0 auto;
 }
 
 /* 投稿時間 */

@@ -45,6 +45,7 @@
   <!--javascript-->
   <script src="../js/set_basic.js" defer></script>
   <script src="../js/error_set.js" defer></script>
+  <script src="../js/set_form_input_check.js" defer></script>
   <script src="../js/newgirl_set.js" defer></script>
 
   <!-- フォントオーサム -->
@@ -89,20 +90,20 @@
 
 
               <h2 class="step_q">①お店で使う名前を決めてください</h2>
-              <ul>
+              <ul id="girl_input">
                 <li class="step_wrap">
                   <span class="step_a">名字</span>
                   <em class="mini_alert">記号は使えません</em>
                   <input type="text" id="firstname" name="firstname" maxlength="10" onblur="CheckGuestInfo(this)"
                     pattern="^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,10}"
-                    placeholder="10文字以内（省略可能）" class="girl_ver">
+                    placeholder="10文字以内（省略可能）" class="">
                 </li>
                 <li class="step_wrap">
                   <span class="step_a">名前</span>
                   <em class="mini_alert">記号は使えません</em>
                   <input type="text" required id="lastname" name="lastname" maxlength="10" onblur="CheckGuestInfo(this)"
                     pattern="^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,10}" placeholder="10文字以内（必須）"
-                    class="girl_ver cancel_alert">
+                    class="cancel_alert">
                 </li>
                 <li class="step_wrap">
                   <span class="step_a">年齢</span>

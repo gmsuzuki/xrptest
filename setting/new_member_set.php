@@ -45,7 +45,9 @@
   <!--javascript-->
   <script src="../js/set_basic.js" defer></script>
   <script src="../js/error_set.js" defer></script>
+  <script src="../js/set_form_input_check.js" defer></script>
   <script src="../js/newstaff_set.js" defer></script>
+
 
   <!-- フォントオーサム -->
   <!-- 最後はダウンロードしてスピードを出す -->
@@ -81,6 +83,7 @@
               <h2 class="step_q">アカウントを作成</h2>
 
 
+
               <ul class="radio_select_ul">
                 <li class="girl_tag_radio_list">
                   <input type="radio" checked id="cast_check" name="staff_cast" value='1' class="radio_label_01">
@@ -95,16 +98,15 @@
               <ul class="new_staff_set_ul">
 
                 <li class="step_wrap">
-                  <span class="step_a">ログインID
-                  </span>
-                  <em class="mini_alert">日本語、記号は使えません</em>
+                  <span class="step_a">ログインID</span>
+                  <em class="mini_alert" style="color:red;">エラー</em>
                   <input type="text" required id="staff_new_login_id" name="staff_new_login_id" maxlength="20"
                     onblur="CheckGuestInfo(this)" pattern="^([a-zA-Z0-9]{6,})$" placeholder="半角英数字６文字以上２０文字以内"
                     class="mypage_input cancel_alert">
                 </li>
                 <li class="step_wrap">
                   <span class="step_a">パスワード</span>
-                  <em class="mini_alert">記号は使えません</em>
+                  <em class="mini_alert">エラー</em>
                   <input type="text" required id="staff_new_login_pass" name="staff_new_login_pass" maxlength="20"
                     onblur="CheckGuestInfo(this)" pattern="^([a-zA-Z0-9]{8,})$" placeholder="半角英数字８文字以上２０文字以内"
                     class="mypage_input cancel_alert">

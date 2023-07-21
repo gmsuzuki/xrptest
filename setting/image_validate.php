@@ -19,7 +19,7 @@ function check_vh($imgName, $width, $height)
         $_SESSION[$imgName]['width'] % $width != 0 ||
         $_SESSION[$imgName]['height'] % $height != 0
     ) {
-        echo '画像の縦横比率が異なるため、<br>表示が崩れる可能性があります。';
+        echo '<p class="img_err">画像の縦横比率が異なるため、<br>表示が崩れる可能性があります。</p>';
     }
 }
 

@@ -21,7 +21,6 @@
   <script src="../js/text_check.js" defer></script>
   <script src="../js/text_count.js" defer></script>
   <script src="../js/setting.js" defer></script>
-  <!-- これinputのときだけ読み込む -->
   <!-- <script src="../js/newevent_set.js" defer></script> -->
 
 </head>
@@ -42,10 +41,9 @@
 
     <main>
 
-
-      <!-- キャンセルボタンが押された場合 -->
       <!-- 変なところから来ていないか？確認 -->
       <?php
+      // キャンセルボタンが押された場合
       if (isset($_POST['cancel'])) {
         session_start(); // セッションを開始
         // localStorageの削除
@@ -59,10 +57,8 @@
 
 
 
-
       <!-- ここから本格的にスタート -->
       <?php
-
       //定数読み込み、画像サイズとか
       require_once('const_set.php');
       // 文章バリデーション読み込み
@@ -73,17 +69,6 @@
 
       // セッションスタートしてる
       session_start();
-    //   // インデックスから来た？
-    // if ($_GET['setting'] === "event") {
-    //   $_SESSION['setting']['area'] = "event";
-    //   // 戻るから来た？
-    // }elseif($_SESSION['setting']['area'] !== "event"){
-    //     echo "<script>localStorage.clear();</script>";
-    //     session_unset(); // セッションの変数をすべて削除
-    //     session_destroy(); // セッションを破棄
-    //     // header("Location: setting_index02.php"); // top.htmlにリダイレクト
-    //     // exit; // スクリプトの実行を終了
-    // };
 
       // 戻るボタンでエラーしないように
       header('Expires:-1');
@@ -96,21 +81,6 @@
       $errmessage = array();
 
 
-// submitの種類でifを書いてる
-// もし送信・戻るの戻るを押したら
-// なにもしない
-// 画像をけすならセッションの中身消す
-// 確認ボタンが押された
-// クラスを作り
-// 各種バリデーションチェック
-// エラーがないならセッションに入れる
-// モードを確認に変更する
-// もし送信を押していたら
-// サーバ関連
-// セッションを消す
-// 最初に入ってきた場合
-// セッション変数を作る
-
 
       // 送信or戻るで戻るインプットに入ってもなにもしない/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_
       if (isset($_POST['back']) && $_POST['back']) {
@@ -119,31 +89,16 @@
         // 画像を削除した場合
       } else if (isset($_POST['img_prv_delete']) && $_POST['img_prv_delete']) {
 
-        $_SESSION['event_image']['data'] = '';
-        $_SESSION['event_image']['type'] = '';
-        $_SESSION['event_image']['width'] = '';
-        $_SESSION['event_image']['height'] = '';
+        $_SESSION['news_image']['data'] = '';
+        $_SESSION['news_image']['type'] = '';
+        $_SESSION['news_image']['width'] = '';
+        $_SESSION['news_image']['height'] = '';
 
 
         // 確認（confirm）ページ/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_
       } else if (isset($_POST['confirm']) && $_POST['confirm']) {
         
-
-         // newsに投稿するのか？ーーーーーーーーーーーーーーーー
       
-        $news_post = new Check_radio($_POST['post_news'],Fix::NEWSPOST);
-        if (!($news_post->check_radio($news_post->get_checking_radio()) == 'true')) {
-        // エラーを入れる
-          $errmessage[] = $news_post->get_err_inclass();
-        //セッションの中身を消す
-          $_SESSION['news_post']['did'] = '';
-        } else {
-          // 正常なら選択した数字を入れるここで、１か２が入っている
-          $_SESSION['news_post']['did'] = $news_post->get_checking_radio();
-          
-        }
-
-
         // 投稿予定関連
         $new_post_day = new Check_radio($_POST['new_post_day'],Fix::EVENTPOST);
         // 入っているものがあっているか？
@@ -170,159 +125,158 @@
               $_SESSION['new_post_header']['reserve_time'] = '';
             }
           }
+
         }
 
-
+        
         // 文字関連
         // 記事のタイトルーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
         // クラス作るtext_validate.phpに定義している
         // submitしたときのnameでpostは来ているnew_post_title
-        $new_post_title = new Check_txt($_POST['new_post_title'], Fix::EVENTTITLE);
+        $new_post_title = new Check_txt($_POST['new_news_title'], Fix::EVENTTITLE);
 
         // 改行消す
         $post_title_replace = $new_post_title->tex_replace();
         // 文字数を表示するためにSessionへ文字数を入れる
-        $_SESSION['new_post_title']['length'] = $new_post_title->get_checkig_txt_length();
+        $_SESSION['new_news_title']['length'] = $new_post_title->get_checkig_txt_length();
 
         // 長さチェック
         if (!($new_post_title->check_length($post_title_replace) == 'true')) {
           $errmessage[] = $new_post_title->get_err_inclass();
           // 規定文字以上をカットして入れる
-          $_SESSION['new_post_title']['title'] = $new_post_title->too_long();
+          $_SESSION['new_news_title']['title'] = $new_post_title->too_long();
         } else {
           // 改行コード消したやつセット
           $new_post_title->set_checking_text($post_title_replace);
-          $_SESSION['new_post_title']['title'] = $new_post_title->hchars();
+          $_SESSION['new_news_title']['title'] = $new_post_title->hchars();
         }
 
 
 
-        // イベント本文ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+      // イベント本文ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
-        $_SESSION['new_event_body'] = $_POST['new_event_body'];
+      $_SESSION['new_news_body'] = $_POST['new_news_body'];
 
-        // クラスを作る
-        // $new_post_body = new Check_txt($_POST['new_post_body'], Fix::EVENTBODY);
-        
-        $new_post_body = new Check_txt($_POST['new_event_body'], Fix::EVENTBODY);
+      // クラスを作る
+      // $new_post_body = new Check_txt($_POST['new_news_body'], Fix::EVENTBODY);
 
-        // 戻るを前提にした処理
+      $new_post_body = new Check_txt($_POST['new_news_body'], Fix::EVENTBODY);
 
-        // 文字数を調べる系ーーーーーーーーーーーーーーーー
-        // 改行スペースを消す
-        $post_body_all_replace = $new_post_body->all_replace();
-        // 文字数をSESSIONに入れる
-        $_SESSION['new_post_body']['length'] = $new_post_body->get_checkig_txt_length();
-        // 長さチェック
-        if (!($new_post_body->check_length($post_body_all_replace) == 'true')) {
-          $errmessage[] = $new_post_body->get_err_inclass();
-          // 規定文字以上はだめ
-          $_SESSION['new_post_body']['body'] = $new_post_body->too_long();
-        } else {
-          // 編集の可能性があるから改行スペースはそのまま
-          $new_post_body->set_checking_text($_POST['new_event_body']);
-          $_SESSION['new_post_body']['body'] = $new_post_body->hchars();
+      // 戻るを前提にした処理
 
-         }
-         
+      // 文字数を調べる系ーーーーーーーーーーーーーーーー
+      // 改行スペースを消す
+      $post_body_all_replace = $new_post_body->all_replace();
+      // 文字数をSESSIONに入れる
+      $_SESSION['new_post_body']['length'] = $new_post_body->get_checkig_txt_length();
+      // 長さチェック
+      if (!($new_post_body->check_length($post_body_all_replace) == 'true')) {
+      $errmessage[] = $new_post_body->get_err_inclass();
+      // 規定文字以上はだめ
+      $_SESSION['new_post_body']['body'] = $new_post_body->too_long();
+      } else {
+      // 編集の可能性があるから改行スペースはそのまま
+      $new_post_body->set_checking_text($_POST['new_news_body']);
+      $_SESSION['new_post_body']['body'] = $new_post_body->hchars();
 
-
-
-        // 画像関連----------------------------------------
-        // 画像が選ばれていれば'tmp_name'は一時保存名
-        if (!empty($_FILES['event_image']['tmp_name'])) {
-
-          try {
-            // 読み込んだバリデーション関数
-            check_post($_FILES['event_image']);
-            check_file_error($_FILES['event_image']);
-            check_file_size($_FILES['event_image'], Fix::MINIMG);
-            check_file_type($_FILES['event_image']);
-          } catch (RuntimeException $e) {
-            // エラーメッセージ
-            $errmessage[] =  $e->getMessage();
-          }
+      }
 
 
 
+      // 画像関連----------------------------------------
+      // 画像が選ばれていれば'tmp_name'は一時保存名
+      if (!empty($_FILES['news_image']['tmp_name'])) {
 
-// ここでセッションに画像データ入れてる
+      try {
+      // 読み込んだバリデーション関数
+      check_post($_FILES['news_image']);
+      check_file_error($_FILES['news_image']);
+      check_file_size($_FILES['news_image'], Fix::MINIMG);
+      check_file_type($_FILES['news_image']);
+      } catch (RuntimeException $e) {
+      // エラーメッセージ
+      $errmessage[] = $e->getMessage();
+      }
 
-          // 何一つ問題エラーメッセージがない場合
-          if (empty($errmessage)) {
-            setSessionImg('event_image', $_FILES['event_image']);
-          }
-        }
 
-        // モードチェンジ　エラーしてたらモード変わらない---------------------
-        if ($errmessage) {
-          $mode = 'input';
-        } else {
-          $mode = 'confirm';
-        }
 
-        // 送信モード/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_
+
+      // ここでセッションに画像データ入れてる
+
+      // 何一つ問題エラーメッセージがない場合
+      // image_validateにsetSessionImg関数定義
+      if (empty($errmessage)) {
+      setSessionImg('news_image', $_FILES['news_image']);
+      }
+      }
+
+      // モードチェンジ　エラーしてたらモード変わらない---------------------
+      if ($errmessage) {
+      $mode = 'input';
+      } else {
+      $mode = 'confirm';
+      }
+
+      // 送信モード/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_
 
       } else if (isset($_POST['send']) && $_POST['send']) {
 
-        // データベースコネクト
-        require_once('db_connect.php');
-        try {
-          $new_post_title = $_SESSION['new_post_title']['title'];
-          $new_post_body = $_SESSION['new_post_body']['body'];
+      // データベースコネクト
+      require_once('db_connect.php');
+      try {
+      $new_post_title = $_SESSION['new_news_title']['title'];
+      $new_post_body = $_SESSION['new_post_body']['body'];
 
-          $new_post_title = htmlspecialchars($new_post_title, ENT_QUOTES, 'UTF-8');
-          $new_post_body = htmlspecialchars($new_post_body, ENT_QUOTES, 'UTF-8');
-
-
-          //データベースに接続
-          $dbh = db_connect();
-          //PDOでの例外エラーを詳細にするためのオプション
-          $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-          //sql
-          $sql = "INSERT INTO `mst_staff` (name, pass) VALUES (?, ?)";
-          $stmt = $dbh->prepare($sql);
-          $date[] = $new_post_title;
-          $date[] = $new_post_body;
-          $stmt->execute($date);
-
-          //接続終了
-          $dbh = null;
-
-          print $new_post_title;
-          print 'の記事を追加';
-        } catch (Exception $e) {
-          echo $e->getMessage();
-          exit();
-        }
+      $new_post_title = htmlspecialchars($new_post_title, ENT_QUOTES, 'UTF-8');
+      $new_post_body = htmlspecialchars($new_post_body, ENT_QUOTES, 'UTF-8');
 
 
-        $_SESSION = array();
-        // モードチェンジ
-        $mode = 'send';
+      //データベースに接続
+      $dbh = db_connect();
+      //PDOでの例外エラーを詳細にするためのオプション
+      $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      //sql
+      $sql = "INSERT INTO `mst_staff` (name, pass) VALUES (?, ?)";
+      $stmt = $dbh->prepare($sql);
+      $date[] = $new_post_title;
+      $date[] = $new_post_body;
+      $stmt->execute($date);
+
+      //接続終了
+      $dbh = null;
+
+      print $new_post_title;
+      print 'の記事を追加';
+      } catch (Exception $e) {
+      echo $e->getMessage();
+      exit();
+      }
+
+
+      $_SESSION = array();
+      // モードチェンジ
+      $mode = 'send';
       } else {
-        
-        // 初めて入ったとき/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 
-        //投稿日時
-        $_SESSION['new_post_header']['reserve'];
-        $_SESSION['new_post_header']['reserve_day'];
-        $_SESSION['new_post_header']['reserve_time'];
-        // タイトル
-        $_SESSION['new_post_title']['title'];
-        $_SESSION['new_post_title']['length'];
-        // 文章
-        $_SESSION['new_event_body'];
-        $_SESSION['new_post_body']['body'];
-        $_SESSION['new_post_body']['length'];
-        // 画像系
-        $_SESSION['event_image']['data'];
-        $_SESSION['event_image']['type'];
-        $_SESSION['event_image']['width'];
-        $_SESSION['event_image']['height'];
-        //トップページのnews 
-        $_SESSION['news_post']['did'];
-
+      // 初めて入ったとき/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+      // 投稿タイプ
+      $_SESSION['new_post_header']['type'];
+      //投稿日時
+      $_SESSION['new_post_header']['reserve'];
+      $_SESSION['new_post_header']['reserve_day'];
+      $_SESSION['new_post_header']['reserve_time'];
+      // タイトル
+      $_SESSION['new_news_title']['title'];
+      $_SESSION['new_news_title']['length'];
+      // 文章
+      $_SESSION['new_news_body'];
+      $_SESSION['new_post_body']['body'];
+      $_SESSION['new_post_body']['length'];
+      // 画像系
+      $_SESSION['news_image']['data'];
+      $_SESSION['news_image']['type'];
+      $_SESSION['news_image']['width'];
+      $_SESSION['news_image']['height'];
       }
 
       ?>
@@ -365,31 +319,34 @@
             <!-- 設定項目 -->
 
 
-            <h2 class="step_q">新規イベントの投稿</h2>
 
-            <dl class="bace_wrap event_post_bg">
+
+            <h2 class="step_q">お知らせの入力</h2>
+
+            <!-- ニュースタイトル -->
+            <dl class="bace_wrap news_post_bg">
               <dt class="step_a">題名</dt>
               <!-- <span id="not_enough">必須</span> -->
               <span class="mini_alert">記号は使えません</span>
               <dd class="step_wrap_post">
 
-                <?php if ($_SESSION['new_post_title']['title']) : ?>
+                <?php if ($_SESSION['new_news_title']['title']) : ?>
                 <!-- 記事の題名 -->
-                <input type="text" id="new_post_title" name="new_post_title" maxlength="32" placeholder="32文字以内でお願いします"
+                <input type="text" id="new_post_title" name="new_news_title" maxlength="32" placeholder="32文字以内でお願いします"
                   required onblur="CheckGuestInfo(this)"
                   pattern="^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,32}"
                   oninput="CountStr('post_title_count',value,32)" class="mypage_input cancel_alert"
-                  value=<?php echo $_SESSION['new_post_title']['title'] ?>>
+                  value=<?php echo $_SESSION['new_news_title']['title'] ?>>
 
                 <!-- 残り文字の処理 -->
                 <!-- 残りの入力可能文字の変更処理 -->
                 <p id="post_title_count" class="count_num">
-                  戻りの場合残り：<?php echo  Fix::EVENTTITLE - $_SESSION['new_post_title']['length']; ?>文字
+                  戻りの場合残り：<?php echo  Fix::EVENTTITLE - $_SESSION['new_news_title']['length']; ?>文字
                 </p>
 
                 <?php else : ?>
                 <!-- 題名 -->
-                <input type="text" id="new_post_title" name="new_post_title" maxlength="32" placeholder="32文字以内でお願いします"
+                <input type="text" id="new_post_title" name="new_news_title" maxlength="32" placeholder="32文字以内でお願いします"
                   required onblur="CheckGuestInfo(this)"
                   pattern="^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,32}"
                   oninput="CountStr('post_title_count',value,32)" class="mypage_input cancel_alert">
@@ -404,26 +361,26 @@
 
 
 
+
               <!-- 画像 -->
 
-              <!-- <dl class="edit_area"> -->
               <dt class="step_a">画像</dt>
               <dd class="step_wrap_post">
 
-                <!-- <input type=" file" id="inp-preview2" name="" accept="image/jpeg,image/png,image/gif" -->
+                <!-- <input type="file" id="inp-preview2" name="" accept="image/jpeg,image/png,image/gif" -->
                 <!-- onChange="imgPreView(event, 'preview2',1000000)"> -->
-                <input type="file" id="inp-preview1" name="event_image" accept="image/png, image/jpeg,image/gif"
+                <input type="file" id="inp-preview1" name="news_image" accept="image/png, image/jpeg,image/gif"
                   onChange="imgPreView(event, 'preview1', 'set_img01',<?php echo Fix::MINIMG; ?>)">
                 <label id="set_img01" for="inp-preview1" class="set_img_label">画像追加</label>
 
                 <!-- 戻ってきた場合 -->
-                <?php if (!empty($_SESSION['event_image']['data'])) : ?>
+                <?php if (!empty($_SESSION['news_image']['data'])) : ?>
 
                 <div id="preview1">
                   <figure id="previewImage-preview1">
                     <h3>現在選択中</h3>
                     <img
-                      src="data:<?php echo $_SESSION['event_image']['type']; ?>;base64,<?php echo $_SESSION['event_image']['data']; ?>">
+                      src="data:<?php echo $_SESSION['news_image']['type']; ?>;base64,<?php echo $_SESSION['news_image']['data']; ?>">
                     <input type="submit" name="img_prv_delete" value="削除">
                   </figure>
                 </div>
@@ -439,36 +396,37 @@
               </dd>
 
 
+
               <!-- 記事の本文 -->
 
               <dt class="step_a">内容</dt>
               <span id="not_enough">必須</span>
 
-              <dd class="step_wrap_post">
+              <dd class="step_wrap">
 
                 <!-- ここから -->
 
                 <!-- textareaなのかinputなのか -->
 
                 <?php if ($_SESSION['new_post_body']['body']) : ?>
-                <textarea rows=20 name="new_event_body" maxlength="1000" placeholder="1000文字以内"
-                  onblur="checkTxt(this,'new_post_body')" required
-                  oninput="CountStr('post_body_count',value,1000)"><?php echo $_SESSION['new_event_body'] ?></textarea>
+                <textarea rows=20 name="new_news_body" maxlength="1000" placeholder="1000文字以内"
+                  onblur="checkTxt(this,'new_news_body')" required
+                  oninput="CountStr('post_body_count',value,1000)"><?php echo $_SESSION['new_news_body'] ?></textarea>
 
                 <p id="post_body_count" class="count_num">
                   残り：<?php echo Fix::EVENTBODY - $_SESSION['new_post_body']['length']; ?>文字
                 </p>
 
                 <?php else : ?>
-                <textarea rows=20 name="new_event_body" maxlength="1000" placeholder="1000文字以内"
-                  onblur="checkTxt(this,'new_post_body')" required
+                <textarea rows=20 name="new_news_body" maxlength="1000" placeholder="1000文字以内"
+                  onblur="checkTxt(this,'new_news_body')" required
                   oninput="CountStr('post_body_count',value,1000)"></textarea>
 
 
                 <p id="post_body_count" class="count_num">残り：<?php echo Fix::EVENTBODY; ?> 文字</p>
 
                 <?php endif ?>
-                <input type="hidden" id="new_post_body" name="new_post_body">
+                <input type="hidden" id="new_post_body" name="news_post_body">
 
                 <!-- ここまでにテキストarea入れる -->
 
@@ -476,49 +434,12 @@
 
             </dl>
 
-            <h2 class="step_q">Newsの欄に表示しますか？</h2>
-            <div class="bace_wrap event_post_bg">
-              <dl class="">
 
-                <dt class="step_a">最新情報</dt>
-                <dd>
-                  <ul class="radio_select_ul">
-                    <li class="radio_select_list">
-
-
-
-                      <!-- $_SESSION['news_post']['title']; -->
-
-                      <!-- ここを治す -->
-                      <!-- タイプがまだ選ばれていないか１を選んでいる場合 -->
-                      <?php if (empty( $_SESSION['news_post']['did']) ||  $_SESSION['news_post']['did'] == 1 ): ?>
-
-                      <input type="radio" checked id="put_on_news" name="post_news" value='1' class="radio_label_03">
-                      <?php else:?>
-                      <input type="radio" id="put_on_news" name="post_news" value='1' class="radio_label_03">
-                      <?php endif ?>
-                      <label class="girl_tag_label_txt" for="put_on_news">Newsに載せる</label>
-                    </li>
-
-                    <li class="radio_select_list">
-                      <?php if ( $_SESSION['news_post']['did'] == 2 ): ?>
-
-                      <input type="radio" checked id="no_load_news" name="post_news" value='2' class="radio_label_04">
-                      <?php else :?>
-                      <input type="radio" id="no_load_news" name="post_news" value='2' class="radio_label_04">
-                      <?php endif ?>
-                      <label class="girl_tag_label_txt" for="no_load_news">載せない</label>
-                    </li>
-
-                  </ul>
-                </dd>
-
-              </dl>
-            </div>
             <!-- 記事の更新日 -->
-
             <h2 class="step_q">いつHPに反映しますか？</h2>
-            <dl class="bace_wrap event_post_bg">
+            <dl class="bace_wrap news_post_bg">
+
+
               <dt class="step_a">更新日時</dt>
               <dd>
                 <ul class="radio_select_ul">
@@ -548,15 +469,12 @@
 
                 </ul>
               </dd>
-
-
               <dd>
                 <!-- 日時入力 -->
                 <!-- 日付選択 -->
                 <select id="reserve_post_day" name="reserve_post_day" disabled required>
                   <option value="" hidden
-                    <?php if (empty($_SESSION['new_post_header']['reserve_day'])) echo 'selected'; ?>>
-                    予約日</option>
+                    <?php if (empty($_SESSION['new_post_header']['reserve_day'])) echo 'selected'; ?>>予約日</option>
                   <?php for($i = 0; $i < 10; $i ++) : ?>
                   <?php $dateValue = $today->format('Y/m/d'); ?>
                   <option value="<?php echo $dateValue; ?>"
@@ -580,20 +498,15 @@
                     ?>
                 </select>
 
+
               </dd>
-
-
             </dl>
-
 
             <input type="submit" disabled id="submit_button" name="confirm" value="確認">
 
             <div class="cancel_btn_wrap">
-              <!-- <a href="reset_session.php" onclick="showPopover(event)" class="setting_cancel">キャンセル</a> -->
               <a href="reset_session.php" onclick="cancelPop(event)" class="setting_cancel">キャンセル</a>
             </div>
-
-
 
           </form>
 
@@ -626,8 +539,6 @@
         <h2 class="confirm_info">以下のページが更新されます</h2>
         <!-- セクション１　一覧 -->
 
-        <?php if ($_SESSION['news_post']['did'] == 1) :?>
-
         <section id="event_list" class="form_send">
           <div class="content_wrapper">
             <h3 class="confirm_title"><span>News</span></h3>
@@ -639,15 +550,15 @@
                   <time><?php echo $_SESSION['new_post_header']['reserve_day']?></time>
 
 
-
-                  <span class='news_kinds pink'>イベント</span>
+                  <!-- ここがまだ -->
+                  <span class='news_kinds blue'>お知らせ</span>
 
 
 
 
                 </div>
                 <div class="news_top_title">
-                  <?php echo $_SESSION['new_post_title']['title'] ?>
+                  <?php echo $_SESSION['new_news_title']['title'] ?>
                 </div>
               </li>
               <!-- イチ記事 -->
@@ -655,40 +566,37 @@
 
           </div><!-- content_wrapper -->
         </section>
-        <?php endif ?>
+
 
         <section class="form_send">
-          <form action="./new_event_set.php" method="POST" enctype="multipart/form-data">
+          <form action="./new_news_set.php" method="POST" enctype="multipart/form-data">
 
 
             <div class="content_wrapper">
-              <h3 class="confirm_title"><span>Event</span></h3>
-              <h4 class="block_title_caption">イベント</h4>
+              <h3 class="confirm_title"><span>News</span></h3>
+              <h4 class="block_title_caption">お知らせ</h4>
 
               <section class="confirm_event_bg">
                 <div class="event_description">
-
                   <!-- 画像をアップしたか？必須でない場合があるので -->
-                  <?php if (empty($_SESSION['event_image']['data'])) : ?>
-                  <p class="img_err">
-                    <?php echo '画像は選択されていません'; ?>
-                  </p>
+                  <?php if (empty($_SESSION['news_image']['data'])) : ?>
+                  <p class="img_err">画像は選択されていません</p>
                   <img src="../img/no-image.png" alt="">
-
                   <?php else : ?>
-                  <p class="img_err">
-                    <?php check_vh('event_image', Fix::sp_noswipe_bnner_w, Fix::sp_noswipe_bnner_h) ?>
-                  </p>
+                  <?php
+                    check_vh('news_image', Fix::sp_noswipe_bnner_w, Fix::sp_noswipe_bnner_h);
+                  ?>
+
                   <img
-                    src="data:<?php echo $_SESSION['event_image']['type']; ?>;base64,<?php echo $_SESSION['event_image']['data']; ?>">
+                    src="data:<?php echo $_SESSION['news_image']['type']; ?>;base64,<?php echo $_SESSION['news_image']['data']; ?>">
 
                   <?php endif; ?>
 
                   <!-- 記事タイトル -->
-                  <p class="confirm_event_title"><?php echo $_SESSION['new_post_title']['title'] ?></p>
+                  <p class="confirm_event_title"><?php echo $_SESSION['new_news_title']['title'] ?></p>
                   <!-- 記事内容 -->
                   <p class="confirm_event_description_text">
-                    <!-- <?php echo $_SESSION['new_event_body'] ?> -->
+                    <!-- <?php echo $_SESSION['new_news_body'] ?> -->
                     <?php echo nl2br($_SESSION['new_post_body']['body']) ?>
                   </p>
                 </div>
@@ -716,17 +624,14 @@
 
 
             <!-- データを送る -->
-            <!-- newsに載せるなら投稿タイプ -->
-            <?php if ($_SESSION['news_post']['did'] == 1) :?>
-            <!-- value=1はイベントを表すdata.phpで決めてるので参照 -->
-            <input type="hidden" name="" value="1">
-            <?php endif ?>
+            <!-- 投稿タイプ -->
+            <input type="hidden" name="" value="<?php echo $_SESSION['new_post_header']['type'];?>">
 
             <!-- 画像 -->
             <!-- タイトル -->
-            <input type="hidden" name="" value="<?php echo $_SESSION['new_post_title']['title']?>">
+            <input type="hidden" name="" value="<?php echo $_SESSION['new_news_title']['title']?>">
             <!-- 本文 -->
-            <input type="hidden" name="" value="<?php echo nl2br($_SESSION['new_post_body']['body'])?>">
+            <input type="hidden" name="" value="<?php echo nl2br($_SESSION['new_news_body']['body'])?>">
 
             <!-- 更新日時 -->
             <?php $originalDateTime = $_SESSION['new_post_header']['reserve_day'].$_SESSION['new_post_header']['reserve_time'];
@@ -746,17 +651,13 @@
       <br>
       <br>
 
+      記事タイトル：<?php echo $_SESSION['new_news_title']['title'] ?><br><br>
 
 
 
-
-      記事タイトル：<?php echo $_SESSION['new_post_title']['title'] ?><br><br>
-
-
-
-      記事内容送信されるやつ：<?php echo nl2br($_SESSION['new_post_body']['body']) ?><br><br>
-      バックで戻ったら表示されるやつ<?php echo $_SESSION['new_event_body'] ?><br><br>
-      postされてるやつ<?php echo $_POST['new_event_body'] ?>
+      記事内容送信されるやつ：<?php echo nl2br($_SESSION['new_news_body']['body']) ?><br><br>
+      バックで戻ったら表示されるやつ<?php echo $_SESSION['new_news_body'] ?><br><br>
+      postされてるやつ<?php echo $_POST['new_news_body'] ?>
       <br><br><br>
       postされてるのは<br>
       <?php echo $_POST['reserve_post_day'] ?><br>

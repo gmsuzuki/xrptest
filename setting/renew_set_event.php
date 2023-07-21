@@ -138,7 +138,7 @@
         
       
         // 投稿予定関連
-        $new_post_day = new Check_radio($_POST['new_post_day'],Fix::EVENTPPOST);
+        $new_post_day = new Check_radio($_POST['new_post_day'],Fix::EVENTPOST);
         // 入っているものがあっているか？
         if (!($new_post_day->check_radio($new_post_day->get_checking_radio()) == 'true')) {
         // エラーを入れる
@@ -368,222 +368,221 @@
 
             <!-- 設定項目 -->
 
-            <div id="phase1" class="bace_wrap">
 
 
-              <h2 class="step_q">お知らせの入力</h2>
+            <h2 class="step_q">元データはこれ</h2>
 
 
 
-              <!-- 記事の種類 -->
-              <dl class="edit_area">
-                <dt class="step_a">種類</dt>
+            <!-- 記事の種類 -->
+            <dl class="bace_wrap news_post_bg">
+              <dt class="step_a">種類</dt>
 
-                <dd>
-                  <ul class="radio_select_ul">
-                    <li class="radio_select_list">
+              <dd>
+                <ul class="radio_select_ul">
+                  <li class="radio_select_list">
 
-                      <!-- タイプがまだ選ばれていないか１を選んでいる場合 -->
-                      <?php if (empty($_SESSION['new_post_header']['type']) || $_SESSION['new_post_header']['type'] == 1 ): ?>
-                      <input type="radio" checked id="new_event" name="new_post" value='1' class="radio_label_01">
-                      <?php else:?>
-                      <input type="radio" id="new_event" name="new_post" value='1' class="radio_label_01">
-                      <?php endif ?>
-                      <label class="girl_tag_label_txt" for="new_event">イベント</label>
-                    </li>
+                    <!-- タイプがまだ選ばれていないか１を選んでいる場合 -->
+                    <?php if (empty($_SESSION['new_post_header']['type']) || $_SESSION['new_post_header']['type'] == 1 ): ?>
+                    <input type="radio" checked id="new_event" name="new_post" value='1' class="radio_label_01">
+                    <?php else:?>
+                    <input type="radio" id="new_event" name="new_post" value='1' class="radio_label_01">
+                    <?php endif ?>
+                    <label class="girl_tag_label_txt" for="new_event">イベント</label>
+                  </li>
 
-                    <li class="radio_select_list">
-                      <?php if ($_SESSION['new_post_header']['type'] == 2 ): ?>
-                      <input type="radio" checked id="new_news" name="new_post" value='2' class="radio_label_02">
-                      <?php else :?>
-                      <input type="radio" id="new_news" name="new_post" value='2' class="radio_label_02">
-                      <?php endif ?>
-                      <label class="girl_tag_label_txt" for="new_news">お知らせ</label>
-                    </li>
+                  <li class="radio_select_list">
+                    <?php if ($_SESSION['new_post_header']['type'] == 2 ): ?>
+                    <input type="radio" checked id="new_news" name="new_post" value='2' class="radio_label_02">
+                    <?php else :?>
+                    <input type="radio" id="new_news" name="new_post" value='2' class="radio_label_02">
+                    <?php endif ?>
+                    <label class="girl_tag_label_txt" for="new_news">お知らせ</label>
+                  </li>
 
-                    <li class="radio_select_list">
-                      <?php if ($_SESSION['new_post_header']['type'] == 3 ): ?>
-                      <input type="radio" checked id="new_staff" name="new_post" value='3' class="radio_label_03">
-                      <?php else :?>
-                      <input type="radio" id="new_staff" name="new_post" value='3' class="radio_label_03">
-                      <?php endif ?>
-                      <label class="girl_tag_label_txt" for="new_staff">新人</label>
-                    </li>
+                  <li class="radio_select_list">
+                    <?php if ($_SESSION['new_post_header']['type'] == 3 ): ?>
+                    <input type="radio" checked id="new_staff" name="new_post" value='3' class="radio_label_03">
+                    <?php else :?>
+                    <input type="radio" id="new_staff" name="new_post" value='3' class="radio_label_03">
+                    <?php endif ?>
+                    <label class="girl_tag_label_txt" for="new_staff">新人</label>
+                  </li>
 
-                    <li class="radio_select_list">
-                      <?php if ($_SESSION['new_post_header']['type'] == 4 ): ?>
-                      <input type="radio" checked id="new_ather" name="new_post" value='4' class="radio_label_04">
-                      <?php else :?>
-                      <input type="radio" id="new_ather" name="new_post" value='4' class="radio_label_04">
-                      <?php endif ?>
-                      <label class="girl_tag_label_txt" for="new_ather">その他</label>
-                    </li>
-                  </ul>
-                </dd>
-              </dl>
-
-
-              <!-- 画像 -->
-
-              <dl class="edit_area">
-                <dt class="step_a">画像</dt>
-                <dd>
-
-                  <!-- <input type="file" id="inp-preview2" name="" accept="image/jpeg,image/png,image/gif" -->
-                  <!-- onChange="imgPreView(event, 'preview2',1000000)"> -->
-                  <input type="file" id="inp-preview1" name="event_image" accept="image/png, image/jpeg,image/gif"
-                    onChange="imgPreView(event, 'preview1', 'set_img01',<?php echo Fix::MINIMG; ?>)">
-                  <label id="set_img01" for="inp-preview1" class="set_img_label">画像追加</label>
-
-                  <!-- 戻ってきた場合 -->
-                  <?php if (!empty($_SESSION['event_image']['data'])) : ?>
-
-                  <div id="preview1">
-                    <figure id="previewImage-preview1">
-                      <h3>現在選択中</h3>
-                      <img
-                        src="data:<?php echo $_SESSION['event_image']['type']; ?>;base64,<?php echo $_SESSION['event_image']['data']; ?>">
-                      <input type="submit" name="img_prv_delete" value="削除">
-                    </figure>
-                  </div>
-
-                  <?php else : ?>
-                  <!-- 通常時のプレビュー位置 -->
-                  <div id="preview1"></div>
-
-                  <?php endif; ?>
-                  <!-- 終わり戻ってきた場合 -->
+                  <li class="radio_select_list">
+                    <?php if ($_SESSION['new_post_header']['type'] == 4 ): ?>
+                    <input type="radio" checked id="new_ather" name="new_post" value='4' class="radio_label_04">
+                    <?php else :?>
+                    <input type="radio" id="new_ather" name="new_post" value='4' class="radio_label_04">
+                    <?php endif ?>
+                    <label class="girl_tag_label_txt" for="new_ather">その他</label>
+                  </li>
+                </ul>
+              </dd>
+            </dl>
 
 
-                </dd>
-              </dl>
+            <!-- 画像 -->
+
+            <dl class="edit_area">
+              <dt class="step_a">画像</dt>
+              <dd>
+
+                <!-- <input type="file" id="inp-preview2" name="" accept="image/jpeg,image/png,image/gif" -->
+                <!-- onChange="imgPreView(event, 'preview2',1000000)"> -->
+                <input type="file" id="inp-preview1" name="event_image" accept="image/png, image/jpeg,image/gif"
+                  onChange="imgPreView(event, 'preview1', 'set_img01',<?php echo Fix::MINIMG; ?>)">
+                <label id="set_img01" for="inp-preview1" class="set_img_label">画像追加</label>
+
+                <!-- 戻ってきた場合 -->
+                <?php if (!empty($_SESSION['event_image']['data'])) : ?>
+
+                <div id="preview1">
+                  <figure id="previewImage-preview1">
+                    <h3>現在選択中</h3>
+                    <img
+                      src="data:<?php echo $_SESSION['event_image']['type']; ?>;base64,<?php echo $_SESSION['event_image']['data']; ?>">
+                    <input type="submit" name="img_prv_delete" value="削除">
+                  </figure>
+                </div>
+
+                <?php else : ?>
+                <!-- 通常時のプレビュー位置 -->
+                <div id="preview1"></div>
+
+                <?php endif; ?>
+                <!-- 終わり戻ってきた場合 -->
 
 
-              <dl class="new_staff_set_ul">
-                <dt class="step_a">題名</dt>
-                <!-- <span id="not_enough">必須</span> -->
-                <span class="mini_alert">記号は使えません</span>
-                <dd class="step_wrap">
-
-                  <?php if ($_SESSION['new_post_title']['title']) : ?>
-                  <!-- 記事の題名 -->
-                  <input type="text" id="new_post_title" name="new_post_title" maxlength="32"
-                    placeholder="32文字以内でお願いします" required onblur="CheckGuestInfo(this)"
-                    pattern="^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,32}"
-                    oninput="CountStr('post_title_count',value,32)" class="mypage_input cancel_alert"
-                    value=<?php echo $_SESSION['new_post_title']['title'] ?>>
-
-                  <!-- 残り文字の処理 -->
-                  <!-- 残りの入力可能文字の変更処理 -->
-                  <p id="post_title_count" class="count_num">
-                    戻りの場合残り：<?php echo  Fix::EVENTTITLE - $_SESSION['new_post_title']['length']; ?>文字
-                  </p>
-
-                  <?php else : ?>
-                  <!-- 題名 -->
-                  <input type="text" id="new_post_title" name="new_post_title" maxlength="32"
-                    placeholder="32文字以内でお願いします" required onblur="CheckGuestInfo(this)"
-                    pattern="^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,32}"
-                    oninput="CountStr('post_title_count',value,32)" class="mypage_input cancel_alert">
-
-                  <!-- 残り文字の処理 -->
-                  <!-- 残りの入力可能文字の変更処理 -->
-                  <p id="post_title_count" class="count_num">残り：<?php echo Fix::EVENTTITLE ?>文字</p>
-                  <?php endif ?>
-                  <!-- ここまで入力可能文字の処理 -->
-
-                </dd>
+              </dd>
+            </dl>
 
 
-                <!-- 記事の本文 -->
+            <dl class="new_staff_set_ul">
+              <dt class="step_a">題名</dt>
+              <!-- <span id="not_enough">必須</span> -->
+              <span class="mini_alert">記号は使えません</span>
+              <dd class="step_wrap">
 
-                <dt class="step_a">内容</dt>
-                <span id="not_enough">必須</span>
+                <?php if ($_SESSION['new_post_title']['title']) : ?>
+                <!-- 記事の題名 -->
+                <input type="text" id="new_post_title" name="new_post_title" maxlength="32" placeholder="32文字以内でお願いします"
+                  required onblur="CheckGuestInfo(this)"
+                  pattern="^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,32}"
+                  oninput="CountStr('post_title_count',value,32)" class="mypage_input cancel_alert"
+                  value=<?php echo $_SESSION['new_post_title']['title'] ?>>
 
-                <dd class="step_wrap">
+                <!-- 残り文字の処理 -->
+                <!-- 残りの入力可能文字の変更処理 -->
+                <p id="post_title_count" class="count_num">
+                  戻りの場合残り：<?php echo  Fix::EVENTTITLE - $_SESSION['new_post_title']['length']; ?>文字
+                </p>
 
-                  <!-- ここから -->
+                <?php else : ?>
+                <!-- 題名 -->
+                <input type="text" id="new_post_title" name="new_post_title" maxlength="32" placeholder="32文字以内でお願いします"
+                  required onblur="CheckGuestInfo(this)"
+                  pattern="^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,32}"
+                  oninput="CountStr('post_title_count',value,32)" class="mypage_input cancel_alert">
 
-                  <!-- textareaなのかinputなのか -->
+                <!-- 残り文字の処理 -->
+                <!-- 残りの入力可能文字の変更処理 -->
+                <p id="post_title_count" class="count_num">残り：<?php echo Fix::EVENTTITLE ?>文字</p>
+                <?php endif ?>
+                <!-- ここまで入力可能文字の処理 -->
 
-                  <?php if ($_SESSION['new_post_body']['body']) : ?>
-                  <textarea rows=20 name="new_event_body" maxlength="1000" placeholder="1000文字以内"
-                    onblur="checkTxt(this,'new_post_body')" required
-                    oninput="CountStr('post_body_count',value,1000)"><?php echo $_SESSION['new_event_body'] ?></textarea>
-
-                  <p id="post_body_count" class="count_num">
-                    残り：<?php echo Fix::EVENTBODY - $_SESSION['new_post_body']['length']; ?>文字
-                  </p>
-
-                  <?php else : ?>
-                  <textarea rows=20 name="new_event_body" maxlength="1000" placeholder="1000文字以内"
-                    onblur="checkTxt(this,'new_post_body')" required
-                    oninput="CountStr('post_body_count',value,1000)"></textarea>
-
-
-                  <p id="post_body_count" class="count_num">残り：<?php echo Fix::EVENTBODY; ?> 文字</p>
-
-                  <?php endif ?>
-                  <input type="hidden" id="new_post_body" name="new_post_body">
-
-                  <!-- ここまでにテキストarea入れる -->
-
-                </dd>
-
-              </dl>
+              </dd>
 
 
-              <!-- 記事の更新日 -->
-              <dl>
+              <!-- 記事の本文 -->
 
-                <dt class="step_a">更新日時</dt>
-                <dd>
-                  <ul class="radio_select_ul">
-                    <li class="radio_select_list">
+              <dt class="step_a">内容</dt>
+              <span id="not_enough">必須</span>
 
-                      <!-- タイプがまだ選ばれていないか１を選んでいる場合 -->
-                      <?php if (empty($_SESSION['new_post_header']['reserve']) || $_SESSION['new_post_header']['reserve'] == 1 ): ?>
-                      <input type="radio" checked id="new_post_now" name="new_post_day" value='1' class="radio_label_01"
-                        onclick="handleCheckboxChange()">
-                      <?php else:?>
-                      <input type="radio" id="new_post_now" name="new_post_day" value='1' class="radio_label_01"
-                        onclick="handleCheckboxChange()">
-                      <?php endif ?>
-                      <label class="girl_tag_label_txt" for="new_post_now">今すぐ</label>
-                    </li>
+              <dd class="step_wrap">
 
-                    <li class="radio_select_list">
-                      <?php if ($_SESSION['new_post_header']['reserve'] == 2 ): ?>
-                      <input type="radio" checked id="new_post_reserve" name="new_post_day" value='2'
-                        class="radio_label_02" onclick="handleCheckboxChange()">
-                      <?php else :?>
-                      <input type="radio" id="new_post_reserve" name="new_post_day" value='2' class="radio_label_02"
-                        onclick="handleCheckboxChange()">
-                      <?php endif ?>
-                      <label class="girl_tag_label_txt" for="new_post_reserve">予約</label>
-                    </li>
+                <!-- ここから -->
 
-                  </ul>
-                </dd>
-                <dd>
-                  <!-- 日時入力 -->
-                  <!-- 日付選択 -->
-                  <select id="reserve_post_day" name="reserve_post_day" disabled required>
-                    <option value="" hidden
-                      <?php if (empty($_SESSION['new_post_header']['reserve_day'])) echo 'selected'; ?>>予約日</option>
-                    <?php for($i = 0; $i < 10; $i ++) : ?>
-                    <?php $dateValue = $today->format('Y/m/d'); ?>
-                    <option value="<?php echo $dateValue; ?>"
-                      <?php if (!empty($_SESSION['new_post_header']['reserve_day']) && $dateValue == $_SESSION['new_post_header']['reserve_day']) echo 'selected'; ?>>
-                      <?php echo "{$today->format('Y/m/d')}" ?> (<?php echo $week_name[$today->format("w")]; ?>)
-                    </option>
-                    <?php $today->modify("+1 day") ;?>
-                    <?php endfor ?>
-                  </select>
+                <!-- textareaなのかinputなのか -->
 
-                  <!-- 時間選択 -->
-                  <select id="reserve_post_time" name="reserve_post_time" disabled required>
-                    <?php $selectedDefault = (empty($_SESSION['new_post_header']['reserve_time'])) ? 'selected' : '';
+                <?php if ($_SESSION['new_post_body']['body']) : ?>
+                <textarea rows=20 name="new_event_body" maxlength="1000" placeholder="1000文字以内"
+                  onblur="checkTxt(this,'new_post_body')" required
+                  oninput="CountStr('post_body_count',value,1000)"><?php echo $_SESSION['new_event_body'] ?></textarea>
+
+                <p id="post_body_count" class="count_num">
+                  残り：<?php echo Fix::EVENTBODY - $_SESSION['new_post_body']['length']; ?>文字
+                </p>
+
+                <?php else : ?>
+                <textarea rows=20 name="new_event_body" maxlength="1000" placeholder="1000文字以内"
+                  onblur="checkTxt(this,'new_post_body')" required
+                  oninput="CountStr('post_body_count',value,1000)"></textarea>
+
+
+                <p id="post_body_count" class="count_num">残り：<?php echo Fix::EVENTBODY; ?> 文字</p>
+
+                <?php endif ?>
+                <input type="hidden" id="new_post_body" name="new_post_body">
+
+                <!-- ここまでにテキストarea入れる -->
+
+              </dd>
+
+            </dl>
+
+
+            <!-- 記事の更新日 -->
+            <dl>
+
+              <dt class="step_a">更新日時</dt>
+              <dd>
+                <ul class="radio_select_ul">
+                  <li class="radio_select_list">
+
+                    <!-- タイプがまだ選ばれていないか１を選んでいる場合 -->
+                    <?php if (empty($_SESSION['new_post_header']['reserve']) || $_SESSION['new_post_header']['reserve'] == 1 ): ?>
+                    <input type="radio" checked id="new_post_now" name="new_post_day" value='1' class="radio_label_01"
+                      onclick="handleCheckboxChange()">
+                    <?php else:?>
+                    <input type="radio" id="new_post_now" name="new_post_day" value='1' class="radio_label_01"
+                      onclick="handleCheckboxChange()">
+                    <?php endif ?>
+                    <label class="girl_tag_label_txt" for="new_post_now">今すぐ</label>
+                  </li>
+
+                  <li class="radio_select_list">
+                    <?php if ($_SESSION['new_post_header']['reserve'] == 2 ): ?>
+                    <input type="radio" checked id="new_post_reserve" name="new_post_day" value='2'
+                      class="radio_label_02" onclick="handleCheckboxChange()">
+                    <?php else :?>
+                    <input type="radio" id="new_post_reserve" name="new_post_day" value='2' class="radio_label_02"
+                      onclick="handleCheckboxChange()">
+                    <?php endif ?>
+                    <label class="girl_tag_label_txt" for="new_post_reserve">予約</label>
+                  </li>
+
+                </ul>
+              </dd>
+              <dd>
+                <!-- 日時入力 -->
+                <!-- 日付選択 -->
+                <select id="reserve_post_day" name="reserve_post_day" disabled required>
+                  <option value="" hidden
+                    <?php if (empty($_SESSION['new_post_header']['reserve_day'])) echo 'selected'; ?>>予約日</option>
+                  <?php for($i = 0; $i < 10; $i ++) : ?>
+                  <?php $dateValue = $today->format('Y/m/d'); ?>
+                  <option value="<?php echo $dateValue; ?>"
+                    <?php if (!empty($_SESSION['new_post_header']['reserve_day']) && $dateValue == $_SESSION['new_post_header']['reserve_day']) echo 'selected'; ?>>
+                    <?php echo "{$today->format('Y/m/d')}" ?> (<?php echo $week_name[$today->format("w")]; ?>)
+                  </option>
+                  <?php $today->modify("+1 day") ;?>
+                  <?php endfor ?>
+                </select>
+
+                <!-- 時間選択 -->
+                <select id="reserve_post_time" name="reserve_post_time" disabled required>
+                  <?php $selectedDefault = (empty($_SESSION['new_post_header']['reserve_time'])) ? 'selected' : '';
                     echo '<option value="" hidden ' . $selectedDefault . '>時間</option>';for ($hour = 0; $hour <= 23; $hour++) {
                       $selected = '';
                       if (!empty($_SESSION['new_post_header']['reserve_time']) && $_SESSION['new_post_header']['reserve_time'] === sprintf("%02d:00", $hour)) {
@@ -592,17 +591,17 @@
                       echo '<option value="' . sprintf("%02d:00", $hour) . '" ' . $selected . '>' . sprintf("%02d:00", $hour) . '</option>';
                     }
                     ?>
-                  </select>
+                </select>
 
 
-                </dd>
-              </dl>
+              </dd>
+            </dl>
 
-              <input type="submit" disabled id="submit_button" name="confirm" value="確認">
+            <input type="submit" disabled id="submit_button" name="confirm" value="確認">
 
-              <div class="cancel_btn_wrap">
-                <a href="reset_session.php" onclick="showPopover(event)" class="setting_cancel">キャンセル</a>
-              </div>
+            <div class="cancel_btn_wrap">
+              <a href="reset_session.php" onclick="cancelPop(event)" class="setting_cancel">キャンセル</a>
+            </div>
 
           </form>
 
@@ -615,7 +614,7 @@
               </p>
               <div class="popover_btn">
                 <button onclick="move()" class="true_btn">OK</button>
-                <button onclick="hidePopover()">キャンセル</button>
+                <button onclick="backSet()">キャンセル</button>
               </div>
             </div>
           </div>

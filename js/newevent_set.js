@@ -1,4 +1,4 @@
-// フォームチェック
+// formチェック
 // 送信できる状態ならボタンをアクティブ
 const form = document.getElementById("form");
 const event_set_button = document.getElementById("submit_button");
@@ -41,34 +41,22 @@ function update() {
   }
 }
 
-function showPopover(event) {
+function cancelPop(event) {
+  // リンクを無効化
   event.preventDefault();
-  console.log("クリックされた");
-
-  // ポップオーバーを表示する要素（リンク）の位置を取得
-  var target = event.target;
-  var targetRect = target.getBoundingClientRect();
-  var targetTop = targetRect.top + window.pageYOffset;
-  var targetLeft = targetRect.left + window.pageXOffset;
-
-  // ポップオーバーテンプレートを複製
-  var popoverTemplate = document.querySelector(".popoverTemplate");
-  var popover = popoverTemplate.cloneNode(true);
-  popover.id = "popoverClone"; // クローンに一意のIDを割り当て
-
-  // ポップオーバーの位置を設定
-  popover.style.position = "absolute"; // 位置指定のためにpositionを設定
-  popover.style.top = window.pageYOffset + window.innerHeight / 3 + "px"; // 画面の下半分に設定
-  // popover.style.left = targetLeft + "px";
-
-  // ポップオーバーを表示
-  popover.style.display = "block";
-
-  // ポップオーバーをドキュメントに追加
-  document.body.appendChild(popover);
+  // テンプレート読み込み
+  var template = document.querySelector(".popoverTemplate");
+  // クローン作る
+  var templateclone = template.cloneNode(true);
+  templateclone.id = "popoverClone";
+  templateclone.style.position = "absolute"; // 位置指定のためにpositionを設定
+  templateclone.style.top = window.pageYOffset + window.innerHeight / 3 + "px"; // 画面の下半分に設定
+  templateclone.style.display = "block";
+  // 最後尾に追加
+  document.body.appendChild(templateclone);
 }
 
-function hidePopover() {
+function backSet() {
   var popover = document.getElementById("popoverClone");
   popover.parentNode.removeChild(popover);
 }
@@ -124,6 +112,19 @@ function changeLabelColor(radio) {
     label.style.color = "red";
   } else {
     label.style.color = "";
+  }
+}
+
+// girls選択
+function showImage(selectElement) {
+  var selectedIndex = selectElement.selectedIndex;
+  if (selectedIndex >= 0) {
+    var imageDiv = document.querySelector(".auto_image");
+    imageDiv.innerHTML = "";
+
+    var imageTag = document.createElement("img");
+    imageTag.src = "../" + selectElement.value;
+    imageDiv.appendChild(imageTag);
   }
 }
 

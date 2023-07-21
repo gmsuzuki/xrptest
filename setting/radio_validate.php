@@ -12,7 +12,7 @@ class Check_radio {
 
         $this->checking_radio = $checkig_radio;
         $this->max_radio = $max_radio;
-        for ($i = 1; $i <= $max_radio; $i++) {
+        for ($i = 0; $i <= $max_radio; $i++) {
           $this->all_radio[] = $i;
     }
   }

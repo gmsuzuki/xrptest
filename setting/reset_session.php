@@ -11,7 +11,7 @@ session_destroy();  // セッションを完全に破棄
 // レスポンスを返す（オプション）
 echo "Session has been reset.";  // レスポンスメッセージの例
 
-header("Location: new_event_set.php");
+header("Location: setting_index02.php");
 exit;
 
 ?>

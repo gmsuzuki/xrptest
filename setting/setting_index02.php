@@ -134,22 +134,22 @@
 
               <ul class="register_setting_list list_flex">
                 <li class="register_setting_link list_flex_box ">
+                  <a href="new_member_set.php?setting=staff"><span>アカウント作成</span></a>
+                </li>
+                <li class="register_setting_link list_flex_box ">
+                  <a href="new_event_set.php?setting=event"><span>イベント投稿</span></a>
+                </li>
+                <li class="register_setting_link list_flex_box ">
                   <a href="new_girl_set.php?setting=cast"><span>新人登録</span></a>
                 </li>
                 <li class="register_setting_link list_flex_box ">
-                  <a href="new_event_set.php?setting=event"><span>イベント登録</span></a>
+                  <a href="new_news_set.php?setting=news"><span>ニュース投稿</span></a>
                 </li>
                 <li class="register_setting_link list_flex_box ">
-                  <a href="new_member_set.php?setting=staff"><span>スタッフ登録</span></a>
+                  <a href="new_news_set.php?setting=news"><span>店外観</span></a>
                 </li>
                 <li class="register_setting_link list_flex_box ">
-                  <a href="renew_set_event.php?setting=news"><span>ニュース登録</span></a>
-                </li>
-                <li class="register_setting_link list_flex_box ">
-                  <a href=""><span>店舗</span></a>
-                </li>
-                <li class="register_setting_link list_flex_box ">
-                  <a href=""><span>店外観</span></a>
+                  <a href="new_girl_info.php?setting=cast_info"><span>女の子紹介</span></a>
                 </li>
 
               </ul>

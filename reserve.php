@@ -642,83 +642,92 @@ if( !empty($_POST['btn_confirm']) ) {
                 <!-- ご予約日 -->
                 <dl>
                   <dt>ご予約日時<em>必須</em></dt>
-                  <p>ご希望日</p>
-                  <select class="play_date_time select_check" required name="play_date">
-                    <option value="" hidden>ご利用日をお選びください</option>
+                  <dd>
+                    <p>ご希望日</p>
+                    <select class="play_date_time select_check" required name="play_date">
+                      <option value="" hidden>ご利用日をお選びください</option>
 
-                    <?php for($i = 0; $i < 7; $i ++) : ?>
-                    <?php echo '<option value="'.$today->format('m/d').'('.$week_name[$today->format("w")].')">' ?>
-                    <?php echo "{$today->format('m/d')}" ?>
-                    (<?php echo $week_name[$today->format("w")];?>)
-                    </option>
-                    <?php $today->modify("+1 day") ;?>
-                    <?php endfor ?>
-                  </select>
-
-                  <p>ご希望スタート時間</p>
-                  <select class="play_date_time select_check" required name="play_daytime">
-                    <option value="" hidden>ご希望スタート時間をお選びください</option>
-                    <option value="特になし">特になし</option>
-                    <?php for($i = 0; $i < 27; $i ++) : ?>
-                    <?php echo '<option value="'.$shop_start->format('H:i').'">' ?>
-                    <?php echo "{$shop_start->format('H:i')}" ?>
-                    </option>
-                    <?php $shop_start->modify("+30 minute") ;?>
-                    <?php endfor ?>
-                  </select>
-
-                  <p>ご調整可能時間</p>
-                  <select class="play_date_time select_check" required name="adjustment">
-                    <option value="" hidden>調整可能時間をお選びください
-                    </option>
-                    <option value="調整不可">調整不可</option>
-                    <option value="後ろ1時間">後1時間</option>
-                    <option value="後ろ2時間">後2時間</option>
-                    <option value="後ろ2時間以上">後2時間以上</option>
-                    <option value="前1時間">前1時間</option>
-                    <option value="前2時間">前2時間</option>
-                    <option value="前2時間以上">前2時間以上</option>
-                    <option value="前後1時間">前後1時間</option>
-                    <option value="前後2時間以上">前後2時間以上</option>
-                  </select>
+                      <?php for($i = 0; $i < 7; $i ++) : ?>
+                      <?php echo '<option value="'.$today->format('m/d').'('.$week_name[$today->format("w")].')">' ?>
+                      <?php echo "{$today->format('m/d')}" ?>
+                      (<?php echo $week_name[$today->format("w")];?>)
+                      </option>
+                      <?php $today->modify("+1 day") ;?>
+                      <?php endfor ?>
+                    </select>
+                  </dd>
+                  <dd>
+                    <p>ご希望スタート時間</p>
+                    <select class="play_date_time select_check" required name="play_daytime">
+                      <option value="" hidden>ご希望スタート時間をお選びください</option>
+                      <option value="特になし">特になし</option>
+                      <?php for($i = 0; $i < 27; $i ++) : ?>
+                      <?php echo '<option value="'.$shop_start->format('H:i').'">' ?>
+                      <?php echo "{$shop_start->format('H:i')}" ?>
+                      </option>
+                      <?php $shop_start->modify("+30 minute") ;?>
+                      <?php endfor ?>
+                    </select>
+                  </dd>
+                  <dd>
+                    <p>ご調整可能時間</p>
+                    <select class="play_date_time select_check" required name="adjustment">
+                      <option value="" hidden>調整可能時間をお選びください
+                      </option>
+                      <option value="調整不可">調整不可</option>
+                      <option value="後ろ1時間">後1時間</option>
+                      <option value="後ろ2時間">後2時間</option>
+                      <option value="後ろ2時間以上">後2時間以上</option>
+                      <option value="前1時間">前1時間</option>
+                      <option value="前2時間">前2時間</option>
+                      <option value="前2時間以上">前2時間以上</option>
+                      <option value="前後1時間">前後1時間</option>
+                      <option value="前後2時間以上">前後2時間以上</option>
+                    </select>
+                  </dd>
                 </dl>
                 <dl>
                   <dt>ご利用コース<em>必須</em></dt>
-                  <select name="playtime select_check" required>
-                    <option value="" hidden>ご利用コース</option>
-                    <?php for($i = 60; $i < 361; $i+=30) : ?>
-                    <?php echo '<option value="'.$i.'">' ?>
-                    <?php echo "{$i}分" ?>
-                    </option>
-                    <?php endfor ?>
-                    <option value="360分以上">360分以上のロングコース</option>
-                  </select>
+                  <dd>
+                    <select name="playtime select_check" required>
+                      <option value="" hidden>ご利用コース</option>
+                      <?php for($i = 60; $i < 361; $i+=30) : ?>
+                      <?php echo '<option value="'.$i.'">' ?>
+                      <?php echo "{$i}分" ?>
+                      </option>
+                      <?php endfor ?>
+                      <option value="360分以上">360分以上のロングコース</option>
+                    </select>
+                  </dd>
                 </dl>
 
                 <!-- 指名 -->
                 <dl>
                   <dt>ご指名<em>必須</em></dt>
-                  <select name="nomination select_check" required>
-                    <option value="" hidden>選択</option>
-                    <option value="フリー">フリー</option>
-                    <?php foreach($sample_names as $sample_name) : ?>
-                    <?php echo '<option value="'.$sample_name[0].'">' ?>
-                    <?php echo $sample_name[1] ?>
-                    </option>
-                    <?php endforeach ?>
-
-                  </select>
+                  <dd>
+                    <select name="nomination_select_check" required>
+                      <option value="" hidden>選択</option>
+                      <option value="フリー">フリー</option>
+                      <?php foreach($sample_names as $sample_name) : ?>
+                      <?php echo '<option value="'.$sample_name[0].'">' ?>
+                      <?php echo $sample_name[1] ?>
+                      </option>
+                      <?php endforeach ?>
+                    </select>
+                  </dd>
                 </dl>
 
                 <!-- オプション -->
                 <dl>
                   <dt>オプション</dt>
-                  <?php foreach ($options as $num => $option_select) :?>
-                  <label class="option_select">
-                    <input type="checkbox" value="<?php echo $num ?>" name="option[]">
-                    <?php echo $option_select ?>
-                  </label>
-                  <?php endforeach ?>
+                  <dd>
+                    <?php foreach ($options as $num => $option_select) :?>
+                    <label class="option_select">
+                      <input type="checkbox" value="<?php echo $num ?>" name="option[]">
+                      <?php echo $option_select ?>
+                    </label>
+                    <?php endforeach ?>
+                  </dd>
                 </dl>
 
                 <!-- テキストエリアにはパタン属性はない -->
