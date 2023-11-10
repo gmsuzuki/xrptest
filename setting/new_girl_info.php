@@ -21,6 +21,7 @@
   <script src="../js/text_check.js" defer></script>
   <script src="../js/text_count.js" defer></script>
   <script src="../js/setting.js" defer></script>
+  <script src="../js/cancelpop.js" defer></script>
   <!-- <script src="../js/newevent_set.js" defer></script> -->
 
 </head>
@@ -372,8 +373,9 @@
             <!-- 設定項目 -->
 
 
-
-            <h2 class="step_q">女の子の紹介</h2>
+            <div class="demo demo3">
+              <h2 class="heading"><span>女の子の紹介</span></h2>
+            </div>
 
             <!-- 記事の種類 -->
             <dl class="bace_wrap cast_info_post_bg">
@@ -426,7 +428,9 @@
 
             <!-- テスト -->
             <!-- 紹介するのは -->
-            <h2 class="step_q">誰を紹介しますか？</h2>
+            <div class="demo demo3">
+              <h2 class="heading"><span>紹介する人</span></h2>
+            </div>
 
 
             <dl class="bace_wrap cast_info_post_bg">
@@ -529,7 +533,10 @@
 
 
             <!-- 紹介するのは -->
-            <h2 class="step_q">紹介文</h2>
+            <div class="demo demo3">
+              <h2 class="heading"><span>紹介文</span></h2>
+            </div>
+
             <dl class="bace_wrap cast_info_post_bg">
 
               <dt class="step_a">題名</dt>
@@ -607,7 +614,10 @@
 
 
             <!-- 記事の更新日 -->
-            <h2 class="step_q">いつHPに反映しますか？</h2>
+            <div class="demo demo3">
+              <h2 class="heading"><span>いつHPに反映しますか？</span></h2>
+            </div>
+
             <dl class="bace_wrap cast_info_post_bg">
 
               <!-- 記事の更新日 -->

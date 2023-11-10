@@ -12,7 +12,7 @@ if( !empty($_POST['btn_confirm']) ) {
           
     session_start();
     // 二重送信防止用トークンの発行
-    $token = uniqid('', true);;
+    $token = uniqid('', true);
     //トークンをセッション変数にセット
     $_SESSION['token'] = $token;
 	$page_flag = 1;
@@ -171,7 +171,7 @@ if( !empty($_POST['btn_confirm']) ) {
             <br>下記の内容でご予約を承りますがよろしいでしょうか？
           </p>
           <div class="reserve_check_form">
-            <form method="post" id="form" name="form1" action="" onsubmit="return verifyContactForm();">
+            <form method="post" id="mail_form" name="form1" action="" onsubmit="return verifyContactForm();">
               <dl>
                 <dt class="test">お名前</dt>
                 <dd><?php echo $_POST['name']; ?></dd>
@@ -437,6 +437,8 @@ if( !empty($_POST['btn_confirm']) ) {
               mb_language( 'ja' ); mb_internal_encoding( 'UTF-8' );
                //送信者情報（From ヘッダー）の設定
               $header="From: " . mb_encode_mimeheader($e_name) ."<" . MAIL_FROM. ">\n" ;
+              $headers .= "MIME-Version: 1.0\r\n";
+              $headers .= "Content-type: text/plain; charset=utf-8\r\n";
               // $header .="Cc: ". mb_encode_mimeheader(MAIL_CC_NAME) ."<" . MAIL_CC.">\n";
               // $header .= "Bcc: <" . MAIL_BCC.">";
                 //メールの送信
@@ -497,7 +499,7 @@ if( !empty($_POST['btn_confirm']) ) {
                  $session_token = '';
                 //  メール送信もOKだし返信メールもOKだった
                 echo "<div class='form_alert'>
-                <h3>ご予約承りました</h3>
+                <h3>ご予約の希望を承りました</h3>
                 <p>ご登録のメールアドレスに確認のメールをお送りしました</p>
                 <p>確認メールが届かない場合はお手数ですがもう一度予約フォームよりお問い合わせください。</p>
                 <a href='top.php' class='anime_btn btn_active btn_font01 back_to_top'>トップページへ戻る</a>
@@ -506,7 +508,7 @@ if( !empty($_POST['btn_confirm']) ) {
                 else{
                 echo "<div class='form_alert'>
                 <h3>確認のメールが送信できません</h3>
-                <p>ご登録のメールアドレス宛に確認のメールが遅れませんでした</p>
+                <p>ご登録のメールアドレス宛に確認のメールが送れませんでした</p>
                 <p>お手数ですがもう一度予約フォームよりお問い合わせください。</p>
                 <a href='top.php' class='anime_btn btn_active btn_font01 back_to_top'>トップページへ戻る</a>
                 </div>";

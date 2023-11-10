@@ -45,8 +45,9 @@
   <!--javascript-->
   <script src="../js/set_basic.js" defer></script>
   <script src="../js/error_set.js" defer></script>
-  <script src="../js/set_form_input_check.js" defer></script>
   <script src="../js/newstaff_set.js" defer></script>
+
+
 
 
   <!-- フォントオーサム -->
@@ -79,8 +80,10 @@
 
             <div id="phase1" class="bace_wrap">
 
+              <div class="demo demo3">
+                <h2 class="heading"><span>アカウントを作成</span></h2>
+              </div>
 
-              <h2 class="step_q">アカウントを作成</h2>
 
 
 
@@ -99,25 +102,25 @@
 
                 <li class="step_wrap">
                   <span class="step_a">ログインID</span>
-                  <em class="mini_alert" style="color:red;">エラー</em>
-                  <input type="text" required id="staff_new_login_id" name="staff_new_login_id" maxlength="20"
-                    onblur="CheckGuestInfo(this)" pattern="^([a-zA-Z0-9]{6,})$" placeholder="半角英数字６文字以上２０文字以内"
-                    class="mypage_input cancel_alert">
+                  <em class="mini_alert">入力エラー</em>
+                  <input type="text" required id="staff_new_login_id" name="staff_new_login_id" minlength="6"
+                    maxlength="20" onblur="CheckGuestInfo(this)" pattern="^([a-zA-Z0-9]{6,})$"
+                    placeholder="半角英数字６文字以上２０文字以内" class="mypage_input cancel_alert">
                 </li>
                 <li class="step_wrap">
                   <span class="step_a">パスワード</span>
-                  <em class="mini_alert">エラー</em>
-                  <input type="text" required id="staff_new_login_pass" name="staff_new_login_pass" maxlength="20"
-                    onblur="CheckGuestInfo(this)" pattern="^([a-zA-Z0-9]{8,})$" placeholder="半角英数字８文字以上２０文字以内"
-                    class="mypage_input cancel_alert">
+                  <em class="mini_alert">入力エラー</em>
+                  <input type="text" required id="staff_new_login_pass" name="staff_new_login_pass" minlength="6"
+                    maxlength="20" onblur="CheckGuestInfo(this); reset_pass()" pattern="^([a-zA-Z0-9]{6,})$"
+                    placeholder="半角英数字6文字以上20文字以内" class="mypage_input cancel_alert">
                 </li>
 
                 <li class="step_wrap">
                   <span class="step_a">確認用パスワード</span>
-                  <em class="mini_alert">一致しません</em>
-                  <input type="text" required id="" name="staff_new_login_pass" maxlength="20"
-                    onblur="SameCheckPass(this)" pattern="^([a-zA-Z0-9]{8,})$" placeholder="半角英数字８文字以上２０文字以内"
-                    class="mypage_input cancel_alert">
+                  <em class="mini_alert">確認できません</em>
+                  <input type="text" required id="new_login_pass_confirmation" name="staff_new_login_pass" minlength="6"
+                    maxlength="20" onblur="SameCheckPass(this)" pattern="^([a-zA-Z0-9]{6,})$"
+                    placeholder="半角英数字6文字以上20文字以内" class="mypage_input cancel_alert">
                 </li>
 
 
@@ -125,7 +128,7 @@
 
               <div class="step_button_wrap">
                 <button onclick="location.href='setting_index02.php'">キャンセル</button>
-                <button onclick="processPhase1()" class="step_next">次へ</button>
+                <button onclick="processPhase1()" id="nextButton" class="step_next_before">次へ</button>
               </div>
 
             </div>
@@ -134,8 +137,9 @@
 
             <div id="phase2" class="bace_wrap">
 
-
-              <h2 class="step_q">これで申請しますか？</h2>
+              <div class="demo demo3">
+                <h2 class="heading"><span>これで申請しますか？</span></h2>
+              </div>
 
               <ul class="new_staff_set_ul">
                 <li class="step_wrap">

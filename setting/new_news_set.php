@@ -21,6 +21,7 @@
   <script src="../js/text_check.js" defer></script>
   <script src="../js/text_count.js" defer></script>
   <script src="../js/setting.js" defer></script>
+  <script src="../js/cancelpop.js" defer></script>
   <!-- <script src="../js/newevent_set.js" defer></script> -->
 
 </head>
@@ -319,9 +320,9 @@
             <!-- 設定項目 -->
 
 
-
-
-            <h2 class="step_q">お知らせの入力</h2>
+            <div class="demo demo3">
+              <h2 class="heading"><span>お知らせの入力</span></h2>
+            </div>
 
             <!-- ニュースタイトル -->
             <dl class="bace_wrap news_post_bg">
@@ -436,7 +437,9 @@
 
 
             <!-- 記事の更新日 -->
-            <h2 class="step_q">いつHPに反映しますか？</h2>
+            <div class="demo demo3">
+              <h2 class="heading"><span>いつHPに反映しますか？</span></h2>
+            </div>
             <dl class="bace_wrap news_post_bg">
 
 
@@ -523,6 +526,7 @@
               </div>
             </div>
           </div>
+
 
         </div><!-- content_wrapper -->
 

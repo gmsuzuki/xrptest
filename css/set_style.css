@@ -17,6 +17,50 @@ body {
   color: #333;
 }
 
+.second_block {
+  background-color: #fff;
+  border-radius: 24px;
+  margin-top: 3rem;
+  padding-top: 1rem;
+}
+
+/* セッティング見出し */
+.demo {
+  width: 100%;
+  margin: 1rem auto;
+  padding: 10px 0;
+  font-family: sans-serif;
+  font-size: 20px;
+  color: #3cb3e4;
+}
+.heading {
+  margin: 10px 0;
+}
+.demo3 .heading {
+  color: #3cb3e4;
+  text-align: center;
+  overflow: hidden;
+}
+.demo3 .heading span {
+  display: inline-block;
+  position: relative;
+}
+.demo3 .heading span:before,
+.demo3 .heading span:after {
+  content: "";
+  border-bottom: 2px solid #3cb3e4;
+  width: 45px;
+  margin: 0 15px;
+  position: absolute;
+  bottom: 13px;
+}
+.demo3 .heading span:before {
+  right: 100%;
+}
+.demo3 .heading span:after {
+  left: 100%;
+}
+
 /* スマホの何故か入力欄の角が丸くなるのをリセット */
 input[type="button"],
 input[type="text"],
@@ -53,7 +97,7 @@ body {
   background-color: rgb(217, 216, 196);
 }
 main {
-  width: 90%;
+  width: 95%;
   margin: 0 auto;
 }
 
@@ -184,12 +228,26 @@ header h1 {
 /* //プログレスバー */
 
 /* ーーーーエラー系ーーーー */
+
+@keyframes blink {
+  0% {
+    background-color: red;
+  } /* 開始時の背景色 */
+  50% {
+    background-color: yellow;
+  } /* 中間での背景色 */
+  100% {
+    background-color: red;
+  } /* 終了時の背景色（または元の背景色に戻す色） */
+}
+
 .errmessage {
-  background-color: red;
   color: white;
   font-size: 2rem;
   text-align: center;
-  margin-top: 1rem;
+  margin: 2rem 0.2rem;
+  padding: 2rem;
+  animation: blink 2s infinite; /* アニメーション名、時間、繰り返し指定 */
 }
 
 /* ーーーー入力系ーーーー */
@@ -294,6 +352,12 @@ input[type="checkbox"]:checked + .boxcheck::after {
   opacity: 1;
 }
 
+/* アカウント追加 */
+#staff_new_login_id,
+#staff_new_login_pass,
+#new_login_pass_confirmation {
+  background-color: #fff;
+}
 /* マイページ設定 */
 
 .edit_area {
@@ -326,7 +390,6 @@ input[type="checkbox"]:checked + .boxcheck::after {
   outline: none;
   border-bottom: 2px solid #999;
   padding: 5px 10px;
-  background-color: rgb(247 247 247);
   height: 4rem;
 }
 .mypage_input:focus {
@@ -402,6 +465,15 @@ input[type="checkbox"]:checked + .boxcheck::after {
   margin: 50px auto 10px auto;
 }
 
+.reserve_button_wrap {
+  width: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px auto 10px auto;
+}
+
+.reserve_button_wrap input,
 .step_button_wrap button,
 .step_button_wrap input {
   width: 45%;
@@ -414,6 +486,20 @@ input[type="checkbox"]:checked + .boxcheck::after {
 
 .step_next {
   background-color: #04384c;
+  color: white;
+}
+.step_next_before {
+  background-color: grey;
+  color: white;
+}
+
+.reserve_done {
+  background-color: #b5005b;
+  color: white;
+}
+
+.reserve_ng {
+  background-color: #1200b5;
   color: white;
 }
 
@@ -839,7 +925,6 @@ input[name="tab_item"] {
 }
 
 .popover {
-  /* position: absolute; */
   background-color: #272525cc;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -1164,4 +1249,446 @@ input[name="picRadio"]:checked + label.radio_pic img {
 }
 .send_btn {
   background-color: pink;
+}
+
+/* カレンダー関係 */
+
+#calendar_title,
+#calendar_month_title {
+  width: 100%;
+  text-align: center;
+}
+#calendar_title {
+  margin: 32px auto 30px auto;
+  font-weight: bold;
+  color: #04384c;
+}
+
+#calendar_month_title {
+  margin-bottom: 24px;
+}
+
+.calendar {
+  font-family: Arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 1.5rem;
+  background-color: #fff;
+}
+
+.calendar th,
+.calendar td {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 3px;
+  vertical-align: top;
+  width: calc(100% / 7);
+  position: relative;
+}
+
+.calendar th {
+  height: 40px;
+}
+
+.calendar td {
+  height: 100px;
+  position: relative;
+}
+
+.oneday_calendar {
+  font-weight: bold;
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #fff;
+}
+.oneday_calendar th,
+.oneday_calendar td {
+  border: 1px solid #cacaca;
+  padding: 5px;
+  text-align: center;
+}
+.oneday_calendar th {
+  background-color: #b5005b;
+  color: white;
+}
+.oneday_calendar td a,
+.oneday_calendar td span {
+  font-size: 1.8rem;
+}
+
+/* 予約の戻るボタン */
+.reserve_back {
+  background-color: rgb(217, 216, 196);
+  display: block;
+  text-align: center;
+  width: 45%;
+  margin: 5%;
+  display: inline-block;
+  padding: 10px 10px;
+  border-radius: 4px;
+  border: none;
+  color: #473434;
+}
+
+.mail_button_wrap {
+  width: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 50px auto 10px auto;
+}
+
+.mail_cancel {
+  border: 1px solid grey;
+  background-color: rgb(217, 216, 196);
+  display: block;
+  text-align: center;
+  width: 45%;
+  margin: 5%;
+  display: inline-block;
+  padding: 10px 10px;
+  border-radius: 4px;
+  color: #473434;
+}
+
+.mail_confirmation {
+  background-color: #fff;
+  padding: 2rem;
+}
+
+.mail_tag {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.mail_body {
+  padding: 1rem;
+  background-color: #dbdada;
+  margin: 1rem 0;
+}
+
+#mail_send {
+  width: 45%;
+  margin: 5%;
+  display: inline-block;
+  padding: 10px 10px;
+  border-radius: 4px;
+  border: none;
+  background-color: #b5005b;
+  color: white;
+}
+
+.mail_to {
+  color: white;
+  background-color: #2236f1;
+}
+
+/* よやくのmodal */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  font-size: 1.6rem;
+  line-height: 3rem;
+  background-color: black;
+  color: white;
+  margin: 15% auto;
+  padding: 20px;
+  width: 80%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+}
+
+.modal-space {
+  margin-right: 1rem;
+}
+#closeModal {
+  font-size: 3rem;
+}
+
+.girl_number {
+  background-color: red;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+}
+td .request_work {
+  display: inline-block;
+  background-color: rgba(250, 118, 118, 0.4);
+  position: absolute;
+  z-index: 3;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 100px;
+}
+
+.ruby {
+  margin-top: 0.5rem;
+  font-size: 0.6rem;
+  font-weight: bold;
+}
+
+.request_wrap {
+  background-color: #fff;
+  margin-bottom: 1rem;
+  padding-top: 2rem;
+  border-radius: 24px;
+}
+
+.reserve_title_day {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.request_img {
+  display: block;
+  margin: 0 auto 8px auto;
+  width: 64px;
+  height: 64px;
+  overflow: hidden;
+  border-radius: 32px;
+}
+
+.request_img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.request_img_caption {
+  font-weight: bolder;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.request_icon_wrap,
+.work_time {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* やじるし */
+.arrow {
+  position: relative;
+  display: inline-block;
+  width: 20%;
+  height: auto;
+  background-color: #8cc8fd;
+  clip-path: polygon(
+    0 33%,
+    50% 33%,
+    50% 15%,
+    100% 50%,
+    50% 85%,
+    50% 67%,
+    0 67%
+  );
+}
+
+.work_time span {
+  margin: 1rem;
+  font-size: 2rem;
+  text-decoration: underline;
+  text-decoration-color: rgb(230, 0, 255); /* アンダーラインの色を指定 */
+  text-decoration-style: double; /* アンダーラインのスタイルを指定 */
+}
+
+.request_card:checked + .request_wrap {
+  background-color: rgb(234, 211, 245);
+}
+
+.all_btn_wrap {
+  width: 95%;
+  margin: 0 auto;
+}
+
+.confirm_title {
+  margin: 32px auto 30px auto;
+  font-weight: bold;
+  color: #04384c;
+  text-align: center;
+}
+
+.approval_date_title {
+  text-align: center;
+}
+
+.back_index {
+  display: inline-block;
+  width: 100%;
+  margin: 2rem 0;
+  text-align: center;
+  background-color: grey;
+  padding: 1rem;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+/* メール送信 */
+
+.mail_title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.mail_subject {
+  margin-bottom: 2rem;
+}
+
+/* 口コミ */
+
+.approval_review_wrap {
+  margin-bottom: 1rem;
+  border-radius: 24px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.review_image_area {
+  background-color: #fff;
+  padding: 2rem;
+}
+.review_body_area {
+  background-color: #7ed0f6;
+  padding: 2rem;
+}
+
+.approval_review_wrap h2 {
+  font-size: 1.6rem;
+}
+
+#approval_pending_list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.approval_pending_card {
+  display: block;
+  color: black;
+  font-size: 1.2rem;
+  width: 45%;
+  padding: 1rem;
+  background-color: #fff;
+  margin-bottom: 2rem;
+  border-radius: 10px;
+}
+
+.subtitles_img {
+  position: relative;
+}
+
+.review_girl_img {
+  object-position: 50% 50%;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+}
+
+.employee_girl_wrap {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  line-height: 3rem;
+}
+
+.staff_review_title {
+  font-size: 1.3rem;
+  line-height: 1.7rem;
+  height: 3.5rem;
+  font-weight: bold;
+  margin-top: 10px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-align: center;
+}
+
+.stars {
+  --percent: calc(var(--rating) / 5 * 100%);
+  display: inline-block;
+}
+.stars::before {
+  --star-color: #fff;
+  --star-background: #fc0;
+  content: "★★★★★";
+  letter-spacing: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--star-background) var(--percent),
+    var(--star-color) var(--percent)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.assessment {
+  width: 100%;
+  text-align: center;
+  padding: 0 0 10px 0;
+}
+
+.review_session {
+  margin: 1rem 0 32px 0;
+}
+
+.review_data {
+  margin: 1rem 0 1rem 1rem;
+  background-color: #fff;
+  line-height: 3rem;
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.review_data .rate_block {
+  width: 48%;
+  margin-bottom: 10px;
+}
+
+.alert_text {
+  color: red;
+  font-weight: bold;
+}
+
+.review_body {
+  margin: 1rem 0 1rem 1rem;
+  background-color: #fff;
+  line-height: 3rem;
+  padding: 1rem;
 }

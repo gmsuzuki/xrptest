@@ -2,7 +2,6 @@
 var mini = document.getElementsByClassName("mini_alert");
 var input_text = document.getElementsByClassName("cancel_alert");
 var inputArray = Array.from(input_text);
-console.log(inputArray[0]); // エラーが出なくなります
 
 function alert_delete() {
   for (var i = 0; i < mini.length; i++) {

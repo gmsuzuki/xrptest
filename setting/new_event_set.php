@@ -21,6 +21,7 @@
   <script src="../js/text_check.js" defer></script>
   <script src="../js/text_count.js" defer></script>
   <script src="../js/setting.js" defer></script>
+  <script src="../js/cancelpop.js" defer></script>
   <!-- これinputのときだけ読み込む -->
   <!-- <script src="../js/newevent_set.js" defer></script> -->
 
@@ -364,8 +365,9 @@
 
             <!-- 設定項目 -->
 
-
-            <h2 class="step_q">新規イベントの投稿</h2>
+            <div class="demo demo3">
+              <h2 class="heading"><span>新規イベントの投稿</span></h2>
+            </div>
 
             <dl class="bace_wrap event_post_bg">
               <dt class="step_a">題名</dt>
@@ -476,7 +478,10 @@
 
             </dl>
 
-            <h2 class="step_q">Newsの欄に表示しますか？</h2>
+            <div class="demo demo3">
+              <h2 class="heading"><span>Newsの欄に表示しますか？</span></h2>
+            </div>
+
             <div class="bace_wrap event_post_bg">
               <dl class="">
 
@@ -517,7 +522,9 @@
             </div>
             <!-- 記事の更新日 -->
 
-            <h2 class="step_q">いつHPに反映しますか？</h2>
+            <div class="demo demo3">
+              <h2 class="heading"><span>いつHPに反映しますか？</span></h2>
+            </div>
             <dl class="bace_wrap event_post_bg">
               <dt class="step_a">更新日時</dt>
               <dd>

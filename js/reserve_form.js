@@ -108,8 +108,10 @@ function checkTxt(textarea) {
 // 送信できるようにする
 const form = document.getElementById("form");
 const reserve_button = document.getElementById("reserve_button");
-form.addEventListener("input", update);
-form.addEventListener("change", update);
+if (form !== null) {
+  form.addEventListener("input", update);
+  form.addEventListener("change", update);
+}
 
 function update() {
   if (document.getElementById("form")) {

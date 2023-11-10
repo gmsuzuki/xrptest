@@ -95,10 +95,16 @@
                   <a href=""><span>出勤状況</span></a>
                 </li>
                 <li class="basic_setting_link list_flex_box ">
-                  <a href=""><span>予約状況</span></a>
+                  <a href="test_set04.php"><span>予約状況</span></a>
                 </li>
                 <li class="basic_setting_link list_flex_box ">
                   <a href=""><span>イベント状況</span></a>
+                </li>
+                <li class="basic_setting_link list_flex_box ">
+                  <a href="test_set01.php?setting=test01"><span>テスト1</span></a>
+                </li>
+                <li class="basic_setting_link list_flex_box ">
+                  <a href="test_set02.php?setting=test02"><span>テスト2</span></a>
                 </li>
 
 
@@ -112,18 +118,23 @@
 
               <ul class="approval_setting_list list_flex">
                 <li class="approval_setting_link list_flex_box ">
-                  <a href=""><span>出勤予定承認</span></a>
+                  <a href="approval_schedule.php"><span>出勤予定承認</span></a>
                 </li>
                 <li class="approval_setting_link list_flex_box ">
-                  <a href=""><span>口コミ承認</span></a>
+                  <a href="approval_review.php"><span>口コミ承認</span></a>
                 </li>
                 <li class="approval_setting_link list_flex_box ">
-                  <a href=""><span>予約承認</span></a>
+                  <a href="reserve_schedule.php"><span>予約承認</span></a>
                 </li>
                 <li class="approval_setting_link list_flex_box ">
                   <a href="https://web-tsuku.life/" target="_blank"><span>わかりやすいhtml.js</span></a>
                 </li>
-
+                <li class="basic_setting_link list_flex_box ">
+                  <a href="phpinfo.php"><span>メール生成</span></a>
+                </li>
+                <li class="basic_setting_link list_flex_box ">
+                  <a href="test_mail.php"><span>メール送信</span></a>
+                </li>
 
               </ul>
             </div>

@@ -36,6 +36,7 @@ function CountStrNow(id, str, min, max) {
 function checkTxt(textarea, areaId) {
   console.log("外れたよ");
   var str = textarea.value;
+  // console.log(str);
   var regExpEscape = str.replace(/[-\/\\^$*+?.()|\[\]{}]/g, "\\$&");
   console.log(regExpEscape);
   document.getElementById(areaId).value = regExpEscape;

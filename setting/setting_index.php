@@ -59,6 +59,13 @@
 
       <br>
       <div class="setting_btn">
+        <a href="chart.php" style="background-color:#fcfe4c;height: 100px; width:100%;">ポートフォリオ</a>
+      </div>
+      <br>
+
+
+      <br>
+      <div class="setting_btn">
         <a href="setting_index02.php">基本設定</a>
       </div>
       <br>
