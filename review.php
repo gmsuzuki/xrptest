@@ -95,7 +95,7 @@
           <section class="review_head under_space">
             <h2 class="girl_content_head">
               <figure class="reviewed_girl">
-                <img src='<?php echo $sample_names[$_GET['review']][2]?>' alt="">
+                <img src='<?php echo $sample_names[$_GET['review']][3]?>' alt="">
               </figure>
               <figcaption class="reviewed_girl_title"><?php echo $sample_names[$_GET['review']][1]?>さんへの口コミ
               </figcaption>

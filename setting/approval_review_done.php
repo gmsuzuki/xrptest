@@ -30,9 +30,9 @@
     <!-- header読み込み -->
     <?php
     require_once( dirname(__FILE__). '/../parts/setting_header.php');
-    require_once( dirname(__FILE__). '/../data.php');
-    require_once( dirname(__FILE__). '/review_data.php');
-    require_once( dirname(__FILE__). '/member_data.php');
+    require_once( dirname(__FILE__). '/data/data.php');
+    require_once( dirname(__FILE__). '/data/review_data.php');
+    require_once( dirname(__FILE__). '/data/member_data.php');
     // エラー配列を作る
     $errmessage = array();
     ?>
@@ -73,7 +73,7 @@
     <?php foreach($sample_names as $sample_name):?>
     <?php if($sample_name[0] == $employee_number):?>
     <?php $employee_girl_name = $sample_name[1]?>
-    <?php $employee_girl_img = $sample_name[2]?>
+    <?php $employee_girl_img = $sample_name[3]?>
     <?php break ?>
     <?php endif?>
     <?php endforeach?>
@@ -172,8 +172,6 @@
 
       <!-- 出勤時間にあってるか？ -->
       <!-- エラーを表示するところ -->
-
-      <!-- 予約にかぶってないか？ -->
 
 
 

@@ -30,7 +30,7 @@
     <!-- header読み込み -->
     <?php
     require_once( dirname(__FILE__). '/../parts/setting_header.php');
-    require_once( dirname(__FILE__). '/../data.php');
+    require_once( dirname(__FILE__). '/data/data.php');
     ?>
 
 
@@ -272,16 +272,17 @@ ini_set('display_errors', 1);
               <?php if($sample_name[0] == $employee_number):?>
 
               <div class="request_wrap">
+                <h2 class="input_card application_for_attendance_title ">●出勤申請カード</h2>
                 <figure class="request_img">
-                  <img src='../<?php echo $sample_name[2]?>' alt="">
+                  <img src='../<?php echo $sample_name[3]?>' alt="">
                 </figure>
                 <figcaption class="request_img_caption">
                   <?php echo $sample_name[1] ?>
                 </figcaption>
                 <div class="work_time">
-                  <p>出勤<span><?php echo $attendance_time ?></span></p>
-                  <p>→</p>
-                  <p>退勤<span><?php echo $leaving_time ?></span></p>
+                  <p class="starttime"><?php echo $attendance_time ?></p>
+                  <div class="arrow-round"></div>
+                  <p class="endtime"><?php echo $leaving_time ?></p>
                 </div>
               </div>
               <?php endif?>
@@ -333,12 +334,16 @@ ini_set('display_errors', 1);
 
 
 
-      <div class="request_wrap ">
-        <!-- 日付表示 -->
-        <h3 class="approval_date_title"><?php echo $_SESSION['approval_date']?></h3>
 
-        <?php foreach($work_oks as $work_ok):?>
+      <!-- 日付表示 -->
+      <h3 class="approval_date_title"><?php echo $_SESSION['approval_date']?></h3>
+
+      <?php foreach($work_oks as $work_ok):?>
+      <div class="request_wrap">
+        <h2 class="input_card application_for_attendance_checked ">●申請承認</h2>
         <?php $employee_number = $work_ok["社員番号"];?>
+        <?php $workstarttime = date("H:i", strtotime($work_ok['出勤時間'])); ?>
+        <?php $workendtime = date("H:i", strtotime($work_ok['退勤時間'])); ?>
         <?php $attendance_name = ""; ?>
 
         <!-- 社員番号に対応する名前を$sample_namesから検索 -->
@@ -349,14 +354,24 @@ ini_set('display_errors', 1);
         <?php break ?>
         <?php endif ?>
         <?php endforeach ?>
+
+
+        <figure class="request_img">
+          <img src='../<?php echo $sample_name[3]?>' alt="">
+        </figure>
+        <figcaption class="request_img_caption">
+          <?php echo $attendance_name ?>
+        </figcaption>
+
         <div class="work_time">
-          <p><?php echo $attendance_name ?></p>
-          <?php echo $work_ok['出勤時間'];?>
-          <p>→</p>
-          <?php echo $work_ok['退勤時間'];?>
+          <p class="starttime"><?php echo $workstarttime;?></p>
+          <div class="arrow-round"></div>
+          <p class="endtime"><?php echo $workendtime;?></p>
         </div>
-        <?php endforeach ?>
+
       </div>
+      <?php endforeach ?>
+
 
       <form action="./approval_schedule_done.php" method="POST">
 

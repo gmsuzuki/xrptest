@@ -126,7 +126,7 @@
                       <!-- 写真 -->
                       <div class="staff_photo_area">
                         <figure class="staff_photo">
-                          <img src='<?php echo $today_name[2] ?>' alt="">
+                          <img src='<?php echo $today_name[3] ?>' alt="">
                         </figure>
                       </div>
                       <!-- 時間 -->
@@ -143,9 +143,9 @@
                       <!-- profile -->
 
                       <span class="staff_name_age"><?php echo $today_name[1]?></span>
-                      <span class="staff_name_age">(<?php echo $today_name[3]?>)</span>
+                      <span class="staff_name_age">(<?php echo $today_name[4]?>)</span>
                       <span class="bodysize">
-                        <?php echo 'T/'.$today_name[4].'&nbsp;B/'.$today_name[5].'('.$today_name[6].')&nbsp;H/'.$today_name[7]?>
+                        <?php echo 'T/'.$today_name[5].'&nbsp;B/'.$today_name[6].'('.$today_name[7].')&nbsp;H/'.$today_name[8]?>
                       </span>
 
                     </a>
@@ -175,7 +175,7 @@
                       <!-- 写真 -->
                       <div class="staff_photo_area">
                         <figure class="staff_photo">
-                          <img src='<?php echo $sample_name[2] ?>' alt="">
+                          <img src='<?php echo $sample_name[3] ?>' alt="">
                         </figure>
                       </div>
                       <!-- 時間 -->
@@ -192,9 +192,9 @@
                       <!-- profile -->
 
                       <span class="staff_name_age"><?php echo $sample_name[1]?></span>
-                      <span class="staff_name_age">(<?php echo $sample_name[3]?>)</span>
+                      <span class="staff_name_age">(<?php echo $sample_name[4]?>)</span>
                       <span class="bodysize">
-                        <?php echo 'T/'.$sample_name[4].'&nbsp;B/'.$sample_name[5].'('.$sample_name[6].')&nbsp;H/'.$sample_name[7]?>
+                        <?php echo 'T/'.$sample_name[5].'&nbsp;B/'.$sample_name[6].'('.$sample_name[7].')&nbsp;H/'.$sample_name[8]?>
                       </span>
 
                     </a>
@@ -225,7 +225,7 @@
                       <!-- 写真 -->
                       <div class="staff_photo_area">
                         <figure class="staff_photo">
-                          <img src='<?php echo $new_name[2] ?>' alt="">
+                          <img src='<?php echo $new_name[3] ?>' alt="">
                         </figure>
                       </div>
                       <!-- 時間 -->
@@ -242,9 +242,9 @@
                       <!-- profile -->
 
                       <span class="staff_name_age"><?php echo $new_name[1]?></span>
-                      <span class="staff_name_age">(<?php echo $new_name[3]?>)</span>
+                      <span class="staff_name_age">(<?php echo $new_name[4]?>)</span>
                       <span class="bodysize">
-                        <?php echo 'T/'.$new_name[4].'&nbsp;B/'.$new_name[5].'('.$new_name[6].')&nbsp;H/'.$new_name[7]?>
+                        <?php echo 'T/'.$new_name[5].'&nbsp;B/'.$new_name[6].'('.$new_name[7].')&nbsp;H/'.$new_name[8]?>
                       </span>
 
                     </a>

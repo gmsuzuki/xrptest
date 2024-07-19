@@ -61,7 +61,7 @@
     <!-- header読み込み -->
     <?php
     require_once( dirname(__FILE__). '/../parts/setting_header.php');
-     require_once( dirname(__FILE__). '/../data.php');
+     require_once( dirname(__FILE__). '/data/data.php');
     ?>
 
 
@@ -88,22 +88,35 @@
 
             <div id="phase1" class="bace_wrap">
 
-
               <h2 class="step_q">①お店で使う名前を決めてください</h2>
               <ul id="girl_input">
                 <li class="step_wrap">
-                  <span class="step_a">名字</span>
+                  <span class="step_a">姓</span>
                   <em class="mini_alert">記号は使えません</em>
-                  <input type="text" id="firstname" name="firstname" maxlength="10" onblur="CheckGuestInfo(this)"
+                  <input type="text" id="firstname" name="firstname" maxlength="10"
+                    onblur="CheckGuestInfo(this); CheckFirstname(this)"
                     pattern="^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,10}"
                     placeholder="10文字以内（省略可能）" class="">
                 </li>
                 <li class="step_wrap">
-                  <span class="step_a">名前</span>
+                  <span class="step_a">名</span>
                   <em class="mini_alert">記号は使えません</em>
                   <input type="text" required id="lastname" name="lastname" maxlength="10" onblur="CheckGuestInfo(this)"
                     pattern="^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,10}" placeholder="10文字以内（必須）"
                     class="cancel_alert">
+                </li>
+                <li class="step_wrap">
+                  <span class="step_a">せい（ふりがな）</span>
+                  <em class="mini_alert">ひらがなのみ</em>
+                  <input type="text" id="ruby_firstname" name="ruby_firstname" maxlength="10"
+                    onblur="CheckGuestInfo(this)" onfocus="CheckRuby()" pattern="^[ぁ-んー]*$" placeholder="10文字以内（省略可能）"
+                    class="">
+                </li>
+                <li class="step_wrap">
+                  <span class=" step_a">めい（ふりがな）</span>
+                  <em class="mini_alert">ひらがなのみ</em>
+                  <input type="text" required id="ruby_lastname" name="ruby_lastname" maxlength="10"
+                    onblur="CheckGuestInfo(this)" pattern="^[ぁ-んー]*$" placeholder="10文字以内（必須）" class="cancel_alert">
                 </li>
                 <li class="step_wrap">
                   <span class="step_a">年齢</span>
@@ -420,8 +433,11 @@
               <section class="set_wrap">
                 <h3 class="set_tag">#新人</h3>
                 <ul class="set_name set_data">
-                  <li id="display_fname" class="first_name"></li>
-                  <li id="display_lname"></li>
+                  <!-- 新しく書き直す -->
+                  <li id="display_all_name">漢字のなまえ</li>
+                  <li id="display_ruby_name">ふりがな</li>
+
+
                   <li><span id="display_age"></span></li>
                 </ul>
               </section>

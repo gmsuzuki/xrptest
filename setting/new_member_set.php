@@ -63,7 +63,7 @@
     <!-- header読み込み -->
     <?php
     require_once( dirname(__FILE__). '/../parts/setting_header.php');
-     require_once( dirname(__FILE__). '/../data.php');
+     require_once( dirname(__FILE__). '/data/data.php');
     ?>
 
 

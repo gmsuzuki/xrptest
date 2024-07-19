@@ -30,9 +30,9 @@
     <!-- header読み込み -->
     <?php
     require_once( dirname(__FILE__). '/../parts/setting_header.php');
-    require_once( dirname(__FILE__). '/../data.php');
-    require_once( dirname(__FILE__). '/review_data.php');
-    require_once( dirname(__FILE__). '/member_data.php');
+    require_once( dirname(__FILE__). '/data/data.php');
+    require_once( dirname(__FILE__). '/data/review_data.php');
+    require_once( dirname(__FILE__). '/data/member_data.php');
     // エラー配列を作る
     $errmessage = array();
     ?>

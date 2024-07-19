@@ -23,6 +23,9 @@ function showModal(date, time, playTime, reserverName) {
   modal.style.display = "block";
 }
 
+// searchモーダル
+function serchModal() {}
+
 var closeModal = document.getElementById("closeModal");
 closeModal.onclick = function () {
   var modal = document.getElementById("myModal");

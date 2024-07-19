@@ -62,8 +62,9 @@
         <a href="chart.php" style="background-color:#fcfe4c;height: 100px; width:100%;">ポートフォリオ</a>
       </div>
       <br>
-
-
+      <div class="setting_btn">
+        <a href="https://pote-chil.com/css-stock/ja" target="_blank">cssパーツ</a>
+      </div>
       <br>
       <div class="setting_btn">
         <a href="setting_index02.php">基本設定</a>

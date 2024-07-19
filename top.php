@@ -310,7 +310,7 @@
                     <!-- 写真 -->
                     <div class="staff_photo_area">
                       <figure class="staff_photo">
-                        <img src='<?php echo $sample_name[2] ?>' alt="">
+                        <img src='<?php echo $sample_name[3] ?>' alt="">
                       </figure>
                     </div>
                     <!-- 時間 -->
@@ -327,9 +327,9 @@
                     <!-- profile -->
 
                     <span class="staff_name_age"><?php echo $sample_name[1]?></span>
-                    <span class="staff_name_age">(<?php echo $sample_name[3]?>)</span>
+                    <span class="staff_name_age">(<?php echo $sample_name[4]?>)</span>
                     <span class="bodysize">
-                      <?php echo 'T/'.$sample_name[4].'&nbsp;B/'.$sample_name[5].'('.$sample_name[6].')&nbsp;H/'.$sample_name[7]?>
+                      <?php echo 'T/'.$sample_name[5].'&nbsp;B/'.$sample_name[6].'('.$sample_name[7].')&nbsp;H/'.$sample_name[8]?>
                     </span>
 
                     <!-- sns -->
@@ -445,10 +445,10 @@
                   <div class="staff_review_bg">
                     <!-- 画像 -->
                     <figure class="subtitles_img">
-                      <img src='<?php echo $sample_names[$new_review[3]][2]?>' alt="">
+                      <img src='<?php echo $sample_names[$new_review[3]][3]?>' alt="">
                       <!-- 名前 -->
                       <figcaption>
-                        <?php echo $sample_names[$new_review[3]][1] ?>(<?php echo $sample_names[$new_review[3]][3] ?>)
+                        <?php echo $sample_names[$new_review[3]][1] ?>(<?php echo $sample_names[$new_review[3]][4] ?>)
                       </figcaption>
                     </figure>
                     <!-- タイトル -->

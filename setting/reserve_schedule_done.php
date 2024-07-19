@@ -31,8 +31,8 @@
     <!-- header読み込み -->
     <?php
     require_once( dirname(__FILE__). '/../parts/setting_header.php');
-    require_once( dirname(__FILE__). '/../data.php');
-    require_once( dirname(__FILE__). '/reserve_data.php');
+    require_once( dirname(__FILE__). '/data/data.php');
+    require_once( dirname(__FILE__). '/data/reserve_data.php');
     ?>
 
 
@@ -101,7 +101,7 @@
     <?php foreach($sample_names as $sample_name):?>
     <?php if($sample_name[0] == $employee_number):?>
     <?php $employee_girl_name = $sample_name[1]?>
-    <?php $employee_girl_img = $sample_name[2]?>
+    <?php $employee_girl_img = $sample_name[3]?>
     <?php break ?>
     <?php endif?>
     <?php endforeach?>
@@ -230,6 +230,7 @@
 
 
           <div class="request_wrap">
+            <h2 class="input_card reserve_card_title_checked">●予約承認</h2>
             <p class="reserve_title_day"><?php echo $reserve_card->getReservationDate() ?></p>
             <div class="request_icon_wrap">
               <!-- 客 -->
@@ -242,6 +243,7 @@
                 </figcaption>
               </div>
               <div class="arrow"></div>
+              <div class="arrow-round"></div>
               <!-- 指名された人 -->
               <div>
                 <figure class="request_img">
@@ -253,10 +255,11 @@
               </div>
             </div>
             <div class="work_time">
-              <p>開始<span><?php echo date("H:i",strtotime($reserve_card->getStartTime())); ?></span></p>
-              <p>終了<span><?php echo $reserve_card->addTimeToStartTime($reserve_card->getPlayTime()) ?>
+              <p class="starttime"><?php echo date("H:i",strtotime($reserve_card->getStartTime())); ?></span></p>
+              <span class="dli-caret-right"></span>
+              <p class="endtime"><?php echo $reserve_card->addTimeToStartTime($reserve_card->getPlayTime()) ?>
               </p>
-              <p><span><?php echo $reserve_card->getPlayTime(); ?>分</p>
+              <p class="coursetime"><?php echo $reserve_card->getPlayTime(); ?>分</p>
             </div>
 
             <form action="" class="reserve_button_wrap">

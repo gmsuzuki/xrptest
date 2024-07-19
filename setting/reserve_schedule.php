@@ -27,8 +27,8 @@
 <!-- header読み込み -->
 <?php
     require_once( dirname(__FILE__). '/../parts/setting_header.php');
-    require_once( dirname(__FILE__). '/../data.php');
-    require_once( dirname(__FILE__). '/reserve_data.php');
+    require_once( dirname(__FILE__). '/data/data.php');
+    require_once( dirname(__FILE__). '/data/reserve_data.php');
     ?>
 
 
@@ -97,6 +97,7 @@
 
           <a href='reserve_schedule_done.php?selected_reserve_num=<?php echo urlencode($reserve_number) ?>'>
             <div class="request_wrap">
+              <h2 class="input_card reserve_card_title">●予約申請</h2>
               <p class="reserve_title_day"><?php echo $reserve_title_day ?></p>
               <div class="request_icon_wrap">
                 <!-- 客 -->
@@ -108,11 +109,11 @@
                     <?php echo $reserve_class_arr->getReserverName();?>
                   </figcaption>
                 </div>
-                <div class="arrow"></div>
+                <div class="arrow-round"></div>
                 <!-- 指名された人 -->
                 <div>
                   <figure class="request_img">
-                    <img src='../<?php echo $sample_name[2]?>' alt="">
+                    <img src='../<?php echo $sample_name[3]?>' alt="">
                   </figure>
                   <figcaption class="request_img_caption">
                     <?php echo $sample_name[1] ?>
@@ -121,10 +122,12 @@
 
               </div>
               <div class="work_time">
-                <p>開始<span><?php echo $attendance_time ?></span></p>
-                <p>終了<span><?php echo $reserve_class_arr->addTimeToStartTime($reserve_class_arr->getPlayTime()) ?>
+                <p class="starttime"><?php echo $attendance_time ?></p>
+                <span class="dli-caret-right"></span>
+                <p class="endtime">
+                  <?php echo $reserve_class_arr->addTimeToStartTime($reserve_class_arr->getPlayTime()) ?>
                 </p>
-                <p><span><?php echo $reserve_class_arr->getPlayTime(); ?>分</p>
+                <p class="coursetime"><?php echo $reserve_class_arr->getPlayTime(); ?>分</p>
               </div>
 
             </div>

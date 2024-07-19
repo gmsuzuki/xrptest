@@ -111,10 +111,10 @@
                     <div class="staff_review_bg">
                       <!-- 画像 -->
                       <figure class="subtitles_img">
-                        <img src='<?php echo $sample_names[$new_review[3]][2]?>' alt="">
+                        <img src='<?php echo $sample_names[$new_review[3]][3]?>' alt="">
                         <!-- 名前 -->
                         <figcaption>
-                          <?php echo $sample_names[$new_review[3]][1] ?>(<?php echo $sample_names[$new_review[3]][3] ?>)
+                          <?php echo $sample_names[$new_review[3]][1] ?>(<?php echo $sample_names[$new_review[3]][4] ?>)
                         </figcaption>
                       </figure>
                       <!-- タイトル -->
@@ -159,9 +159,9 @@
             <!-- クチコミ1 -->
             <li class="staff_review_list">
               <p class="review_num"><span>1</span></p>
-              <a href="review.php?review=<?php echo $sample_name[1]?>" class="staff_review_content block_wrap_a">
+              <a href="review.php?review=<?php echo $sample_name[0]?>" class="staff_review_content block_wrap_a">
                 <figure class="staff_review_photo">
-                  <img src='<?php echo $sample_name[2]?>' alt="">
+                  <img src='<?php echo $sample_name[3]?>' alt="">
                 </figure>
                 <div class="review_date">
                   <p class="update_review"><span>00月00日</span>更新</p>

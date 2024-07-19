@@ -19,7 +19,7 @@ body {
 
 .second_block {
   background-color: #fff;
-  border-radius: 24px;
+  border-radius: 12px;
   margin-top: 3rem;
   padding-top: 1rem;
 }
@@ -261,7 +261,8 @@ input[type="text"] {
   font-size: 1.8rem;
 }
 
-#girl_input input[type="text"] {
+#girl_input input[type="text"],
+#girl_input input[type="tel"] {
   border-radius: 20px;
   padding-left: 1rem;
   border: 2px solid #04384c;
@@ -275,6 +276,14 @@ select {
   text-align: center;
   padding: 3px;
   border: 2px solid #04384c;
+}
+
+/* グレーアウトされたスタイル */
+.disabled-input:disabled {
+  background-color: #eee; /* グレーの背景色に変更 */
+  color: #666; /* 文字色を変更 */
+  border: 1px solid #ddd; /* 枠線を変更 */
+  /* その他のスタイルを必要に応じて追加 */
 }
 
 .threesize_ul {
@@ -509,7 +518,8 @@ input[type="checkbox"]:checked + .boxcheck::after {
 }
 
 /* 入力エラー系 */
-input[type="text"]:invalid {
+input[type="text"]:invalid,
+input[type="tel"]:invalid {
   color: #630015;
   border-color: #c20c33;
   background-color: #ffd9e1;
@@ -523,6 +533,7 @@ textarea:invalid + #not_enough {
 /* 入力必須系 */
 
 input[type="text"]:required,
+input[type="tel"]:required,
 textarea:required {
   border-color: #c20c33;
 }
@@ -885,6 +896,79 @@ input[name="tab_item"] {
 
 /* プログレスバー */
 
+.progressbar_square {
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 10px; /* 四隅を丸める */
+  overflow: hidden; /* ボーダーを除外 */
+  margin-bottom: 2rem;
+}
+.progressbar_square .item {
+  position: relative;
+  width: 20%;
+  text-align: center;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+  line-height: 1.5;
+  background: #f5f5f5;
+  color: #999999;
+}
+.progressbar_square .item:not(:last-child)::before,
+.progressbar_square .item:not(:last-child)::after {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  left: 100%;
+  content: "";
+  border: 37px solid transparent;
+  border-left: 20px solid #f5f5f5;
+  margin: auto;
+}
+.progressbar_square .item:not(:last-child)::before {
+  margin-left: 1px;
+  border-left-color: #fff;
+}
+
+@media screen and (max-width: 767px) {
+  .progressbar_square .item {
+    font-size: 11px;
+    line-height: 1.4;
+    padding: 10px 0;
+  }
+  .progressbar_square .item:not(:last-child)::before,
+  .progressbar_square .item:not(:last-child)::after {
+    border-width: 25px;
+    border-left-width: 12px;
+  }
+}
+
+/*出勤予約入力 active */
+.progressbar_square .item.active {
+  background: #0070bd;
+  color: #fff;
+}
+
+.progressbar_square .item.active:not(:last-child)::after {
+  border-left-color: #0070bd;
+}
+
+/* 新人登録active */
+
+.progressbar .item.active {
+  z-index: 1;
+  background: #0070bd;
+  color: #fff;
+}
+.progressbar .item.active:not(:last-child)::after {
+  border-left-color: #0070bd;
+}
+.progressbar .item.active:not(:last-child)::before {
+  border-left: none;
+}
+
 /* ---------------------------------------------- */
 /* スタッフ一覧のテスト用　ほんとに適当 */
 
@@ -918,6 +1002,7 @@ input[name="tab_item"] {
 
 /* ポップオーバー */
 /* ポップオーバーのスタイル */
+.popoverTemplate_clear,
 .popoverTemplate {
   display: none;
   width: 100%;
@@ -1266,6 +1351,7 @@ input[name="picRadio"]:checked + label.radio_pic img {
 
 #calendar_month_title {
   margin-bottom: 24px;
+  font-size: 2rem;
 }
 
 .calendar {
@@ -1449,8 +1535,9 @@ td .request_work {
 .request_wrap {
   background-color: #fff;
   margin-bottom: 1rem;
-  padding-top: 2rem;
+  /* padding-top: 2rem; */
   border-radius: 24px;
+  padding-bottom: 2rem;
 }
 
 .reserve_title_day {
@@ -1458,6 +1545,7 @@ td .request_work {
   font-size: 2rem;
   font-weight: bold;
   margin-top: 1rem;
+  color: black;
 }
 
 .request_img {
@@ -1477,8 +1565,9 @@ td .request_work {
 
 .request_img_caption {
   font-weight: bolder;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   text-align: center;
+  color: black;
 }
 
 .request_icon_wrap,
@@ -1489,36 +1578,137 @@ td .request_work {
   margin: 0 auto;
   display: flex;
   justify-content: space-evenly;
+  align-items: center; /* 垂直方向に中央揃え */
 }
 
-/* やじるし */
-.arrow {
-  position: relative;
-  display: inline-block;
-  width: 20%;
-  height: auto;
-  background-color: #8cc8fd;
-  clip-path: polygon(
-    0 33%,
-    50% 33%,
-    50% 15%,
-    100% 50%,
-    50% 85%,
-    50% 67%,
-    0 67%
-  );
+.play_place {
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center; /* 垂直方向に中央揃え */
 }
 
-.work_time span {
+.play_place_house,
+.play_options {
+  padding: 1rem;
+  width: 80%;
+  margin: 0 auto 1rem auto;
+  border-radius: 10px;
+  background-color: #f1f1f1;
+}
+
+.play_options {
+  background-color: #eae9f7;
+}
+.work_time p,
+.play_place p {
   margin: 1rem;
   font-size: 2rem;
-  text-decoration: underline;
-  text-decoration-color: rgb(230, 0, 255); /* アンダーラインの色を指定 */
-  text-decoration-style: double; /* アンダーラインのスタイルを指定 */
+  color: white;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+}
+.play_place p {
+  color: black;
+}
+.play_place_house p {
+  display: inline-block;
+  font-size: 1.5rem;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  color: red;
+}
+
+.work_time .starttime {
+  background-color: grey;
+}
+
+.work_time .endtime {
+  background-color: black;
+}
+.work_time .coursetime {
+  background-color: red;
 }
 
 .request_card:checked + .request_wrap {
-  background-color: rgb(234, 211, 245);
+  background-color: rgb(249 166 205);
+}
+
+.play_space_wrap {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.play_space_house_wrap {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.user_card_title {
+  font-size: 1.6rem;
+  padding-left: 2rem;
+  padding-top: 1rem;
+}
+
+.user_contact_address_wrap {
+  margin: 30px;
+  background-color: #ededed;
+  border-radius: 20px;
+}
+
+.user_card_wrap {
+  background-color: #ededed;
+  border-radius: 20px;
+}
+
+.user_info_wrap {
+  text-align: center;
+  padding: 2rem 5rem;
+}
+
+.play_spase_tag {
+  width: 40%;
+  text-align: center;
+  background-color: #ececec;
+  border-radius: 30px;
+  padding: 0.6rem;
+}
+
+.hotel_color {
+  background-color: rgb(46, 86, 229);
+  color: white;
+}
+.hotel_area_color {
+  border: 1px solid rgb(46, 86, 229);
+  color: rgb(46, 86, 229);
+}
+
+.house_color {
+  background-color: rgb(63 178 89);
+  color: white;
+  margin-bottom: 2rem;
+}
+
+.house_adress_color {
+  border-bottom: 2px solid rgb(63 178 89);
+  color: black;
+  line-height: 4rem;
+  background-color: #ececec;
 }
 
 .all_btn_wrap {
@@ -1535,6 +1725,8 @@ td .request_work {
 
 .approval_date_title {
   text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
 }
 
 .back_index {
@@ -1691,4 +1883,644 @@ td .request_work {
   background-color: #fff;
   line-height: 3rem;
   padding: 1rem;
+}
+
+/* 予定入力関係 */
+
+.staff_wrap {
+  padding: 30px 10px;
+}
+
+.staff_wrap:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+.staff_wrap:nth-child(odd) {
+  /* background-color: white; */
+}
+
+.kana_title {
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.girl_name {
+  background-color: black;
+  color: white;
+  padding: 2px;
+  font-size: 1.2rem;
+  text-align: center;
+  position: absolute;
+  bottom: 0px;
+  padding: 4px;
+  width: 100%;
+  border-radius: 0 0 4px 4px;
+}
+
+.select_staff_wrap {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-between; */
+  flex-direction: row;
+  width: 100%;
+  padding: 12px 0;
+}
+.staff_select_input {
+  width: 21%;
+  margin-bottom: 20px;
+  position: relative;
+  margin-right: 5%;
+}
+
+.staff_select_input:nth-child(4n) {
+  margin-right: 0; /* 最後のliには余白を適用しない */
+}
+
+.staff_select_input:last-child {
+  margin-right: 0; /* 最後のliには余白を適用しない */
+}
+
+.select_staff_input_content {
+  width: 100%;
+  display: block;
+  text-decoration: none;
+  color: black;
+}
+.select_staff_photo {
+  vertical-align: bottom;
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.request_from {
+}
+
+/* スタッフが入力する予約 */
+.staff_input_title {
+  display: flex; /* Flexboxを使用して要素を横並びにします */
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.topSpace {
+  margin: 2rem 0 4rem 0;
+}
+
+.new_member_registration {
+  font-size: 1.6rem;
+  padding: 4px 8px;
+  color: white;
+  background-color: #ff69b4;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #c71585; /* 通常時の影 */
+  transition: all 0.1s; /* 変化を滑らかに */
+}
+
+.new_member_registration:active {
+  box-shadow: 0 1px 0 #c71585; /* 押したときの影 */
+  transform: translateY(3px); /* ボタンが押されたように見える */
+}
+
+.staff_input_step {
+  width: 45%;
+  margin: 5%;
+  display: inline-block;
+  padding: 10px 10px;
+  border-radius: 4px;
+  border: none;
+  text-align: center;
+}
+
+.staff_input_step.step_next {
+  background-color: rgb(229, 170, 88);
+  color: white;
+}
+
+.staff_input_step.step_next_never {
+  background-color: grey;
+  color: white;
+}
+
+#alert_number {
+  color: red;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-left: 1rem;
+}
+.search_anser {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 3rem;
+}
+
+.input_area {
+  margin: 2rem 0;
+}
+
+.staff_input_wrap {
+  background-color: #fff;
+  margin-bottom: 1rem;
+  padding: 2rem;
+  border-radius: 24px;
+}
+
+.reserve_data_wrap input[type="text"],
+.new_member_wrap input[type="text"] {
+  border-radius: 20px;
+  padding-left: 1rem;
+  border: 2px solid #04384c;
+  height: 4.5rem;
+}
+
+#other_course_time h2 {
+  margin-top: 2rem;
+}
+
+#write_course_time {
+  line-height: 3rem;
+}
+
+.reserve_data_title {
+  margin-top: 2rem;
+}
+
+.reserve_data_wrap {
+  margin-top: 50px;
+}
+
+.reserve_card_input1 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* 子要素間の余白を均等に配置 */
+  align-items: center; /* 子要素を垂直方向にセンターに配置 */
+  width: 80%;
+  margin: 20px auto;
+  font-size: 1rem;
+}
+
+.staff_input_wrap {
+  background-color: #fff;
+  margin-bottom: 1rem;
+  padding: 2rem;
+  border-radius: 12px;
+}
+
+.reserve_input_day_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.reserve_input_wrap {
+  margin: 3rem 0;
+}
+
+.schedule_day_tip {
+  background-color: red;
+  padding: 0.8rem;
+}
+
+.schedule_date {
+  width: 100%;
+  height: 100%;
+}
+
+.select_reserve_day:checked + label {
+  background-color: red;
+}
+
+.select_time,
+.select_space {
+  display: block;
+  width: 100%;
+  line-height: 3rem;
+  border-radius: 2rem;
+  border: 1px solid #666;
+}
+
+.select_play_time:checked + label {
+  background-color: pink;
+}
+
+.select_play_satage:checked + label {
+  background-color: rgb(132, 228, 154);
+}
+
+input[type="radio"]:checked + label[for="hotel_check"] {
+  background-color: rgb(147, 181, 223);
+}
+
+#select_play_area_hotel {
+  margin-top: 24px;
+  background-color: rgb(159, 190, 231);
+  padding: 2rem 2rem 0 2rem;
+  border-radius: 10px;
+  display: none;
+}
+
+#select_play_area_house {
+  margin-top: 24px;
+  background-color: rgb(159, 231, 170);
+  padding: 2rem;
+  border-radius: 10px;
+  display: none;
+}
+input.play_houseadress[type="text"] {
+  border-radius: 20px;
+  padding-left: 1rem;
+  border: 2px solid #04384c;
+  height: 4.5rem;
+}
+
+.hotel_select_ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.play_space_li {
+  display: block;
+  flex: 0 1 calc(33.33% - 15px); /* 列内の余白を考慮して幅を調整 */
+  background-color: #f0f0f0;
+  border: 1px solid black;
+  margin-right: 20px; /* アイテム間の間隔 */
+  margin-bottom: 20px; /* 行間の余白 */
+  border-radius: 4px;
+}
+
+.play_space_li:nth-child(3n) {
+  margin-right: 0; /* 3番目のアイテムの右側のマージンをリセット */
+}
+
+.play_place_select {
+  display: inline-block;
+  width: 45%;
+  padding: 10px;
+  text-align: center;
+  margin: 1rem 0;
+  background-color: #f0f0f0;
+}
+
+.form-check-input:checked + label {
+  background-color: rgb(46, 86, 229);
+  color: white;
+  font-weight: bold;
+}
+
+.staff_input_area {
+  border-radius: 20px;
+  padding-left: 1rem;
+  border: 2px solid #04384c;
+  height: 4.5rem;
+  font-size: 1.8rem;
+}
+
+/* 会員検索 */
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.member_search_from {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  border: 2px solid #2589d0;
+  border-radius: 25px;
+  width: 100%;
+  margin: 4rem 0 5rem 0;
+}
+
+.member_search_from input {
+  flex: 1;
+  height: 4rem;
+  padding: 5px 15px;
+  border: none;
+  box-sizing: border-box;
+  font-size: 1em;
+  outline: none;
+  margin-top: 0;
+}
+
+.member_search_from input::placeholder {
+  color: #777777;
+}
+
+.member_search_from .search_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+  height: 4rem;
+  border: none;
+  background-color: #2589d0;
+  cursor: pointer;
+}
+
+.member_search_from .search_button::after {
+  width: 24px;
+  height: 24px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18.031 16.6168L22.3137 20.8995L20.8995 22.3137L16.6168 18.031C15.0769 19.263 13.124 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20 13.124 19.263 15.0769 18.031 16.6168ZM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748Z' fill='%23fff'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  content: "";
+}
+
+.input_card {
+  font-size: 2rem;
+  border-top-left-radius: 24px; /* h2の左上角を丸める */
+  border-top-right-radius: 24px; /* h2の右上角を丸める */
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* スタッフが予約入れる */
+.staff_reserve_card_title {
+  background-color: rgb(168, 126, 213);
+}
+
+/* ユ−ザーから */
+.reserve_card_title {
+  background-color: rgb(126, 149, 213);
+  color: black;
+}
+.reserve_card_title_checked {
+  background-color: rgb(16, 78, 251);
+  color: white;
+}
+
+/* 出勤申請 */
+.application_for_attendance_title {
+  background-color: rgb(249 166 205);
+}
+.application_for_attendance_checked {
+  background-color: rgb(245, 9, 119);
+  color: white;
+}
+
+/* 矢印 */
+
+.arrow-round {
+  position: relative;
+  display: block;
+  width: 50px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #1e88e5;
+}
+.arrow-round::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  right: -2px;
+  display: block;
+  width: 25px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #1e88e5;
+  transform: rotate(-45deg);
+}
+.arrow-round::after {
+  content: "";
+  position: absolute;
+  bottom: 6px;
+  right: -2px;
+  display: block;
+  width: 25px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #1e88e5;
+  transform: rotate(45deg);
+}
+
+/* 矢印別 */
+.dli-caret-right {
+  display: inline-block;
+  vertical-align: middle;
+  color: #333;
+  line-height: 1;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 0.375em 0.64952em;
+  border-left-color: currentColor;
+  border-right: 0;
+}
+
+/* ユーザー登録 */
+
+/* モーダルの基本スタイル */
+#user_input_modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  z-index: 1000;
+  opacity: 0;
+  /* 初期状態で透明 */
+  transition: opacity 0.5s ease-in-out;
+  /* トランジション効果 */
+  display: none;
+  /* 初期状態では非表示 */
+}
+.clearmodal {
+  display: none;
+}
+
+/* 背景のオーバーレイスタイル */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  /* 初期状態で透明 */
+  transition: opacity 0.5s ease-in-out;
+  /* トランジション効果 */
+  display: none;
+  /* 初期状態では非表示 */
+}
+
+#user_registration {
+}
+
+.user_registration_input {
+  margin: 3rem 0 4rem 0;
+}
+
+.input_area_wrap {
+  background-color: #fff;
+  border-radius: 12px;
+}
+.input_area_wrap h2 {
+  padding: 2rem 0 0 2rem;
+}
+
+/* 予約入力の日時場所選択 */
+#select_place,
+#select_hotel,
+#select_days {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-around; */
+  margin-bottom: 20px;
+  background-color: #fff;
+  padding: 1rem 0;
+  border-radius: 12px;
+}
+
+/* 自宅ホテルの表示 */
+
+.reserve_select_staff_wrap {
+  padding: 1rem 5px;
+}
+
+.reserve_select_staff_wrap:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+.reserve_select_staff_wrap:nth-child(odd) {
+  background-color: white;
+}
+
+.input_reserve_day:checked + label {
+  background-color: red;
+  color: white;
+}
+
+.input_select_corse:checked + label {
+  background-color: red;
+  color: white;
+}
+
+.schedule_btn {
+  width: 25%;
+  padding: 5px;
+}
+
+.plya_place_btn {
+  width: 50%;
+  padding: 5px;
+}
+
+.input_select_play_place:checked + label {
+  background-color: blue;
+  color: white;
+}
+
+.input_select_play_place label,
+.select_btn label {
+  color: #6e6e73;
+  width: 100%;
+  display: block;
+  font-size: 1.6rem;
+  line-height: 3.6rem;
+  padding: 5px;
+  border-radius: 6px;
+  border: 1px solid white;
+  text-align: center;
+}
+
+/* 最後の li 要素に適用されるスタイル */
+.plya_place_btn.select_btn:nth-last-child(1),
+.select_btn label:nth-last-child(1) {
+  margin-right: auto; /* 必要に応じて他のスタイルも追加 */
+}
+
+.input_optin {
+  margin-top: 2rem;
+}
+
+.house_adress_input_text {
+  line-height: 3rem;
+}
+
+.sat {
+  background-color: #beeaff;
+}
+.sun {
+  background-color: #ffbeee;
+}
+
+.weekday,
+.select_play_time,
+.select_play_place {
+  background-color: #ecebeb;
+}
+
+.line {
+  width: 100%;
+  height: 2px;
+  background-color: grey;
+  content: "";
+  margin-bottom: 2rem;
+}
+
+/* 常時出るボタン */
+.alway_step_button_wrap {
+  width: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fixed-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* 半透明の黒 */
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.day_section {
+  margin-bottom: 200px;
+  border-radius: 12px;
+  background-color: white;
+}
+
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 0, 0, 0.5); /* 半透明の赤 */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  line-height: 3rem;
+}
+
+.overlay-text {
+  color: white;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.image_radio_select:checked + .select_staff_input_content .overlay {
+  /* border: 3px solid red; */
+  opacity: 1;
 }

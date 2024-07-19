@@ -1,5 +1,7 @@
 var fname,
   lname,
+  ruby_fname,
+  ruby_lname,
   blood,
   age,
   gheight,
@@ -70,12 +72,53 @@ function deleteli(parent_id) {
   }
 }
 
+// 姓名の姓を省略した場合のふりがな関係
+function CheckFirstname(input) {
+  // せい（ふりがな）の入力欄
+  var rubyFirstnameInput = document.getElementById("ruby_firstname");
+
+  if (!input.value) {
+    rubyFirstnameInput.disabled = true;
+    rubyFirstnameInput.classList.add("disabled-input");
+    rubyFirstnameInput.value = "";
+  } else {
+    rubyFirstnameInput.disabled = false;
+    rubyFirstnameInput.classList.remove("disabled-input");
+  }
+}
+
+function CheckRuby() {
+  // 姓の入力欄
+  var firstnameInput = document.getElementById("firstname");
+  // せい（ふりがな）の入力欄
+  var rubyFirstnameInput = document.getElementById("ruby_firstname");
+  // ①姓が省略された場合
+  if (firstnameInput.value.trim() === "") {
+    rubyFirstnameInput.disabled = true;
+    rubyFirstnameInput.classList.add("disabled-input");
+  } else {
+    rubyFirstnameInput.disabled = false;
+    rubyFirstnameInput.classList.remove("disabled-input");
+  }
+}
+
 function processPhase1() {
   // forma = document.getElementById("multiphase");
   // const isRequired = forma.checkValidity();
   if (formCheck()) {
     fname = _("firstname").value;
     lname = _("lastname").value;
+    ruby_fname = _("ruby_firstname").value;
+    ruby_lname = _("ruby_lastname").value;
+
+    if (
+      (fname.trim() === "" && ruby_fname.trim() !== "") ||
+      (fname.trim() !== "" && ruby_fname.trim() === "")
+    ) {
+      alert("ふりがな関係を確認");
+      // ここで適切なエラー処理を追加
+      return;
+    }
     if (intCheck(_("age").value, 18, 50)) {
       age = _("age").value;
       _("phase1").style.display = "none";
@@ -84,8 +127,10 @@ function processPhase1() {
       _("status_2").classList.toggle("active");
       console.log("名字");
       console.log(fname);
+      console.log(ruby_fname);
       console.log("名前");
       console.log(lname);
+      console.log(ruby_lname);
       console.log("年齢");
       console.log(age);
     } else {
@@ -299,7 +344,8 @@ function processPhase9() {
       }
     }
 
-    let swich_display_fname = _("display_fname");
+    let swich_display_name = _("display_all_name");
+    let swich_display_ruby_name = _("display_ruby_name");
     // 配列に可能オプション番号を入れた
     gsecret = secretarr;
     console.log(gsecret);
@@ -309,13 +355,16 @@ function processPhase9() {
     _("status_10").classList.toggle("active");
     // 名字がある場合
     if (fname.length !== 0) {
-      swich_display_fname.style.display = "block";
-      swich_display_fname.innerHTML = fname;
+      swich_display_name.style.display = "block";
+      swich_display_ruby_name.style.display = "block";
+      swich_display_name.innerHTML = fname + " " + lname;
+      swich_display_ruby_name.innerHTML = ruby_fname + " " + ruby_lname;
+      // swich_display_ruby_fname.innerHTML = ruby_fname;
       // _("display_fname").innerHTML = fname;
     } else {
-      swich_display_fname.style.display = "none";
+      _("display_all_name").innerHTML = lname;
+      _("display_ruby_name").innerHTML = ruby_lname;
     }
-    _("display_lname").innerHTML = lname;
     _("display_age").innerHTML = age;
 
     _("display_gheight").innerHTML = gheight;
