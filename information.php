@@ -80,18 +80,33 @@
     <?php
       require_once( dirname(__FILE__). '/parts/header.php');
       require_once( dirname(__FILE__). '/data.php');
-      // url からイベントidとってきて
-      if($_GET["eventid"]){
-      $selectedId = $_GET["eventid"];
-      // イベント配列の何番目か？見てる
-      $selectedEvent = $event_objects[$selectedId];
-      }elseif($_GET["sw_eventid"] !== null){
-      $selectedId = $_GET["sw_eventid"];
-      // イベント配列の何番目か？見てる
-      $selectedEvent = $sw_events[$selectedId];
-      }else{
+
+
+
+    // news　特定
+      require_once( dirname(__FILE__). '/setting/class/news_class.php');
+      require_once( dirname(__FILE__). '/setting/data/news_data.php');
+
+
+      $news_instances = [];
+      foreach ($news_list as $news_data) {
+      $news_instances[] = new NewsManager($news_data);
+      }
+
+    // url からイベントidとってきて
+      if($_GET["newsid"]){
+      $selectedId = $_GET["newsid"];
+
+      foreach($news_instances as $tips)
+        if($tips -> getNewsId() == $selectedId){
+          $selectednews = $tips;
+          break;
+        }    
+    }else{
         echo "エラー";
-    };
+        exit;
+    }
+  
 
     ?>
     <!------------------>
@@ -100,14 +115,34 @@
 
       <article id="event" class="under_space">
         <div class="content_wrapper">
+
+          <!-- <?php $newstype = $selectednews -> getNewstype()?> -->
+          <?php if($newstype == 1 ):?>
           <h1 class="fixpage_title"><span>Event</span></h1>
           <h3 class="block_title_caption">イベント</h3>
+          <?php elseif($newstype == 2):?>
+          <h1 class="fixpage_title"><span>News</span></h1>
+          <h3 class="block_title_caption">ニュース</h3>
+          <?php elseif($newstype == 3):?>
+          <h1 class="fixpage_title"><span>NewFace</span></h1>
+          <h3 class="block_title_caption">新人</h3>
+          <?php elseif($newstype == 4):?>
+          <h1 class="fixpage_title"><span>Other</span></h1>
+          <h3 class="block_title_caption">その他</h3>
+          <?php else:?>
+          <h1>エラー</h1>
 
+          <?php echo $newstype;?>
+          <?php endif?>
+
+
+
+          <img src="img/bunner.jpg">
           <section class="event_card block_anime">
             <div class="event_description">
-              <img src="<?php echo $selectedEvent->getEventImg() ?>" alt="">
-              <h2><?php echo $selectedEvent->getEventName() ?></h2>
-              <p class="event_description_text"><?php echo $selectedEvent->getEventContent() ?></p>
+              <img src="<?php echo $selectednews->getNewsImg() ?>" alt="">
+              <h2><?php echo $selectednews->getNewsTitle() ?></h2>
+              <p class="event_description_text"><?php echo $selectednews->getNewsContent() ?></p>
             </div>
           </section>
           <div class="goto_list">

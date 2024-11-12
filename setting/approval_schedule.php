@@ -31,7 +31,19 @@
     <?php
     require_once( dirname(__FILE__). '/../parts/setting_header.php');
     require_once( dirname(__FILE__). '/data/data.php');
+
+    // スケジュール
+    require_once( dirname(__FILE__). '/class/attendance_class.php');
+    require_once( dirname(__FILE__). '/data/attendance_data.php');
+    
+    foreach($unapprovedscheduleArray as $unapprovedschedulelist){
+    $attendance_data_yet[] = new InputAttendanceReserve($unapprovedschedulelist);
+    };
+    
+
     ?>
+
+
 
     <main id="main">
       <article id="setting_index" class="under_space">
@@ -55,7 +67,6 @@
               <th>金</th>
               <th>土</th>
             </tr>
-
 
             <?php 
 
@@ -92,8 +103,8 @@
               <td>
                 <span class='dayNumber'><?php echo $today -> format('d') ?></span>
 
-                <?php foreach ($scheduleArray as $schedule):?>
-                <?php if ($schedule["出勤日"] === $dateValue):?>
+                <?php foreach ($attendance_data_yet as $schedule):?>
+                <?php if ($schedule-> getAttendanceWorkDay()== $dateValue):?>
                 <?php $link_count++ ?>
                 <!-- 承認待機が一つでもあるならリンク追加 -->
                 <?php if($link_count == 1) :?>
@@ -131,8 +142,8 @@
             <?php $link_count=0 ?>
             <td>
               <span class='dayNumber'><?php echo $today -> format('d') ?></span>
-              <?php foreach ($scheduleArray as $schedule):?>
-              <?php if ($schedule["出勤日"] === $dateValue):?>
+              <?php foreach ($attendance_data_yet as $schedule):?>
+              <?php if ($schedule->getAttendanceWorkDay() == $dateValue):?>
               <?php $link_count++  ?>
               <?php if($link_count == 1):?>
               <a href='approval_schedule_done.php?selected_date=<?php echo urlencode($dateValue) ?>'

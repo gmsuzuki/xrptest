@@ -1,19 +1,10 @@
-<?php
-//  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-      // $url = 'complete.php';
-      // header('Location:' . $url );
-      // exit;
-    // }
-
-
-
+  <?php session_start();
 
 // 変数の初期化
 $page_flag = 0;
 
 if( !empty($_POST['btn_confirm']) ) {
           
-    session_start();
     // 二重送信防止用トークンの発行
     $token = uniqid('', true);
     //トークンをセッション変数にセット
@@ -24,7 +15,7 @@ if( !empty($_POST['btn_confirm']) ) {
 } elseif( !empty($_POST['btn_submit']) ) {
 
 
-    session_start();
+
     // POSTされたトークンを取得
     $token = isset($_POST["token"]) ? $_POST["token"] : "";
     // セッション変数のトークンを取得
@@ -38,180 +29,179 @@ if( !empty($_POST['btn_confirm']) ) {
 ?>
 
 
-<!DOCTYPE html>
-<html lang="ja">
+  <!DOCTYPE html>
+  <html lang="ja">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta http-equiv="Content-Script-Type" content="text/javascript">
-  <!--サイトの説明 -->
-  <title>設定ページ</title>
-  <meta name="description" content="就職用ホームページです" />
-
-
-  <!--css javascript-->
-  <link rel="stylesheet" href="../css/reset.css">
-  <link rel="stylesheet" type="text/css" href="../css/set_style.css" />
-  <!-- <link rel="stylesheet" type="text/css" href="../css/style.css" /> -->
-  <!-- <link rel="stylesheet" type="text/css" href="../css/event.css" /> -->
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <!--サイトの説明 -->
+    <title>設定ページ</title>
+    <meta name="description" content="就職用ホームページです" />
 
 
-  <!-- これinputのときだけ読み込む -->
-  <!-- <script src="../js/newevent_set.js" defer></script> -->
-  <script src="../js/form_permission.js" defer></script>
-  <script src="../js/text_count.js" defer></script>
-  <script src="../js/cancelpop.js" defer></script>
-</head>
+    <!--css javascript-->
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../css/set_style.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="../css/style.css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" href="../css/event.css" /> -->
 
 
-<body id="body">
+    <!-- これinputのときだけ読み込む -->
+    <!-- <script src="../js/newevent_set.js" defer></script> -->
+    <script src="../js/form_permission.js" defer></script>
+    <script src="../js/text_count.js" defer></script>
+    <script src="../js/cancelpop.js" defer></script>
+  </head>
 
-  <!-- ローディング画面 -->
 
-  <!-- コンテンツ部分 -->
-
-  <div id="wrapper">
+  <body id="body">
 
 
-    <!-- header読み込み -->
-    <?php
+
+    <div id="wrapper">
+
+
+      <!-- header読み込み -->
+      <?php
     require_once( dirname(__FILE__). '/../parts/setting_header.php');
     require_once( dirname(__FILE__). '/data//data.php');
     
-    
-// 予約のclass
-    require_once( dirname(__FILE__). '/class/reserve_class.php');
-    require_once( dirname(__FILE__). '/data/reserve_data.php');
+    // レビューのクラス
+    require_once( dirname(__FILE__). '/class/review_class.php');
+    require_once( dirname(__FILE__). '/data/review_data.php');
 
+      //すべてのレビュー
+       foreach($approvalPendings as $approvalPending){
+      $approvalPendingArr[] = new  ReviewManager($approvalPending);
+        }
 
-  //お客さんカプセル化
-  require_once( dirname(__FILE__). '/data/member_data.php');
-  require_once( dirname(__FILE__). '/class/member_class.php');
-  //客profile
-  foreach($people_basics as $people_basic){
-  $memberList[] = new memberProfileManager($people_basic);
-  }
+        // 未承認レビュー
 
+        foreach($approvalPendingArr as $approvalPendingData){
+          if($approvalPendingData -> getApproval()== false){
+           
+            $approvalPendingDataArry [] = $approvalPendingData;
+          }
+        }
 
-  //客profile
-  foreach($people_basics as $people_basic){
-  $memberList[] = new memberProfileManager($people_basic);
-  }
 
 // スタッフカプセル化
-  require_once( dirname(__FILE__). '/data/girl_data.php');
-  require_once( dirname(__FILE__). '/class/girl_class.php');
-  require_once( dirname(__FILE__). '/data/staff_list_sort.php');
+    require_once( dirname(__FILE__). '/data/girl_data.php');
+    require_once( dirname(__FILE__). '/class/girl_class.php');
+    
 
-// スタッフprofile
+    // profile
   foreach($sample_names as $sample_name){
-  $staffList[] = new girlProfilelManager($sample_name);
+    $staffList[] = new girlProfilelManager($sample_name);
   }
 
-    
+
+    //お客さんカプセル化
+   require_once( dirname(__FILE__). '/data/member_data.php');
+   require_once( dirname(__FILE__). '/class/member_class.php');
+   
+    // profile
+    foreach($people_basics as $people_basic){
+    $memberList[] = new memberProfileManager($people_basic);
+  }
+   
     ?>
-    <!------------------>
+      <!------------------>
 
 
 
-    <!-- 本来ならsqlでキャンセルな予約を特定 -->
+      <!-- 本来ならsqlでキャンセルなレビューを特定 -->
 
-    <!-- 今回の予約承認希望者全員のインスタンス -->
-    <?php foreach( $reserveLists_yet  as $reserve_request ):?>
-    <?php $reserve_class_arrs[] = new Reservation($reserve_request)?>
-    <?php endforeach ?>
-
-
-    <!-- クリックされたのは誰のどの予約か？特定 -->
-    <?php foreach($reserve_class_arrs as $reserve_class_arr) :?>
-    <?php if($reserve_class_arr -> getReserveNo() == $_GET['selected_reserve_num']):?>
-    <?php $reserve_card = $reserve_class_arr ?>
-    <?php break ?>
-    <?php endif?>
-    <?php endforeach ?>
+      <!-- クリックされたのは誰のどのレビューか？特定 -->
+      <?php foreach($approvalPendingDataArry as $approvalPendingData) :?>
+      <?php if($approvalPendingData -> getReviewNumber() == $_SESSION['review_no']):?>
+      <?php $review_card = $approvalPendingData ?>
+      <?php break ?>
+      <?php endif?>
+      <?php endforeach ?>
 
 
 
-    <!-- お客のprofile -->
-    <?php foreach( $memberList as $samplename ) :?>
-    <?php if($samplename -> getMemberNumber() == $reserve_class_arr->getReserveCustomerNum()):?>
-    <?php $e_name = $samplename -> getMemberName()?>
-    <?php $e_customer_mail = $samplename->getMemberEmail()?>
+      <!-- お客のprofile -->
+      <?php foreach( $memberList as $samplename ) :?>
+      <?php if($samplename -> getMemberNumber() == $review_card->getUserNumber()):?>
+      <?php $e_name = $samplename -> getMemberName()?>
+      <?php $e_customer_mail = $samplename->getMemberEmail()?>
 
-    <?php break; ?>
-    <?php endif; ?>
-    <?php endforeach ;?>
+      <?php break; ?>
+      <?php endif; ?>
+      <?php endforeach ;?>
 
 
-    <!-- 予約カード -->
-    <!-- $reserve_card -->
-    <!-- 予約された女性の名前 -->
-    <?php foreach($staffList as $sample_name):?>
-    <?php if($sample_name->getGirlNumber() === $reserve_card->getReserveNo()):?>
-    <?php $employee_girl = $sample_name; ?>
-    <?php $employee_girl_name = $sample_name -> getGirlName(); ?>
-    <?php break ?>
-    <?php endif?>
-    <?php endforeach ?>
+      <!-- 予約カード -->
+      <!-- $review_card -->
+      <!-- 予約された女性の名前 -->
+      <?php foreach($staffList as $sample_name):?>
+      <?php if($sample_name->getGirlNumber() === $review_card->getEmployeeNumber()):?>
+      <?php $employee_girl = $sample_name; ?>
+      <?php $employee_girl_name = $sample_name -> getGirlName(); ?>
+      <?php break ?>
+      <?php endif?>
+      <?php endforeach ?>
 
 
 
 
-    <main id="main">
+      <main id="main">
 
-      <article id="reserve" class="under_space">
-        <div class="content_wrapper">
-          <h1 id="calendar_title">お客様へのメール</h1>
+        <article id="reserve" class="under_space">
+          <div class="content_wrapper">
+            <h1 id="calendar_title">お客様へのメール</h1>
 
+            <!-- 確認画面 -->
 
-          <!-- 確認画面 -->
+            <?php if( $page_flag === 1 ): ?>
+            <!-- セッションにトークン入れる -->
 
-          <?php if( $page_flag === 1 ): ?>
-          <!-- セッションにトークン入れる -->
+            <p>メールする内容はこれでよろしいか？</p>
 
-          <p>メールする内容はこれでよろしいか？</p>
+            <section class="mail_confirmation">
+              <h2 class="mail_tag">■件名</h2>
+              <p class="mail_body"><?php echo $_POST['mail_title']?></p>
 
-          <section class="mail_confirmation">
-            <h2 class="mail_tag">■件名</h2>
-            <p class="mail_body"><?php echo $_POST['mail_title']?></p>
+              <h3 class="mail_tag">■本文</h3>
+              <p class="mail_body"><?php echo nl2br($_POST['request'])?></p>
 
-            <h3 class="mail_tag">■本文</h3>
-            <p class="mail_body"><?php echo nl2br($_POST['request'])?></p>
+            </section>
+            <form method="post" id="mail_form" name="form1" action="" onsubmit="return verifyContactForm();">
 
-          </section>
-          <form method="post" id="mail_form" name="form1" action="" onsubmit="return verifyContactForm();">
+              <!-- 題名 -->
+              <input type="hidden" name="send_mail_subject" value="<?php echo $_POST['mail_title']; ?>">
 
-            <!-- 題名 -->
-            <input type="hidden" name="send_mail_subject" value="<?php echo $_POST['mail_title']; ?>">
+              <!-- 本文 -->
+              本文をどうもらうのか？
 
-            <!-- 本文 -->
-            本文をどうもらうのか？
+              <input type="hidden" name="send_mail_body" value="<?php echo $_POST['request']; ?>">
 
-            <input type="hidden" name="send_mail_body" value="<?php echo $_POST['request']; ?>">
+              メールアドレスいる？
+              <input type="hidden" name="customer_mail" value="<?php echo $_POST['customer_mail']; ?>">
 
-            メールアドレスいる？
-            <input type="hidden" name="customer_mail" value="<?php echo $_POST['customer_mail']; ?>">
+              <div class="mail_button_wrap">
+                <button onclick="history.back()" class="mail_cancel">戻る</button>
+                <input type="submit" name="btn_submit" value="送信" id="mail_send">
+              </div>
 
-            <div class="mail_button_wrap">
-              <button onclick="history.back()" class="mail_cancel">戻る</button>
-              <input type="submit" name="btn_submit" value="送信" id="mail_send">
-            </div>
-
-        </div>
-
-
-        <!-- セッション送る -->
-        <input type="hidden" name="token" value="<?php echo $token;?>">
-        </form>
-  </div>
-  <!-- 確認画面ここまで -->
+          </div>
 
 
-  <!-- 送信済み -->
-  <?php elseif( $page_flag === 2 ): ?>
-  <?php
+          <!-- セッション送る -->
+          <input type="hidden" name="token" value="<?php echo $token;?>">
+          </form>
+    </div>
+    <!-- 確認画面ここまで -->
+
+
+    <!-- 送信済み -->
+    <?php elseif( $page_flag === 2 ): ?>
+    <?php
           // POSTされたトークンとセッション変数のトークンの比較
           if($token != "" && $token == $session_token) {
           //エスケープ処理やデータチェックを行う関数のファイルの読み込み
@@ -367,111 +357,107 @@ $header .= "Content-type: text/plain; charset=utf-8\r\n";
           }
           ?>
 
-  <!-- 送信済みここまで -->
+    <!-- 送信済みここまで -->
 
 
-  <?php else: ?>
-  <!-- 以下通常 -->
-
-
-
-  <!-- ここからメール入力 -->
+    <?php else: ?>
+    <!-- 以下通常 -->
 
 
 
-  <section>
-    <h2 class="mail_title"><?php echo $e_name?>様への送信内容</h2>
-    <!-- 予約フォーム -->
-
-    <div class="reserve_from_body">
-      <form method="post" id="form" name="form1" action="" onsubmit="return verifyContactForm();">
-
-        <dl>
-          <dt class="step_a">題名</dt>
-          <dd class="mail_subject">
-            <input type="text" name="mail_title" value='<?php echo $reserve_card->getReservePlayDay()?>のご予約について'>
-          </dd>
-        </dl>
+    <!-- ここからメール入力 -->
 
 
-        <?php
+
+    <section>
+      <h2 class="mail_title"><?php echo $e_name?>様への送信内容</h2>
+      <!-- 予約フォーム -->
+
+      <div class="reserve_from_body">
+        <form method="post" id="form" name="form1" action="" onsubmit="return verifyContactForm();">
+
+          <dl>
+            <dt class="step_a">題名</dt>
+            <dd class="mail_subject">
+              <input type="text" name="mail_title" value='ご投稿のレビユーについて'>
+            </dd>
+          </dl>
+
+
+          <?php
               $mail_message = $e_name. "様" . "\n\n";            
               
               $mail_message .="この度はご予約の申請ありがとうございます。"."\n";
               $mail_message .="お店の名前と申します。"."\n\n";
 
-              $mail_message .= "大変恐縮ではございますが、以下のご予約に関して". "\n";
-               $mail_message .= "既に他のお客様のご予約が入っている". "\n";
-               $mail_message .= "または女の子の出勤時間ではないため". "\n";
-               $mail_message .= "以下のご予約を承れません。". "\n\n";
-               $mail_message .= "ご希望日：" . date('Y年m月d日',strtotime($reserve_card->getReservePlayDay())) . "\n" ;
-               $mail_message .= "ご希望時間：" .date("H:i",strtotime($reserve_card->getReservePlaytime())) . "\n" ;
-               $mail_message .= "ご指名：" . $employee_girl_name . "\n" ;
-               $mail_message .= "ご利用時間：" . $reserve_card->getReservePlayCourse(). "分コース" . "\n\n\n" ;
-               $mail_message .="ーーーーーーーーーーーーーーーー". "\n";
-               $mail_message .="ご提案". "\n\n\n";
-               $mail_message .="ーーーーーーーーーーーーーーーー". "\n\n\n";
-               $mail_message .="株式会社". "\n";
+               $mail_message .= "大変恐縮ではございますが、ご記入いただいたレビューにおいて". "\n";
+               $mail_message .= "規約に反する項目があり掲載は見送らせていただきます。"."\n\n";
+               $mail_message .= "【禁止項目】"."\n\n";
+               $mail_message .= "連絡先の記入". "\n";
+               $mail_message .= "誹謗中傷する記入". "\n" ;
+               $mail_message .= "他人を不快にする記入 ". "\n" ;
+               $mail_message .= "その他著しく常識、道徳から逸脱する記入 "."\n\n";
+               $mail_message .="株式会社"."\n";
                $mail_message .="予約担当:中村". "\n";
                $mail_message .="電話:". "\n";
                ?>
 
 
-        <!-- テキストエリアにはパタン属性はない -->
-        <dl>
-          <dt class="step_a">メール本文</dt>
-          <dd>
-            <textarea rows=30 name="request" maxlength="1000" id="customerMail"
-              onblur="checkTxt(this,'request_text_body')"><?php echo $mail_message ?></textarea>
-            <!-- JavaScriptでinputのvalueに入れてる -->
-            <input type="hidden" id="request_text_body" name="request_body">
-          </dd>
-        </dl>
+          <!-- テキストエリアにはパタン属性はない -->
+          <dl>
+            <dt class="step_a">メール本文</dt>
+            <dd>
+              <textarea rows=30 name="request" maxlength="1000" id="customerMail"
+                onblur="checkTxt(this,'request_text_body')"><?php echo $mail_message ?></textarea>
+              <!-- JavaScriptでinputのvalueに入れてる -->
+              <input type="hidden" id="request_text_body" name="request_body">
+            </dd>
+          </dl>
 
-        <div class="step_button_wrap">
-          <a href='reserve_schedule.php' onclick="cancelPop(event)" class="reserve_back mail_cancel">キャンセル</a>
-          <input type="submit" name="btn_confirm" id="nextButton" class="step_next_before" value="確認">
-        </div>
+          <div class="step_button_wrap">
+            <a href='reserve_schedule.php' onclick="cancelPop(event)" class="reserve_back mail_cancel">キャンセル</a>
+            <input type="submit" name="btn_confirm" id="nextButton" class="step_next_before" value="確認">
+          </div>
 
 
-      </form>
+        </form>
 
-      <div class="popoverTemplate">
-        <div class="popover">
-          <p>メールの内容は破棄されます</p>
-          <p>よろしいですか？
-          </p>
-          <div class="popover_btn">
-            <button onclick="move()" class="true_btn">OK</button>
-            <button onclick="backSet()">キャンセル</button>
+        <div class="popoverTemplate">
+          <div class="popover">
+            <p>メールの内容は破棄されます</p>
+            <p>よろしいですか？
+            </p>
+            <div class="popover_btn">
+              <button onclick="move()" class="true_btn">OK</button>
+              <button onclick="backSet()">キャンセル</button>
+            </div>
           </div>
         </div>
+
+
       </div>
+    </section>
 
+    <?php endif?>
 
-    </div>
-  </section>
-
-  <?php endif?>
-
-  </div><!-- content_wrapper -->
-  </article>
+    </div><!-- content_wrapper -->
+    </article>
 
 
 
-  <br><br><br><br><br><br><br><br>
-  <p>下が確認できないのでスペース</p>
-  <?php  echo $mode ;?><br>
-  <br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br>
+    <p>下が確認できないのでスペース</p>
+    <?php  echo $mode ;?><br>
+    <br><br><br><br><br><br><br><br>
 
 
 
 
 
-  </main>
+    </main>
 
 
-  </div><!-- wrapper -->
-</body>
+    </div><!-- wrapper -->
+  </body>
 
-</html>
+  </html>

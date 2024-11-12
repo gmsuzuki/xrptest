@@ -1,3 +1,37 @@
+<?php
+// セッションスタートしてる
+session_start();
+// 戻るボタンでエラーしないように
+header('Expires:-1');
+header('Cache-Control:');
+header('Pragma:');
+
+// 入力モードにする
+$mode = 'input';
+// エラー配列を作る
+$errmessage = array();
+
+// 必要なファイルの読み込み（ヘッダー以外）
+require_once(dirname(__FILE__). '/const_db/const_set.php');
+require_once(dirname(__FILE__). '/validate/text_validate.php');
+require_once(dirname(__FILE__). '/validate/image_validate.php');
+require_once(dirname(__FILE__). '/validate/radio_validate.php');
+require_once(dirname(__FILE__). '/data/data.php');
+
+// キャンセルボタンが押された場合
+// 変なところから来ていないか？確認 
+       if (isset($_POST['cancel'])) {
+        session_start(); // セッションを開始
+        // localStorageの削除
+        echo "<script>localStorage.clear();</script>";
+        session_unset(); // セッションの変数をすべて削除
+        session_destroy(); // セッションを破棄
+        header("Location: setting_index02.php"); // top.htmlにリダイレクト
+        exit; // スクリプトの実行を終了
+      }
+      ?>
+
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -32,56 +66,16 @@
   <div id="wrapper">
     <!-- header読み込み -->
     <?php
-    require_once( dirname(__FILE__). '/../parts/setting_header.php');
-    require_once( dirname(__FILE__). '/data/data.php');
-    // 画像のバリデーション読み込み
-    require_once( dirname(__FILE__). '/../setting/image_validate.php');
-    require_once( dirname(__FILE__). '/../setting/radio_validate.php');
-    ?>
+    require_once( dirname(__FILE__). '/../parts/setting_header.php');?>
 
 
     <main>
 
-      <!-- 変なところから来ていないか？確認 -->
-      <?php
-      // キャンセルボタンが押された場合
-      if (isset($_POST['cancel'])) {
-        session_start(); // セッションを開始
-        // localStorageの削除
-        echo "<script>localStorage.clear();</script>";
-        session_unset(); // セッションの変数をすべて削除
-        session_destroy(); // セッションを破棄
-        header("Location: setting_index02.php"); // top.htmlにリダイレクト
-        exit; // スクリプトの実行を終了
-      }
-      ?>
 
 
 
       <!-- ここから本格的にスタート -->
       <?php
-      //定数読み込み、画像サイズとか
-      require_once('const_set.php');
-      // 文章バリデーション読み込み
-      require_once('text_validate.php');
-      // 画像のバリデーション読み込み
-      require_once('image_validate.php');
-
-
-      // セッションスタートしてる
-      session_start();
-
-      // 戻るボタンでエラーしないように
-      header('Expires:-1');
-      header('Cache-Control:');
-      header('Pragma:');
-
-      // 入力モードにする
-      $mode = 'input';
-      // エラー配列を作る
-      $errmessage = array();
-
-
 
       // 送信or戻るで戻るインプットに入ってもなにもしない/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_
       if (isset($_POST['back']) && $_POST['back']) {
@@ -111,6 +105,11 @@
         } else {
           // 正常なら選択した数字を入れる
           $_SESSION['new_post_header']['reserve'] = $new_post_day->get_checking_radio();
+          
+          // Informationの配列用
+          $_SESSION['Information']['type'] = 2;
+          
+          
           // 今すぐ投稿なら
           if($_SESSION['new_post_header']['reserve'] == 1){
             $_SESSION['new_post_header']['reserve_day'] = $today->format('Y/m/d');
@@ -278,6 +277,14 @@
       $_SESSION['news_image']['type'];
       $_SESSION['news_image']['width'];
       $_SESSION['news_image']['height'];
+
+      // Informationの配列用
+      $_SESSION['Information']['type'];
+      $_SESSION['Information']['day'];
+      $_SESSION['Information']['time'];
+
+
+
       }
 
       ?>

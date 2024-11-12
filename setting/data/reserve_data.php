@@ -1,446 +1,506 @@
-<?php
-class Reservation
-{
-    private $registrant;
-    private $userNumber;
-    private $reserverName;
-    private $phoneNumber;
-    private $email;
-    private $employeeNumber;
-    private $reservationDate;
-    private $startTime;
-    private $playTime;
-    private $locationType;
-    private $location;
-    private $option1;
-    private $option2;
-    private $option3;
-    private $option4;
-    private $option5;
-    private $option6;
-    private $cosplay;
-    private $comment;
-    private $reservationNumber;
-    private $approval;
-    private $err_inclass;
-
-    public function __construct($data)
-    {
-        $this->userNumber = $data["ユーザー番号"];
-        $this->reserverName = $data["予約者名"];
-        $this->phoneNumber = $data["電話番号"];
-        $this->email = $data["メールアドレス"];
-        $this->employeeNumber = $data["指名社員番号"];
-        $this->reservationDate = $data["予約希望日"];
-        $this->startTime = $data["開始時間"];
-        $this->playTime = $data["プレイタイム"];
-        $this->locationType = $data["場所種類"];
-        $this->location = $data["場所位置"];
-        $this->option1 = $data["オプション1"];
-        $this->option2 = $data["オプション2"];
-        $this->option3 = $data["オプション3"];
-        $this->option4 = $data["オプション4"];
-        $this->option5 = $data["オプション5"];
-        $this->option6 = $data["オプション6"];
-        $this->cosplay = $data["コスプレ"];
-        $this->comment = $data["コメント"];
-        $this->reservationNumber = $data["予約no"];
-        $this->approval = $data["承認"];
-    }
-
-
-    public function getUserNumber()
-    {
-        return $this->userNumber;
-    }
-
-    public function setUserNumber($userNumber)
-    {
-        $this->userNumber = $userNumber;
-    }
-
-    public function getReserverName()
-    {
-        return $this->reserverName;
-    }
-
-    public function setReserverName($reserverName)
-    {
-        $this->reserverName = $reserverName;
-    }
-
-    public function getPhoneNumber()
-    {
-        return $this->phoneNumber;
-    }
-
-    public function setPhoneNumber($phoneNumber)
-    {
-        $this->phoneNumber = $phoneNumber;
-    }
-
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
-
-    public function getEmployeeNumber()
-    {
-        return $this->employeeNumber;
-    }
-
-    public function setEmployeeNumber($employeeNumber)
-    {
-        $this->employeeNumber = $employeeNumber;
-    }
-
-    public function getReservationDate()
-    {
-        return $this->reservationDate;
-    }
-
-    public function setReservationDate($reservationDate)
-    {
-        $this->reservationDate = $reservationDate;
-    }
-
-    public function getStartTime()
-    {
-        return $this->startTime;
-    }
-
-    public function setStartTime($startTime)
-    {
-        $this->startTime = $startTime;
-    }
-
-    public function getPlayTime()
-    {
-        return $this->playTime;
-    }
-
-    public function setPlayTime($playTime)
-    {
-        $this->playTime = $playTime;
-    }
-
-    public function getLocationType()
-    {
-        return $this->locationType;
-    }
-
-    public function setLocationType($locationType)
-    {
-        $this->locationType = $locationType;
-    }
-
-    public function getLocation()
-    {
-        return $this->location;
-    }
-
-    public function setLocation($location)
-    {
-        $this->location = $location;
-    }
-
-    public function getOption1()
-    {
-        return $this->option1;
-    }
-
-    public function setOption1($option1)
-    {
-        $this->option1 = $option1;
-    }
-
-    public function getOption2()
-    {
-        return $this->option2;
-    }
-
-    public function setOption2($option2)
-    {
-        $this->option2 = $option2;
-    }
-
-    public function getOption3()
-    {
-        return $this->option3;
-    }
-
-    public function setOption3($option3)
-    {
-        $this->option3 = $option3;
-    }
-
-    public function getOption4()
-    {
-        return $this->option4;
-    }
-
-    public function setOption4($option4)
-    {
-        $this->option4 = $option4;
-    }
-
-    public function getOption5()
-    {
-        return $this->option5;
-    }
-
-    public function setOption5($option5)
-    {
-        $this->option5 = $option5;
-    }
-
-    public function getOption6()
-    {
-        return $this->option6;
-    }
-
-    public function setOption6($option6)
-    {
-        $this->option6 = $option6;
-    }
-
-    public function getCosplay()
-    {
-        return $this->cosplay;
-    }
-
-    public function setCosplay($cosplay)
-    {
-        $this->cosplay = $cosplay;
-    }
-
-    public function getComment()
-    {
-        return $this->comment;
-    }
-
-    public function setComment($comment)
-    {
-        $this->comment = $comment;
-    }
-
-    public function getReservationNumber()
-    {
-        return $this->reservationNumber;
-    }
-
-    public function setReservationNumber($reservationNumber)
-    {
-        $this->reservationNumber = $reservationNumber;
-    }
-
-    public function getApproval()
-    {
-        return $this->approval;
-    }
-
-    public function setApproval($approval)
-    {
-        $this->approval = $approval;
-    }
-
-    public function get_err_inclass()
-    {
-        return $this->err_inclass;
-    }
-
-    // 指定された時間を加算して新しい startTime を計算するメソッド
-    public function addTimeToStartTime($additionalMinutes)
-    {
-        // 現在の startTime を Unix タイムスタンプに変換
-        $startTimeTimestamp = strtotime($this->startTime);
-
-        // $additionalMinutes 分を加算
-        $newTimeTimestamp = $startTimeTimestamp + ($additionalMinutes * 60);
-
-        // 新しい時間を取得
-        $newStartTime = date("H:i", $newTimeTimestamp);
-
-        return $newStartTime;
-    }
-}
-
-
-?>
-
-
 <!-- 予約リクエスト -->
 
 <?php
-   $reserve_requests = [
-      [
-        "ユーザー番号" => 1,
-        "予約者名" => "田中大介",
-        "電話番号" => "08012345678",
-        "メールアドレス" => "gmclips124@gmail.com",
-        "指名社員番号" => 6,
-        "予約希望日" => "2023-10-15",
-        "開始時間" => "10:00:00",
-        "プレイタイム" => 60,
-        "場所種類" => 0,
-        "場所位置" => "松戸",
-        "オプション1" => true,
-        "オプション2" => false,
-        "オプション3" => true,
-        "オプション4" => false,
-        "オプション5" => false,
-        "オプション6" => false,
-        "コスプレ" => 1,
-        "コメント" => "いつでも大丈夫ですわー",
-        "予約no" => 10,
-        "承認" => 0
+  $reserveLists = [
+    [
+        "approval" => true,
+        "reserveNo" => 11,
+        "reserveType" => 1,
+        "reserveCustomerType" => 1,
+        "reserveCustomerNum" => 5,
+        "reserveGirlNum" => 1,
+        "reservePlayDay" => "2024-10-11",
+        "reservePlaytime" => "13:00:00",
+        "reservePlayCourse" => 90,
+        "reservePlaySpace" => 1,
+        "reservePlayArea" => "松戸",
+        "reservePlayAdress" => false,
+        "option01" => true,
+        "option02" => false,
+        "option03" => true,
+        "option04" => false,
+        "option05" => true,
+        "option06" => false,
+        "option07" => true,
+        "option08" => false,
+        "option09" => false,
+        "option10" => true,
+        "cosplay" => 3,
+        "comment" => "よろしくお願いします"
     ],
     [
-        "ユーザー番号" => 6,
-        "予約者名" => "寺田学",
-        "電話番号" => "09023456778",
-        "メールアドレス" => "wawawa@gmail.com",
-        "指名社員番号" => 4,
-        "予約希望日" => "2023-10-10",
-        "開始時間" => "11:00:00",
-        "プレイタイム" => 90,
-        "場所種類" => 1,
-        "場所位置" => "新松戸５−１−４",
-        "オプション1" => false,
-        "オプション2" => false,
-        "オプション3" => true,
-        "オプション4" => false,
-        "オプション5" => false,
-        "オプション6" => false,
-        "コスプレ" => 5,
-        "コメント" => "",
-        "予約no" => 16,
-        "承認" => 0
-      ],
+        "approval" => false,
+        "reserveNo" => 12,
+        "reserveType" => 2,
+        "reserveCustomerType" => 2,
+        "reserveCustomerNum" => 3,
+        "reserveGirlNum" => 4,
+        "reservePlayDay" => "2024-10-19",
+        "reservePlaytime" => "12:00:00",
+        "reservePlayCourse" => 120,
+        "reservePlaySpace" => 2,
+        "reservePlayArea" => "馬橋",
+        "reservePlayAdress" => false,
+        "option01" => false,
+        "option02" => true,
+        "option03" => false,
+        "option04" => true,
+        "option05" => false,
+        "option06" => true,
+        "option07" => false,
+        "option08" => true,
+        "option09" => false,
+        "option10" => false,
+        "cosplay" => 5,
+        "comment" => "昼頃希望"
+    ],
     [
-        "ユーザー番号" => false,
-        "予約者名" => "森暢平",
-        "電話番号" => "09041234567",
-        "メールアドレス" => "tekeke@gmail.com",
-        "指名社員番号" => 5,
-        "予約希望日" => "2023-10-10",
-        "開始時間" => "11:00:00",
-        "プレイタイム" => 90,
-        "場所種類" => 1,
-        "場所位置" => "新松戸５−１−４",
-        "オプション1" => false,
-        "オプション2" => false,
-        "オプション3" => true,
-        "オプション4" => false,
-        "オプション5" => false,
-        "オプション6" => false,
-        "コスプレ" => 5,
-        "コメント" => "",
-        "予約no" => 17,
-        "承認" => 0
-      ]
+        "approval" => true,
+        "reserveNo" => 13,
+        "reserveType" => 2,
+        "reserveCustomerType" => 1,
+        "reserveCustomerNum" => 2,
+        "reserveGirlNum" => 9,
+        "reservePlayDay" => "2024-10-12",
+        "reservePlaytime" => "14:00:00",
+        "reservePlayCourse" => 180,
+        "reservePlaySpace" => 1,
+        "reservePlayArea" => '馬橋',
+        "reservePlayAdress" => false,
+        "option01" => false,
+        "option02" => false,
+        "option03" => true,
+        "option04" => false,
+        "option05" => true,
+        "option06" => false,
+        "option07" => true,
+        "option08" => false,
+        "option09" => true,
+        "option10" => false,
+        "cosplay" => 2,
+        "comment" => "おまかせします"
+    ],
+    [
+        "approval" => false,
+        "reserveNo" => 14,
+        "reserveType" => 1,
+        "reserveCustomerType" => 2,
+        "reserveCustomerNum" => 6,
+        "reserveGirlNum" => 3,
+        "reservePlayDay" => "2024-10-11",
+        "reservePlaytime" => "16:00:00",
+        "reservePlayCourse" => 240,
+        "reservePlaySpace" => 2,
+        "reservePlayArea" => false,
+        "reservePlayAdress" => "神奈川県横浜市",
+        "option01" => true,
+        "option02" => true,
+        "option03" => false,
+        "option04" => false,
+        "option05" => false,
+        "option06" => true,
+        "option07" => false,
+        "option08" => false,
+        "option09" => false,
+        "option10" => false,
+        "cosplay" => 7,
+        "comment" => "遅め希望"
+    ],
+    [
+        "approval" => true,
+        "reserveNo" => 15,
+        "reserveType" => 2,
+        "reserveCustomerType" => 1,
+        "reserveCustomerNum" => 1,
+        "reserveGirlNum" => 8,
+        "reservePlayDay" => "2024-10-14",
+        "reservePlaytime" => "18:00:00",
+        "reservePlayCourse" => 60,
+        "reservePlaySpace" => 1,
+        "reservePlayArea" => "馬橋",
+        "reservePlayAdress" => false,
+        "option01" => false,
+        "option02" => true,
+        "option03" => false,
+        "option04" => true,
+        "option05" => false,
+        "option06" => true,
+        "option07" => false,
+        "option08" => true,
+        "option09" => false,
+        "option10" => false,
+        "cosplay" => 4,
+        "comment" => "よろしく"
+    ],
+    [
+        "approval" => false,
+        "reserveNo" => 16,
+        "reserveType" => 1,
+        "reserveCustomerType" => 2,
+        "reserveCustomerNum" => 7,
+        "reserveGirlNum" => 6,
+        "reservePlayDay" => "2024-10-13",
+        "reservePlaytime" => "20:00:00",
+        "reservePlayCourse" => 120,
+        "reservePlaySpace" => 2,
+        "reservePlayArea" => false,
+        "reservePlayAdress" => "千葉県千葉市",
+        "option01" => true,
+        "option02" => false,
+        "option03" => true,
+        "option04" => false,
+        "option05" => false,
+        "option06" => true,
+        "option07" => false,
+        "option08" => true,
+        "option09" => false,
+        "option10" => false,
+        "cosplay" => 6,
+        "comment" => "またよろしく"
+    ],
+    [
+        "approval" => true,
+        "reserveNo" => 17,
+        "reserveType" => 1,
+        "reserveCustomerType" => 1,
+        "reserveCustomerNum" => 9,
+        "reserveGirlNum" => 5,
+        "reservePlayDay" => "2024-10-15",
+        "reservePlaytime" => "10:00:00",
+        "reservePlayCourse" => 180,
+        "reservePlaySpace" => 1,
+        "reservePlayArea" => "false",
+        "reservePlayAdress" => "北海道札幌市",
+        "option01" => true,
+        "option02" => false,
+        "option03" => false,
+        "option04" => true,
+        "option05" => true,
+        "option06" => false,
+        "option07" => true,
+        "option08" => false,
+        "option09" => true,
+        "option10" => false,
+        "cosplay" => 1,
+        "comment" => "楽しみです"
+    ],
+    [
+        "approval" => false,
+        "reserveNo" => 18,
+        "reserveType" => 3,
+        "reserveCustomerType" => 2,
+        "reserveCustomerNum" => 10,
+        "reserveGirlNum" => 2,
+        "reservePlayDay" => "2024-10-17",
+        "reservePlaytime" => "14:00:00",
+        "reservePlayCourse" => 240,
+        "reservePlaySpace" => 2,
+        "reservePlayArea" => "false",
+        "reservePlayAdress" => "大阪府大阪市",
+        "option01" => false,
+        "option02" => true,
+        "option03" => false,
+        "option04" => true,
+        "option05" => true,
+        "option06" => false,
+        "option07" => true,
+        "option08" => false,
+        "option09" => true,
+        "option10" => false,
+        "cosplay" => 8,
+        "comment" => "朝からお願いします"
+    ],
+    [
+        "approval" => true,
+        "reserveNo" => 19,
+        "reserveType" => 1,
+        "reserveCustomerType" => 1,
+        "reserveCustomerNum" => 8,
+        "reserveGirlNum" => 4,
+        "reservePlayDay" => "2024-10-16",
+        "reservePlaytime" => "12:00:00",
+        "reservePlayCourse" => 60,
+        "reservePlaySpace" => 1,
+        "reservePlayArea" => '松戸',
+        "reservePlayAdress" => false,
+        "option01" => true,
+        "option02" => false,
+        "option03" => true,
+        "option04" => false,
+        "option05" => false,
+        "option06" => true,
+        "option07" => false,
+        "option08" => true,
+        "option09" => false,
+        "option10" => true,
+        "cosplay" => 10,
+        "comment" => "楽しみにしています"
+    ],
+    [
+        "approval" => false,
+        "reserveNo" => 20,
+        "reserveType" => 2,
+        "reserveCustomerType" => 2,
+        "reserveCustomerNum" => 3,
+        "reserveGirlNum" => 1,
+        "reservePlayDay" => "2024-09-27",
+        "reservePlaytime" => "16:00:00",
+        "reservePlayCourse" => 90,
+        "reservePlaySpace" => 2,
+        "reservePlayArea" => false,
+        "reservePlayAdress" => "愛知県名古屋市",
+        "option01" => false,
+        "option02" => true,
+        "option03" => false,
+        "option04" => true,
+        "option05" => true,
+        "option06" => false,
+        "option07" => true,
+        "option08" => false,
+        "option09" => true,
+        "option10" => false,
+        "cosplay" => 9,
+        "comment" => "少し早めで"
+    ]
+
     ];
+
+$reserveLists_yet = [
+    [
+        "approval" => false,
+        "reserveNo" => 21,
+        "reserveType" => 1,
+        "reserveCustomerType" => 1,
+        "reserveCustomerNum" => 1,
+        "reserveGirlNum" => 1,
+        "reservePlayDay" => "2024-10-11",
+        "reservePlaytime" => "11:00:00",
+        "reservePlayCourse" => 180,
+        "reservePlaySpace" => 1,
+        "reservePlayArea" => "松戸",
+        "reservePlayAdress" => false,
+        "option01" => true,
+        "option02" => false,
+        "option03" => true,
+        "option04" => false,
+        "option05" => true,
+        "option06" => false,
+        "option07" => true,
+        "option08" => false,
+        "option09" => false,
+        "option10" => true,
+        "cosplay" => 3,
+        "comment" => "よろしくお願いします"
+    ],
+    [
+        "approval" => false,
+        "reserveNo" => 22,
+        "reserveType" => 2,
+        "reserveCustomerType" => 2,
+        "reserveCustomerNum" => 3,
+        "reserveGirlNum" => 4,
+        "reservePlayDay" => "2024-10-04",
+        "reservePlaytime" => "12:00:00",
+        "reservePlayCourse" => 120,
+        "reservePlaySpace" => 2,
+        "reservePlayArea" => "馬橋",
+        "reservePlayAdress" => false,
+        "option01" => false,
+        "option02" => true,
+        "option03" => false,
+        "option04" => true,
+        "option05" => false,
+        "option06" => true,
+        "option07" => false,
+        "option08" => true,
+        "option09" => false,
+        "option10" => false,
+        "cosplay" => 5,
+        "comment" => "昼頃希望"
+    ],
+    [
+        "approval" => false,
+        "reserveNo" => 23,
+        "reserveType" => 2,
+        "reserveCustomerType" => 1,
+        "reserveCustomerNum" => 2,
+        "reserveGirlNum" => 9,
+        "reservePlayDay" => "2024-10-05",
+        "reservePlaytime" => "14:00:00",
+        "reservePlayCourse" => 180,
+        "reservePlaySpace" => 1,
+        "reservePlayArea" => '馬橋',
+        "reservePlayAdress" => false,
+        "option01" => false,
+        "option02" => false,
+        "option03" => true,
+        "option04" => false,
+        "option05" => true,
+        "option06" => false,
+        "option07" => true,
+        "option08" => false,
+        "option09" => true,
+        "option10" => false,
+        "cosplay" => 2,
+        "comment" => "おまかせします"
+    ],
+    [
+        "approval" => false,
+        "reserveNo" => 24,
+        "reserveType" => 1,
+        "reserveCustomerType" => 2,
+        "reserveCustomerNum" => 6,
+        "reserveGirlNum" => 3,
+        "reservePlayDay" => "2024-10-06",
+        "reservePlaytime" => "16:00:00",
+        "reservePlayCourse" => 240,
+        "reservePlaySpace" => 2,
+        "reservePlayArea" => false,
+        "reservePlayAdress" => "神奈川県横浜市",
+        "option01" => true,
+        "option02" => true,
+        "option03" => false,
+        "option04" => false,
+        "option05" => false,
+        "option06" => true,
+        "option07" => false,
+        "option08" => false,
+        "option09" => false,
+        "option10" => false,
+        "cosplay" => 7,
+        "comment" => "遅め希望"
+    ],
+    [
+        "approval" => false,
+        "reserveNo" => 25,
+        "reserveType" => 2,
+        "reserveCustomerType" => 1,
+        "reserveCustomerNum" => 1,
+        "reserveGirlNum" => 8,
+        "reservePlayDay" => "2024-10-07",
+        "reservePlaytime" => "18:00:00",
+        "reservePlayCourse" => 60,
+        "reservePlaySpace" => 1,
+        "reservePlayArea" => "馬橋",
+        "reservePlayAdress" => false,
+        "option01" => false,
+        "option02" => true,
+        "option03" => false,
+        "option04" => true,
+        "option05" => false,
+        "option06" => true,
+        "option07" => false,
+        "option08" => true,
+        "option09" => false,
+        "option10" => false,
+        "cosplay" => 4,
+        "comment" => "よろしく"
+    ],
+    [
+        "approval" => false,
+        "reserveNo" => 26,
+        "reserveType" => 1,
+        "reserveCustomerType" => 2,
+        "reserveCustomerNum" => 6,
+        "reserveGirlNum" => 6,
+        "reservePlayDay" => "2024-10-08",
+        "reservePlaytime" => "20:00:00",
+        "reservePlayCourse" => 120,
+        "reservePlaySpace" => 2,
+        "reservePlayArea" => false,
+        "reservePlayAdress" => "千葉県千葉市",
+        "option01" => true,
+        "option02" => false,
+        "option03" => true,
+        "option04" => false,
+        "option05" => false,
+        "option06" => true,
+        "option07" => false,
+        "option08" => true,
+        "option09" => false,
+        "option10" => false,
+        "cosplay" => 6,
+        "comment" => "またよろしく"
+    ],
+    [
+        "approval" => false,
+        "reserveNo" => 27,
+        "reserveType" => 1,
+        "reserveCustomerType" => 1,
+        "reserveCustomerNum" => 3,
+        "reserveGirlNum" => 5,
+        "reservePlayDay" => "2024-10-09",
+        "reservePlaytime" => "10:00:00",
+        "reservePlayCourse" => 180,
+        "reservePlaySpace" => 1,
+        "reservePlayArea" => false,
+        "reservePlayAdress" => "北海道札幌市",
+        "option01" => true,
+        "option02" => false,
+        "option03" => false,
+        "option04" => true,
+        "option05" => true,
+        "option06" => false,
+        "option07" => true,
+        "option08" => false,
+        "option09" => true,
+        "option10" => false,
+        "cosplay" => 1,
+        "comment" => "楽しみです"
+    ],
+    [
+        "approval" => false,
+        "reserveNo" => 28,
+        "reserveType" => 3,
+        "reserveCustomerType" => 2,
+        "reserveCustomerNum" => 1,
+        "reserveGirlNum" => 2,
+        "reservePlayDay" => "2024-10-10",
+        "reservePlaytime" => "14:00:00",
+        "reservePlayCourse" => 240,
+        "reservePlaySpace" => 2,
+        "reservePlayArea" => false,
+        "reservePlayAdress" => "大阪府大阪市",
+        "option01" => false,
+        "option02" => true,
+        "option03" => false,
+        "option04" => true,
+        "option05" => true,
+        "option06" => false,
+        "option07" => true,
+        "option08" => false,
+        "option09" => true,
+        "option10" => false,
+        "cosplay" => 8,
+        "comment" => "朝からお願いします"
+    ],
+    [
+        "approval" => false,
+        "reserveNo" => 29,
+        "reserveType" => 1,
+        "reserveCustomerType" => 1,
+        "reserveCustomerNum" => 8,
+        "reserveGirlNum" => 4,
+        "reservePlayDay" => "2024-10-11",
+        "reservePlaytime" => "12:00:00",
+        "reservePlayCourse" => 60,
+        "reservePlaySpace" => 1,
+        "reservePlayArea" => '松戸',
+        "reservePlayAdress" => false,
+        "option01" => true,
+        "option02" => false,
+        "option03" => true,
+        "option04" => false,
+        "option05" => true,
+        "option06" => false,
+        "option07" => true,
+        "option08" => false,
+        "option09" => true,
+        "option10" => false,
+        "cosplay" => 9,
+        "comment" => "少し早めで"
+    ]]
+
+
+
     ?>
-
-
-
-<!-- 予約済み -->
-
-
-<?php $reserved_cards =[
-        [
-        "ユーザー番号" => 13,
-        "予約者名" => "ひとりめ",
-        "電話番号" => "08012345678",
-        "メールアドレス" => "daisuke.tanaka@example.com",
-        "指名社員番号" => 9,
-        "予約希望日" => "20240718",
-        "開始時間" => "11:00:00",
-        "プレイタイム" => 60,
-        "場所種類" => 0,
-        "場所位置" => "松戸",
-        "オプション1" => true,
-        "オプション2" => false,
-        "オプション3" => true,
-        "オプション4" => false,
-        "オプション5" => false,
-        "オプション6" => false,
-        "コスプレ" => 1,
-        "コメント" => "いつでも大丈夫ですわー",
-        "予約no" => 20,
-        "承認" => 0
-    ],
-    [
-        "ユーザー番号" => 13,
-        "予約者名" => "ふたりめ",
-        "電話番号" => "08012345678",
-        "メールアドレス" => "daisuke.tanaka@example.com",
-        "指名社員番号" => 9,
-        "予約希望日" => "20240712",
-        "開始時間" => "16:00:00",
-        "プレイタイム" => 120,
-        "場所種類" => 0,
-        "場所位置" => "松戸",
-        "オプション1" => true,
-        "オプション2" => false,
-        "オプション3" => true,
-        "オプション4" => false,
-        "オプション5" => false,
-        "オプション6" => false,
-        "コスプレ" => 1,
-        "コメント" => "いつでも大丈夫ですわー",
-        "予約no" => 20,
-        "承認" => 0
-    ],
-
-    [
-        "予約者名" => "さんにんめ",
-        "電話番号" => "09023456778",
-        "メールアドレス" => "wawawa@gmail.com",
-        "指名社員番号" => 9,
-        "予約希望日" => "20240702",
-        "開始時間" => "14:00:00",
-        "プレイタイム" => 60,
-        "場所種類" => 1,
-        "場所位置" => "新松戸５−１−４",
-        "オプション1" => false,
-        "オプション2" => false,
-        "オプション3" => true,
-        "オプション4" => false,
-        "オプション5" => false,
-        "オプション6" => false,
-        "コスプレ" => 5,
-        "コメント" => "",
-        "予約no" => 21,
-        "承認" => 0
-      ],
-    [
-
-        "ユーザー番号" => false,
-        "予約者名" => "よにんめ",
-        "電話番号" => "09041234567",
-        "メールアドレス" => "tekeke@gmail.com",
-        "指名社員番号" => 1,
-        "予約希望日" => "20240620",
-        "開始時間" => "16:00:00",
-        "プレイタイム" => 180,
-        "場所種類" => 1,
-        "場所位置" => "新松戸５−１−４",
-        "オプション1" => false,
-        "オプション2" => false,
-        "オプション3" => true,
-        "オプション4" => false,
-        "オプション5" => false,
-        "オプション6" => false,
-        "コスプレ" => 5,
-        "コメント" => "",
-        "予約no" => 22,
-        "承認" => 0
-      ]
-]
-?>

@@ -83,6 +83,47 @@
     require_once( dirname(__FILE__). '/data.php');
     ?>
     <!------------------>
+    三郷
+
+
+
+
+    <?php
+
+レビューを選択したのか？
+スタッフを選択したのか？
+分岐して表示する
+ゲットのところを変えればいいかな？
+
+
+if (isset($_GET['review']) && !empty($_GET['review'])) {
+    // 'review' が存在し、非空の場合の処理
+} elseif (isset($_GET['staff']) && !empty($_GET['staff'])) {
+    // 'staff' が存在し、非空の場合の処理
+}
+
+
+    <!-- 仮データ入れます -->
+    <?php 
+
+    $review_no = $_GET['review'];
+
+
+    foreach($approvalPending as $item){
+    if ($item["承認"] == 1 && $item["指名社員番号"] == $review_no) {
+        $reviews[] = new ReviewManager($item);
+    }
+    }
+    if (empty($reviews)) {
+      $reviews[] = new ReviewManager();
+    }
+
+
+
+    $reviews_class ='';
+    ?>
+
+    <!------------------>
 
     <main id="main">
 
@@ -130,7 +171,7 @@
         <!-- </div> -->
 
 
-        <?php foreach($reviews_class as $review) :?>
+        <?php foreach($reviews as $review) :?>
         <!--レビューカード  -->
         <section class="review_card">
           <div class="review_header content_wrapper under_space">

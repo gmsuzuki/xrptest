@@ -28,16 +28,54 @@
 <?php
     require_once( dirname(__FILE__). '/../parts/setting_header.php');
     require_once( dirname(__FILE__). '/data/data.php');
+
+
+// 予約のclass
+    require_once( dirname(__FILE__). '/class/reserve_class.php');
     require_once( dirname(__FILE__). '/data/reserve_data.php');
-    ?>
+
+// 未承認リスト
+    $reserve_class_arrs=[];
+    foreach( $reserveLists_yet as $reserve_request){
+    $reserve_class_arrs[] = new Reservation($reserve_request);
+  }
 
 
-<!-- 得たデータが例えば -->
-<?php
-    // 予約インスタンスを作成して配列に格納
-    foreach( $reserve_requests as $reserve_request)
-    $reserve_class_arrs[] = new Reservation($reserve_request)
-    ?>
+//お客さんカプセル化
+require_once( dirname(__FILE__). '/data/member_data.php');
+require_once( dirname(__FILE__). '/class/member_class.php');
+
+//客profile
+foreach($people_basics as $people_basic){
+$memberList[] = new memberProfileManager($people_basic);
+}
+
+
+
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+// スタッフカプセル化
+require_once( dirname(__FILE__). '/data/girl_data.php');
+require_once( dirname(__FILE__). '/class/girl_class.php');
+require_once( dirname(__FILE__). '/data/staff_list_sort.php');
+
+// スタッフprofile
+foreach($sample_names as $sample_name){
+$staffList[] = new girlProfilelManager($sample_name);
+}
+
+// 画像
+foreach($sample_pics as $sample_pic ){
+$staffPics[] = new girlImageManager($sample_pic['girlNumber'],$sample_pic);
+}
+
+
+
+
+
+?>
+
+
 
 
 <body id="body">
@@ -71,29 +109,39 @@
             <h1 class="heading"><span>予約承認待ちリスト</span></h1>
           </div>
 
+          <!-- 未承認リスト -->
+
           <!--予約のインスタンス配列をforeach  -->
           <?php foreach($reserve_class_arrs as $reserve_class_arr):?>
           <!-- 予約番号 -->
-          <?php $reserve_number = $reserve_class_arr->getReservationNumber()?>
+          <?php $reserve_number = $reserve_class_arr->getReserveNo()?>
 
           <!-- 指名する人 -->
-          <?php $employee_number = $reserve_class_arr->getEmployeeNumber(); ?>
+          <?php $employe_number = $reserve_class_arr->getReserveGirlNum(); ?>
           <!-- 予約予定日 -->
-          <?php $reserve_title_day = $reserve_class_arr->getReservationDate();?>
+          <?php $reserve_title_day = $reserve_class_arr->getReservePlayDay();?>
           <!-- 希望開始時間 -->
-          <?php $attendance_time = date("H:i",strtotime($reserve_class_arr->getStartTime())); ?>
-          <!-- 指名した人の顧客ナンバー -->
-          <?php $reserve_customer_name =$reserve_class_arr->getUserNumber();?>
-          <?php foreach($people_basics as $people_basic) :?>
-          <?php if($people_basic["no"] == $reserve_customer_name):?>
-          <?php $reserve_customer_img = $people_basic["icon"] ?>
+          <?php $attendance_time = date("H:i",strtotime($reserve_class_arr->getReservePlaytime())); ?>
+          <!-- 指名した人の顧客特定 -->
+          <?php foreach( $memberList as $samplename ) :?>
+          <?php if($samplename -> getMemberNumber() == $reserve_class_arr->getReserveCustomerNum()):?>
+          <?php $reserve_customer_name = $samplename -> getMemberName()?>
+          <?php $reserve_customer_img =  $samplename -> getMemberIcon() ?>
           <?php break; ?>
           <?php endif; ?>
           <?php endforeach ;?>
 
           <!-- 指名した人を特定 -->
-          <?php foreach($sample_names as $sample_name):?>
-          <?php if($sample_name[0] == $employee_number):?>
+          <?php foreach($staffList as $staff):?>
+          <?php if($staff-> getGirlNumber() == $employe_number):?>
+          <?php $nominatedstaff_name = $staff -> getGirlName() ?>
+          <?php foreach($staffPics as $staffPic):?>
+          <?php if($staffPic -> getGirlNumber() == $employe_number):?>
+          <?php $nominatedstaff_img = $staffPic -> getGirlImage01()?>
+          <?php break?>
+          <?php endif ?>
+          <?endforeach?>
+
 
           <a href='reserve_schedule_done.php?selected_reserve_num=<?php echo urlencode($reserve_number) ?>'>
             <div class="request_wrap">
@@ -106,17 +154,17 @@
                     <img src='../<?php echo $reserve_customer_img?>' alt="">
                   </figure>
                   <figcaption class="request_img_caption">
-                    <?php echo $reserve_class_arr->getReserverName();?>
+                    <?php echo $reserve_customer_name;?>
                   </figcaption>
                 </div>
                 <div class="arrow-round"></div>
                 <!-- 指名された人 -->
                 <div>
                   <figure class="request_img">
-                    <img src='../<?php echo $sample_name[3]?>' alt="">
+                    <img src='../<?php echo $nominatedstaff_img?>' alt="">
                   </figure>
                   <figcaption class="request_img_caption">
-                    <?php echo $sample_name[1] ?>
+                    <?php echo $nominatedstaff_name ?>
                   </figcaption>
                 </div>
 
@@ -125,9 +173,9 @@
                 <p class="starttime"><?php echo $attendance_time ?></p>
                 <span class="dli-caret-right"></span>
                 <p class="endtime">
-                  <?php echo $reserve_class_arr->addTimeToStartTime($reserve_class_arr->getPlayTime()) ?>
+                  <?php echo $reserve_class_arr->addTimeToStartTime($reserve_class_arr->getReservePlayCourse()) ?>
                 </p>
-                <p class="coursetime"><?php echo $reserve_class_arr->getPlayTime(); ?>分</p>
+                <p class="coursetime"><?php echo $reserve_class_arr->getReservePlayCourse(); ?>分</p>
               </div>
 
             </div>

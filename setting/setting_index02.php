@@ -59,34 +59,38 @@
     <!-- header読み込み -->
     <?php
     require_once( dirname(__FILE__). '/../parts/setting_header.php');
-    require_once( dirname(__FILE__). '/../setting/class_input_reserve.php');
+    // require_once( dirname(__FILE__). '/../setting/class_input_reserve.php');
 
     session_start(); // セッションを開始
-    if($_POST['clearSession']){
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['clearSession'])) {
 
     // セッション変数をクリア
     $_SESSION = array();
 
     // セッションクッキーを削除
     if (ini_get("session.use_cookies")) {
-    $params = session_get_cookie_params(); // セッションクッキーの設定
-    setcookie(
-        session_name(), // セッションIDのクッキー
-        '', // クッキーの値を空に
-        time() - 42000, // 有効期限を過去に設定
-        $params["path"], 
-        $params["domain"], 
-        $params["secure"], 
-        $params["httponly"]
-    ); // クッキーを削除
-  }
+        $params = session_get_cookie_params(); // セッションクッキーの設定
+        setcookie(
+            session_name(), // セッションIDのクッキー
+            '', // クッキーの値を空に
+            time() - 42000, // 有効期限を過去に設定
+            $params["path"], 
+            $params["domain"], 
+            $params["secure"], 
+            $params["httponly"]
+        ); // クッキーを削除
+    }
 
-      // セッションを終了
-      session_destroy();
-      $pvsession = 'セッションクリアしました';
-      }
-      ?>
+    // セッションを終了
+    session_destroy();
 
+    // リダイレクトを実行して、POSTをGETに変換
+    header("Location: " . $_SERVER['REQUEST_URI']); // 現在のURLにリダイレクト
+    exit(); // リダイレクト後にスクリプトを終了
+}
+
+$pvsession = 'セッションクリアしました';
+?>
 
 
 
@@ -160,7 +164,7 @@
                   <a href="approval_schedule.php"><span>出勤承認</span></a>
                 </li>
                 <li class="approval_setting_link list_flex_box ">
-                  <a href="input_approval_schedule.php"><span>出勤入力</span></a>
+                  <a href="input_attendance_01.php"><span>出勤入力</span></a>
                 </li>
                 <li class="approval_setting_link list_flex_box ">
                   <a href="reserve_schedule.php"><span>予約承認</span></a>
@@ -200,7 +204,7 @@
                   <a href="new_girl_set.php?setting=cast"><span>新人登録</span></a>
                 </li>
                 <li class="register_setting_link list_flex_box ">
-                  <a href="new_news_set.php?setting=news"><span>ニュース投稿</span></a>
+                  <a href="new_news_set.php?setting=info"><span>おしらせ投稿</span></a>
                 </li>
                 <li class="register_setting_link list_flex_box ">
                   <a href="new_news_set.php?setting=news"><span>店外観</span></a>

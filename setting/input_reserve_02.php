@@ -27,9 +27,11 @@
   <script src="../js/setting.js" defer></script>
   <script src="../js/cancelpop.js" defer></script>
   <script src="../js/radio_display.js" defer></script>
+
   <script src="../js/input_reserve_date.js" defer></script>
   <script src="../js/make_reserve02.js" defer></script>
 
+  <script src="../js/step_bar.js" defer></script>
 
 </head>
 
@@ -37,15 +39,73 @@
 
 
   <?php
-    require_once( dirname(__FILE__). '/../setting/class_input_reserve.php');
     require_once( dirname(__FILE__). '/../parts/setting_header.php');
     require_once( dirname(__FILE__). '/data/data.php');
+
+
+// 予約のclass
+    require_once( dirname(__FILE__). '/class/reserve_class.php');
     require_once( dirname(__FILE__). '/data/data_reserve.php');
-    ?>
+
+
+  //お客さんカプセル化
+   require_once( dirname(__FILE__). '/data/member_data.php');
+   require_once( dirname(__FILE__). '/class/member_class.php');
+  
+    // profile
+  foreach($people_basics as $people_basic){
+    $memberList[] = new memberProfileManager($people_basic);
+  }
+
+
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+// スタッフカプセル化
+    require_once( dirname(__FILE__). '/data/girl_data.php');
+    require_once( dirname(__FILE__). '/class/girl_class.php');
+    require_once( dirname(__FILE__). '/data/staff_list_sort.php');
+
+    // profile
+  foreach($sample_names as $sample_name){
+    $staffList[] = new girlProfilelManager($sample_name);
+  }
+
+  // 画像
+  foreach($sample_pics  as $sample_pic ){
+    $staffPics[] = new girlImageManager($sample_pic['girlNumber'],$sample_pic);
+  }
+
+
+
+// スケジュールカプセル化
+
+
+    require_once( dirname(__FILE__). '/class/attendance_class.php');
+    require_once( dirname(__FILE__). '/data/attendance_data.php');
+
+// スケジュール
+
+$inputData = [];
+foreach ($scheduleArray as $schedule) {
+    $workDay = $schedule['attendanceWorkDay'];
+    $inputData[$workDay][] = new InputAttendanceReserve($schedule);
+}
+
+
+
+  // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+
+
+    require_once( dirname(__FILE__). '/data/staff_list_sort.php');
+
+
+?>
 
 
   <?php // セッションIDを比較
   session_start();
+
 
 
 // test01.phpを通過したかをチェック
@@ -94,6 +154,13 @@ if (!isset($_SESSION['visited_test01'])) {
 if (isset($_SESSION['input_reserve_card'])) {
     $reserve = unserialize($_SESSION['input_reserve_card']);
 
+    // 特別表示用のユーザー名前電話メール
+  $reserverName =  $_SESSION['memberName'];
+  $reserverPhonee = $_SESSION['memberPhone'];
+  $reserverEmail = $_SESSION['memberEmail'];
+  $reserverIcon = $_SESSION['memberIcon'];
+
+
 
     // ここでバリデーションしてからOKなら０３へとばす
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["reserve_cast"])) {
@@ -116,14 +183,17 @@ if (isset($_SESSION['input_reserve_card'])) {
                     $reserve->setReservePlayDay($date);
                 } else {
                     $errmessage = "無効な日付です。";
+                    echo $errmessage;
                     exit();
                 }
             } else {
                 $errmessage = "日付の形式が正しくありません。";
+                echo $errmessage;
                 exit();
             }
         } else {
             $errmessage = "日付が送信されていません。";
+            echo $errmessage;
             exit();
         }
 
@@ -136,10 +206,10 @@ if (isset($_SESSION['input_reserve_card'])) {
 
             if (!empty($mnumber) && is_numeric($mnumber) && floor($mnumber) == $mnumber) {
                 // memberから検索
-                foreach ($sample_names as $cast) {
-                    if ((int)$cast[0] == $mnumber) {
+                foreach ($staffList as $cast) {
+                    if ((int)$cast -> getGirlNumber() == $mnumber) {
                         $found_cast = $cast;
-                        $castnum = $found_cast[0];
+                        $castnum = $found_cast->getGirlNumber();
                         $reserve->setReserveGirlNum($castnum);
                         break;
                     }
@@ -151,11 +221,14 @@ if (isset($_SESSION['input_reserve_card'])) {
             } else {
                 $errmessage = "入ってる番号がおかしい";
                 $reserve->resetPropertyNull($reservePlayDay);
+                echo $errmessage;
+                echo $mnumber;
                 exit();
             }
         } else {
             $errmessage = "指名するキャスト番号入ってない";
             $reserve->resetPropertyNull($reservePlayDay);
+            echo $errmessage;
             exit();
         }
 
@@ -173,10 +246,10 @@ if (isset($_SESSION['input_reserve_card'])) {
 
 
 
+
+
   <div id="wrapper">
     <!-- header読み込み -->
-
-
 
 
     <main id="main">
@@ -198,7 +271,6 @@ if (isset($_SESSION['input_reserve_card'])) {
 
 
 
-
           <form action="input_reserve_02.php" method="post">
 
 
@@ -211,12 +283,12 @@ if (isset($_SESSION['input_reserve_card'])) {
                 <?php if($reserve->getReserveCustomerType()== 2):?>
                 <img src='../img/user_face.png' alt="">
                 <?php else:?>
-                <img src='../<?php echo $people_basics[$reserve->getReserveCustomerNum()]['icon']?>' alt="">
+                <img src='../<?php echo $reserverIcon?>' alt="">
                 <?php endif?>
               </figure>
               <figcaption class="request_img_caption">
 
-                <?php echo $reserve->getReserveCustomerName() ?>
+                <?php echo $reserverName; ?>
               </figcaption>
             </div>
 
@@ -266,7 +338,7 @@ if (isset($_SESSION['input_reserve_card'])) {
             <?php $day_of_schedule = new DateTime(); ?>
             <?php for ($i = 1; $i <= 8; $i++): ?>
             <?php $dateId = $day_of_schedule->format('Ymd'); ?>
-            <?php $date_arr = $day_of_schedule->format('Y_m_d'); ?>
+            <?php $date_arr = $day_of_schedule->format('Y-m-d'); ?>
 
 
             <!-- sectionーーーーーーーーーーーーーーー -->
@@ -278,15 +350,15 @@ if (isset($_SESSION['input_reserve_card'])) {
               <?php if (array_key_exists($date_arr, $inputData)): ?>
               <?php $selectedArray = $inputData[$date_arr]; ?>
               <!-- その日出勤するスタッフのフタッフ番号配列 -->
-              <?php $come_to_work_staffs =array();?>
+              <?php $come_to_work_staffs = array();?>
 
 
               <?php 
              // ひらがなのCollatorオブジェクトを作成
             $collator = new Collator('ja_JP');
             // ひらがなを比較してソート
-            usort($sample_names, function ($a, $b) use ($collator) {
-            return $collator->compare($a[2], $b[2]);
+            usort($staffList, function ($a, $b) use ($collator) {
+            return $collator->compare($a->getKanaName(), $b->getKanaName());
             });
              $current_row = '';
             ?>
@@ -294,26 +366,39 @@ if (isset($_SESSION['input_reserve_card'])) {
               <!-- 選んだ日程の出勤者配列から各出勤者 -->
               <?php foreach($selectedArray as $come_to_work): ?>
 
-              <?php foreach($sample_names as $sample_name): ?>
-              <?php if($sample_name[0] == $come_to_work['社員番号']): ?>
-              <?php $come_to_work_staffs[] = $sample_name; ?>
+              <?php foreach($staffList as $staff): ?>
+              <?php if($staff->getGirlNumber() == $come_to_work->getAttendanceGirlNum()): ?>
+              <?php $come_to_work_staffs[] = $staff; ?>
               <?php endif?>
               <?php endforeach?>
               <?php endforeach?>
 
               <?php
             // 名前の順で揃えます
-            usort($come_to_work_staffs, 'compareNames');
+            // usort($come_to_work_staffs, 'compareNames');
+
+            // kanaNameでソート
+            girlProfilelManager::sortByKanaName($come_to_work_staffs);
             ?>
 
 
               <!-- 名前を行ごとにまとめて表示 -->
-              <?php foreach ($come_to_work_staffs as $person):?>
+              <?php foreach ($come_to_work_staffs as $girl):?>
 
-              <?php $name = $person[2];
-              $name_k =$person[1];
-              $girl_image = $person[3];
-              $first_char = mb_substr($name, 0, 1);
+              <?php 
+              $girlid = $girl ->getGirlNumber();
+              $name = $girl -> getGirlName();
+              $name_k =$girl -> getKanaName();
+
+              foreach( $staffPics as $staffPic){
+                if($staffPic -> getGirlNumber() == $girl -> getGirlNumber()){
+                  $girl_image = $staffPic -> getGirlImage01();
+                  break; // ここでループを終了
+                }
+              }
+
+
+              $first_char = mb_substr($name_k, 0, 1);
               ?>
               <?php if ($first_char !== $current_row):?>
 
@@ -332,16 +417,16 @@ if (isset($_SESSION['input_reserve_card'])) {
 
                 <li class=" staff_select_input">
 
-                  <input type="radio" name="reserve_select_girl" value="<?php echo $person[0]?>"
-                    id="day_<?php echo $dateId; ?>_num<?php echo $person[0]?>" class="image_radio_select">
+                  <input type="radio" name="reserve_select_girl" value="<?php echo $girlid?>"
+                    id="day_<?php echo $dateId; ?>_num<?php echo $girlid?>" class="image_radio_select">
 
                   <!-- <div class="image-container"> -->
-                  <label for="day_<?php echo $dateId; ?>_num<?php echo $person[0]?>" class="select_staff_input_content">
+                  <label for="day_<?php echo $dateId; ?>_num<?php echo $girlid?>" class="select_staff_input_content">
                     <figure>
                       <img src='../<?php echo $girl_image?>' alt='' class="select_staff_photo">
                     </figure>
                     <figcaption class="girl_name">
-                      <?php echo $name_k ?>
+                      <?php echo $name ?>
                     </figcaption>
                     <div class="overlay"><span class="overlay-text">選択中</span></div>
                     <!-- </div> -->

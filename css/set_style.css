@@ -905,7 +905,7 @@ input[name="tab_item"] {
 }
 .progressbar_square .item {
   position: relative;
-  width: 20%;
+  /* width: 20%; */
   text-align: center;
   position: relative;
   align-items: center;
@@ -915,6 +915,7 @@ input[name="tab_item"] {
   background: #f5f5f5;
   color: #999999;
 }
+
 .progressbar_square .item:not(:last-child)::before,
 .progressbar_square .item:not(:last-child)::after {
   position: absolute;
@@ -1387,6 +1388,10 @@ input[name="picRadio"]:checked + label.radio_pic img {
   width: 100%;
   background-color: #fff;
 }
+.oneday_calendar_bottom {
+  padding-bottom: 3rem;
+}
+
 .oneday_calendar th,
 .oneday_calendar td {
   border: 1px solid #cacaca;
@@ -1782,18 +1787,26 @@ td .request_work {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-around;
+  /* justify-content: space-around; */
+  justify-content: space-between;
 }
 
 .approval_pending_card {
   display: block;
   color: black;
   font-size: 1.2rem;
-  width: 45%;
+  width: 48%;
   padding: 1rem;
   background-color: #fff;
   margin-bottom: 2rem;
   border-radius: 10px;
+}
+/* 最後の行が1つしかない場合、左寄せにする */
+#approval_pending_list
+  > .approval_pending_card:nth-last-child(2):nth-child(odd),
+#approval_pending_list
+  > .approval_pending_card:nth-last-child(1):nth-child(odd) {
+  margin-right: auto;
 }
 
 .subtitles_img {
@@ -2443,6 +2456,16 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .input_optin {
   margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+input[type="checkbox"]:disabled + label {
+  color: whitesmoke;
+}
+
+.li_options {
+  width: 40%;
 }
 
 .house_adress_input_text {
@@ -2485,6 +2508,7 @@ input[type="number"]::-webkit-outer-spin-button {
   background-color: rgba(0, 0, 0, 0.7); /* 半透明の黒 */
   padding: 10px;
   box-sizing: border-box;
+  left: 0;
 }
 
 .day_section {
@@ -2523,4 +2547,55 @@ input[type="number"]::-webkit-outer-spin-button {
 .image_radio_select:checked + .select_staff_input_content .overlay {
   /* border: 3px solid red; */
   opacity: 1;
+}
+
+/* 出勤入力 */
+.input_attendance_title {
+  background-color: #f5f5f5;
+  line-height: 2rem;
+  border-radius: 12px 12px 0 0;
+  padding: 2rem 0 1rem 1rem;
+}
+.input_attendance_cancel {
+  background-color: #333333;
+  display: flex;
+  justify-content: center; /* 水平方向の中央揃え */
+  align-items: center; /* 垂直方向の中央揃え */
+}
+
+.input_workdate_and_time {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  background-color: rgb(160, 158, 158);
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 15px 5px;
+  text-align: center; /* 水平位置を中央に揃える */
+  vertical-align: middle; /* 垂直方向の中央揃え */
+}
+th {
+  background-color: #f2f2f2;
+}
+td input {
+  width: 100%; /* 入力フィールドをセルの幅に合わせる */
+  box-sizing: border-box; /* パディングを含めて幅を計算 */
+  vertical-align: middle; /* 垂直方向の中央揃え */
+}
+.attendances_list {
+  font-size: 2rem;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.attendances_input_wrap {
+  margin: 3rem 0;
+}
+
+.push_wrap {
+  display: flex;
 }

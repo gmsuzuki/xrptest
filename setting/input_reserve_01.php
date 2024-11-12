@@ -30,6 +30,7 @@
   <script src="../js/cancelpop.js" defer></script>
   <script src="../js/user_input_modal.js" defer></script>
   <script src="../js/make_reserve01.js" defer></script>
+  <script src="../js/step_bar.js" defer></script>
 
   <script>
   function showAlert() {
@@ -50,11 +51,31 @@
     require_once( dirname(__FILE__). '/../parts/setting_header.php');
     require_once( dirname(__FILE__). '/data/data.php');
     require_once( dirname(__FILE__). '/../setting/radio_validate.php');
-    require_once( dirname(__FILE__). '/../setting/reserve_set.php');
-    require_once( dirname(__FILE__). '/../setting/class_input_reserve.php');
+
+
+// 予約のclass
+    require_once( dirname(__FILE__). '/class/reserve_class.php');
   
+  //お客さんカプセル化
+   require_once( dirname(__FILE__). '/data/member_data.php');
+   require_once( dirname(__FILE__). '/class/member_class.php');
+  
+    // profile
+  foreach($people_basics as $people_basic){
+    $memberList[] = new memberProfileManager($people_basic);
+  }
+
+
+
 
 session_start(); // セッションを開始
+
+// 特別表示用のユーザー名前電話メール
+  $_SESSION['memberName'] = "";
+  $_SESSION['memberPhone'] = "";
+  $_SESSION['memberEmail'] = "";
+  $_SESSION['memberIcon'] = "";
+
 
 // セッションIDを保存していない場合、現在のセッションIDを保存
 if (!isset($_SESSION['session_id'])) {
@@ -90,16 +111,36 @@ if (!isset($_SESSION['session_id'])) {
   $errmessage = array();
 
 
+
+
+
   // ーーーーーーーセッション管理
   // 初めて訪問か？ブラウザーバックで戻ってきたか？
   if(!isset($_SESSION['input_reserve_card']) || empty($_SESSION['input_reserve_card'])){
   // InputPlayReserveのインスタンスを作成する
-  $reserve = new InputPlayReserve();
+  $reserve = new Reservation();
   // $reserveTypeに値をセットする(スタッフ入力)
-
+  $reserve -> setReserveType(1);
 
   }elseif(isset($_SESSION['input_reserve_card']) || !empty($_SESSION['input_reserve_card'])){
   $reserve = unserialize($_SESSION['input_reserve_card']);
+
+  // 客の情報特定
+  foreach( $memberList as  $member){
+    if($member->getMemberNumber() == $reserve -> getReserveCustomerNum()){
+      $reserverName = $member->getMemberName();
+      $reserverPhone = $member-> getMemberPhone();
+      $reserverEmail = $member-> getMemberEmail();
+      $reserverIcon = $member-> getMemberIcon();
+    }
+  }
+
+  // 一応セッションに入れ直す
+  $_SESSION['memberName'] = $reserverName;
+  $_SESSION['memberPhone'] = $reserverPhone;
+  $_SESSION['memberEmail'] = $reserverEmail;
+  $_SESSION['memberIcon'] = $reserverIcon;
+
 
 if($_SESSION['visited_test02'] == true && $reserve->getReserveCustomerType()==2){
   $_SESSION['visited_test02']= false;
@@ -107,11 +148,19 @@ if($_SESSION['visited_test02'] == true && $reserve->getReserveCustomerType()==2)
 
 };
 
-  }
+
+
+}
+
+
 
 
   // 新規登録して次へ
   if($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["new_customer_information"])){
+    if($reserve -> getReserveCustomerType() == 2){
+        header("Location: input_reserve_02.php");
+        exit();
+    }
   $name = $_POST['customer_name'];
   $phone = $_POST['customer_phone'];
   // 名前のパターンチェック
@@ -141,12 +190,25 @@ if($_SESSION['visited_test02'] == true && $reserve->getReserveCustomerType()==2)
   // インスタンスに入れる
   // 予約入力者タイプ
   $reserve->setReserveType(1);
-  // 名前
-  $reserve -> setIfValue('reserveCustomerName', $_POST["customer_name"]);
-  // mail
-  $reserve -> setIfValue('reserveCustomerMail', $_POST["customer_mail"]);
-  // phone
-  $reserve-> setIfValue('reserveCustomerPhone', $_POST["customer_phone"]);
+  // 仮でmemberNO
+  $reserve->setReserveType(99);
+
+  // 表示に使うもの
+  $reserverName = $_POST["customer_name"];
+  $reserverPhone = $_POST["customer_phone"];
+  $reserverEmail = $_POST["customer_mail"];
+  $reserverIcon = 'img/user_face.png';
+
+  // 一応セッションに入れ直す
+  $_SESSION['memberName'] = $reserverName;
+  $_SESSION['memberPhone'] = $reserverPhone;
+  $_SESSION['memberEmail'] = $reserverEmail;
+  $_SESSION['memberIcon'] = $reserverIcon;
+
+  // $reserve -> setIfValue('reserveCustomerName', $_POST["customer_name"]);
+  // $reserve -> setIfValue('reserveCustomerMail', $_POST["customer_mail"]);
+  // $reserve-> setIfValue('reserveCustomerPhone', $_POST["customer_phone"]);
+ 
   // 新規　２
   $reserve-> setIfValue('reserveCustomerType', $_POST["member_new"]);
   // 次へ行く
@@ -166,15 +228,22 @@ if($_SESSION['visited_test02'] == true && $reserve->getReserveCustomerType()==2)
   if (!empty($mnumber) && is_numeric($mnumber) && floor($mnumber) == $mnumber){
 
   // memberから検索
-  foreach ($people_basics as $person) {
-  if ($person['no'] == $mnumber) {
-  $found_person = $person;
-  $reserve->setReserveCustomerNum($found_person['no']);
-  $reserve->setReserveCustomerName($found_person['name']);
-  $reserve->setReserveCustomerPhone($found_person['phone']);
-  if($found_person['email']){
-  $reserve->setReserveCustomerMail($found_person['email']);
-  }
+  foreach ($memberList as $member) {
+  if ($member ->  getMemberNumber() == $mnumber) {
+  $found_person = $member;
+  $reserve->setReserveCustomerNum($found_person -> getMemberNumber());
+
+  // セッションに入れとく
+  $_SESSION['memberName'] = $member -> getMemberName();
+  $_SESSION['memberPhone'] = $member -> getMemberPhone();
+  $_SESSION['memberEmail'] = $member -> getMemberEmail();
+  $_SESSION['memberIcon'] = $member -> getMemberIcon();
+
+  // $reserve->setReserveCustomerName($found_person -> getUserName());
+  // $reserve->setReserveCustomerPhone($found_person -> getUserPhone());
+  // if($found_person-> getUserEmail()){
+  // $reserve->setReserveCustomerMail($found_person -> getUserEmail());
+  // }
   }
   }
   // 次へ行く
@@ -214,20 +283,36 @@ if($_SESSION['visited_test02'] == true && $reserve->getReserveCustomerType()==2)
               $search_no = mb_convert_kana($search_no, 'n', 'UTF-8');
               // 入力された数字を検索
               $found_person = null;
-              $test= 1;
               $search_executed = false; // 検索が実行されたかどうかのフラグ
               $serch_err = false;// エラーしてるか？デフォルトしていない
               if ($search_no !== '') {
-              foreach ($people_basics as $person) {
-                if ($person['no'] == $search_no) {
-                  $found_person = $person;
+
+                
+              // foreach ($people_basics as $person) {
+              foreach ($memberList as $member) {
+                
+                if ($member -> getMemberNumber() == $search_no) {
+                  $found_person = $member;
                     $reserve->setReserveCustomerType(1);
-                    $reserve->setReserveCustomerNum($found_person['no']);
-                    $reserve->setReserveCustomerName($found_person['name']);
-                    $reserve->setReserveCustomerPhone($found_person['phone']);
-                    if($found_person['email']){
-                      $reserve->setReserveCustomerMail($found_person['email']);
-                    }
+                    $reserve->setReserveCustomerNum($found_person -> getMemberNumber());
+                    // 表示用
+                    $reserverName = $member -> getMemberName();
+                    $reserverPhone = $member -> getMemberPhone();
+                    $reserverEmail = $member -> getMemberEmail();
+                    $reserverIcon = $member -> getMemberIcon();
+                    
+                    // 一応セッションに入れ直す
+                    $_SESSION['memberName'] = $reserverName;
+                    $_SESSION['memberPhone'] = $reserverPhone;
+                    $_SESSION['memberEmail'] = $reserverEmail;
+                    $_SESSION['memberIcon'] = $reserverIcon;
+
+
+                    // $reserve->setReserveCustomerName($found_person -> getUserName());
+                    // $reserve->setReserveCustomerPhone($found_person -> getUserPhone());
+                    // if($found_person-> getUserEmail()){
+                      // $reserve->setReserveCustomerMail($found_person -> getUserEmail());
+                    // }
                   $search_executed = true; // 検索が実行されたことを記録
                   $serch_err = false;
                   // $reserve -> setReserveCustomerType(1);
@@ -248,6 +333,8 @@ if($_SESSION['visited_test02'] == true && $reserve->getReserveCustomerType()==2)
 
 
   <div id="wrapper">
+
+
 
     <main id="main">
       <article id="setting_index" class="under_space">
@@ -323,7 +410,7 @@ if($_SESSION['visited_test02'] == true && $reserve->getReserveCustomerType()==2)
                   <span id="alert_number"></span>
                 </h2>
 
-                <?php if(!empty($reserve->getReserveCustomerName())):?>
+                <?php if(!empty($reserve->getReserveCustomerNum())):?>
                 <a href="input_reserve_schedule.php" onclick="clearPop(event)"
                   class="new_member_registration">新規はこちら</a>
 
@@ -338,7 +425,7 @@ if($_SESSION['visited_test02'] == true && $reserve->getReserveCustomerType()==2)
 
               <form method="post" action="" class="member_search_from" onsubmit="return validateForm()">
 
-                <?php if(!empty($reserve->getReserveCustomerName())):?>
+                <?php if(!empty($reserve->getReserveCustomerNum())):?>
                 <input type="text" name="search_no" id="search_no" class="staff_input_area" placeholder="会員番号入力"
                   onfocus="clearPop(event)">
                 <?php else:?>
@@ -364,9 +451,21 @@ if($_SESSION['visited_test02'] == true && $reserve->getReserveCustomerType()==2)
 
                 <?php    //今保存されているものを消す
                     $reserve->resetPropertyValue('reserveCustomerNum');
-                    $reserve->resetPropertyValue('reserveCustomerName');
-                    $reserve->resetPropertyValue('reserveCustomerPhone');
-                    $reserve->resetPropertyValue('reserveCustomerMail');
+                    // $reserve->resetPropertyValue('reserveCustomerName');
+                    // $reserve->resetPropertyValue('reserveCustomerPhone');
+                    // $reserve->resetPropertyValue('reserveCustomerMail');
+
+                    $reserverName = "";
+                    $reserverPhone = "";
+                    $reserverEmail = "";
+                    $reserverIcon = "";
+                    
+                    // 一応セッションに入れ直す
+                    $_SESSION['memberName'] = "";
+                    $_SESSION['memberPhone'] = "";
+                    $_SESSION['memberEmail'] = "";
+                    $_SESSION['memberIcon'] = "";
+
               ?>
 
                 <div class="user_card_wrap">
@@ -394,7 +493,7 @@ if($_SESSION['visited_test02'] == true && $reserve->getReserveCustomerType()==2)
                 <?php elseif(!$search_executed && !isset($_POST['search_no'])):?>
 
                 <div class="user_card_wrap">
-                  <h2 class="user_card_title">会員番号(初回)</h2>
+                  <h2 class="user_card_title">会員番号</h2>
 
                   <div class="user_info_wrap">
 
@@ -402,9 +501,12 @@ if($_SESSION['visited_test02'] == true && $reserve->getReserveCustomerType()==2)
 
 
                       <?php if($reserve->getReserveCustomerType()== 0 || $reserve->getReserveCustomerType()== 2):?>
-                      <?php $user_face_img = '/img/user_face.png';?>
+                      <?php $user_face_img = 'img/user_face.png';?>
                       <?php elseif($reserve->getReserveCustomerType()== 1):?>
+
+
                       <?php $user_face_img = $people_basics[$reserve->getReserveCustomerNum()]["icon"] ?>
+
                       <?php endif?>
                       <img src='../<?php echo $user_face_img?>' alt="" class="">
 
@@ -414,15 +516,15 @@ if($_SESSION['visited_test02'] == true && $reserve->getReserveCustomerType()==2)
 
                     <figcaption class="request_img_caption">
                       <!-- 名前 -->
-                      <?php echo $reserve->isPropertyNotEmpty('reserveCustomerName') ? $reserve->getReserveCustomerName() : '名前未定'?>
+                      <?php echo $reserverName ? $reserverName : '名前未定'?>
                     </figcaption>
                     <!-- メール電話 -->
                     <p>
-                      <?php echo $reserve->isPropertyNotEmpty('reserveCustomerPhone') ? $reserve->getReserveCustomerPhone(): '電話未定'?>
+                      <?php echo $reserverPhone ? $reserverPhone: '電話未定'?>
                     </p>
 
                     <p>
-                      <?php echo $reserve->isPropertyNotEmpty('reserveCustomerMail') ? $reserve->getReserveCustomerMail(): 'メール未定'?>
+                      <?php echo $reserverEmail ? $reserverEmail: 'メール未定'?>
                     </p>
                   </div>
                 </div>
@@ -443,15 +545,17 @@ if($_SESSION['visited_test02'] == true && $reserve->getReserveCustomerType()==2)
                     <?php if($reserve -> getReserveCustomerType() ==2):?>
                     <?php $user_type = '新規客' ?>
                     <?php $user_faceicon = 'img/user_face.png' ?>
-                    <?php $user_name = $reserve -> getReserveCustomerName() .'新規'?>
-                    <?php else:?>
-                    <?php $user_type = $found_person['no'] ?>
-                    <?php $user_faceicon = $people_basics[$reserve ->getReserveCustomerNum()]["icon"] ?>
-                    <?php $user_name = $reserve -> getReserveCustomerName() .'会員'?>
-                    <?php endif?>
 
-                    <?php $user_phone = $reserve -> getReserveCustomerPhone() ?>
-                    <?php $user_mail = $reserve -> getReserveCustomerMail() ?>
+
+
+                    <?php $user_name = $reserverName .'新規'?>
+                    <?php else:?>
+                    <?php $user_type = $found_person-> getMemberNumber()?>
+
+                    <?php $user_faceicon = $reserverIcon  ?>
+                    <?php $user_name = $reserverName  .'会員'?>
+
+                    <?php endif?>
 
 
 
@@ -472,10 +576,10 @@ if($_SESSION['visited_test02'] == true && $reserve->getReserveCustomerType()==2)
                     </figcaption>
                     <!-- メール電話 -->
                     <p>
-                      <?php echo $user_phone ?>
+                      <?php echo $reserverPhone ?>
                     </p>
                     <p>
-                      <?php echo $user_mail ?>
+                      <?php echo $reserverEmail ?>
                     </p>
                   </div>
                 </div>
@@ -486,10 +590,20 @@ if($_SESSION['visited_test02'] == true && $reserve->getReserveCustomerType()==2)
                 <?php
                     //今保存されているものを消す
                     $reserve->resetPropertyValue('reserveCustomerNum');
-                    $reserve->resetPropertyValue('reserveCustomerName');
-                    $reserve->resetPropertyValue('reserveCustomerPhone');
-                    $reserve->resetPropertyValue('reserveCustomerMail');
-                    ?>
+                
+                    $reserverName = "";
+                    $reserverPhone = "";
+                    $reserverEmail = "";
+                    $reserverIcon = "";
+                    
+                    // 一応セッションに入れ直す
+                    $_SESSION['memberName'] = "";
+                    $_SESSION['memberPhone'] = "";
+                    $_SESSION['memberEmail'] = "";
+                    $_SESSION['memberIcon'] = "";
+
+                   ?>
+
 
 
                 <div class="user_card_wrap">
@@ -521,8 +635,6 @@ if($_SESSION['visited_test02'] == true && $reserve->getReserveCustomerType()==2)
 
 
 
-
-
                 <div class="member_serch_wrap" id="memberSearch">
 
                   <div class="step_button_wrap">
@@ -531,19 +643,21 @@ if($_SESSION['visited_test02'] == true && $reserve->getReserveCustomerType()==2)
 
                     <!-- エラーしている時 -->
                     <?php if($serch_err):?>
-                    <button onclick="showAlert()" class="staff_input_step step_next_never">未選択</button>
-                    <!-- 検索もしていないし保存もない -->
-                    <?php elseif(empty($reserve-> getReserveCustomerNum()) && empty($found_person)):?>
-                    <button onclick="showAlert()" class="staff_input_step step_next_never">未選択</button>
+                    <button onclick="showAlert()" class="staff_input_step step_next_never">未選択1</button>
+                    <!-- 検索もしていないし保存もない 新規もない -->
+                    <?php elseif(empty($reserve-> getReserveCustomerNum()) && empty($found_person) && empty($reserve-> getReserveCustomerType())):?>
+                    <button onclick="showAlert()" class="staff_input_step step_next_never">未選択2</button>
                     <!-- 検索して見つかったとき -->
                     <?php elseif($found_person !== null && $search_executed):?>
-                    <input type="hidden" name="member_number" value="<?php echo $found_person['no']?>">
+                    <input type="hidden" name="member_number" value="<?php echo $found_person -> getMemberNumber()?>">
                     <input type="submit" name="customer_information" value="決定" class="staff_input_step step_next">
                     <!-- すでに保存されている -->
                     <?php elseif(!empty($reserve-> getReserveCustomerNum())):?>
                     <?php $reserver_number = $reserve-> getReserveCustomerNum();?>
                     <input type="hidden" name="member_number" value="<?php echo $reserver_number ?>">
                     <input type="submit" name="customer_information" value="決定" class="staff_input_step step_next">
+                    <?php elseif(!empty($reserve-> getReserveCustomerType())):?>
+                    <input type="submit" name="new_customer_information" value="決定2" class="staff_input_step step_next">
                     <?php endif?>
 
 

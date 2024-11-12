@@ -30,18 +30,67 @@
   <script src="../js/cancelpop.js" defer></script>
   <script src="../js/radio_display.js" defer></script>
   <script src="../js/show_modal.js" defer></script>
+  <script src="../js/step_bar.js" defer></script>
 </head>
 
 <body id="body">
 
   <!-- header読み込み -->
   <?php
-    require_once( dirname(__FILE__). '/class_input_reserve.php');
     require_once( dirname(__FILE__). '/../parts/setting_header.php');
     require_once( dirname(__FILE__). '/data/data.php');
+
+  //お客さんカプセル化
+   require_once( dirname(__FILE__). '/data/member_data.php');
+   require_once( dirname(__FILE__). '/class/member_class.php');
+   
+    // profile
+    foreach($people_basics as $people_basic){
+    $memberList[] = new memberProfileManager($people_basic);
+  }
+
+// スタッフカプセル化
+    require_once( dirname(__FILE__). '/data/girl_data.php');
+    require_once( dirname(__FILE__). '/class/girl_class.php');
+    require_once( dirname(__FILE__). '/data/staff_list_sort.php');
+
+    // profile
+  foreach($sample_names as $sample_name){
+    $staffList[] = new girlProfilelManager($sample_name);
+  }
+
+  // 画像
+  foreach($sample_pics  as $sample_pic ){
+    $staffPics[] = new girlImageManager($sample_pic['girlNumber'],$sample_pic);
+  }
+  
+// スケジュールカプセル化
+
+
+    require_once( dirname(__FILE__). '/class/attendance_class.php');
+    require_once( dirname(__FILE__). '/data/attendance_data.php');
+
+// スケジュール
+
+$inputData = [];
+foreach ($scheduleArray as $schedule) {
+    $workDay = $schedule['attendanceWorkDay'];
+    $inputData[$workDay][] = new InputAttendanceReserve($schedule);
+}
+
+    // 予約関連
+    require_once( dirname(__FILE__). '/class/reserve_class.php');
     require_once( dirname(__FILE__). '/data/reserve_data.php');
-    require_once( dirname(__FILE__). '/data/data_reserve.php');
-    ?>
+
+
+// 予約が完了されてる人
+  foreach($reserveLists as $reserveList){
+    $reserved_class_arrs[] = new Reservation($reserveList);
+  }
+
+
+
+?>
 
   <!-- 得たデータが例えば -->
   <!-- 開店時間閉店時間 -->
@@ -53,9 +102,9 @@
     ?>
 
 
-  <?php // セッションIDを比較
+  <?php
+  // セッションIDを比較
   session_start();
-
 
 // test01.phpを通過したかをチェック
 if (!isset($_SESSION['visited_test01']) && !isset($_SESSION['visited_test02']) ) {
@@ -70,6 +119,7 @@ if (!isset($_SESSION['visited_test01']) && !isset($_SESSION['visited_test02']) )
 
 
 // タイムアウト確認しょり
+
   require_once( dirname(__FILE__). '/../parts/input_timeout.php');
 
 
@@ -104,6 +154,13 @@ if (!isset($_SESSION['visited_test01']) && !isset($_SESSION['visited_test02']) )
 // 03へ来たなら必ずセッションあるでしょ？
 if (isset($_SESSION['input_reserve_card'])) {
     $reserve = unserialize($_SESSION['input_reserve_card']);
+    // 特別表示用のユーザー名前電話メール
+  $reserverName =  $_SESSION['memberName'];
+  $reserverPhonee = $_SESSION['memberPhone'];
+  $reserverEmail = $_SESSION['memberEmail'];
+  $reserverIcon = $_SESSION['memberIcon'];
+
+
 
     // ここでバリデーションしてからOKなら０4へとばす
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["reserve_time"])) {
@@ -145,14 +202,8 @@ if (isset($_SESSION['input_reserve_card'])) {
   <!-- 予約済みのインスタンス -->
   <!-- sqlをやっていないからとりあえずサンプル全部をインスタンスにしてる -->
   <!-- なにもない場合は空にしておくことが重要 -->
-  <?php if(isset($reserved_cards) && $reserved_cards):?>
-  <?php foreach( $reserved_cards as $reserved_card ):?>
-  <?php $reserved_class_arrs[] = new Reservation($reserved_card)?>
-  <!-- この先で他の人の予約を検索しているので一旦終了 -->
-  <?php endforeach ?>
-  <?php else:?>
-  <?php $reserved_class_arrs = [] ;?>
-  <?php endif?>
+
+
 
 
 
@@ -164,34 +215,40 @@ if (isset($_SESSION['input_reserve_card'])) {
 
 
   <!-- 指名した人の顧客ナンバーから画像特定 -->
-  <?php $reserve_customer_name = $reserve->getReserveCustomerName();?>
   <!-- 新規客 -->
   <?php if($reserve->getReserveCustomerType()== 2):?>
   <?php $reserve_customer_img = 'img/user_face.png'; ?>
   <!-- 会員 -->
   <?php elseif($reserve->getReserveCustomerType() == 1):?>
-  <?php foreach($people_basics as $people_basic) :?>
-  <?php if($people_basic["no"] == $reserve->getReserveCustomerNum()):?>
-  <?php $reserve_customer_img = $people_basic["icon"] ?>
-  <?php break; ?>
+  <?php $reserve_customer_img = $reserverIcon ?>
   <?php endif; ?>
-  <?php endforeach ;?>
-  <?php endif?>
 
   <!-- 指名する人のプロフィール -->
   <!-- スタッフ番号 -->
-  <?php $employee_number = $reserve->getReserveGirlNum(); ?>
+  <?php $employe_number = $reserve->getReserveGirlNum(); ?>
 
-  <?php foreach($sample_names as $sample_name):?>
-  <?php if($sample_name[0] == $employee_number):?>
+  <?php foreach($staffList as $sample_name):?>
+  <?php if($sample_name->getGirlNumber() == $employe_number):?>
   <!-- 名前 -->
-  <?php $employee_girl_name = $sample_name[1]?>
+  <?php $employe_girl_name = $sample_name -> getGirlName()?>
   <!-- 画像 -->
-  <?php $employee_girl_img = $sample_name[3]?>
+  <?php foreach( $staffPics as $staffPic):?>
+  <?php if($staffPic -> getGirlNumber() == $sample_name -> getGirlNumber()):?>
+  <?php  $employe_girl_img = $staffPic -> getGirlImage01();?>
+  <?php break; // ここでループを終了?>
+  <?php endif ?>
+  <?php endforeach?>
+
   <?php break ?>
   <?php endif?>
   <?php endforeach?>
 
+
+  <!-- セッション入れとく -->
+  <?php
+  $_SESSION['employe_girl_name'] = $employe_girl_name;
+  $_SESSION['employe_girl_img'] = $employe_girl_img;
+  ?>
 
   <!-- 予約しようとしているキャストの出勤時間を取りたい -->
   <!-- 02までで日付は持ってるしキャスト番号も持ってるから -->
@@ -216,11 +273,11 @@ if (isset($_SESSION['input_reserve_card'])) {
   $day = substr($dayStr, 6, 2);
   
   // 日時合体
-  $today_num = $year . '_' . $month . '_' . $day;
+  $today_num = $year . '-' . $month . '-' . $day;
   $todayDatas = $inputData[$today_num] ?? null;
 
   foreach($todayDatas as $todayData){
-    if($todayData['社員番号'] == $select_cast_no ){
+    if($todayData->getAttendanceGirlNum() == $select_cast_no ){
       $want_reserve_cast = $todayData;
       break;
     }
@@ -230,20 +287,25 @@ if (isset($_SESSION['input_reserve_card'])) {
 
 
   <!-- 出勤時間退勤時間確定 -->
-  <?php $work_start_time = strtotime($want_reserve_cast['出勤時間'])?>
-  <?php $work_end_time = strtotime($want_reserve_cast['退勤時間'])?>
+  <?php $work_start_time = strtotime($want_reserve_cast->getWorkStartTime())?>
+  <?php $work_end_time = strtotime($want_reserve_cast->getWorkEndTime())?>
 
   <!-- 他に同じ日に同じ人を予約している人はだれ？ -->
   <?php $reserved_cards_arrs= array();?>
   <?php if(isset($reserved_class_arrs) && $reserved_class_arrs):?>
+
   <!-- 今回いれる予約日を日時に -->
+
   <?php $dateTime1 = DateTime::createFromFormat('Ymd', $reserve->getReservePlayDay());?>
 
   <?php foreach($reserved_class_arrs as $reserved_class_arr) :?>
   <!-- すでに入っている予約日を日時へ -->
-  <?php $dateTime2 = DateTime::createFromFormat('Ymd', $reserved_class_arr -> getReservationDate());?>
+
+  <?php $dateTime2 = DateTime::createFromFormat('Y-m-d', $reserved_class_arr -> getReservePlayDay());?>
   <!-- 指名した人とその日時が同じ予約済みのデータをいれる -->
-  <?php if($reserved_class_arr -> getEmployeeNumber() == $reserve->getReserveGirlNum()
+
+
+  <?php if($reserved_class_arr -> getReserveGirlNum() == $reserve->getReserveGirlNum()
   &&  $dateTime1 ==  $dateTime2):?>
 
 
@@ -252,6 +314,7 @@ if (isset($_SESSION['input_reserve_card'])) {
 
   <?php endforeach ?>
   <?php endif?>
+
 
   <!-- $reserved_cards_arr[]ここに何も入っていない場合 -->
   <!-- 入っていないものにgetStartTimeとかやってチェックしちゃってる -->
@@ -278,30 +341,6 @@ if (isset($_SESSION['input_reserve_card'])) {
           $endTime = strtotime("21:00:00");
           $timeIncrement = 1800; // 30分
     ?>
-
-
-    <p>予約</p>
-    <?php
-    // var_dumpでインスタンスの中身を見る
-    echo "
-    <pre>";
-    var_dump($reserve);
-    echo "</pre>";
-    ?>
-
-    <br>
-    <br>
-    <p>他の人の予約</p>
-    <?php
-    // var_dumpでインスタンスの中身を見る
-    echo "
-    <pre>";
-    var_dump($reserved_cards_arrs);
-    echo "</pre>";
-    ?>
-
-
-    <br>
 
 
 
@@ -333,12 +372,12 @@ if (isset($_SESSION['input_reserve_card'])) {
                   <?php if($reserve->getReserveCustomerType()== 2):?>
                   <img src='../img/user_face.png' alt="">
                   <?php else:?>
-                  <img src='../<?php echo $people_basics[$reserve->getReserveCustomerNum()]['icon']?>' alt="">
+                  <img src='../<?php echo $reserve_customer_img ?>' alt="">
                   <?php endif?>
 
                 </figure>
                 <figcaption class="request_img_caption">
-                  <?php echo $reserve->getReserveCustomerName();?>
+                  <?php echo $reserverName ;?>
                 </figcaption>
               </div>
               <div class="arrow"></div>
@@ -346,23 +385,22 @@ if (isset($_SESSION['input_reserve_card'])) {
               <!-- 指名された人 -->
               <div>
                 <figure class="request_img">
-                  <img src='../<?php echo $employee_girl_img?>' alt="">
+                  <img src='../<?php echo $employe_girl_img?>' alt="">
                 </figure>
                 <figcaption class="request_img_caption">
-                  <?php echo $employee_girl_name; ?>
+                  <?php echo $employe_girl_name; ?>
                 </figcaption>
               </div>
+
             </div>
 
           </div>
 
           <!-- ここから時間表示 -->
 
+          <section class="second_block oneday_calendar_bottom">
 
-
-          <section class="second_block">
-
-            <h2 style="padding:1rem 0 1rem 2rem;">スタート時間の選択</h2>
+            <h2 style="padding:1rem 0 1rem 2rem;">スタート時間の選択（○:選択可能）</h2>
             <table class="oneday_calendar">
               <!-- ヘッダー -->
               <tr>
@@ -388,10 +426,10 @@ if (isset($_SESSION['input_reserve_card'])) {
                 <?php $has_reservation = false; ?>
                 <?php foreach ($reserved_cards_arrs as $reserved_cards_arr) :?>
                 <!-- 予約開始時間 -->
-                <?php $startTimeSlot = strtotime($reserved_cards_arr -> getStartTime())?>
+                <?php $startTimeSlot = strtotime($reserved_cards_arr -> getReservePlaytime())?>
                 <!-- 予約終了時間 -->
                 <?php $endTimeSlot = strtotime($reserved_cards_arr -> 
-                addTimeToStartTime($reserved_cards_arr->getPlayTime()))?>
+                addTimeToStartTime($reserved_cards_arr->getReservePlayCourse()))?>
 
                 <!-- 予約時間より今の時間が遅くて、終わり時間より早ければバツを書く -->
                 <?php if ($startTimeSlot<=$time && $time < $endTimeSlot):?>
@@ -420,10 +458,10 @@ if (isset($_SESSION['input_reserve_card'])) {
                   <?php echo
                  '<a href="#" onclick="showModal
                  (
-                   \'' . $reserved_cards_arr->getReservationDate() . '\' ,
-                   \'' . date("H:i", strtotime($reserved_cards_arr->getStartTime())). '\',
-                   \'' . $reserved_cards_arr->getPlaytime(). '\',
-                   \'' . $reserved_cards_arr->getReserverName(). '\'
+                   \'' . $reserved_cards_arr->getReservePlayDay() . '\' ,
+                   \'' . date("H:i", strtotime($reserved_cards_arr->getReservePlayDay())). '\',
+                   \'' . $reserved_cards_arr->getReservePlayCourse(). '\',
+                   \'' . $reserverName . '\'
                  ); return false;"
                  >
                 ×</a>';?>
@@ -476,9 +514,36 @@ if (isset($_SESSION['input_reserve_card'])) {
 
 
     </main>
-    <br><br><br><br><br><br><br>
+
 
   </div>
 </body>
+
+
+
+
+<!-- 保存されているデータ -->
+<p>予約</p>
+<?php
+    // var_dumpでインスタンスの中身を見る
+    echo "
+    <pre>";
+    var_dump($reserve);
+    echo "</pre>";
+    ?>
+
+<br>
+<br>
+<p>他の人の予約</p>
+<?php
+    // var_dumpでインスタンスの中身を見る
+    echo "
+    <pre>";
+    var_dump($reserved_cards_arrs);
+    echo "</pre>";
+    ?>
+<br>
+<!-- 保存されているデータ -->
+
 
 </html>

@@ -38,6 +38,11 @@ function formSwitch() {
   }
 }
 
+// ページ読み込み時にformSwitchを呼び出す
+document.addEventListener("DOMContentLoaded", function () {
+  formSwitch();
+});
+
 // 各種文字入力チェック
 function CheckGuestInfo(input) {
   const input_ok = input.checkValidity();

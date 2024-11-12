@@ -86,6 +86,27 @@
     <?php
     require_once( dirname(__FILE__). '/parts/header.php');
     require_once( dirname(__FILE__). '/data.php');
+
+  // news
+    require_once( dirname(__FILE__). '/setting/class/news_class.php');
+    require_once( dirname(__FILE__). '/setting/data/news_data.php');
+
+    $news_instances = []; // 空の配列を初期化
+    foreach($news_list as $news_item) {
+    $news_instances[] = new NewsManager($news_item); // 新しいインスタンスを配列に追加
+
+  // 最新３つ
+  // 最新順にソート
+    usort($news_instances, function($a, $b) {
+    return strtotime($b->getNewsTime()) - strtotime($a->getNewsTime());
+    });
+  
+  // 最新の3つを取得
+    $news_naw = array_slice($news_instances, 0, 3);
+
+  }
+
+
     ?>
     <!------------------>
 
@@ -124,27 +145,23 @@
           <ul class="topics">
             <!-- 最新３記事 -->
             <!-- イチ記事 -->
-            <?php  $x = 1; $num = 3;?>
-            <?php foreach($news_objects as $news) :?>
-            <?php if( $x > $num ) :?>
-            <?php break ?>
-            <?php else :?>
-            <li class="topic">
-              <div class="news_data">
-                <time><?php echo $news->getNewsTime()?></time>
-                <span class="news_kinds" style="background-color:<?php echo $news->getNewsColor()?>">
-                  <?php echo $news->getNewsTitleBody()?>
-                </span>
-              </div>
-              <div class="news_top_title">
-                <a href="" class="block_wrap_a">
-                  <?php echo $news->getNewsTitle() ?>
-                </a>
-              </div>
-            </li>
-            <?php endif ?>
-            <?php $x++ ?>
 
+            <?php foreach($news_naw as $news) :?>
+            <a href="information.php?newsid=<?php echo $news -> getNewsId()?>" class="block_wrap_a">
+              <li class="topic">
+                <div class="news_data">
+                  <time><?php echo $news->getNewsTime()?></time>
+                  <span class="news_kinds" style="background-color:<?php echo $news->getNewsColor()?>">
+                    <?php echo $news->getNewsTitleBody()?>
+                  </span>
+                </div>
+                <div class="news_top_title">
+
+                  <?php echo $news->getNewsTitle() ?>
+
+                </div>
+              </li>
+            </a>
             <?php endforeach ?>
             <!-- ------- -->
           </ul>

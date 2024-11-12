@@ -1,3 +1,40 @@
+<?php
+// セッションスタートしてる
+session_start();
+// 戻るボタンでエラーしないように
+header('Expires:-1');
+header('Cache-Control:');
+header('Pragma:');
+
+// 入力モードにする
+$mode = 'input';
+// エラー配列を作る
+$errmessage = array();
+
+// 必要なファイルの読み込み（ヘッダー以外）
+require_once(dirname(__FILE__). '/const_db/const_set.php');
+require_once(dirname(__FILE__). '/validate/text_validate.php');
+require_once(dirname(__FILE__). '/validate/image_validate.php');
+require_once(dirname(__FILE__). '/validate/radio_validate.php');
+require_once(dirname(__FILE__). '/data/data.php');
+
+// キャンセルボタンが押された場合
+// 変なところから来ていないか？確認 
+       if (isset($_POST['cancel'])) {
+        session_start(); // セッションを開始
+        // localStorageの削除
+        echo "<script>localStorage.clear();</script>";
+        session_unset(); // セッションの変数をすべて削除
+        session_destroy(); // セッションを破棄
+        header("Location: setting_index02.php"); // top.htmlにリダイレクト
+        exit; // スクリプトの実行を終了
+      }
+      ?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -33,57 +70,57 @@
     <!-- header読み込み -->
     <?php
     require_once( dirname(__FILE__). '/../parts/setting_header.php');
-    require_once( dirname(__FILE__). '/data/data.php');
-    // 画像のバリデーション読み込み
-    require_once( dirname(__FILE__). '/../setting/image_validate.php');
-    require_once( dirname(__FILE__). '/../setting/radio_validate.php');
-    ?>
+
+
+
+  // スタッブ関連
+  // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+  require_once( dirname(__FILE__). '/data/girl_data.php');
+  require_once( dirname(__FILE__). '/class/girl_class.php');
+  require_once( dirname(__FILE__). '/data/staff_list_sort.php');
+
+  // スタッフprofile
+  foreach($sample_names as $sample_name){
+  $staffList[] = new girlProfilelManager($sample_name);
+  }
+
+  // 画像
+  foreach($sample_pics as $sample_pic ){
+  $staffPics[] = new girlImageManager($sample_pic['girlNumber'],$sample_pic);
+  }
+
+ $filteredPics = [];
+
+foreach ($staffPics as $staffPic) {
+    $girlImages = [];
+
+    // 各girlImage01〜girlImage10のゲッターを通して値を取得し、nullでないものだけを配列に追加
+    if ($staffPic->getGirlImage01() !== null) $girlImages[] = $staffPic->getGirlImage01();
+    if ($staffPic->getGirlImage02() !== null) $girlImages[] = $staffPic->getGirlImage02();
+    if ($staffPic->getGirlImage03() !== null) $girlImages[] = $staffPic->getGirlImage03();
+    if ($staffPic->getGirlImage04() !== null) $girlImages[] = $staffPic->getGirlImage04();
+    if ($staffPic->getGirlImage05() !== null) $girlImages[] = $staffPic->getGirlImage05();
+    if ($staffPic->getGirlImage06() !== null) $girlImages[] = $staffPic->getGirlImage06();
+    if ($staffPic->getGirlImage07() !== null) $girlImages[] = $staffPic->getGirlImage07();
+    if ($staffPic->getGirlImage08() !== null) $girlImages[] = $staffPic->getGirlImage08();
+    if ($staffPic->getGirlImage09() !== null) $girlImages[] = $staffPic->getGirlImage09();
+    if ($staffPic->getGirlImage10() !== null) $girlImages[] = $staffPic->getGirlImage10();
+
+    // 連想配列のキーをgirlNumber、中身をnullでないgirlImagesだけにする
+    $filteredPics[$staffPic->getGirlNumber()] = $girlImages;
+}
+
+
+?>
 
 
     <main>
 
-      <!-- 変なところから来ていないか？確認 -->
-
-      <?php
-      // キャンセルボタンが押された場合
-      if (isset($_POST['cancel'])) {
-        session_start(); // セッションを開始
-        // localStorageの削除
-        echo "<script>localStorage.clear();</script>";
-        session_unset(); // セッションの変数をすべて削除
-        session_destroy(); // セッションを破棄
-        header("Location: setting_index02.php"); // top.htmlにリダイレクト
-        exit; // スクリプトの実行を終了
-      }
-      ?>
-
-
 
       <!-- ここから本格的にスタート -->
       <?php
-      //定数読み込み、画像サイズとか
-      require_once('const_set.php');
-      // 文章バリデーション読み込み
-      require_once('text_validate.php');
-      // 画像のバリデーション読み込み
-      require_once('image_validate.php');
-
-
-      // セッションスタートしてる
-      session_start();
-
-      // 戻るボタンでエラーしないように
-      header('Expires:-1');
-      header('Cache-Control:');
-      header('Pragma:');
-
-      // 入力モードにする
-      $mode = 'input';
-      // エラー配列を作る
-      $errmessage = array();
-
-
-
+  
       // 送信or戻るで戻るインプットに入ってもなにもしない/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_
       if (isset($_POST['back']) && $_POST['back']) {
 
@@ -112,6 +149,8 @@
         } else {
           // 正常なら選択した数字を入れる
           $_SESSION['new_post_header']['reserve'] = $new_post_day->get_checking_radio();
+          
+      
           // 今すぐ投稿なら
           if($_SESSION['new_post_header']['reserve'] == 1){
             $_SESSION['new_post_header']['reserve_day'] = $today->format('Y/m/d');
@@ -138,14 +177,26 @@
           $errmessage[] = $new_post_type->get_err_inclass();
         //セッションの中身を消す
           $_SESSION['new_post_header']['type'] = '';
+
         } else {
           // 正常なら選択した数字を入れる
           $_SESSION['new_post_header']['type'] = $new_post_type->get_checking_radio();
+
+          // Information用新人:3おすすめ:4卒業:5その他:6 
+          $_SESSION['Information']['type'] = $_SESSION['new_post_header']['type'];
+
         }
 
         // スタッフ番号
         // 登録しているスタッフ数を数える
-        $now_allGirl = count($sample_names);
+        if(is_array($staffList)){
+          $now_allGirl = count($staffList);
+        }elseif(is_object($staffList)){
+          $now_allGirl = 1;
+          }else{
+            $now_allGirl = 0;
+          }
+        
         // 誰もいないなんてことないよね？
         if($now_allGirl > 0){
           $now_allGirl--;
@@ -159,7 +210,7 @@
           // 正常なら選択した数字を入れる
           $_SESSION['new_cast_prof']['id'] = $post_newface_id->get_checking_radio();
         // スタッフ画像
-          $selected_girl_allpic = count($sample_pics[$_POST['newface_girl_id']]);
+          $selected_girl_allpic = count($filteredPics[$_POST['newface_girl_id']]);
           $selected_girl_allpic--;
           $post_newface_pic = new Check_radio($_POST['picRadio'],$selected_girl_allpic);
           if (!($post_newface_pic->check_radio($post_newface_pic->get_checking_radio()) == 'true')) {
@@ -331,6 +382,11 @@
         $_SESSION['cast_info_image']['type'];
         $_SESSION['cast_info_image']['width'];
         $_SESSION['cast_info_image']['height'];
+        // Information
+        $_SESSION['Information']['type'];
+        $_SESSION['Information']['day'];
+        $_SESSION['Information']['time'];
+
       }
 
       ?>
@@ -387,37 +443,37 @@
                   <li class="radio_select_list">
 
                     <!-- タイプがまだ選ばれていないか１を選んでいる場合 -->
-                    <?php if (empty($_SESSION['new_post_header']['type']) || $_SESSION['new_post_header']['type'] == 1 ): ?>
-                    <input type="radio" checked id="new_event" name="new_post" value='1' class="radio_label_01">
+                    <?php if (empty($_SESSION['new_post_header']['type']) || $_SESSION['new_post_header']['type'] == 3 ): ?>
+                    <input type="radio" checked id="new_event" name="new_post" value='3' class="radio_label_01">
                     <?php else:?>
-                    <input type="radio" id="new_event" name="new_post" value='1' class="radio_label_01">
+                    <input type="radio" id="new_event" name="new_post" value='3' class="radio_label_01">
                     <?php endif ?>
                     <label class="girl_tag_label_txt" for="new_event">新　人</label>
                   </li>
 
                   <li class="radio_select_list">
-                    <?php if ($_SESSION['new_post_header']['type'] == 2 ): ?>
-                    <input type="radio" checked id="new_news" name="new_post" value='2' class="radio_label_02">
+                    <?php if ($_SESSION['new_post_header']['type'] == 4 ): ?>
+                    <input type="radio" checked id="new_news" name="new_post" value='4' class="radio_label_02">
                     <?php else :?>
-                    <input type="radio" id="new_news" name="new_post" value='2' class="radio_label_02">
+                    <input type="radio" id="new_news" name="new_post" value='4' class="radio_label_02">
                     <?php endif ?>
                     <label class="girl_tag_label_txt" for="new_news">おすすめ</label>
                   </li>
 
                   <li class="radio_select_list">
-                    <?php if ($_SESSION['new_post_header']['type'] == 3 ): ?>
-                    <input type="radio" checked id="new_staff" name="new_post" value='3' class="radio_label_03">
+                    <?php if ($_SESSION['new_post_header']['type'] == 5 ): ?>
+                    <input type="radio" checked id="new_staff" name="new_post" value='5' class="radio_label_03">
                     <?php else :?>
-                    <input type="radio" id="new_staff" name="new_post" value='3' class="radio_label_03">
+                    <input type="radio" id="new_staff" name="new_post" value='5' class="radio_label_03">
                     <?php endif ?>
                     <label class="girl_tag_label_txt" for="new_staff">卒　業</label>
                   </li>
 
                   <li class="radio_select_list">
-                    <?php if ($_SESSION['new_post_header']['type'] == 4 ): ?>
-                    <input type="radio" checked id="new_ather" name="new_post" value='4' class="radio_label_04">
+                    <?php if ($_SESSION['new_post_header']['type'] == 6 ): ?>
+                    <input type="radio" checked id="new_ather" name="new_post" value='6' class="radio_label_04">
                     <?php else :?>
-                    <input type="radio" id="new_ather" name="new_post" value='4' class="radio_label_04">
+                    <input type="radio" id="new_ather" name="new_post" value='6' class="radio_label_04">
                     <?php endif ?>
                     <label class="girl_tag_label_txt" for="new_ather">その他</label>
                   </li>
@@ -440,13 +496,15 @@
 
                 <select id="cast_select" name="newface_girl_id" required onchange="showSelectedValue()">
                   <option value="" hidden>選択</option>
-                  <?php foreach($sample_names as $sample_name) : ?>
+
+                  <?php foreach($staffList as $staff_name) : ?>
+
                   <?php $selected_option = null;
                   if (isset($_SESSION['new_cast_prof']['id'])) {
                   $selected_option = $_SESSION['new_cast_prof']['id'];
                   } ?>
-                  <?php $option_value = $sample_name[0]; ?>
-                  <?php $option_label = $sample_name[1]; ?>
+                  <?php $option_value = $staff_name -> getGirlNumber(); ?>
+                  <?php $option_label = $staff_name -> getGirlName(); ?>
                   <option value="<?php echo $option_value; ?>"
                     <?php echo ($option_value == $selected_option) ? 'selected' : ''; ?>>
                     <?php echo $option_label; ?>
@@ -471,8 +529,9 @@
               <?php $skipFirstElement = true ;?>
               <dd id="selectedCast" class="step_wrap_post">
                 <!-- 選んだ人のIDは？ -->
-                <?php $selected_girl_pics = $sample_pics[$_SESSION['new_cast_prof']['id']] ?>
+                <?php $selected_girl_pics = $filteredPics[$_SESSION['new_cast_prof']['id']] ?>
                 <!-- 選んだ人の画像配列をforeach -->
+
                 <?php foreach($selected_girl_pics as $selected_girl_pic) :?>
                 <?php if($skipFirstElement):?>
                 <?php $skipFirstElement = false; ?>
@@ -497,7 +556,7 @@
                 var selectElement = document.getElementById("cast_select");
                 var selectedIndex = selectElement.value;
                 // 画像の配列を読み込んでる
-                <?php echo "var castPics = " . json_encode($sample_pics) . ";" ?>
+                <?php echo "var castPics = " . json_encode($filteredPics) . ";" ?>
                 // 挿入するところを整理
                 var selectedCastElement = document.getElementById("selectedCast");
                 selectedCastElement.textContent = '';
@@ -534,7 +593,7 @@
 
             <!-- 紹介するのは -->
             <div class="demo demo3">
-              <h2 class="heading"><span>紹介文</span></h2>
+              <h2 class="heading"><span>紹介記事</span></h2>
             </div>
 
             <dl class="bace_wrap cast_info_post_bg">
@@ -718,6 +777,27 @@
       <!-- 確認画面 -->
       <?php elseif ($mode == 'confirm') : ?>
 
+      <!-- 紹介する人決定 -->
+
+      <?php foreach( $staffList as $selectedstaff):?>
+      <?php if($selectedstaff->getGirlNumber() == $_SESSION['new_cast_prof']['id']) :?>
+      <?php $selected_name = $selectedstaff -> getGirlName()?>
+      <?php $selected_age = $selectedstaff -> getGirlAge()?>
+      <?php $selected_height = $selectedstaff -> getGirlHeight()?>
+      <?php $selected_bustsize = $selectedstaff -> getGirlBustSize()?>
+      <?php $selected_bustcup = $selectedstaff -> getGirlBustCup()?>
+      <?php $selected_west = $selectedstaff -> getGirlWest()?>
+      <?php $selected_hip = $selectedstaff -> getGirlHip()?>
+      <?php break ?>
+      <?php endif?>
+      <?php endforeach ?>
+
+
+      <?php 
+      foreach( $filteredPics as $key => $value ):?>
+      <?php if($key ==  $_SESSION['new_cast_prof']['id']):?>
+      <?php $selected_img = $value[$_SESSION['new_cast_prof']['pic']]?> <?php break ?> <?php endif?>
+      <?php endforeach ?>
       <article>
         <h2 class="confirm_info">以下のページが更新されます</h2>
 
@@ -739,13 +819,13 @@
 
                   <?php
                   $postType =$_SESSION['new_post_header']['type'];
-                  if( $postType == 1){
+                  if( $postType == 3){
                     echo "<span class='news_kinds pink'>新　人" ;
-                  } elseif($postType == 2){
+                  } elseif($postType == 4){
                     echo "<span class='news_kinds blue'>おすすめ" ;
-                  }elseif($postType == 3){
+                  }elseif($postType == 5){
                     echo "<span class='news_kinds green'>卒　業" ;
-                  }elseif($postType == 4){
+                  }elseif($postType == 6){
                     echo "<span class='news_kinds purple'>その他" ;
                   }else{
                     echo "エラーしてる" ;
@@ -766,26 +846,24 @@
 
 
         <!-- トップページのニューフェイス -->
-        <?php if($postType == 1) :?>
+        <?php if($postType == 3) :?>
         <section class="top_newface_demo">
           <h3 class="confirm_title"><span>New Face</span></h3>
           <h4 class="block_title_caption">新人スタッフ</h4>
           <div class="newface_demo_picwrap">
 
-            <img
-              src="../<?php echo $sample_pics[$_SESSION['new_cast_prof']['id']][$_SESSION['new_cast_prof']['pic']] ?>"
-              alt="" class="newface_demo_pic">
+            <img src="../<?php echo $selected_img ?>" alt="" class="newface_demo_pic">
 
-
-            <!-- <img src="../img/newface01.jpeg" alt="" class="newface_demo_pic"> -->
           </div>
           <div class="newface_data_demo">
             <p class="demo_name_age">
-              <span class="name"><?php echo $sample_names[$_SESSION['new_cast_prof']['id']][1] ?></span>
-              <span>（<?php echo $sample_names[$_SESSION['new_cast_prof']['id']][3] ?>）</span>
+              <span class="name"><?php echo $selected_name ?></span>
+              <span>（<?php echo $selected_age ?>）</span>
             </p>
             <p class="body_size">
-              <?php echo 'T/'.$sample_names[$_SESSION['new_cast_prof']['id']][4].'&nbsp;B/'.$sample_names[$_SESSION['new_cast_prof']['id']][5].'('.$sample_names[$_SESSION['new_cast_prof']['id']][6].')&nbsp;H/'.$sample_names[$_SESSION['new_cast_prof']['id']][7]?>
+
+              <?php echo 'T/'.$selected_height.'&nbsp;
+              B/'.$selected_bustsize.'('.$selected_bustcup.')&nbsp;w/'.$selected_west.'&nbsp;H/'.$selected_hip?>
             </p>
           </div>
         </section>
@@ -799,16 +877,16 @@
 
             <div class="content_wrapper">
 
-              <?php if( $postType == 1):?>
+              <?php if( $postType == 3):?>
               <h3 class="confirm_title"><span>New Face</span></h3>
               <h4 class="block_title_caption">新人紹介</h4>
-              <?php elseif($postType == 2):?>
+              <?php elseif($postType == 4):?>
               <h3 class="confirm_title"><span>Pick Up</span></h3>
               <h4 class="block_title_caption">おすすめ</h4>
-              <?php elseif( $postType == 3):?>
+              <?php elseif( $postType == 5):?>
               <h3 class="confirm_title"><span>Graduation</span></h3>
               <h4 class="block_title_caption">卒業</h4>
-              <?php elseif( $postType == 4):?>
+              <?php elseif( $postType == 6):?>
               <h3 class="confirm_title"><span>Others</span></h3>
               <h4 class="block_title_caption">その他</h4>
               <?php else:?>
@@ -825,16 +903,17 @@
                 <div class="event_description">
 
                   <img
-                    src="../<?php echo $sample_pics[$_SESSION['new_cast_prof']['id']][$_SESSION['new_cast_prof']['pic']] ?>"
+                    src="../<?php echo $filteredPics[$_SESSION['new_cast_prof']['id']][$_SESSION['new_cast_prof']['pic']] ?>"
                     alt="" class="newface_demo_pic">
 
                   <div class="newface_data_demo">
                     <p class="demo_name_age">
-                      <span class="name"><?php echo $sample_names[$_SESSION['new_cast_prof']['id']][1] ?></span>
-                      <span>（<?php echo $sample_names[$_SESSION['new_cast_prof']['id']][3] ?>）</span>
+                      <span class="name"><?php echo $selected_name ?></span>
+                      <span>（<?php echo $selected_age ?>）</span>
                     </p>
                     <p class="body_size">
-                      <?php echo 'T/'.$sample_names[$_SESSION['new_cast_prof']['id']][4].'&nbsp;B/'.$sample_names[$_SESSION['new_cast_prof']['id']][5].'('.$sample_names[$_SESSION['new_cast_prof']['id']][6].')&nbsp;H/'.$sample_names[$_SESSION['new_cast_prof']['id']][7]?>
+                      <?php echo 'T/'.$selected_height.'&nbsp;
+              B/'.$selected_bustsize.'('.$selected_bustcup.')&nbsp;w/'.$selected_west.'&nbsp;H/'.$selected_hip?>
                     </p>
                   </div>
                   <!-- 記事タイトル -->

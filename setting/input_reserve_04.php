@@ -30,6 +30,7 @@
   <script src="../js/cancelpop.js" defer></script>
   <script src="../js/input_reserve_form.js" defer></script>
   <script src="../js/user_input_modal.js" defer></script>
+  <script src="../js/step_bar.js" defer></script>
 
 </head>
 
@@ -38,11 +39,67 @@
 
   <?php
 
-    require_once( dirname(__FILE__). '/class_input_reserve.php');
+
     require_once( dirname(__FILE__). '/../parts/setting_header.php');
     require_once( dirname(__FILE__). '/data/data.php');
+
+  //お客さんカプセル化
+   require_once( dirname(__FILE__). '/data/member_data.php');
+   require_once( dirname(__FILE__). '/class/member_class.php');
+   
+    // profile
+    foreach($people_basics as $people_basic){
+    $memberList[] = new memberProfileManager($people_basic);
+  }
+
+// スタッフカプセル化
+    require_once( dirname(__FILE__). '/data/girl_data.php');
+    require_once( dirname(__FILE__). '/class/girl_class.php');
+    require_once( dirname(__FILE__). '/data/staff_list_sort.php');
+
+    // profile
+  foreach($sample_names as $sample_name){
+    $staffList[] = new girlProfilelManager($sample_name);
+  }
+
+  // 画像
+  foreach($sample_pics  as $sample_pic ){
+    $staffPics[] = new girlImageManager($sample_pic['girlNumber'],$sample_pic);
+  }
+
+  // オプション
+  foreach($sample_basic_options  as $sampleoption ){
+    $options[]= new girlOptionManager($sampleoption['girlNumber'],$sampleoption);
+
+  }
+  
+// スケジュールカプセル化
+
+
+    require_once( dirname(__FILE__). '/class/attendance_class.php');
+    require_once( dirname(__FILE__). '/data/attendance_data.php');
+
+// スケジュール
+
+$inputData = [];
+foreach ($scheduleArray as $schedule) {
+    $workDay = $schedule['attendanceWorkDay'];
+    $inputData[$workDay][] = new InputAttendanceReserve($schedule);
+}
+
+    // 予約関連
+    require_once( dirname(__FILE__). '/class/reserve_class.php');
     require_once( dirname(__FILE__). '/data/reserve_data.php');
-    require_once( dirname(__FILE__). '/data/data_reserve.php');
+
+// 予約が完了されてる人
+  foreach($reserveLists as $reserveList){
+    $reserved_class_arrs[] = new Reservation($reserveList);
+  }
+
+
+
+
+    
  
 session_start(); // セッションを開始
 
@@ -97,131 +154,160 @@ if (!isset($_SESSION['visited_test03'])) {
 if (isset($_SESSION['input_reserve_card'])) {
     $reserve = unserialize($_SESSION['input_reserve_card']);
 
+  $reserverName =  $_SESSION['memberName'];
+  $reserverPhonee = $_SESSION['memberPhone'];
+  $reserverEmail = $_SESSION['memberEmail'];
+  $reserverIcon = $_SESSION['memberIcon'];
+  $employe_girl_name = $_SESSION['employe_girl_name'];
+  $employe_girl_img = $_SESSION['employe_girl_img'];
 
-    // ここでバリデーションかく
 
-    // ここでバリデーションしてからOKなら０３へとばす
-    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["input_reserve_detail"])) {
-      
-      // 時間がはいっているか？
-      if (isset($_POST['reserve_play_corse'])) {
-        $play_corse = (int)$_POST['reserve_play_corse'];
-        // 10で割り切れるかどうかをチェックする
-        if ($play_corse % 10 === 0) {
-        // 予約日時入れる
-        $reserve->setReservePlayCourse($play_corse);
-        } else {
-        $errmessage = "10で割り切れない数値が入ってます";
-        echo $errmessage;
-        exit();
-      }
-    }else{
-        $errmessage = "コースの時間が選択されてません";
-        echo $errmessage;
-        exit();
-    }
 
-      if (isset($_POST['reserve_play_place'])) {
-        $play_place = (int)$_POST['reserve_play_place'];
-        if($play_place == 1 || $play_place == 2){
-          $reserve->setReservePlaySpace($play_place);
-        }else{
-        $errmessage = "ことなる数値がはいっています";
-        echo $errmessage;
-        exit();
+
+  // ここでバリデーションかく
+
+  // ここでバリデーションしてからOKなら０３へとばす
+  if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["input_reserve_detail"])) {
+
+  // 時間がはいっているか？
+  if (isset($_POST['reserve_play_corse'])) {
+  $play_corse = (int)$_POST['reserve_play_corse'];
+  // 10で割り切れるかどうかをチェックする
+  if ($play_corse % 10 === 0) {
+  // 予約日時入れる
+  $reserve->setReservePlayCourse($play_corse);
+  } else {
+  $errmessage = "10で割り切れない数値が入ってます";
+  echo $errmessage;
+  exit();
+  }
+  }else{
+  $errmessage = "コースの時間が選択されてません";
+  echo $errmessage;
+  exit();
+  }
+
+
+  if (isset($_POST['reserve_play_place'])) {
+  $play_place = (int)$_POST['reserve_play_place'];
+  if($play_place == 1 || $play_place == 2){
+  $reserve->setReservePlaySpace($play_place);
+  }else{
+  $errmessage = "ことなる数値がはいっています";
+  echo $errmessage;
+  exit();
+  }
+  }else{
+  $errmessage = "場所が選択されてません";
+  echo $errmessage;
+  exit();
+  }
+
+  // hotel
+  if($play_place == 1){
+  if(isset($_POST['hotel_area'])){
+  $reserve->setReservePlayArea($_POST['hotel_area']);
+  if(isset($_POST['customer_address'])){
+  unset($_POST['customer_address']);
+  }
+  $reserve -> resetPropertyValue('reservePlayAdress');
+  $errmessage = "ここには来ています";
+  echo $errmessage;
+  // exit();
+
+  }else{
+  $errmessage = "最寄り駅が選択されてません";
+  echo $errmessage ;
+  if(isset($_POST['customer_address'])){
+  unset($_POST['customer_address']);
+  }
+  $reserve -> resetPropertyValue('reservePlayAdress');
+  exit();
+  }
+  // house
+  }elseif($play_place == 2){
+  if(isset($_POST['customer_address'])){
+  $house_adress = $_POST['customer_address'];
+  $pattern = '/^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,100}$/';
+  if (preg_match($pattern, $house_adress)) {
+  $reserve->setReservePlayAdress($house_adress);
+  if(isset($_POST['hotel_area'])){
+  unset($_POST['hotel_area']);
+  }
+  $reserve -> resetPropertyValue('reservePlayArea');
+  }else{
+  if(isset($_POST['hotel_area'])){
+  unset($_POST['hotel_area']);
+  }
+  $reserve -> resetPropertyValue('reservePlayArea');
+  $errmessage = "記号を含めないでください。";
+  echo $errmessage;
+  exit();
+
+  }}
+
+  }
+
+
+
+
+
+  if(isset($_POST['play_option'])){
+  $selectedOptions = $_POST['play_option'];
+
+  // すべてのkeyリスト作成option01, option02などを使った配列を作成
+    $optionIds = ['option01','option02','option03','option04','option05','option06','option07','option08','option09','option10'];
+
+    // 受け取った値が$optionsに存在するか検証
+  $valid = true;
+  foreach ($selectedOptions as $selectedOption) {
+  if (!in_array($selectedOption, $optionIds)) {
+  $valid = false;
+  break;
+  }
+  }
+
+
+  // バリデーション結果に基づく処理
+
+  if ($valid) {
+        // すべてのオプションを false にリセット
+        foreach ($optionIds as $optionId) {
+            $reserve->{'set' . ucfirst($optionId)}(false);
         }
-      }else{
-        $errmessage = "場所が選択されてません";
-        echo $errmessage;
-        exit();
-      }
 
-      // hotel
-      if($play_place == 1){
-        if(isset($_POST['hotel_area'])){
-          $reserve->setReservePlayArea($_POST['hotel_area']);
-          if(isset($_POST['customer_address'])){
-            unset($_POST['customer_address']);
-          }
-          $reserve -> resetPropertyValue($reservePlayadress);
-        }else{
-        $errmessage = "最寄り駅が選択されてません";
-          if(isset($_POST['customer_address'])){
-            unset($_POST['customer_address']);
-          }
-          $reserve -> resetPropertyValue($reservePlayadress);
-        exit();
-        }
-        // house
-      }elseif($play_place == 2){
-        if(isset($_POST['customer_address'])){
-          $house_adress = $_POST['customer_address'];
-        $pattern = '/^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,100}$/';
-        if (preg_match($pattern, $house_adress)) {
-          $reserve->setReservePlayAdress($house_adress);
-            if(isset($_POST['hotel_area'])){
-            unset($_POST['hotel_area']);
-          }
-          $reserve -> resetPropertyValue($reservePlayArea);
-        }else{
-          if(isset($_POST['hotel_area'])){
-            unset($_POST['hotel_area']);
-          }  
-        $reserve -> resetPropertyValue($reservePlayArea);
-        $errmessage = "記号を含めないでください。";
-        echo $errmessage;
-        exit();
-        
-      }}
-
-      }
-      if(isset($_POST['play_option'])){
-         $selectedOptions = $_POST['play_option'];
-          // 選択肢のIDだけを取り出した配列を作成
-          $optionIds = array_column($options, 0);
-
-        // 受け取った値が$optionsに存在するか検証
-         $valid = true;
+        // 選択されたオプションに true をセット
         foreach ($selectedOptions as $selectedOption) {
-        if (!in_array($selectedOption, $optionIds)) {
-            $valid = false;
-            break;
+            $reserve->{'set' . ucfirst($selectedOption)}(true);
         }
-        }
-
-
-        // バリデーション結果に基づく処理
-        if (empty($selectedOptions)) {
-        $reserve->setReservePlayOption([]);
-        } elseif ($valid) {
-        $reserve->setReservePlayOption($selectedOptions);
-        }else{
-        $errmessage = "予想外のオプション";
-        echo $errmessage;
-        exit();
-        }
-        } else {
-          // 何もオプション選ばれてない
-        $reserve->setReservePlayOption([]);
-        }
-
-
-      // 次へ行く
-      $_SESSION['input_reserve_card'] = serialize($reserve);
-      header("Location: input_reserve_05.php");
-      exit();
     }
+  }else{
+  $errmessage = "予想外のオプション";
+  echo $errmessage;
+  exit();
+  }
+  
 
-      
+  // 次へ行く
+  $_SESSION['input_reserve_card'] = serialize($reserve);
+  header("Location: input_reserve_05.php");
+  exit();
+  }
 
-} else {
+
+
+  } else {
   // セッションがないなんてありえない
-    echo "<p>入力の手順が間違っています</p>";
-    echo "<script>setTimeout(function() {window.location.href = 'setting_index02.php';}, 1000);</script>";
-}
+  echo "<p>入力の手順が間違っています</p>";
+  echo "<script>
+  setTimeout(function() {
+    window.location.href = 'setting_index02.php';
+  }, 1000);
+  </script>";
+  }
 
-      
-?>
+
+  ?>
 
 
 
@@ -243,47 +329,27 @@ if (isset($_SESSION['input_reserve_card'])) {
   <!-- 予約済みのインスタンス -->
   <!-- sqlをやっていないからとりあえずサンプル全部をインスタンスにしてる -->
   <!-- なにもない場合は空にしておくことが重要 -->
-  <?php if(isset($reserved_cards) && $reserved_cards):?>
-  <?php foreach( $reserved_cards as $reserved_card ):?>
-  <?php $reserved_class_arrs[] = new Reservation($reserved_card)?>
-  <!-- この先で他の人の予約を検索しているので一旦終了 -->
-  <?php endforeach ?>
-  <?php else:?>
-  <?php $reserved_class_arrs = [] ;?>
-  <?php endif?>
-
-  <!-- ここで予約カードの特定終了 -->
 
 
 
   <!-- 指名した人の顧客ナンバーから画像特定 -->
-  <?php $reserve_customer_name =$reserve->getReserveCustomerName();?>
   <!-- 新規客 -->
   <?php if($reserve->getReserveCustomerType()== 2):?>
   <?php $reserve_customer_img = 'img/user_face.png'; ?>
   <!-- 会員 -->
   <?php elseif($reserve->getReserveCustomerType() == 1):?>
-  <?php foreach($people_basics as $people_basic) :?>
-  <?php if($people_basic["no"] == $reserve->getReserveCustomerNum()):?>
-  <?php $reserve_customer_img = $people_basic["icon"] ?>
-  <?php break; ?>
+  <?php $reserve_customer_img = $reserverIcon ?>
   <?php endif; ?>
-  <?php endforeach ;?>
-  <?php endif?>
 
   <!-- 指名する人のプロフィール -->
   <!-- スタッフ番号 -->
-  <?php $employee_number = $reserve->getReserveGirlNum(); ?>
+  <?php $employe_number = $reserve->getReserveGirlNum(); ?>
 
-  <?php foreach($sample_names as $sample_name):?>
-  <?php if($sample_name[0] == $employee_number):?>
-  <!-- 名前 -->
-  <?php $employee_girl_name = $sample_name[1]?>
+  <?php $employe_girl_name = $_SESSION['employe_girl_name']?>
   <!-- 画像 -->
-  <?php $employee_girl_img = $sample_name[3]?>
-  <?php break ?>
-  <?php endif?>
-  <?php endforeach?>
+  <?php $employe_girl_img = $_SESSION['employe_girl_img']?>
+
+
 
 
   <!-- 予約しようとしているキャストの出勤時間を取りたい -->
@@ -309,24 +375,21 @@ if (isset($_SESSION['input_reserve_card'])) {
   $day = substr($dayStr, 6, 2);
   
   // 日時合体
-  $today_num = $year . '_' . $month . '_' . $day;
+
+  $today_num = $year . '-' . $month . '-' . $day;
   $todayDatas = $inputData[$today_num] ?? null;
 
   foreach($todayDatas as $todayData){
-    if($todayData['社員番号'] == $select_cast_no ){
+    if($todayData->getAttendanceGirlNum() == $select_cast_no ){
       $want_reserve_cast = $todayData;
       break;
     }
   } 
   ?>
 
-
-
   <!-- 出勤時間退勤時間確定 -->
-  <?php $work_start_time = strtotime($want_reserve_cast['出勤時間'])?>
-  <?php $work_end_tiome = strtotime($want_reserve_cast['退勤時間'])?>
-
-
+  <?php $work_start_time = strtotime($want_reserve_cast->getWorkStartTime())?>
+  <?php $work_end_time = strtotime($want_reserve_cast->getWorkEndTime())?>
 
 
 
@@ -347,29 +410,6 @@ if (isset($_SESSION['input_reserve_card'])) {
           $timeIncrement = 1800; // 30分
     ?>
 
-
-    <p>予約</p>
-    <?php
-    // var_dumpでインスタンスの中身を見る
-    echo "
-    <pre>";
-    var_dump($reserve);
-    echo "</pre>";
-    ?>
-
-    <br>
-    <br>
-    <p>他の人の予約</p>
-    <?php
-    // var_dumpでインスタンスの中身を見る
-    echo "
-    <pre>";
-    var_dump($reserved_cards_arrs);
-    echo "</pre>";
-    ?>
-
-
-    <br>
 
 
 
@@ -401,24 +441,28 @@ if (isset($_SESSION['input_reserve_card'])) {
                   <?php if($reserve->getReserveCustomerType()== 2):?>
                   <img src='../img/user_face.png' alt="">
                   <?php else:?>
-                  <img src='../<?php echo $people_basics[$reserve->getReserveCustomerNum()]['icon']?>' alt="">
+                  <img src='../<?php echo $reserve_customer_img ?>' alt="">
                   <?php endif?>
+
                 </figure>
                 <figcaption class="request_img_caption">
-                  <?php echo $reserve->getReserveCustomerName();?>
+                  <?php echo $reserverName ;?>
                 </figcaption>
               </div>
               <div class="arrow"></div>
               <div class="arrow-round"></div>
+
               <!-- 指名された人 -->
               <div>
                 <figure class="request_img">
-                  <img src='../<?php echo $employee_girl_img?>' alt="">
+                  <img src='../<?php echo $employe_girl_img?>' alt="">
                 </figure>
                 <figcaption class="request_img_caption">
-                  <?php echo $employee_girl_name; ?>
+                  <?php echo $employe_girl_name; ?>
                 </figcaption>
               </div>
+
+
             </div>
 
           </div>
@@ -432,23 +476,32 @@ if (isset($_SESSION['input_reserve_card'])) {
 
 
         <!-- 他に同じ日に同じ人を予約している人はだれ？ -->
+        <!-- 出勤時間退勤時間確定 -->
+        <?php $work_start_time = strtotime($want_reserve_cast->getWorkStartTime())?>
+        <?php $work_end_time = strtotime($want_reserve_cast->getWorkEndTime())?>
+
+        <!-- 他に同じ日に同じ人を予約している人はだれ？ -->
         <?php $reserved_cards_arrs= array();?>
         <?php if(isset($reserved_class_arrs) && $reserved_class_arrs):?>
         <!-- 今回いれる予約日を日時に -->
+
         <?php $dateTime1 = DateTime::createFromFormat('Ymd', $reserve->getReservePlayDay());?>
 
         <?php foreach($reserved_class_arrs as $reserved_class_arr) :?>
         <!-- すでに入っている予約日を日時へ -->
-        <?php $dateTime2 = DateTime::createFromFormat('Ymd', $reserved_class_arr -> getReservationDate());?>
-        <!-- 指名した人とその日時が同じ予約済みのデータをいれる -->
-        <?php if($reserved_class_arr -> getEmployeeNumber() == $reserve->getReserveGirlNum()&&  $dateTime1 ==  $dateTime2):?>
 
+        <?php $dateTime2 = DateTime::createFromFormat('Y-m-d', $reserved_class_arr -> getReservePlayDay());?>
+        <!-- 指名した人とその日時が同じ予約済みのデータをいれる -->
+
+
+        <?php if($reserved_class_arr -> getReserveGirlNum() == $reserve->getReserveGirlNum() &&  $dateTime1 ==  $dateTime2):?>
 
         <?php $reserved_cards_arrs[] = $reserved_class_arr ?>
         <?php endif?>
 
         <?php endforeach ?>
         <?php endif?>
+
 
 
         <?php $time_threshold = $reserve->getReservePlaytime()?>
@@ -459,27 +512,27 @@ if (isset($_SESSION['input_reserve_card'])) {
 
         <!-- 無名関数$card -->
         <?php $filtered_cards = array_filter($reserved_cards_arrs, function($card) use ($time_threshold) {
-          return strtotime($card->getStartTime()) >= strtotime($time_threshold);
+          return strtotime($card->getReservePlaytime()) >= strtotime($time_threshold);
         });
         ?>
 
         <?php usort($filtered_cards, function($a, $b) {
-          return strtotime($a->getStartTime()) - strtotime($b->getStartTime());
+          return strtotime($a->getReservePlaytime()) - strtotime($b->getReservePlaytime());
         });
 
         // フィルタリング後の配列が空でないかをチェック
         if (!empty($filtered_cards)) {
           $next_reserve_card = reset($filtered_cards);
-          $next_reserve_time = $next_reserve_card->getStartTime();
+          $next_reserve_time = $next_reserve_card->getReservePlaytime();
         } else {
         // フィルタリング後の配列が空の場合の処理
-          $next_reserve_time = $want_reserve_cast['退勤時間'];
+          $next_reserve_time = $want_reserve_cast -> getWorkEndTime();
         }
         ?>
 
 
         <?php else:?>
-        <?php $next_reserve_time = $want_reserve_cast['退勤時間']; ?>
+        <?php $next_reserve_time = $want_reserve_cast -> getWorkEndTime(); ?>
 
 
         <?php endif?>
@@ -488,15 +541,6 @@ if (isset($_SESSION['input_reserve_card'])) {
         <form action="input_reserve_04.php" method="post">
 
 
-          <br>
-          <h1>送信された時間</h1>
-          <?php 
-          $reserve_playtime = $reserve->getReservePlaytime();
-          echo $reserve_playtime;
-          ?>
-          <h2>次の予約時間</h2>
-          <?php echo $next_reserve_time;?>
-          <br>
 
           <div class="staff_input_wrap">
             <h2>コース選択</h2>
@@ -543,7 +587,10 @@ if (isset($_SESSION['input_reserve_card'])) {
             <h2>プレイ場所</h2>
             <?php
             // 初期選択値を設定
-            $reservePlaysSpace = $reserve->getReservePlaySpace();
+            $reservePlaySpace = $reserve->getReservePlaySpace();
+            $reservePlayAdress = $reserve->getReservePlayAdress();
+            $reservePlayArea = $reserve->getReservePlayArea();
+            
             ?>
 
             <ul id="select_place">
@@ -577,8 +624,8 @@ if (isset($_SESSION['input_reserve_card'])) {
                 <?php foreach($hotels as $index => $hotel ): ?>
                 <li class="plya_place_btn select_btn">
                   <input class=" form-check-input" id="<?php echo $index ?>" type="radio"
-                    value="<?php echo $hotel[0] ?>" name="hotel_area" <?php if($index == 'hotel1'){
-                          echo "checked";} ?>>
+                    value="<?php echo $hotel[0] ?>" name="hotel_area"
+                    <?php echo ($reservePlayArea === $hotel[0] || ($reservePlayArea === null && $index === 'hotel1')) ? 'checked' : '' ?>>
                   <label for="<?php echo $index?>" class="select_play_place">
                     <?php echo $hotel[0] ?>
                   </label>
@@ -592,7 +639,8 @@ if (isset($_SESSION['input_reserve_card'])) {
             <div id="house_address" class="play_place_title" style="display: none;">ご住所
               <input id="house_address_input" class="house_adress_input_text" type="text" name="customer_address"
                 placeholder="100文字以内です" size="60" onblur="CheckGuestInfo(this)"
-                pattern="^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,100}">
+                pattern="^(?=.*\S.*$)[^\x21-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{1,100}"
+                value="<?php echo htmlspecialchars($reservePlayAdress ?? '', ENT_QUOTES, 'UTF-8'); ?>">
             </div>
 
 
@@ -603,14 +651,26 @@ if (isset($_SESSION['input_reserve_card'])) {
             <h2>希望オプション</h2>
 
             <ul class="option_tag_ul input_optin">
-              <!--チェックボックス01-->
-              <?php foreach( $options as $key=> $option) :?>
-              <li class="step_list_wrap">
-                <input type="checkbox" id='play_option<?php echo $key?>' name="play_option[]"
-                  value='<?php echo $option[0] ?>'>
-                <label for='play_option<?php echo $key?>' class="boxcheck"><?php echo $option[1] ?></label>
-              </li>
+              <!--選択している女の子のオプションリストを取得-->
+              <!-- SQLでやるから後でいらないきがする -->
+              <?php foreach( $options as $option) :?>
+              <?php if($option -> getgirlNumber() == $reserve ->getReserveGirlNum()):?>
+              <!-- girlナンバー抜いた配列 -->
+              <?php $girlOptions = $option ->getOptions();?>
+              <?php break?>
+              <?php endif?>
               <?php endforeach ?>
+
+              <?php foreach ($girlOptions as $key => $value):?>
+              <?php $disabled = $value ? '' : 'disabled';?>
+              <li class="step_list_wrap li_options">
+
+                <input type="checkbox" id='<?php echo $key ?>' name="play_option[]" value='<?php echo $key ?>'
+                  <?php echo $disabled?>>
+                <label for='<?php echo $key?>' class="boxcheck"><?php echo $key ?></label>
+              </li>
+              <?php endforeach?>
+
             </ul>
 
           </section>
@@ -648,6 +708,7 @@ if (isset($_SESSION['input_reserve_card'])) {
 
   </div>
 
+  <!-- リロード時に再読み込み -->
   <script>
   window.addEventListener('pageshow', function(event) {
     if (event.persisted) {
@@ -663,7 +724,29 @@ if (isset($_SESSION['input_reserve_card'])) {
 
 
 
-<br><br><br>
+<!-- 保存されているデータ -->
+<p>予約</p>
+<?php
+    // var_dumpでインスタンスの中身を見る
+    echo "
+    <pre>";
+    var_dump($reserve);
+    echo "</pre>";
+    ?>
+
+<br>
+<br>
+<p>他の人の予約</p>
+<?php
+    // var_dumpでインスタンスの中身を見る
+    echo "
+    <pre>";
+    var_dump($reserved_cards_arrs);
+    echo "</pre>";
+    ?>
+<br>
+<!-- 保存されているデータ -->
+
 
 
 </html>

@@ -32,7 +32,45 @@
     <?php
     require_once( dirname(__FILE__). '/../parts/setting_header.php');
     require_once( dirname(__FILE__). '/data/data.php');
+
+
+    // reviewのクラス
+    require_once( dirname(__FILE__). '/class/review_class.php');
     require_once( dirname(__FILE__). '/data/review_data.php');
+
+
+
+      //すべてのレビュー
+       foreach($approvalPendings as $approvalPending){
+      $approvalPendingArr[] = new  ReviewManager($approvalPending);
+        }
+
+        // 未承認レビュー
+
+        foreach($approvalPendingArr as $approvalPendingData){
+          if($approvalPendingData -> getApproval()== false){
+           
+            $approvalPendingDataArry [] = $approvalPendingData;
+          }
+        }
+
+
+// スタッフカプセル化
+    require_once( dirname(__FILE__). '/data/girl_data.php');
+    require_once( dirname(__FILE__). '/class/girl_class.php');
+    
+
+    // profile
+  foreach($sample_names as $sample_name){
+    $staffList[] = new girlProfilelManager($sample_name);
+  }
+
+  // 画像
+  foreach($sample_pics  as $sample_pic ){
+    $staffPics[] = new girlImageManager($sample_pic['girlNumber'],$sample_pic);
+  }
+  
+
     ?>
 
 
@@ -62,12 +100,6 @@
 
       ?>
 
-      <!-- 承認待ちレビュークラス -->
-      <?php foreach($approvalPendings as $approvalPending){
- $approvalPendingArr[] = new  ReviewManager($approvalPending);
-}
-
-?>
 
       <!------------------------------------
         html
@@ -79,17 +111,26 @@
 
 
       <div id="approval_pending_list">
-        <?php foreach($approvalPendingArr as $approvalPending):?>
+
+        <?php foreach($approvalPendingDataArry as $approvalPending):?>
         <!-- 指名した人のプロフィール -->
         <?php $employee_number = $approvalPending->getEmployeeNumber(); ?>
 
-        <?php foreach($sample_names as $sample_name):?>
-        <?php if($sample_name[0] == $employee_number):?>
-        <?php $employee_girl_name = $sample_name[1]?>
-        <?php $employee_girl_img = $sample_name[3]?>
+        <?php foreach($staffList as $staff):?>
+        <?php if($staff -> getGirlNumber() == $employee_number):?>
+        <?php $employee_girl_name = $staff -> getGirlName()?>
         <?php break ?>
         <?php endif?>
         <?php endforeach?>
+
+        <?php foreach($staffPics as $pic):?>
+        <?php if ( $pic -> getGirlNumber() ==  $employee_number ):?>
+        <?php $employee_girl_img = $pic -> getGirlImage01()?>
+        <?php break ?>
+        <?php endif?>
+
+        <?php endforeach?>
+
 
         <!-- <div class="review_request_wrap"> -->
         <a href='approval_review_done.php?reviewNum=<?php echo $approvalPending->getReviewNumber()?>'
@@ -118,7 +159,7 @@
 
             <!-- 評価本文 -->
             <p class="staff_review_text">
-
+              <!-- 本文いらないかな -->
             </p>
           </div>
           <div class="reviewer_data">

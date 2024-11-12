@@ -1,3 +1,25 @@
+<?php
+session_start();
+
+// 戻るボタンでエラーしないように
+header('Expires:-1');
+header('Cache-Control:');
+header('Pragma:');
+
+// POST リクエストのチェック
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["gotong"])) {
+    $_SESSION['review_no'] = $_POST["review_number"];
+    header("Location: approval_review_mail.php");
+    exit; // リダイレクト後にスクリプトの実行を止めるため
+}elseif($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["confirm"])){
+
+  // サーバーにアクセスして保存
+  
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -24,6 +46,11 @@
   <!-- <script src="../js/show_modal.js" defer></script> -->
 </head>
 
+
+
+
+
+
 <body id="body">
 
   <div id="wrapper">
@@ -31,8 +58,51 @@
     <?php
     require_once( dirname(__FILE__). '/../parts/setting_header.php');
     require_once( dirname(__FILE__). '/data/data.php');
+
+    // レビューのクラス
+    require_once( dirname(__FILE__). '/class/review_class.php');
     require_once( dirname(__FILE__). '/data/review_data.php');
-    require_once( dirname(__FILE__). '/data/member_data.php');
+
+      //すべてのレビュー
+       foreach($approvalPendings as $approvalPending){
+      $approvalPendingArr[] = new  ReviewManager($approvalPending);
+        }
+
+        // 未承認レビュー
+
+        foreach($approvalPendingArr as $approvalPendingData){
+          if($approvalPendingData -> getApproval()== false){
+           
+            $approvalPendingDataArry [] = $approvalPendingData;
+          }
+        }
+
+
+// スタッフカプセル化
+    require_once( dirname(__FILE__). '/data/girl_data.php');
+    require_once( dirname(__FILE__). '/class/girl_class.php');
+    
+
+    // profile
+  foreach($sample_names as $sample_name){
+    $staffList[] = new girlProfilelManager($sample_name);
+  }
+
+  // 画像
+  foreach($sample_pics  as $sample_pic ){
+    $staffPics[] = new girlImageManager($sample_pic['girlNumber'],$sample_pic);
+  }
+  
+
+    //お客さんカプセル化
+   require_once( dirname(__FILE__). '/data/member_data.php');
+   require_once( dirname(__FILE__). '/class/member_class.php');
+   
+    // profile
+    foreach($people_basics as $people_basic){
+    $memberList[] = new memberProfileManager($people_basic);
+  }
+
     // エラー配列を作る
     $errmessage = array();
     ?>
@@ -46,13 +116,11 @@
     <!-- すべての承認待ちをインスタンス化 -->
 
     <?php $review_card =null;?>
-    <?php foreach($approvalPendings as $approvalPending):?>
-    <?php $pending_reviews[] = new ReviewManager($approvalPending);?>
-    <?php endforeach ?>
+
 
     <!-- クリックされたのは誰のどのレビューか？特定 -->
     <!-- 何度もレビューしてないか？確認しなくていいの？ -->
-    <?php foreach($pending_reviews as $pending_review) :?>
+    <?php foreach($approvalPendingDataArry as $pending_review) :?>
     <?php if($pending_review -> getReviewNumber() == $_GET['reviewNum']):?>
     <?php $review_card = $pending_review ?>
     <?php break ?>
@@ -70,13 +138,23 @@
 
     <?php $employee_number = $review_card->getEmployeeNumber(); ?>
 
-    <?php foreach($sample_names as $sample_name):?>
-    <?php if($sample_name[0] == $employee_number):?>
-    <?php $employee_girl_name = $sample_name[1]?>
-    <?php $employee_girl_img = $sample_name[3]?>
+    <?php foreach($staffList as $sample_name):?>
+    <?php if($sample_name -> getGirlNumber() == $employee_number):?>
+    <?php $employee_girl_name = $sample_name -> getGirlName()?>
     <?php break ?>
     <?php endif?>
     <?php endforeach?>
+
+    <?php foreach($staffPics as $pic):?>
+    <?php if($pic -> getGirlNumber() == $employee_number):?>
+    <?php $employee_girl_img = $pic -> getGirlImage01()?>
+    <?php break ?>
+    <?php endif?>
+    <?php endforeach?>
+
+
+
+
 
     <!-- 客関連 -->
     <!-- 指名した人の顧客ナンバーから画像特定 -->
@@ -88,22 +166,21 @@
     <!-- 本来ならSQLでとる -->
 
     <?php $user_card =null;?>
-    <?php foreach($people_basics as $people_basic):?>
-    <?php $allusers[] = new MemberHandler ($people_basic);?>
-    <?php endforeach ?>
 
-    <?php foreach($allusers as $alluser):?>
-    <?php if($alluser->getMemberNumber() ==  $review_card->getUserNumber()): ?>
+
+    <?php foreach($memberList as $alluser):?>
+    <?php if($alluser -> getMemberNumber() == $review_card -> getUserNumber()): ?>
     <?php $user_card = $alluser ;?>
-    <?php $review_customer_img =$user_card->getIconImage() ;?>
+    <?php $review_customer_img = $user_card -> getMemberIcon() ;?>
+    <!-- 名前は自由意志 -->
+    <?php $review_customer_name = $user_card -> getMemberName();?>
     <?php break; ?>
     <?php endif; ?>
     <?php endforeach ;?>
     <!-- 会員か？終了 -->
     <?php endif?>
 
-    <!-- 名前は自由意志 -->
-    <?php $review_customer_name = $review_card->getUserName();?>
+
 
     <!-- レビュー関連 -->
     <!-- タイトル -->
@@ -133,25 +210,24 @@
       //バリデーション読み込み
       require_once('date_validate.php');
 
-      // セッションスタートしてる
-      session_start();
-
-      // 戻るボタンでエラーしないように
-      header('Expires:-1');
-      header('Cache-Control:');
-      header('Pragma:');
-
  
 
       ?>
+
+
+
+
+
+
       <!------------------------------------
         html
       -------------------------------------->
 
       <!-- メールアドレスが入ってないか？ -->
-      <?php if($review_card->checkWord()){
-      $errmessage[] = "連絡先やURLなどが入ってます";
-      }?>
+      <?php 
+      if ($review_card->checkWord()) {
+      $errmessage[] = "暴言や連絡先などが入ってます";}
+      ?>
 
       <!-- エラーメッセージがあるなら表示 -->
       <?php
@@ -237,15 +313,18 @@
         </div>
 
 
-        <form action="" class="reserve_button_wrap">
+        <form action="approval_review_done.php" method="POST" class="reserve_button_wrap">
           <!-- キャンセル -->
           <a href="approval_review.php" class="reserve_back">キャンセル</a>
-          <?php if($errmessage):?>
+          <?php if($errmessage): ?>
+          <input type="hidden" name="review_number" value="<?php echo $review_card->getReviewNumber(); ?>">
           <input type="submit" id="nextButton" name="gotong" class="reserve_ng" value="破棄">
-          <?php else:?>
+          <?php else: ?>
+          <input type="hidden" name="review_number" value="<?php echo $review_card->getReviewNumber(); ?>">
           <input type="submit" id="nextButton" name="confirm" class="reserve_done" value="確定">
-          <?php endif?>
+          <?php endif ?>
         </form>
+
 
       </div>
       <?php endif?>

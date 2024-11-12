@@ -61,13 +61,13 @@
     <!-- header読み込み -->
     <?php
     require_once( dirname(__FILE__). '/../parts/setting_header.php');
-     require_once( dirname(__FILE__). '/data/data.php');
+    require_once( dirname(__FILE__). '/data/data.php');
+    require_once( dirname(__FILE__). '/data/girl_profile_const.php');
     ?>
 
 
 
     <main id="main">
-
 
       <article id="setting_index" class="under_space">
         <div class="content_wrapper">
@@ -220,11 +220,15 @@
 
               <ul class="option_tag_ul">
                 <!--チェックボックス01-->
-                <?php foreach( $options as $key=> $option) :?>
+                <?php foreach( $options as $option) :?>
+                <?php if($option['name'] == null):?>
+                <?php break?>
+                <?php endif?>
                 <li class="step_list_wrap">
-                  <input type="checkbox" id='play_option<?php echo $key?>' name="play_option"
-                    value='<?php echo $option ?>'>
-                  <label for='play_option<?php echo $key?>' class="boxcheck"><?php echo $option ?></label>
+                  <input type="checkbox" id='play_option<?php echo $option['id']?>' name="play_option"
+                    value='<?php echo $option['name'] ?>'>
+                  <label for='play_option<?php echo $option['id']?>'
+                    class="boxcheck"><?php echo $option['name'] ?></label>
                 </li>
                 <?php endforeach ?>
               </ul>
@@ -245,19 +249,22 @@
 
               <ul class="girl_tag_ul">
                 <!-- 最初の値をなしする -->
-                <?php foreach($girls_style as $num => $girl_style) :?>
+                <?php foreach($girls_style as $girl_style) :?>
+                <?php if($girl_style['name'] == null):?>
+                <?php break?>
+                <?php endif?>
                 <li class="girl_tag_radio_list">
 
-                  <?php if($num == 0) :?>
-                  <input type="radio" id='girl_style_tag_<?php echo $num ?>' name='girl_style'
-                    value='<?php echo $girl_style ?>' class="radio_label_01" checked>
+                  <?php if($girl_style['id'] == 1) :?>
+                  <input type="radio" id='girl_style_tag_<?php echo $girl_style['id'] ?>' name='girl_style'
+                    value='<?php echo $girl_style['name'] ?>' class="radio_label_01" checked>
                   <?php else :?>
-                  <input type="radio" id='girl_style_tag_<?php echo $num ?>' name='girl_style'
-                    value='<?php echo $girl_style ?>' class="radio_label_01">
+                  <input type="radio" id='girl_style_tag_<?php echo $girl_style['id'] ?>' name='girl_style'
+                    value='<?php echo $girl_style['name'] ?>' class="radio_label_01">
                   <?php endif ?>
 
                   <label class="girl_tag_label_txt"
-                    for='girl_style_tag_<?php echo $num ?>'><?php echo $girl_style ?></label>
+                    for='girl_style_tag_<?php echo $girl_style['id'] ?>'><?php echo $girl_style['name'] ?></label>
                 </li>
                 <?php endforeach ?>
               </ul>
@@ -279,18 +286,23 @@
 
               <ul class="girl_tag_ul">
                 <!-- 最初の値を選択済みに -->
-                <?php foreach($girls_appearance as $num => $girl_appearance) :?>
+                <?php foreach($girls_appearance as $girl_appearance) :?>
+                <?php if($girl_appearance['name'] == null):?>
+                <?php break?>
+                <?php endif?>
+
                 <li class="girl_tag_radio_list">
 
-                  <?php if($num == 0 ):?>
-                  <input type="radio" id='girl_appearance_tag_<?php echo $num ?>' name='girl_appearance'
-                    value='<?php echo $girl_appearance ?>' class="radio_label_01" checked>
+                  <?php if($girl_appearance['id'] == 1 ):?>
+                  <input type="radio" id='girl_appearance_tag_<?php echo $girl_appearance['id'] ?>'
+                    name='girl_appearance' value='<?php echo $girl_appearance['name'] ?>' class="radio_label_01"
+                    checked>
                   <?php else :?>
-                  <input type="radio" id='girl_appearance_tag_<?php echo $num ?>' name='girl_appearance'
-                    value='<?php echo $girl_appearance ?>' class="radio_label_01">
+                  <input type="radio" id='girl_appearance_tag_<?php echo $girl_appearance['id'] ?>'
+                    name='girl_appearance' value='<?php echo $girl_appearance['name'] ?>' class="radio_label_01">
                   <?php endif ?>
                   <label class="girl_tag_label_txt"
-                    for='girl_appearance_tag_<?php echo $num ?>'><?php echo $girl_appearance ?></label>
+                    for='girl_appearance_tag_<?php echo $girl_appearance['id'] ?>'><?php echo $girl_appearance['name'] ?></label>
                 </li>
 
                 <?php endforeach ?>
@@ -312,17 +324,20 @@
               <p class="step_a">プレイスタイル</p>
               <ul class="girl_tag_ul">
 
-                <?php foreach($girls_play as $num => $girl_play) :?>
+                <?php foreach($girls_play as $girl_play) :?>
+                <?php if($girl_play['name'] == null):?>
+                <?php break?>
+                <?php endif?>
                 <li class="girl_tag_radio_list">
-                  <?php if( $num == 0) :?>
-                  <input type="radio" checked id='girl_play_tag_<?php echo $num ?>' name='girl_play'
-                    value='<?php echo $girl_play ?>' class="radio_label_01">
+                  <?php if( $girl_play['id'] == 1) :?>
+                  <input type="radio" checked id='girl_play_tag_<?php echo $girl_play['id'] ?>' name='girl_play'
+                    value='<?php echo $girl_play['name'] ?>' class="radio_label_01">
                   <?php else :?>
-                  <input type="radio" id='girl_play_tag_<?php echo $num ?>' name='girl_play'
-                    value='<?php echo $girl_play ?>' class="radio_label_01">
+                  <input type="radio" id='girl_play_tag_<?php echo $girl_play['id'] ?>' name='girl_play'
+                    value='<?php echo $girl_play['name'] ?>' class="radio_label_01">
                   <?php endif ?>
                   <label class="girl_tag_label_txt"
-                    for='girl_play_tag_<?php echo $num ?>'><?php echo $girl_play ?></label>
+                    for='girl_play_tag_<?php echo $girl_play['id']?>'><?php echo $girl_play['name'] ?></label>
                 </li>
                 <?php endforeach ?>
 
@@ -343,17 +358,23 @@
               <p class="step_a">趣味</p>
               <ul class="girl_tag_ul">
 
-                <?php foreach($girls_characteristic as $num => $girl_characteristic) :?>
+                <?php foreach($girls_characteristic as $girl_characteristic) :?>
+                <?php if($girl_characteristic['name'] == null):?>
+                <?php break?>
+                <?php endif?>
+
                 <li class="girl_tag_radio_list">
-                  <?php if( $num == 0 ) :?>
-                  <input type="radio" checked id='girl_characteristic_tag_<?php echo $num ?>' name='girl_characteristic'
-                    value='<?php echo $girl_characteristic ?>' class="radio_label_02">
+                  <?php if( $girl_characteristic['id'] == 1 ) :?>
+                  <input type="radio" checked id='girl_characteristic_tag_<?php echo $girl_characteristic['id'] ?>'
+                    name='girl_characteristic' value='<?php echo $girl_characteristic['name'] ?>'
+                    class="radio_label_02">
                   <?php else :?>
-                  <input type="radio" id='girl_characteristic_tag_<?php echo $num ?>' name='girl_characteristic'
-                    value='<?php echo $girl_characteristic ?>' class="radio_label_02">
+                  <input type="radio" id='girl_characteristic_tag_<?php echo $girl_characteristic['id'] ?>'
+                    name='girl_characteristic' value='<?php echo $girl_characteristic['name'] ?>'
+                    class="radio_label_02">
                   <?php endif ?>
                   <label class="girl_tag_label_txt"
-                    for='girl_characteristic_tag_<?php echo $num ?>'><?php echo $girl_characteristic ?></label>
+                    for='girl_characteristic_tag_<?php echo $girl_characteristic['id'] ?>'><?php echo $girl_characteristic['name'] ?></label>
                 </li>
                 <?php endforeach ?>
 
@@ -374,11 +395,15 @@
               <p class="step_a">プラスアルファ</p>
               <ul class="girl_tag_ul">
 
-                <?php foreach($girls_plus as $num => $girl_plus) :?>
+                <?php foreach($girls_plus as $girl_plus) :?>
+                <?php if($girl_plus['name'] == null):?>
+                <?php break?>
+                <?php endif?>
                 <li class="girl_tag_radio_list">
-                  <input type="checkbox" id='girl_plus_tag_<?php echo $num ?>' name='girl_plus'
-                    value='<?php echo $girl_plus ?>'>
-                  <label for='girl_plus_tag_<?php echo $num ?>' class="boxcheck"><?php echo $girl_plus ?></label>
+                  <input type="checkbox" id='girl_plus_tag_<?php echo $girl_plus['id'] ?>' name='girl_plus'
+                    value='<?php echo $girl_plus['name'] ?>'>
+                  <label for='girl_plus_tag_<?php echo $girl_plus['id'] ?>'
+                    class="boxcheck"><?php echo $girl_plus['name'] ?></label>
                 </li>
                 <?php endforeach ?>
 
@@ -401,11 +426,15 @@
               <p class="step_a">秘密</p>
               <ul class="girl_tag_ul">
                 <!-- 最初の値をなしする -->
-                <?php foreach($girls_secret as $num => $girl_secret ) :?>
+                <?php foreach($girls_secret as $girl_secret ) :?>
+                <?php if($girl_secret['name'] == null):?>
+                <?php break?>
+                <?php endif?>
                 <li class="girl_tag_radio_list">
-                  <input type="checkbox" id='girl_secret_tag_<?php echo $num ?>' name='girl_secret'
-                    value='<?php echo $girl_secret ?>'>
-                  <label for='girl_secret_tag_<?php echo $num ?>' class="boxcheck"><?php echo $girl_secret ?></label>
+                  <input type="checkbox" id='girl_secret_tag_<?php echo $girl_secret['id'] ?>' name='girl_secret'
+                    value='<?php echo $girl_secret['name'] ?>'>
+                  <label for='girl_secret_tag_<?php echo $girl_secret['id'] ?>'
+                    class="boxcheck"><?php echo $girl_secret['name'] ?></label>
                 </li>
                 <?php endforeach ?>
               </ul>

@@ -78,7 +78,7 @@ function check_file_type($file)
         throw new RuntimeException('ファイル形式が不正です');
     }
 }
-function save_file($file)
+function save_file($file, $ext)
 {
     // ファイルデータからSHA-1ハッシュを取ってファイル名を決定し，保存する
     if (!move_uploaded_file(

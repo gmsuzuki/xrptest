@@ -12,7 +12,7 @@ class Fix
     const EVENTTITLE = 32;
     const EVENTBODY = 1000;
     // イベントの種類
-    const EVENTTYPE = 4;
+    const EVENTTYPE = 6;
     // 更新よてい
     const EVENTPOST = 2;
     // newsに載せるのか？

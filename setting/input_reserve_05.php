@@ -29,6 +29,7 @@
   <script src="../js/setting.js" defer></script>
   <script src="../js/cancelpop.js" defer></script>
   <script src="../js/user_input_modal.js" defer></script>
+  <script src="../js/step_bar.js" defer></script>
 
 </head>
 
@@ -36,12 +37,68 @@
 
 
   <?php
-
-    require_once( dirname(__FILE__). '/class_input_reserve.php');
     require_once( dirname(__FILE__). '/../parts/setting_header.php');
     require_once( dirname(__FILE__). '/data/data.php');
+
+  //お客さんカプセル化
+   require_once( dirname(__FILE__). '/data/member_data.php');
+   require_once( dirname(__FILE__). '/class/member_class.php');
+   
+    // profile
+    foreach($people_basics as $people_basic){
+    $memberList[] = new memberProfileManager($people_basic);
+  }
+
+// スタッフカプセル化
+    require_once( dirname(__FILE__). '/data/girl_data.php');
+    require_once( dirname(__FILE__). '/class/girl_class.php');
+    require_once( dirname(__FILE__). '/data/staff_list_sort.php');
+
+    // profile
+  foreach($sample_names as $sample_name){
+    $staffList[] = new girlProfilelManager($sample_name);
+  }
+
+  // 画像
+  foreach($sample_pics  as $sample_pic ){
+    $staffPics[] = new girlImageManager($sample_pic['girlNumber'],$sample_pic);
+  }
+
+  // オプション
+  foreach($sample_basic_options  as $sampleoption ){
+    $options[]= new girlOptionManager($sampleoption['girlNumber'],$sampleoption);
+
+  }
+  
+// スケジュールカプセル化
+
+
+    require_once( dirname(__FILE__). '/class/attendance_class.php');
+    require_once( dirname(__FILE__). '/data/attendance_data.php');
+
+// スケジュール
+
+$inputData = [];
+foreach ($scheduleArray as $schedule) {
+    $workDay = $schedule['attendanceWorkDay'];
+    $inputData[$workDay][] = new InputAttendanceReserve($schedule);
+}
+
+    // 予約関連
+    require_once( dirname(__FILE__). '/class/reserve_class.php');
     require_once( dirname(__FILE__). '/data/reserve_data.php');
-    require_once( dirname(__FILE__). '/data/data_reserve.php');
+
+
+// すべて予約カード
+$allReserves = []; // 空の配列を初期化
+
+foreach($reserveLists as $reservedataArry){
+  $allReserves[] = new Reservation($reservedataArry);
+}
+
+
+
+
  
 session_start(); // セッションを開始
 
@@ -97,6 +154,17 @@ if (isset($_SESSION['input_reserve_card'])) {
     $reserve = unserialize($_SESSION['input_reserve_card']);
 
 
+  $reserverName =  $_SESSION['memberName'];
+  $reserverPhonee = $_SESSION['memberPhone'];
+  $reserverEmail = $_SESSION['memberEmail'];
+  $reserverIcon = $_SESSION['memberIcon'];
+  $employe_girl_name = $_SESSION['employe_girl_name'];
+  $employe_girl_img = $_SESSION['employe_girl_img'];
+
+
+
+
+
     // ここでバリデーションかく
 
 
@@ -111,76 +179,40 @@ if (isset($_SESSION['input_reserve_card'])) {
 ?>
 
 
-
-  <!-- 予約日時 -->
-  <?php
-    $reservedaynum = $reserve->getReservePlayDay();
-    // 年、月、日に分割
-    $year = substr($reservedaynum, 0, 4);
-    $month = substr($reservedaynum, 4, 2);
-    $day = substr($reservedaynum, -2);
-    
-?>
-
-
-
-  <!-- 通常なら$_getで予約番号を取得 -->
-  <!-- sqlでその番号の予約データを取るべき？ -->
-
-  <!-- 予約済みのインスタンス -->
-  <!-- sqlをやっていないからとりあえずサンプル全部をインスタンスにしてる -->
-  <!-- なにもない場合は空にしておくことが重要 -->
-  <?php if(isset($reserved_cards) && $reserved_cards):?>
-  <?php foreach( $reserved_cards as $reserved_card ):?>
-  <?php $reserved_class_arrs[] = new Reservation($reserved_card)?>
-  <!-- この先で他の人の予約を検索しているので一旦終了 -->
-  <?php endforeach ?>
-  <?php else:?>
-  <?php $reserved_class_arrs = [] ;?>
-  <?php endif?>
-
-  <!-- ここで予約カードの特定終了 -->
-
-
-
   <!-- 指名した人の顧客ナンバーから画像特定 -->
-  <?php $reserve_customer_name =$reserve->getReserveCustomerName();?>
   <!-- 新規客 -->
   <?php if($reserve->getReserveCustomerType()== 2):?>
   <?php $reserve_customer_img = 'img/user_face.png'; ?>
   <!-- 会員 -->
   <?php elseif($reserve->getReserveCustomerType() == 1):?>
-  <?php foreach($people_basics as $people_basic) :?>
-  <?php if($people_basic["no"] == $reserve->getReserveCustomerNum()):?>
-  <?php $reserve_customer_img = $people_basic["icon"] ?>
-  <?php break; ?>
+  <?php $reserve_customer_img = $reserverIcon ?>
   <?php endif; ?>
-  <?php endforeach ;?>
-  <?php endif?>
 
   <!-- 指名する人のプロフィール -->
   <!-- スタッフ番号 -->
-  <?php $employee_number = $reserve->getReserveGirlNum(); ?>
+  <?php $employe_number = $reserve->getReserveGirlNum(); ?>
 
-  <?php foreach($sample_names as $sample_name):?>
-  <?php if($sample_name[0] == $employee_number):?>
-  <!-- 名前 -->
-  <?php $employee_girl_name = $sample_name[1]?>
+  <?php $employe_girl_name = $_SESSION['employe_girl_name']?>
   <!-- 画像 -->
-  <?php $employee_girl_img = $sample_name[3]?>
-  <?php break ?>
-  <?php endif?>
-  <?php endforeach?>
+  <?php $employe_girl_img = $_SESSION['employe_girl_img']?>
 
 
-  <!-- 予約しようとしているキャストの出勤時間を取りたい -->
-  <!-- 02までで日付は持ってるしキャスト番号も持ってるから -->
-  <!-- 本来はSQLでとるが -->
-  <!-- 今回は先一週間の出勤から検索 -->
+
+
+
+
+
+  <!-- 通常なら$_getで予約番号を取得 -->
+  <!-- sqlでその番号の予約データを取るべき？ -->
+  <!-- 予約済みのインスタンス -->
+  <!-- sqlをやっていないからとりあえずサンプル全部をインスタンスにしてる -->
+  <!-- なにもない場合は空にしておくことが重要 -->
+  <!-- ここで予約カードの特定終了 -->
 
 
 
   <!-- 予約日時 -->
+
   <?php
   // 選択日時
   $today_num  = $reserve->getReservePlayDay();
@@ -196,52 +228,28 @@ if (isset($_SESSION['input_reserve_card'])) {
   $day = substr($dayStr, 6, 2);
   
   // 日時合体
-  $today_num = $year . '_' . $month . '_' . $day;
+
+  $today_num = $year . '-' . $month . '-' . $day;
   $todayDatas = $inputData[$today_num] ?? null;
 
   foreach($todayDatas as $todayData){
-    if($todayData['社員番号'] == $select_cast_no ){
+    if($todayData->getAttendanceGirlNum() == $select_cast_no ){
       $want_reserve_cast = $todayData;
       break;
     }
   } 
   ?>
 
+  <!-- 出勤時間退勤時間確定 -->
+  <?php $work_start_time = strtotime($want_reserve_cast->getWorkStartTime())?>
+  <?php $work_end_time = strtotime($want_reserve_cast->getWorkEndTime())?>
 
 
 
   <!--  -->
 
 
-
   <div id="wrapper">
-
-
-
-
-
-    <p>予約</p>
-    <?php
-    // var_dumpでインスタンスの中身を見る
-    echo "
-    <pre>";
-    var_dump($reserve);
-    echo "</pre>";
-    ?>
-
-    <br>
-    <br>
-    <p>他の人の予約</p>
-    <?php
-    // var_dumpでインスタンスの中身を見る
-    echo "
-    <pre>";
-    var_dump($reserved_cards_arrs);
-    echo "</pre>";
-    ?>
-
-
-    <br>
 
 
 
@@ -263,6 +271,8 @@ if (isset($_SESSION['input_reserve_card'])) {
             <div class="item">STEP.5<br>完了</div>
           </div>
 
+
+
           <div class="request_wrap">
             <h2 class="input_card reserve_card_title">●予約カード</h2>
             <p class="reserve_title_day"><?php echo $year . "-" . $month . "-" . $day; ?></p>
@@ -273,11 +283,11 @@ if (isset($_SESSION['input_reserve_card'])) {
                   <?php if($reserve->getReserveCustomerType()== 2):?>
                   <img src='../img/user_face.png' alt="">
                   <?php else:?>
-                  <img src='../<?php echo $people_basics[$reserve->getReserveCustomerNum()]['icon']?>' alt="">
+                  <img src='../<?php echo $reserverIcon?>' alt="">
                   <?php endif?>
                 </figure>
                 <figcaption class="request_img_caption">
-                  <?php echo $reserve->getReserveCustomerName();?>
+                  <?php echo $reserverName;?>
                 </figcaption>
               </div>
               <div class="arrow"></div>
@@ -285,10 +295,10 @@ if (isset($_SESSION['input_reserve_card'])) {
               <!-- 指名された人 -->
               <div>
                 <figure class="request_img">
-                  <img src='../<?php echo $employee_girl_img?>' alt="">
+                  <img src='../<?php echo $employe_girl_img?>' alt="">
                 </figure>
                 <figcaption class="request_img_caption">
-                  <?php echo $employee_girl_name; ?>
+                  <?php echo $employe_girl_name ; ?>
                 </figcaption>
               </div>
             </div>
@@ -322,33 +332,52 @@ if (isset($_SESSION['input_reserve_card'])) {
 
             <div class='play_options'>
               <h2>オプション</h2>
+              <?php
+              // オプションリスト (確認したいオプションを配列にしておく)
+              $optionIds = ['option01', 'option02', 'option03', 'option04', 'option05', 'option06', 'option07',
+              'option08', 'option09', 'option10'];
 
+              // trueになっているオプションを保存する配列
+              $trueOptions = [];
 
+              // 各オプションがtrueかを確認
+              foreach ($optionIds as $optionId) {
+              // 動的にメソッドを呼び出し、trueかを確認
+              if ($reserve->{'get' . ucfirst($optionId)}()) {
+              $trueOptions[] = $optionId;
+              }
+              }
 
+              // 結果の表示
+              if (!empty($trueOptions)) {
+              // trueになっているオプションをecho
+              foreach ($trueOptions as $trueOption) {
+              echo $trueOption ."<br>";
+              }
+              } else {
+              // 全てfalseの場合
+              echo "選択なし";
+              }
 
-              <?php if ($reserve->getReservePlayOption() !== null && $reserve->getReservePlayOption() !== '' && $reserve->getReservePlayOption() !== array()) :?>
-              <?php $select_optons = $reserve->getReservePlayOption()?>
-              <?php foreach($select_optons as $select_opton):?>
-              <?php echo $options[$select_opton][1]?>
-              <br>
-              <?php endforeach?>
-              <?php else:?>
-              <p>選択なし</p>
-              <?php endif?>
+              ?>
 
             </div>
 
+
+
+            <form action="input_reserve_06.php" method="post">
+              <div class="step_button_wrap">
+                <a href="input_reserve_schedule.php" onclick="cancelPop(event)"
+                  class="staff_input_step step_back">キャンセル</a>
+
+                <input type="submit" name="customer_information" value="決定" class="staff_input_step step_next">
+
+              </div>
+            </form>
+
+
           </div>
-
-          <br><br><br><br><br><br><br><br><br><br>
-
-
-
-
-
         </div>
-
-
       </article>
       <!-- ポップオーバーのテンプレート -->
 
@@ -369,12 +398,6 @@ if (isset($_SESSION['input_reserve_card'])) {
     </main>
 
 
-    <div class="alway_step_button_wrap fixed-footer">
-      <a href="input_reserve_schedule.php" onclick="cancelPop(event)" class="staff_input_step step_back">キャンセル</a>
-      <input type="submit" name="input_reserve_detail" value="決定" class="staff_input_step step_next">
-    </div>
-
-    </form>
 
 
 
@@ -391,6 +414,31 @@ if (isset($_SESSION['input_reserve_card'])) {
 
 
 </body>
+
+
+
+<!-- 保存されているデータ -->
+<p>予約</p>
+<?php
+    // var_dumpでインスタンスの中身を見る
+    echo "
+    <pre>";
+    var_dump($reserve);
+    echo "</pre>";
+    ?>
+
+<br>
+<br>
+<p>他の人の予約</p>
+<?php
+    // var_dumpでインスタンスの中身を見る
+    echo "
+    <pre>";
+    var_dump($reserved_cards_arrs);
+    echo "</pre>";
+    ?>
+<br>
+<!-- 保存されているデータ -->
 
 
 

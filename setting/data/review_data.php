@@ -1,323 +1,256 @@
+<!-- レビューデータ -->
 <?php
-// ナンバー,ユーザー名前,mail,入った女の子,利用日,利用コース,評価１,評価2,評価3,評価4,評価5,タイトル,内容,承認
-class ReviewManager
-{
-  private $reviewNumber;
-  private $userNumber;
-  private $userName;
-  private $userEmail;
-  private $employeeNumber;
-  private $playDate;
-  private $playTime;
-  private $rate01;
-  private $rate02;
-  private $rate03;
-  private $rate04;
-  private $rate05;
-  private $reviewTitle;
-  private $reviewBody;
-  private $registrant;
- 
 
-      public function __construct($data){
-        $this->reviewNumber = $data["レビュー番号"];
-        $this->userNumber = $data["会員番号"];
-        $this->userName = $data["ユーザー名前"];
-        $this->userEmail = $data["メールアドレス"];
-        $this->employeeNumber = $data["指名社員番号"];
-        $this->playDate = $data["利用日"];
-        $this->playTime = $data["プレイタイム"];
-        $this->rate01 = $data["評価1"];
-        $this->rate02 = $data["評価2"];
-        $this->rate03 = $data["評価3"];
-        $this->rate04 = $data["評価4"];
-        $this->rate05 = $data["評価5"];
-        $this->reviewTitle = $data["レビュータイトル"];
-        $this->reviewBody = $data["レビュー本文"];
-        $this->registrant = $data["承認"];
-      }
+$approvalPendings = [
 
-    // ゲッター
-    public function getReviewNumber()
-    {
-        return $this->reviewNumber;
-    }
-    public function getUserNumber()
-    {
-        return $this->userNumber;
-    }
-
-    public function getUserName()
-    {
-        return $this->userName;
-    }
-
-    public function getUserEmail()
-    {
-        return $this->userEmail;
-    }
-
-    public function getEmployeeNumber()
-    {
-        return $this->employeeNumber;
-    }
-
-    public function getPlayDate()
-    {
-        return $this->playDate;
-    }
-
-    public function getPlayTime()
-    {
-        return $this->playTime;
-    }
-
-    public function getRate01()
-    {
-        return $this->rate01;
-    }
-
-    public function getRate02()
-    {
-        return $this->rate02;
-    }
-
-    public function getRate03()
-    {
-        return $this->rate03;
-    }
-
-    public function getRate04()
-    {
-        return $this->rate04;
-    }
-
-    public function getRate05()
-    {
-        return $this->rate05;
-    }
-
-    public function getReviewTitle()
-    {
-        return $this->reviewTitle;
-    }
-
-    public function getReviewBody()
-    {
-        return $this->reviewBody;
-    }
-
-    public function getRegistrant()
-    {
-        return $this->registrant;
-    }
-
-    public function getAverageStar(){
-      $total = $this->rate01 + $this->rate02 + $this->rate03 + $this->rate04 + $this->rate05;
-      // 平均を計算
-        $average = $total / 5;
-        return $average;
-    }
-
-    public function getNgwordCheck($text){
-    // メールアドレスの正規表現パターン
-    $patterns = array(
-        '/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}/',
-        '/\b(https?|ftp):\/\/\S+\b/',
-        '/<[^>]*>/',
-        '/<script\b[^>]*>[\s\S]*?<\/script>/',
-        '/死ね|殺す|本盤|やれる|円|店外/'
-    );
-  
-    // テキスト内でメールアドレスおよびURLのパターンを検索 
-    foreach ($patterns as $pattern) {
-        $text = preg_replace($pattern, '<span style="color: red;">$0</span>', $text);
-    }
-
-    return $text;
-}
-
-
-    // セッター
-    public function setReviewNumber($reviewNumber)
-    {
-        $this->reviewNumber = $reviewNumber;
-    }
-    public function setUserNumber($userNumber)
-    {
-        $this->userNumber = $userNumber;
-    }
-
-    public function setUserName($userName)
-    {
-        $this->userName = $userName;
-    }
-
-    public function setUserEmail($userEmail)
-    {
-        $this->userEmail = $userEmail;
-    }
-
-    public function setEmployeeNumber($employeeNumber)
-    {
-        $this->employeeNumber = $employeeNumber;
-    }
-
-    public function setPlayDate($playDate)
-    {
-        $this->playDate = $playDate;
-    }
-
-    public function setPlayTime($playTime)
-    {
-        $this->playTime = $playTime;
-    }
-
-    public function setRate01($rate01)
-    {
-        $this->rate01 = $rate01;
-    }
-
-    public function setRate02($rate02)
-    {
-        $this->rate02 = $rate02;
-    }
-
-    public function setRate03($rate03)
-    {
-        $this->rate03 = $rate03;
-    }
-
-    public function setRate04($rate04)
-    {
-        $this->rate04 = $rate04;
-    }
-
-    public function setRate05($rate05)
-    {
-        $this->rate05 = $rate05;
-    }
-
-    public function setReviewTitle($reviewTitle)
-    {
-        $this->reviewTitle = $reviewTitle;
-    }
-
-    public function setReviewBody($reviewBody)
-    {
-        $this->reviewBody = $reviewBody;
-    }
-
-    public function setRegistrant($registrant)
-    {
-        $this->registrant = $registrant;
-    }
-    
-    // チェッカーメールアドレスがあればtrue
-    public function checkWord() {
-        $text = $this->reviewTitle . $this->reviewBody;
-    // メールアドレスを検出する正規表現パターン
-    $emailPattern = '/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/';
-
-    // URLを検出する正規表現パターン
-    $urlPattern = '/\b(?:https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|]/i';
-
-    // HTMLタグを検出する正規表現パターン
-    $htmlPattern = '/<[^>]*>/';
-
-    // JavaScriptコードを検出する正規表現パターン
-    $jsPattern = '/<script\b[^>]*>[\s\S]*?<\/script>/';
-
-    // テキスト内でこれらの要素が一致しないかを確認
-    if (preg_match($emailPattern, $text) || preg_match($urlPattern, $text) ||
-        preg_match($htmlPattern, $text) || preg_match($jsPattern, $text)) {
-        return true; // メールアドレス、URL、HTML、JavaScriptが含まれている
-    } else {
-        return false; // メールアドレス、URL、HTML、JavaScriptが含まれていない
-    }
-}
-
-}
+    [
+        "reviewNumber" => 1,
+        "userNumber" => 1,
+        "employeeNumber" => 2,
+        "playDate" => '2023-08-01',
+        "playTime" => 60,
+        "rate01" => 4,
+        "rate02" => 5,
+        "rate03" => 4,
+        "rate04" => 3,
+        "rate05" => 5,
+        "reviewTitle" => '素晴らしい体験',
+        "reviewBody" => 'とても満足しました。ぜひまた利用したいです。',
+        "approval" => true
+    ],
+    [
+        "reviewNumber" => 2,
+        "userNumber" => 2,
+        "employeeNumber" => 1,
+        "playDate" => '2023-08-05',
+        "playTime" => 45,
+        "rate01" => 3,
+        "rate02" => 3,
+        "rate03" => 4,
+        "rate04" => 3,
+        "rate05" => 4,
+        "reviewTitle" => '普通でした',
+        "reviewBody" => '特に問題はありませんでしたが、特別な印象もありませんでした。',
+        "approval" => true
+    ],
+    [
+        "reviewNumber" => 3,
+        "userNumber" => 3,
+        "employeeNumber" => 4,
+        "playDate" => '2023-08-10',
+        "playTime" => 75,
+        "rate01" => 5,
+        "rate02" => 5,
+        "rate03" => 5,
+        "rate04" => 4,
+        "rate05" => 5,
+        "reviewTitle" => '最高のサービス',
+        "reviewBody" => '期待以上のサービスで、とても満足しています。',
+        "approval" => true
+    ],
+    [
+        "reviewNumber" => 4,
+        "userNumber" => 4,
+        "employeeNumber" => 3,
+        "playDate" => '2023-08-15',
+        "playTime" => 90,
+        "rate01" => 2,
+        "rate02" => 3,
+        "rate03" => 2,
+        "rate04" => 3,
+        "rate05" => 2,
+        "reviewTitle" => '期待はずれ',
+        "reviewBody" => '期待していたほどのサービスではありませんでした。',
+        "approval" => true
+    ],
+    [
+        "reviewNumber" => 5,
+        "userNumber" => 5,
+        "employeeNumber" => 5,
+        "playDate" => '2023-08-20',
+        "playTime" => 30,
+        "rate01" => 4,
+        "rate02" => 4,
+        "rate03" => 4,
+        "rate04" => 4,
+        "rate05" => 4,
+        "reviewTitle" => '満足です',
+        "reviewBody" => '全体的に満足できるサービスでした。',
+        "approval" => true
+    ],
+    [
+        "reviewNumber" => 6,
+        "userNumber" => 6,
+        "employeeNumber" => 2,
+        "playDate" => '2023-08-25',
+        "playTime" => 60,
+        "rate01" => 3,
+        "rate02" => 3,
+        "rate03" => 4,
+        "rate04" => 3,
+        "rate05" => 3,
+        "reviewTitle" => 'まあまあ',
+        "reviewBody" => 'サービスは悪くありませんが、特に目立つところもありませんでした。',
+        "approval" => true
+    ],
+    [
+        "reviewNumber" => 7,
+        "userNumber" => 7,
+        "employeeNumber" => 1,
+        "playDate" => '2023-09-01',
+        "playTime" => 120,
+        "rate01" => 5,
+        "rate02" => 5,
+        "rate03" => 5,
+        "rate04" => 5,
+        "rate05" => 5,
+        "reviewTitle" => '素晴らしい！',
+        "reviewBody" => '本当に素晴らしい体験でした。全てが完璧でした。',
+        "approval" => true
+    ],
+    [
+        "reviewNumber" => 8,
+        "userNumber" => 8,
+        "employeeNumber" => 3,
+        "playDate" => '2023-09-05',
+        "playTime" => 45,
+        "rate01" => 4,
+        "rate02" => 4,
+        "rate03" => 3,
+        "rate04" => 4,
+        "rate05" => 4,
+        "reviewTitle" => '良かったです',
+        "reviewBody" => 'サービスに満足しました。細部に配慮が行き届いていました。',
+        "approval" => true
+    ],
+    [
+        "reviewNumber" => 9,
+        "userNumber" => 9,
+        "employeeNumber" => 4,
+        "playDate" => '2023-09-10',
+        "playTime" => 90,
+        "rate01" => 2,
+        "rate02" => 3,
+        "rate03" => 2,
+        "rate04" => 2,
+        "rate05" => 3,
+        "reviewTitle" => '期待外れ',
+        "reviewBody" => '期待していたほどではありませんでした。',
+        "approval" => true
+    ],
+    [
+        "reviewNumber" => 10,
+        "userNumber" => 10,
+        "employeeNumber" => 5,
+        "playDate" => '2023-09-15',
+        "playTime" => 60,
+        "rate01" => 5,
+        "rate02" => 4,
+        "rate03" => 5,
+        "rate04" => 5,
+        "rate05" => 4,
+        "reviewTitle" => '満足です',
+        "reviewBody" => 'とても良い体験ができました。スタッフの対応が素晴らしかったです。',
+        "approval" => true
+    ],
+    [
+        "reviewNumber" => 11,
+        "userNumber" => 1,
+        "employeeNumber" => 3,
+        "playDate" => '2023-09-02',
+        "playTime" => 90,
+        "rate01" => 1,
+        "rate02" => 1,
+        "rate03" => 1,
+        "rate04" => 1,
+        "rate05" => 1,
+        "reviewTitle" => 'このやろう',
+        "reviewBody" => '死ねよきゃっきゃしながら歌って踊って完璧でしたわ',
+        "approval" => false
+    ],
+    [
+        "reviewNumber" => 12,
+        "userNumber" => 3,
+        "employeeNumber" => 4,
+        "playDate" => '2023-08-12',
+        "playTime" => 120,
+        "rate01" => 5,
+        "rate02" => 3,
+        "rate03" => 2,
+        "rate04" => 5,
+        "rate05" => 5,
+        "reviewTitle" => '金返せ',
+        "reviewBody" => '死ねてれてれてabc@gmail.comえこのままじゃいけてしまう',
+        "approval" => false
+    ],
+    [
+        "reviewNumber" => 13,
+        "userNumber" => 5,
+        "employeeNumber" => 1,
+        "playDate" => '2023-08-10',
+        "playTime" => 60,
+        "rate01" => 5,
+        "rate02" => 2,
+        "rate03" => 5,
+        "rate04" => 4,
+        "rate05" => 5,
+        "reviewTitle" => 'ほれてまう',
+        "reviewBody" => '好きです大好きすごい、とにかくすごいすごすぎる',
+        "approval" => false
+    ],
+    [
+        "reviewNumber" => 14,
+        "userNumber" => 3,
+        "employeeNumber" => 5,
+        "playDate" => '2023-11-01',
+        "playTime" => 90,
+        "rate01" => 5,
+        "rate02" => 1,
+        "rate03" => 4,
+        "rate04" => 5,
+        "rate05" => 4,
+        "reviewTitle" => 'きになるき',
+        "reviewBody" => 'きみかわうぃーね文句を言ってしまうのが僕の悪い癖ね文句を言ってしまうのが僕の悪い癖',
+        "approval" => false
+    ],
+    [
+        "reviewNumber" => 15,
+        "userNumber" => 2,
+        "employeeNumber" => 1,
+        "playDate" => '2023-12-25',
+        "playTime" => 60,
+        "rate01" => 1,
+        "rate02" => 1,
+        "rate03" => 1,
+        "rate04" => 1,
+        "rate05" => 1,
+        "reviewTitle" => '合わなかった',
+        "reviewBody" => '自分には合わなかったです。',
+        "approval" => false
+    ]
+];
 
 
 ?>
 
 
+<!-- 新規レビュー -->
 
-<!-- レビュー承認待ち -->
 <?php
 
-$approvalPendings = [
-    [
-        "レビュー番号" => 11,
-        "会員番号" => 1,
-        "ユーザー名前" => '未だめん',
-        "メールアドレス" => '1234@gmail.com',
-        "指名社員番号" => 3,
-        "利用日" => '2023-09-02',
-        "プレイタイム" => 90,
-        "評価1" => 1,
-        "評価2" => 1,
-        "評価3" => 1,
-        "評価4" => 1,
-        "評価5" => 1,
-        "レビュータイトル" => 'このやろう',
-        "レビュー本文" => '死ねよきゃっきゃしながら歌って踊って完璧でしたわ',
-        "承認" => 0
-    ],
-    [
-        "レビュー番号" => 12,
-        "会員番号" => 3,
-        "ユーザー名前" => 'これから太郎',
-        "メールアドレス" => '1234@gmail.com',
-        "指名社員番号" => 4,
-        "利用日" => '2023-08-12',
-        "プレイタイム" => 120,
-        "評価1" => 5,
-        "評価2" => 3,
-        "評価3" => 2,
-        "評価4" => 5,
-        "評価5" => 5,
-        "レビュータイトル" => '金返せ',
-        "レビュー本文" => '死ねてれてれてabc@gmail.comえこのままじゃいけてしまう',
-        "承認" => 0
-    ],
-    [
-        "レビュー番号" => 13,
-        "会員番号" => 5,
-        "ユーザー名前" => '承認太郎',
-        "メールアドレス" => '1234@gmail.com',
-        "指名社員番号" => 1,
-        "利用日" => '2023-08-10',
-        "プレイタイム" => 60,
-        "評価1" => 5,
-        "評価2" => 2,
-        "評価3" => 5,
-        "評価4" => 4,
-        "評価5" => 5,
-        "レビュータイトル" => 'ほれてまう',
-        "レビュー本文" => '好きです大好きすごい、とにかくすごいすごすぎる',
-        "承認" => 0
-    ],
-    [
-        "レビュー番号" => 14,
-        "会員番号" => null,
-        "ユーザー名前" => 'これはだめ',
-        "メールアドレス" => '1234@gmail.com',
-        "指名社員番号" => 5,
-        "利用日" => '2023-11-01',
-        "プレイタイム" => 90,
-        "評価1" => 5,
-        "評価2" => 1,
-        "評価3" => 4,
-        "評価4" => 5,
-        "評価5" => 4,
-        "レビュータイトル" => 'きになるき',
-        "レビュー本文" => 'きみかわうぃーね文句を言ってしまうのが僕の悪い癖ね文句を言ってしまうのが僕の悪い癖',
-        "承認" => 0
-    ],
-];
+/*
+// 承認が1の項目だけをフィルタリング
+$approved_reviews = array_filter($reviews, function($review) {
+return $review['approval'] === true;
+});
 
+// 利用日で降順にソート
+usort($approved_reviews, function($a, $b) {
+return strtotime($b['playDate']) - strtotime($a['playDate']);
+});
 
- 
+// 最新の5件を取り出す
+$new_reviews = array_slice($approved_reviews, 0, 5);
+
+*/
 ?>

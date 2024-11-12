@@ -31,45 +31,43 @@
     <?php
     require_once( dirname(__FILE__). '/../parts/setting_header.php');
     require_once( dirname(__FILE__). '/data/data.php');
+    require_once( dirname(__FILE__). '/validate/date_validate.php');
+
+// スタッフカプセル化
+    require_once( dirname(__FILE__). '/data/girl_data.php');
+    require_once( dirname(__FILE__). '/class/girl_class.php');
+    require_once( dirname(__FILE__). '/data/staff_list_sort.php');
+
+    // profile
+  foreach($sample_names as $sample_name){
+    $staffList[] = new girlProfilelManager($sample_name);
+  }
+
+  // 画像
+  foreach($sample_pics  as $sample_pic ){
+    $staffPics[] = new girlImageManager($sample_pic['girlNumber'],$sample_pic);
+  }
+
+    // スケジュール
+    require_once( dirname(__FILE__). '/class/attendance_class.php');
+    require_once( dirname(__FILE__). '/data/attendance_data.php');
+    
+    foreach($unapprovedscheduleArray as $unapprovedschedulelist){
+    $attendance_data_yet[] = new InputAttendanceReserve($unapprovedschedulelist);
+    };
+    
+
     ?>
 
 
-    <!-- 得たデータが例えば -->
-    <?php
-      $sample_requests = [
-      [
-        "社員番号" => 0,
-        "出勤日" => "2023-09-01",
-        "出勤時間" => "09:00:00",
-        "退勤時間" => "18:00:00",
-        "出勤no" => 10,
-        "承認" => 0
-    ],
-    [
-        "社員番号" => 1,
-        "出勤日" => "2023-09-01",
-        "出勤時間" => "09:30:00",
-        "退勤時間" => "17:30:00",
-        "出勤no" => 11,
-        "承認" => 0
-      ],
-    [
-        "社員番号" => 2,
-        "出勤日" => "2023-09-01",
-        "出勤時間" => "08:45:00",
-        "退勤時間" => "17:15:00",
-        "出勤no" => 12,    
-        "承認" => 0
-      ]
-          ]
-          ?>
+
 
 
     <main id="main">
       <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-?>
+      error_reporting(E_ALL);
+      ini_set('display_errors', 1);
+      ?>
 
       <!-- キャンセルボタンが押された場合 -->
       <!-- 変なところから来ていないか？確認 -->
@@ -86,8 +84,7 @@ ini_set('display_errors', 1);
     
       // ここから本格的にスタート
     
-      //バリデーション読み込み
-      require_once('date_validate.php');
+
 
       // セッションスタートしてる
       session_start();
@@ -245,6 +242,7 @@ ini_set('display_errors', 1);
             <?php echo $_SESSION['approval_date'];?>
             <?php elseif(isset($_GET ['selected_date'])):?>
             <?php echo $_GET ['selected_date'] ?>
+            <?php $_SESSION['approval_date'] =$_GET ['selected_date']?>
             <?php else:?>
             <p>日付エラー</p>
             <?php endif?>
@@ -258,26 +256,54 @@ ini_set('display_errors', 1);
           <!-- こんな感じでクリックした日の出勤者データを取る -->
 
 
+          <!-- とりあえず未承認の出勤リストをつくってあるこれの選択した日付のインスタンス -->
+
+          <?php foreach( $attendance_data_yet as $yetList ){
+            if($yetList->getAttendanceWorkDay() == $_SESSION['approval_date']){
+              $yetLists[] = $yetList;
+            }
+          };?>
+
 
           <form method="POST">
-            <?php foreach($sample_requests as $sample_request):?>
-            <label>
-              <input type="checkbox" name="employee[]" value='<?php echo $sample_request['出勤no']?>'
-                class="request_card">
-              <?php $employee_number = $sample_request['社員番号']; ?>
-              <?php $attendance_time = date("H:i",strtotime($sample_request['出勤時間'])); ?>
-              <?php $leaving_time = date("H:i",strtotime($sample_request['退勤時間'])); ?>
+            <?php foreach($yetLists as $attendanceCard):?>
+            <!-- 出勤希望者の名前等を検索 -->
 
-              <?php foreach($sample_names as $sample_name):?>
-              <?php if($sample_name[0] == $employee_number):?>
+            <!-- スタッフ番号 -->
+            <?php $employe_number = $attendanceCard->getAttendanceGirlNum(); ?>
+
+            <?php foreach($staffList as $sample_name):?>
+            <?php if($sample_name->getGirlNumber() == $employe_number):?>
+            <!-- 名前 -->
+            <?php $employe_girl_name = $sample_name -> getGirlName()?>
+            <!-- 画像 -->
+            <?php foreach( $staffPics as $staffPic):?>
+            <?php if($staffPic -> getGirlNumber() == $sample_name -> getGirlNumber()):?>
+            <?php  $employe_girl_img = $staffPic -> getGirlImage01();?>
+            <?php break; // ここでループを終了?>
+            <?php endif ?>
+            <?php endforeach?>
+
+            <?php break ?>
+            <?php endif?>
+            <?php endforeach?>
+
+
+            <label>
+              <input type="checkbox" name="employee[]" value='<?php echo $attendanceCard->getAttendanceNo()?>'
+                class="request_card">
+              <?php $attendance_time = date("H:i",strtotime($attendanceCard -> getWorkStartTime())); ?>
+              <?php $leaving_time = date("H:i",strtotime($attendanceCard -> getWorkEndTime())); ?>
+
+
 
               <div class="request_wrap">
                 <h2 class="input_card application_for_attendance_title ">●出勤申請カード</h2>
                 <figure class="request_img">
-                  <img src='../<?php echo $sample_name[3]?>' alt="">
+                  <img src='../<?php echo $employe_girl_img?>' alt="">
                 </figure>
                 <figcaption class="request_img_caption">
-                  <?php echo $sample_name[1] ?>
+                  <?php echo $employe_girl_name ?>
                 </figcaption>
                 <div class="work_time">
                   <p class="starttime"><?php echo $attendance_time ?></p>
@@ -285,10 +311,10 @@ ini_set('display_errors', 1);
                   <p class="endtime"><?php echo $leaving_time ?></p>
                 </div>
               </div>
-              <?php endif?>
-              <?php endforeach ?>
             </label>
             <?php endforeach ?>
+
+
             <?php if(isset($_SESSION['approval_date'])):?>
             <?php $approval_date_time =$_SESSION['approval_date']?>
             <?php elseif(isset($_GET['selected_date'])):?>
@@ -296,6 +322,7 @@ ini_set('display_errors', 1);
             <?php else :?>
             <?php $errmessage = "日付エラー" ;?>
             <?php endif ?>
+
             <input type="hidden" name="request_day"
               value="<?php echo htmlspecialchars($approval_date_time, ENT_QUOTES, 'UTF-8'); ?>">
             <div class="all_btn_wrap">
@@ -305,6 +332,8 @@ ini_set('display_errors', 1);
                 <input type="submit" class="setting_cancel" name="cancel" value="キャンセル">
               </div>
             </div>
+
+
           </form>
         </div>
 
@@ -315,22 +344,50 @@ ini_set('display_errors', 1);
       <!-- 確認画面 -->
       <?php elseif ($mode == 'confirm') : ?>
 
+      <?php foreach( $attendance_data_yet as $yetList ){
+            if($yetList->getAttendanceWorkDay() == $_SESSION['approval_date']){
+              $yetLists[] = $yetList;
+            }
+          };?>
+
 
       <div class="demo demo3">
         <h2 class="heading"><span>以下の申請を承認します</span></h2>
       </div>
 
+      <?php $attendanceCards=[]?>
+      <?php foreach($yetLists as $okcard){
+       foreach($_SESSION['employee_numbers'] as $employee_number){
+        if($okcard->getattendanceNo()== $employee_number){
+       $attendanceCards[] = $okcard;
+        break;
+        }
+        }
+        }      
+      ?>
+
+      <!-- 出勤希望者の名前等を検索 -->
 
 
+      <?php foreach($attendanceCards as $attendanceCard):?>
+      <!-- スタッフ番号 -->
+      <?php $employe_number = $attendanceCard->getAttendanceGirlNum(); ?>
 
+      <?php foreach($staffList as $sample_name):?>
+      <?php if($sample_name->getGirlNumber() == $employe_number):?>
+      <!-- 名前 -->
+      <?php $employe_girl_name = $sample_name -> getGirlName()?>
+      <!-- 画像 -->
+      <?php foreach( $staffPics as $staffPic):?>
+      <?php if($staffPic -> getGirlNumber() == $sample_name -> getGirlNumber()):?>
+      <?php  $employe_girl_img = $staffPic -> getGirlImage01();?>
+      <?php break; // ここでループを終了?>
+      <?php endif ?>
+      <?php endforeach?>
 
-      <?php foreach ($sample_requests as $sample_request) : ?>
-
-      <?php if (in_array($sample_request['出勤no'], $_SESSION['employee_numbers'])) : ?>
-      <?php $work_oks[] = $sample_request?>
-      <?php endif; ?>
-
-      <?php endforeach; ?>
+      <?php break ?>
+      <?php endif?>
+      <?php endforeach?>
 
 
 
@@ -338,35 +395,26 @@ ini_set('display_errors', 1);
       <!-- 日付表示 -->
       <h3 class="approval_date_title"><?php echo $_SESSION['approval_date']?></h3>
 
-      <?php foreach($work_oks as $work_ok):?>
       <div class="request_wrap">
         <h2 class="input_card application_for_attendance_checked ">●申請承認</h2>
-        <?php $employee_number = $work_ok["社員番号"];?>
-        <?php $workstarttime = date("H:i", strtotime($work_ok['出勤時間'])); ?>
-        <?php $workendtime = date("H:i", strtotime($work_ok['退勤時間'])); ?>
-        <?php $attendance_name = ""; ?>
 
-        <!-- 社員番号に対応する名前を$sample_namesから検索 -->
-        <?php foreach ($sample_names as $sample_name):?>
-        <?php if ($sample_name[0] === $employee_number) :?>
-        <?php $attendance_name = $sample_name[1] ?>
-        <!-- 名前が見つかったらループを終了 -->
-        <?php break ?>
-        <?php endif ?>
-        <?php endforeach ?>
+        <?php $attendance_time = date("H:i",strtotime($attendanceCard -> getWorkStartTime())); ?>
+        <?php $leaving_time = date("H:i",strtotime($attendanceCard -> getWorkEndTime())); ?>
+
+
 
 
         <figure class="request_img">
-          <img src='../<?php echo $sample_name[3]?>' alt="">
+          <img src='../<?php echo $employe_girl_img?>' alt="">
         </figure>
         <figcaption class="request_img_caption">
-          <?php echo $attendance_name ?>
+          <?php echo $employe_girl_name ?>
         </figcaption>
 
         <div class="work_time">
-          <p class="starttime"><?php echo $workstarttime;?></p>
+          <p class="starttime"><?php echo $attendance_time;?></p>
           <div class="arrow-round"></div>
-          <p class="endtime"><?php echo $workendtime;?></p>
+          <p class="endtime"><?php echo $leaving_time;?></p>
         </div>
 
       </div>
