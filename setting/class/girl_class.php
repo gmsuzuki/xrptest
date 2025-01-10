@@ -2,6 +2,7 @@
 class girlProfilelManager
 {
     private $girlNumber;
+    private $registrationDate;
     private $girlName;
     private $kanaName;
     private $girlAge;
@@ -10,11 +11,13 @@ class girlProfilelManager
     private $girlBustCup;
     private $girlWest;
     private $girlHip;
+    private $TrialShift;
 
     // コンストラクタ
     public function __construct($data = [])
     {
         $this->girlNumber = isset($data['girlNumber']) ? $data['girlNumber'] : null;
+        $this->registrationDate = isset($data['registrationDate']) ? $data['registrationDate'] : null;
         $this->girlName = isset($data['girlName']) ? $data['girlName'] : null;
         $this->kanaName = isset($data['kanaName']) ? $data['kanaName'] : null;
         $this->girlAge = isset($data['girlAge']) ? $data['girlAge'] : null;
@@ -23,11 +26,15 @@ class girlProfilelManager
         $this->girlBustCup = isset($data['girlBustCup']) ? $data['girlBustCup'] : null;
         $this->girlWest = isset($data['girlWest']) ? $data['girlWest'] : null;
         $this->girlHip = isset($data['girlHip']) ? $data['girlHip'] : null;
+        $this->TrialShift = isset($data['TrialShift']) ? $data['TrialShift'] : null;
     }
 
     // ゲッター（getter）
     public function getGirlNumber() {
         return $this->girlNumber;
+    }
+    public function getRegistrationDate() {
+        return $this->registrationDate;
     }
 
     public function getGirlName() {
@@ -62,11 +69,19 @@ class girlProfilelManager
         return $this->girlHip;
     }
 
+    public function getTrialShift() {
+        return $this->TrialShift;
+    }
+
+
     // セッター（setter）
     public function setgirlNumber($girlNumber) {
         $this->girlNumber = $girlNumber;
     }
 
+    public function setRegistrationDate($registrationDate) {
+        $this->registrationDate = $registrationDate;
+    }
     public function setGirlName($girlName) {
         $this->girlName = $girlName;
     }
@@ -99,6 +114,10 @@ class girlProfilelManager
         $this->girlHip = $girlHip;
     }
 
+    public function setTrialShift($TrialShift) {
+        $this->TrialShift = $TrialShift;
+    }
+
 
     // かなでソート
   public static function sortByKanaName(&$profiles)
@@ -108,8 +127,16 @@ class girlProfilelManager
         });
     }
 
+    // プロフィールの表示関数
+    public function getProfileDescription()
+    {
+        return "T{$this->getGirlHeight()} B{$this->getGirlBustSize()}({$this->getGirlBustCup()}) W{$this->getGirlWest()} H{$this->getGirlHip()}";
+    }
+
 
 }
+
+
 
 
 // 画像管理
@@ -131,6 +158,11 @@ class girlImageManager
     private $girlgurabia03;
     private $girlgurabia04;
     private $girlgurabia05;
+    private $girlmovie01 = null;
+    private $girlmovie02 = null;
+    private $girlmovie03 = null;
+    private $girlmovie04 = null;
+    private $girlmovie05 = null;
 
     // コンストラクタ
     public function __construct($girlNumber, $data = [])
@@ -151,7 +183,13 @@ class girlImageManager
         $this->girlgurabia03 = isset($data['girlgurabia03']) ? $data['girlgurabia03'] : null;
         $this->girlgurabia04 = isset($data['girlgurabia04']) ? $data['girlgurabia04'] : null;
         $this->girlgurabia05 = isset($data['girlgurabia05']) ? $data['girlgurabia05'] : null;
+        $this->girlmovie01 = isset($data['girlmovie01']) ? $data['girlmovie01'] : null;
+        $this->girlmovie02 = isset($data['girlmovie02']) ? $data['girlmovie02'] : null;
+        $this->girlmovie03 = isset($data['girlmovie03']) ? $data['girlmovie03'] : null;
+        $this->girlmovie04 = isset($data['girlmovie04']) ? $data['girlmovie04'] : null;
+        $this->girlmovie05 = isset($data['girlmovie05']) ? $data['girlmovie05'] : null;
     }
+    
 
     // ゲッター（getter）
     public function getGirlNumber() {
@@ -282,6 +320,144 @@ class girlImageManager
     public function setGirlgurabia05($girlgurabia05) {
         $this->girlgurabia05 = $girlgurabia05;
     }
+
+
+    // Setter for girlmovie01
+    public function setGirlMovie01($movie) {
+        $this->girlmovie01 = $movie;
+    }
+
+    // Getter for girlmovie01
+    public function getGirlMovie01() {
+        return $this->girlmovie01;
+    }
+
+    // Setter for girlmovie02
+    public function setGirlMovie02($movie) {
+        $this->girlmovie02 = $movie;
+    }
+
+    // Getter for girlmovie02
+    public function getGirlMovie02() {
+        return $this->girlmovie02;
+    }
+
+    // Setter for girlmovie03
+    public function setGirlMovie03($movie) {
+        $this->girlmovie03 = $movie;
+    }
+
+    // Getter for girlmovie03
+    public function getGirlMovie03() {
+        return $this->girlmovie03;
+    }
+
+    // Setter for girlmovie04
+    public function setGirlMovie04($movie) {
+        $this->girlmovie04 = $movie;
+    }
+
+    // Getter for girlmovie04
+    public function getGirlMovie04() {
+        return $this->girlmovie04;
+    }
+
+    // Setter for girlmovie05
+    public function setGirlMovie05($movie) {
+        $this->girlmovie05 = $movie;
+    }
+
+    // Getter for girlmovie05
+    public function getGirlMovie05() {
+        return $this->girlmovie05;
+    }
+}
+
+
+
+
+// 特定の$attendanceNoに対応するgirlProfilelManagerのインスタンスを探す関数
+function findGirlByAttendanceNo($attendanceNo, $girlProfiles)
+{
+    foreach ($girlProfiles as $girl) {
+        if ($girl->getGirlNumber() == $attendanceNo) {
+            return $girl;
+        }
+    }
+    return null; // 見つからなかった場合
+}   
+
+// 画像０１を出す関数
+
+
+// 指定した girlNumber の girlImage01 を取得する関数
+function getGirlImageByNumber($girlImages, $girlNumber)
+{
+    foreach ($girlImages as $girlImage) {
+        if ($girlImage->getGirlNumber() === $girlNumber) {
+            return $girlImage->getGirlImage01();
+        }
+    }
+    return null; // 該当する画像がない場合
+}
+
+
+// sns管理
+class girlSnsManager {
+    private $girlNumber;
+    private $girlSnsX;
+    private $girlSnsInsta;
+
+    // コンストラクタ
+    public function __construct($girlNumber, $data = []) {
+        $this->girlNumber = $girlNumber;
+        $this->girlSnsX = isset($data['X']) ? $data['X'] : null;
+        $this->girlSnsInsta = isset($data['Insta']) ? $data['Insta'] : null;
+    }
+
+    // girlNumberのゲッター
+    public function getGirlNumber() {
+        return $this->girlNumber;
+    }
+
+    // girlSnsXのゲッター
+    public function getGirlSnsX() {
+        return $this->girlSnsX;
+    }
+
+    // girlSnsInstaのゲッター
+    public function getGirlSnsInsta() {
+        return $this->girlSnsInsta;
+    }
+
+      // girlNumberのセッター
+    public function setGirlNumber($girlNumber) {
+        $this->girlNumber = $girlNumber;
+    }
+
+    // girlSnsXのセッター
+    public function setGirlSnsX($girlSnsX) {
+        $this->girlSnsX = $girlSnsX;
+    }
+
+    // girlSnsInstaのセッター
+    public function setGirlSnsInsta($girlSnsInsta) {
+        $this->girlSnsInsta = $girlSnsInsta;
+    }
+}
+
+// 指定した girlNumber の girlsns を取得する関数
+function getGirlSnsByNumber($girlNumber,$girlSnses)
+{
+    foreach ($girlSnses as $girlSns) {
+        if ($girlSns->getGirlNumber() === $girlNumber) {
+            return [
+                'X' => $girlSns->getGirlSnsX(),
+                'Insta' => $girlSns->getGirlSnsInsta()
+            ];
+        }
+    }
+    return null; // 該当する画像がない場合
 }
 
 
@@ -560,10 +736,124 @@ class girlSpOptionManager
         ];
     }
 
+}
+
+
+// タグ管理
+class girlTagManager
+{
+    private $girlNumber;
+    private $sptag01;
+    private $staffcomment;
+    private $tag01;
+    private $tag02;
+    private $tag03;
+    private $tag04;
+    private $tag05;
+
+    // コンストラクタ
+    public function __construct($girlNumber, $data = [])
+    {
+        $this->girlNumber = $girlNumber;
+        $this->sptag01 = isset($data['sptag01']) ? $data['sptag01'] : null;
+        $this->staffcomment = isset($data['staffcomment']) ? $data['staffcomment'] : null;
+        $this->tag01 = isset($data['tag01']) ? $data['tag01'] : null;
+        $this->tag02 = isset($data['tag02']) ? $data['tag02'] : null;
+        $this->tag03 = isset($data['tag03']) ? $data['tag03'] : null;
+        $this->tag04 = isset($data['tag04']) ? $data['tag04'] : null;
+        $this->tag05 = isset($data['tag05']) ? $data['tag05'] : null;
+    }
+
+    // ゲッターとセッター
+    public function getGirlNumber()
+    {
+        return $this->girlNumber;
+    }
+
+    public function setGirlNumber($girlNumber)
+    {
+        $this->girlNumber = $girlNumber;
+    }
+
+    public function getSptag01()
+    {
+        return $this->sptag01;
+    }
+
+    public function setSptag01($sptag01)
+    {
+        $this->sptag01 = $sptag01;
+    }
+
+
+    public function getStaffcomment()
+    {
+        return $this->staffcomment;
+    }
+
+    public function setStaffcomment($staffcomment)
+    {
+        $this->staffcomment = $staffcomment;
+    }
+
+
+    public function getTag01()
+    {
+        return $this->tag01;
+    }
+
+    public function setTag01($tag01)
+    {
+        $this->tag01 = $tag01;
+    }
+
+    public function getTag02()
+    {
+        return $this->tag02;
+    }
+
+    public function setTag02($tag02)
+    {
+        $this->tag02 = $tag02;
+    }
+
+    public function getTag03()
+    {
+        return $this->tag03;
+    }
+
+    public function setTag03($tag03)
+    {
+        $this->tag03 = $tag03;
+    }
+
+    public function getTag04()
+    {
+        return $this->tag04;
+    }
+
+    public function setTag04($tag04)
+    {
+        $this->tag04 = $tag04;
+    }
+
+    public function getTag05()
+    {
+        return $this->tag05;
+    }
 
 
 }
 
+function getGirlTagByNumber($girlNumber,$girlTags)
+{
+    foreach ($girlTags as $tag) {
+        if ($tag->getGirlNumber() === $girlNumber) {
+            return  $tag;
+        }
+    }
+    return null; // 該当する画像がない場合
+}
 
 
 

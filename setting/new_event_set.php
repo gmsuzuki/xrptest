@@ -110,8 +110,7 @@ require_once(dirname(__FILE__). '/data/data.php');
         } else {
           // 正常なら選択した数字を入れるここで、１か２が入っている
           $_SESSION['news_post']['did'] = $news_post->get_checking_radio();
-          // Informationの配列用
-          $_SESSION['Information']['type'] = 1;
+
           
         }
 
@@ -237,6 +236,10 @@ require_once(dirname(__FILE__). '/data/data.php');
 
       } else if (isset($_POST['send']) && $_POST['send']) {
 
+
+        //Informationもやるよ 
+
+
         // データベースコネクト
         require_once('db_connect.php');
         try {
@@ -298,6 +301,8 @@ require_once(dirname(__FILE__). '/data/data.php');
         $_SESSION['Information']['type'];
         $_SESSION['Information']['day'];
         $_SESSION['Information']['time'];
+
+      
 
       }
 
@@ -481,8 +486,8 @@ require_once(dirname(__FILE__). '/data/data.php');
                     </li>
 
                     <li class="radio_select_list">
+                      <!-- ニュースに載せない -->
                       <?php if ( $_SESSION['news_post']['did'] == 2 ): ?>
-
                       <input type="radio" checked id="no_load_news" name="post_news" value='2' class="radio_label_04">
                       <?php else :?>
                       <input type="radio" id="no_load_news" name="post_news" value='2' class="radio_label_04">
@@ -610,10 +615,13 @@ require_once(dirname(__FILE__). '/data/data.php');
 
         <?php if ($_SESSION['news_post']['did'] == 1) :?>
 
+
+
         <section id="event_list" class="form_send">
           <div class="content_wrapper">
             <h3 class="confirm_title"><span>News</span></h3>
             <h4 class="block_title_caption">最新情報</h4>
+
             <ul class="topics">
 
               <li class="topic">
@@ -679,7 +687,7 @@ require_once(dirname(__FILE__). '/data/data.php');
 
             </div><!-- content_wrapper -->
 
-            <!-- ここにスペースが無くなるか -->
+
 
             <section class="confirm_post_time">
               <p>
@@ -702,6 +710,9 @@ require_once(dirname(__FILE__). '/data/data.php');
             <?php if ($_SESSION['news_post']['did'] == 1) :?>
             <!-- value=1はイベントを表すdata.phpで決めてるので参照 -->
             <input type="hidden" name="" value="1">
+
+            <!-- Information用 -->
+            <input type="hidden" name="" value="1">
             <?php endif ?>
 
             <!-- 画像 -->
@@ -712,11 +723,11 @@ require_once(dirname(__FILE__). '/data/data.php');
 
             <!-- 更新日時 -->
             <?php $originalDateTime = $_SESSION['new_post_header']['reserve_day'].$_SESSION['new_post_header']['reserve_time'];
-        // strtotime() 関数を使用してタイムスタンプに変換
-        $timestamp = strtotime($originalDateTime);
-        // date() 関数を使用して新しい形式に変換
-        $newDateTime = date('Y-m-d H:i:s', $timestamp);
-        ?>
+            // strtotime() 関数を使用してタイムスタンプに変換
+            $timestamp = strtotime($originalDateTime);
+            // date() 関数を使用して新しい形式に変換
+            $newDateTime = date('Y-m-d H:i:s', $timestamp);
+            ?>
             <input type="hidden" name="" value="<?php echo $newDateTime?>">
 
 

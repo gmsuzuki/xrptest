@@ -51,6 +51,8 @@
   <link rel="stylesheet" type="text/css" href="css/girl_list.css" />
   <link rel="stylesheet" type="text/css" href="css/news.css" />
   <link rel="stylesheet" type="text/css" href="css/top.css" />
+  <link rel="stylesheet" type="text/css" href="css/event.css" />
+
 
   <!-- 特殊？ -->
   <link rel="stylesheet" type="text/css" href="css/under_nav.css" />
@@ -87,31 +89,137 @@
     require_once( dirname(__FILE__). '/parts/header.php');
     require_once( dirname(__FILE__). '/data.php');
 
-  // news
-    require_once( dirname(__FILE__). '/setting/class/news_class.php');
-    require_once( dirname(__FILE__). '/setting/data/news_data.php');
+  // 最新情報info
+    require_once( dirname(__FILE__). '/setting/class/info_class.php');
+    require_once( dirname(__FILE__). '/setting/data/info_data.php');
 
-    $news_instances = []; // 空の配列を初期化
-    foreach($news_list as $news_item) {
-    $news_instances[] = new NewsManager($news_item); // 新しいインスタンスを配列に追加
+    $info_instances = []; // 空の配列を初期化
+    foreach ($info_list as $info_item) {
+    $info_instances[] = new InfoManager($info_item); // 新しいインスタンスを配列に追加
+    }
 
-  // 最新３つ
-  // 最新順にソート
-    usort($news_instances, function($a, $b) {
-    return strtotime($b->getNewsTime()) - strtotime($a->getNewsTime());
+    // is_visible が true のものだけを抽出
+    $visible_instances = array_filter($info_instances, function($instance) {
+    return $instance->getIsVisible();
     });
+
+    // 最新順にソート
+    usort($visible_instances, function($a, $b) {
+    return strtotime($b->getInfoTime()) - strtotime($a->getInfoTime());
+    });
+
+    // 最新の3つを取得
+    $info_naw = array_slice($visible_instances, 0, 3);
+
+    // イベント
+    // InfoTypeが1のものだけを抽出
+    $type1_instances = array_filter($visible_instances, function($instance) {
+    return $instance->getInfoType() == 1;
+    });
+
+    // 最大6件まで取得
+    $event_naw = array_slice($type1_instances, 0, 6);
+
+
   
-  // 最新の3つを取得
-    $news_naw = array_slice($news_instances, 0, 3);
+    // 女子スタッフ
+    require_once( dirname(__FILE__). '/setting/class/girl_class.php');
+    require_once( dirname(__FILE__). '/setting/data/girl_data.php');
+    require_once( dirname(__FILE__). '/setting/class/attendance_class.php');
+    require_once( dirname(__FILE__). '/setting/data/attendance_data.php');
+    require_once( dirname(__FILE__). '/setting/class/schedule_girl_class.php');
 
-  }
+    // スタッフprofile
+    foreach($sample_names as $sample_name){
+    $staffList[] = new girlProfilelManager($sample_name);
+    }
+    // スタッフの画像
+    foreach($sample_pics as $sample_pic){
+       $girlNumber = $sample_pic['girlNumber'];
+    // girlImageManagerのインスタンスを作成
+    $staffPicList[] = new girlImageManager($girlNumber, $sample_pic);
+      }
+    
 
+    // 最新順にソート
+    usort($staffList, function($a, $b) {
+    return strtotime($b->getRegistrationDate()) - strtotime($a->getRegistrationDate());
+    });
+
+    // 今日の日付を取得
+    $today = new DateTime();
+
+    // 1ヶ月前の日付を計算
+    $oneMonthBefore = new DateTime();
+    $oneMonthBefore->modify('-1 month');
+
+    // $newgirl 配列を初期化
+    $newgirl = [];
+
+    // $girlProfiles 配列をループ
+    foreach ($staffList as $profile) {
+    // $registrationDate を DateTime オブジェクトに変換
+    $registrationDate = new DateTime($profile->getRegistrationDate());
+
+    // $registrationDate が今日から1ヶ月以内かどうかをチェック
+    if ($registrationDate >= $oneMonthBefore && $registrationDate <= $today) {
+        // 条件を満たす場合、$newgirl 配列に追加
+        $newgirl[] = $profile;
+    }
+    }
+
+
+    // $allscheduleはすべてのスケジュール
+    $allschedule = [];
+    //今日の出勤リスト
+    $todayschedulelist = [];
+    
+
+    foreach ($scheduleArray as $schedule) {
+    $allschedule[] = new InputAttendanceReserve($schedule); // 配列に追加
+    }
+
+
+    foreach($allschedule as $dayobj){
+      // attendanceWorkDay を DateTime オブジェクトに変換
+      $attendanceWorkDay = new DateTime( $dayobj->getAttendanceWorkDay());
+      if($today -> format('Y-m-d') == $attendanceWorkDay->format('Y-m-d')){
+      $todayschedulelist[] =  $dayobj;
+      }}
+
+ 
+ // girlSnsManager のインスタンスを作成
+$girlsSns = []; // インスタンスを格納する配列
+
+foreach ($sample_sns_lists as $data) {
+    // girlNumber と SNS データを渡してインスタンス化
+    $girlsSns[] = new girlSnsManager($data['girlNumber'], $data);
+}
+
+
+// girlTagManager のインスタンスを作成
+$girlsTags = []; // インスタンスを格納する配列
+
+foreach ($sample_tag as $tag) {
+    // girlNumber と SNS データを渡してインスタンス化
+    $girlsTags[] = new girlTagManager($tag['girlNumber'], $tag);
+
+}
+
+
+// review
+    require_once( dirname(__FILE__). '/setting/data/review_data.php');
+    require_once( dirname(__FILE__). '/setting/class/review_class.php');
 
     ?>
+
+
+
     <!------------------>
 
 
     <main id="main">
+
 
 
       <!-- スワイパー① -->
@@ -136,28 +244,31 @@
       <!-- スワイパー①ここまで -->
 
 
+
+
+
       <!-- 最新ニュース -->
       <section id="whats_new" class="container under_space scroll-up">
         <div class="content_wrapper">
 
-          <h2 class="block_title"><span>News</span></h2>
+          <h2 class="block_title"><span>Information</span></h2>
           <h3 class="block_title_caption">最新情報</h3>
           <ul class="topics">
             <!-- 最新３記事 -->
             <!-- イチ記事 -->
 
-            <?php foreach($news_naw as $news) :?>
-            <a href="information.php?newsid=<?php echo $news -> getNewsId()?>" class="block_wrap_a">
+            <?php foreach($info_naw as $news) :?>
+            <a href="information.php?infoid=<?php echo $news -> getInfoId()?>" class="block_wrap_a">
               <li class="topic">
                 <div class="news_data">
-                  <time><?php echo $news->getNewsTime()?></time>
-                  <span class="news_kinds" style="background-color:<?php echo $news->getNewsColor()?>">
-                    <?php echo $news->getNewsTitleBody()?>
+                  <time><?php echo $news->getInfoDate()?></time>
+                  <span class="news_kinds" style="background-color:<?php echo $news->getInfoColor()?>">
+                    <?php echo $news->getInfoTitleBody()?>
                   </span>
                 </div>
                 <div class="news_top_title">
 
-                  <?php echo $news->getNewsTitle() ?>
+                  <?php echo $news->getInfoTitle() ?>
 
                 </div>
               </li>
@@ -167,7 +278,7 @@
           </ul>
 
           <div class="goto_list">
-            <a href="newslist.php">
+            <a href="infolist.php">
               <i class="fas fa-chevron-circle-right"></i><span>一覧を見る</span></a>
           </div>
 
@@ -241,30 +352,24 @@
 
           <h2 class="block_title"><span>Event</span></h2>
           <h3 class="block_title_caption">イベント</h3>
-          <ul class="event_list">
-            <!-- イチ記事 -->
-            <li class="event">
-              <div class="banner_max event_banner">
-                <a href="">
-                  <img src="img/468x60.png" alt="">
-                </a>
-              </div>
-            </li>
-            <!-- --- -->
 
-            <!-- イチ記事 -->
-            <li class="event">
-              <div class="banner_max event_banner">
-                <a href="">
-                  <img src="img/468x60.png" alt="">
-                </a>
-              </div>
+
+          <ul class="event_list">
+            <?php foreach($event_naw as $event) :?> <li>
+              <a href="information.php?infoid=<?php echo $event->getInfoId() ?>">
+                <img src="<?php echo $event->getInfoImg() ?>" alt="">
+                <div class="event_title">
+                  <p><?php echo $event->getInfoTitle() ?></p>
+                </div>
+              </a>
             </li>
-            <!-- --- -->
+            <?php endforeach ?>
+
           </ul>
 
+
           <div class="goto_list">
-            <a href="">
+            <a href="eventlist.php">
               <i class="fas fa-chevron-circle-right"></i><span>一覧を見る</span></a>
           </div>
 
@@ -301,66 +406,107 @@
         <div class="content_wrapper">
           <h2 class="block_title"><span>Today Staff</span></h2>
           <h3 class="block_title_caption"><?php echo "{$today->format('m/d')}" ;?>
-            <?php echo $week_name[$today->format("w")] ;?>の出勤</h3>
+            <?php echo $week_name[$today->format("w")] ;?>の出勤　全<?php echo count($todayschedulelist)?>名</h3>
 
 
           <!-- ここからスタッフカード -->
           <div class="staff_bg">
             <ul class="staff_wrap">
+              <?php if (is_array($todayschedulelist) && count($todayschedulelist) > 0): ?>
+              <?php foreach ($todayschedulelist as $todayschedule): ?>
+              <?php
+                $profile_this = findGirlByAttendanceNo($todayschedule->getAttendanceGirlNum(), $staffList);
+                $profile_tag = getGirlTagByNumber($todayschedule->getAttendanceGirlNum(),$girlsTags);
+              
+                $profile_sns = getGirlSnsByNumber($todayschedule->getAttendanceGirlNum(),$girlsSns);
+                $panel_instances = new SchedulePanel();
+     
+                $panel_instances->setHerProfile($profile_this);
+                $panel_instances->setPanelStarttime($todayschedule->getWorkStartTime());
+                $panel_instances->setPanelEndtime($todayschedule->getWorkEndTime());
 
-              <!-- foreachdeで回します -->
-              <?php foreach($sample_names as $sample_name) :?>
+                $panel_instances->setHerTag($profile_tag);
+     
 
-              <!-- 1人目 -->
+                $panel_instances->setHerSns($profile_sns);
+  
+      // Check for new girl
+      if (!empty($newgirl)) {
+        foreach ($newgirl as $checknew) {
+          if ($checknew->getGirlNumber() == $profile_this->getGirlNumber()) {
+            $panel_instances->setPanelNewgirl(true);
+            break;
+          }
+        }
+      }
+      ?>
+
               <li class="staff_card">
 
+
+
                 <!-- アイコン -->
-                <!-- 今すぐとか -->
                 <p class="staff_state_mark fukidashi_green">即ご案内</p>
-                <!-- 新人 -->
+                <?php if ($panel_instances->getPanelNewgirl()): ?>
                 <div class="staff_card_wrap">
                   <span class="tag new_cast">新人</span>
-                  <!-- アイコン -->
-
-
+                  <?php endif; ?>
                   <a href="girls.php" class="staff_card_link block_wrap_a">
                     <!-- 写真 -->
                     <div class="staff_photo_area">
                       <figure class="staff_photo">
-                        <img src='<?php echo $sample_name[3] ?>' alt="">
+                        <?php $image = getGirlImageByNumber($staffPicList, $profile_this->getGirlNumber()); ?>
+                        <img src="<?php echo $image ?>" alt="">
                       </figure>
                     </div>
                     <!-- 時間 -->
                     <p class="time_area"><i class="fas fa-clock"></i>
-                      12:00~22:00</p>
+                      <?php echo substr($panel_instances->getPanelStarttime(), 0, 5); ?>~
+                      <?php echo substr($panel_instances->getPanelEndtime(), 0, 5); ?>
+                    </p>
                     <!-- 属性 -->
                     <div class="girl_types">
-                      <span class="girl_type btn_color_blue">新人</span>
-                      <span class="girl_type btn_color_pink">体験入店</span>
-                      <span class="girl_type btn_color_red">人気No1</span>
-                      <span class="girl_type btn_color_pink">やさしい</span>
+                      <?php if ($panel_instances->getPanelTrialShift()): ?>
+                      <span class="girl_type btn_color_blink">体験入店</span>
+                      <?php endif?>
+                      <span class="girl_type btn_color_red">
+
+                        <?php echo $panel_instances->getPanelTag()?>
+                      </span>
+
                     </div>
-
                     <!-- profile -->
-
-                    <span class="staff_name_age"><?php echo $sample_name[1]?></span>
-                    <span class="staff_name_age">(<?php echo $sample_name[4]?>)</span>
-                    <span class="bodysize">
-                      <?php echo 'T/'.$sample_name[5].'&nbsp;B/'.$sample_name[6].'('.$sample_name[7].')&nbsp;H/'.$sample_name[8]?>
-                    </span>
-
+                    <span class="staff_name_age"><?php echo $profile_this->getGirlName(); ?></span>
+                    <span class="staff_name_age">(<?php echo $profile_this->getGirlAge(); ?>)</span><br>
+                    <span class="bodysize"><?php echo $profile_this->getProfileDescription(); ?></span>
                     <!-- sns -->
+
+
                     <div class="staff_original_contents">
-                      <a href=""><i class="fab fa-twitter twitter_color"></i></a>
-                      <a href=""><i class="fas fa-pen-nib diary_color"></i></a>
-                      <a href=""><i class="fas fa-video video_color"></i></a>
-                      <a href=""><i class="fas fa-camera gravure_color"></i></a>
+
+                      <?php if( $panel_instances -> getPanelSns01() != null):?>
+                      <a href="<?php echo $panel_instances->getPanelSns01()?>"><i
+                          class="fab fa-twitter twitter_color"></i></a>
+                      <?php endif?>
+                      <?php if( $panel_instances -> getPanelSns02() != false) :?>
+                      <a href="<?php echo $panel_instances->getPanelSns02()?>">
+                        <i class="fab fa-instagram video_color"></i>
+                        <?php endif?>
                     </div>
                   </a>
+                  <?php if ($panel_instances->getPanelNewgirl()): ?>
                 </div>
+                <?php endif; ?>
               </li>
-              <?php endforeach ?>
+              <?php endforeach; ?>
+
+              <?php else: ?>
+              <li class="staff_card">
+                <h3>出勤者はいません</h3>
+              </li>
+              <?php endif; ?>
             </ul>
+
           </div>
           <div class="goto_list_w">
             <a href="scheduleweek.php">
@@ -369,6 +515,7 @@
         </div><!-- コンテントラッパー閉じる -->
 
       </section>
+
 
       <!-- --- -->
 
@@ -382,54 +529,27 @@
           <div class="swiper_custom_parent">
             <div class="swiper2 glSwiper">
               <div class="swiper-wrapper">
-                <!-- foreach で数だけ取る -->
+
+                <?php foreach($newgirl as $profiledata):?>
+
+                <?php $image = getGirlImageByNumber($staffPicList, $profiledata->getGirlNumber());?>
+
                 <div class="swiper-slide girl-slide">
                   <a href="staff/staff00.php?name=test" class="swipe_a">
                     <!-- ここの画像がでかくなるとbodyが動くのではみ出したら切る -->
-                    <img src="img/newface01.jpeg" alt="">
+                    <img src="<?php echo $image ?>" alt="">
                     <div class="staff_data">
                       <p class="name_age">
-                        <span class="name">名 前</span>
-                        <span class="age">(20)</span>
+                        <span class="name"><?php echo $profiledata->getGirlName()?></span>
+                        <span class="age">(<?php echo $profiledata->getGirlAge()?>)</span>
                       </p>
                       <p class="body_size">
-                        T/165&nbsp;B88(F)&nbsp;W60&nbsp;H88
+                        <?php echo $profiledata->getProfileDescription()?>
                       </p>
                     </div>
                   </a>
                 </div>
-                <!-- ２人目 -->
-                <div class="swiper-slide girl-slide">
-                  <a href="staff/staff00.php?name=test" class="swipe_a">
-                    <!-- ここの画像がでかくなるとbodyが動くのではみ出したら切る -->
-                    <img src="img/newface02.jpeg" alt="">
-                    <div class="staff_data">
-                      <p class="name_age">
-                        <span class="name">名前</span>
-                        <span class="age">(20)</span>
-                      </p>
-                      <p class="body_size">
-                        T/165&nbsp;B88(F)&nbsp;W60&nbsp;H88
-                      </p>
-                    </div>
-                  </a>
-                </div>
-                <!-- 3人目 -->
-                <div class="swiper-slide girl-slide">
-                  <a href="staff/staff00.php?name=test" class="swipe_a">
-                    <!-- ここの画像がでかくなるとbodyが動くのではみ出したら切る -->
-                    <img src="img/newface03.jpeg" alt="">
-                    <div class="staff_data">
-                      <p class="name_age">
-                        <span class="name">名前</span>
-                        <span class="age">(20)</span>
-                      </p>
-                      <p class="body_size">
-                        T/165&nbsp;B88(F)&nbsp;W60&nbsp;H88
-                      </p>
-                    </div>
-                  </a>
-                </div>
+                <?php endforeach?>
 
               </div>
               <div class="swiper-pagination page2"></div>
@@ -445,6 +565,21 @@
 
 
       <!-- クチコミ -->
+      <?php
+      $today = new DateTime(); // 今日の日付
+      $oneMonthAgo = (clone $today)->modify('-1 month'); // 1ヶ月前の日付
+
+      // playDate が条件に一致するものをフィルタリング
+      $filteredApprovalPendings = array_filter($approvalPendings, function ($item) use ($today, $oneMonthAgo) {
+      $playDate = DateTime::createFromFormat('Y-m-d', $item['playDate']);
+      return $playDate >= $oneMonthAgo && $playDate <= $today; }); 
+
+      foreach($filteredApprovalPendings as $filteredApprovalPending){
+        $new_review_data[] = new ReviewManager($filteredApprovalPending);
+      }
+     
+      ?>
+
 
       <section id="reviews" class="container under_space scroll-up">
 
@@ -455,44 +590,49 @@
           <div class="swiper10 newreviewSwiper">
             <ul class="swiper-wrapper">
 
-              <?php foreach($new_reviews as $new_review) :?>
+              <?php foreach($new_review_data as $new_review) :?>
+
+
+              <?php $profile_this =findGirlByAttendanceNo($new_review->getEmployeeNumber(), $staffList);?>
+
+              <?php $image = getGirlImageByNumber($staffPicList, $new_review->getEmployeeNumber()); ?>
+
               <!-- クチコミ1 -->
               <li class="swiper-slide staff_review">
-                <a href='review.php?review=<?php echo $new_review[3] ?>' class="staff_review_content block_wrap_a">
+
+                <a href='review.php?review=<?php echo $new_review->getReviewNumber() ?>'
+                  class="staff_review_content block_wrap_a">
                   <div class="staff_review_bg">
                     <!-- 画像 -->
                     <figure class="subtitles_img">
-                      <img src='<?php echo $sample_names[$new_review[3]][3]?>' alt="">
+                      <img src='<?php echo $image ?>' alt="">
                       <!-- 名前 -->
                       <figcaption>
-                        <?php echo $sample_names[$new_review[3]][1] ?>(<?php echo $sample_names[$new_review[3]][4] ?>)
+                        <?php echo $profile_this->getGirlName() ?>(<?php echo $profile_this->getGirlAge()?>)
                       </figcaption>
                     </figure>
                     <!-- タイトル -->
                     <div class="staff_review_title">
-                      <p><?php echo $new_review[11] ?></p>
+                      <p><?php echo $new_review->getReviewTitle() ?></p>
                     </div>
                     <!-- 評価星 -->
                     <div class="assessment">
-                      <?php for($i=6; $i<10; $i++){$new_review_items_star_num += $new_review[$i];}?>
-                      <?php $new_review_star_average = $new_review_items_star_num / 5 ?>
+
                       <p class="total_evaluation"><span class="stars"
-                          style='--rating: <?php echo $new_review_star_average?>;'>
+                          style='--rating: <?php echo $new_review->calculateAverageRate()?>;'>
                         </span>
                       </p>
                     </div>
                     <!-- 評価本文 -->
                     <p class="staff_review_text">
-                      <?php echo $new_review[12] ?>
+                      <?php echo $new_review->getReviewBody() ?>
                     </p>
                   </div>
                   <div class="reviewer_data">
-                    <p class="date_use">掲載日:<?php echo $new_review[4] ?></p>
+                    <p class="date_use">掲載日:<?php echo $new_review->getPlayDate() ?></p>
                   </div>
                 </a>
               </li>
-              <?php $new_review_items_star_num = 0 ?>
-              <?php $new_review_star_average = 0 ?>
               <?php endforeach ?>
             </ul>
           </div>

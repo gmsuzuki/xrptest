@@ -574,6 +574,24 @@ h3.block_title_caption_white {
   color: #fff;
 }
 
+.btn_color_blink {
+  color: white;
+  background-color: pink;
+  animation: blink-bg 1s infinite; /* 点滅のアニメーション */
+}
+
+@keyframes blink-bg {
+  0% {
+    background-color: pink;
+  }
+  50% {
+    background-color: lightcoral;
+  }
+  100% {
+    background-color: pink;
+  }
+}
+
 .btn_font00 {
   font-size: 2rem;
   font-weight: 700;

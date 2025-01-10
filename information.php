@@ -83,23 +83,22 @@
 
 
 
-    // news　特定
-      require_once( dirname(__FILE__). '/setting/class/news_class.php');
-      require_once( dirname(__FILE__). '/setting/data/news_data.php');
+  // 最新情報info
+    require_once( dirname(__FILE__). '/setting/class/info_class.php');
+    require_once( dirname(__FILE__). '/setting/data/info_data.php');
 
-
-      $news_instances = [];
-      foreach ($news_list as $news_data) {
-      $news_instances[] = new NewsManager($news_data);
-      }
+    $info_instances = []; // 空の配列を初期化
+    foreach($info_list as $info_item) {
+    $info_instances[] = new InfoManager($info_item); // 新しいインスタンスを配列に追加
+    }
 
     // url からイベントidとってきて
-      if($_GET["newsid"]){
-      $selectedId = $_GET["newsid"];
+      if($_GET["infoid"]){
+      $selectedId = $_GET["infoid"];
 
-      foreach($news_instances as $tips)
-        if($tips -> getNewsId() == $selectedId){
-          $selectednews = $tips;
+      foreach($info_instances as $tips)
+        if($tips -> getinfoId() == $selectedId){
+          $selectedinfo = $tips;
           break;
         }    
     }else{
@@ -116,17 +115,23 @@
       <article id="event" class="under_space">
         <div class="content_wrapper">
 
-          <!-- <?php $newstype = $selectednews -> getNewstype()?> -->
-          <?php if($newstype == 1 ):?>
+          <!-- <?php $infotype = $selectedinfo -> getinfotype()?> -->
+          <?php if($infotype == 1 ):?>
           <h1 class="fixpage_title"><span>Event</span></h1>
           <h3 class="block_title_caption">イベント</h3>
-          <?php elseif($newstype == 2):?>
+          <?php elseif($infotype == 2):?>
           <h1 class="fixpage_title"><span>News</span></h1>
           <h3 class="block_title_caption">ニュース</h3>
-          <?php elseif($newstype == 3):?>
+          <?php elseif($infotype == 3):?>
           <h1 class="fixpage_title"><span>NewFace</span></h1>
           <h3 class="block_title_caption">新人</h3>
-          <?php elseif($newstype == 4):?>
+          <?php elseif($infotype == 4):?>
+          <h1 class="fixpage_title"><span>Push</span></h1>
+          <h3 class="block_title_caption">おすすめ</h3>
+          <?php elseif($infotype == 5):?>
+          <h1 class="fixpage_title"><span>Graduation</span></h1>
+          <h3 class="block_title_caption">卒業</h3>
+          <?php elseif($infotype == 6):?>
           <h1 class="fixpage_title"><span>Other</span></h1>
           <h3 class="block_title_caption">その他</h3>
           <?php else:?>
@@ -135,14 +140,13 @@
           <?php echo $newstype;?>
           <?php endif?>
 
-
-
-          <img src="img/bunner.jpg">
           <section class="event_card block_anime">
             <div class="event_description">
-              <img src="<?php echo $selectednews->getNewsImg() ?>" alt="">
-              <h2><?php echo $selectednews->getNewsTitle() ?></h2>
-              <p class="event_description_text"><?php echo $selectednews->getNewsContent() ?></p>
+              <?php if($selectedinfo->getInfoImg()):?>
+              <img src="<?php echo $selectedinfo->getInfoImg() ?>" alt="">
+              <?php endif?>
+              <h2><?php echo $selectedinfo->getInfoTitle() ?></h2>
+              <p class="event_description_text"><?php echo $selectedinfo->getInfoContent() ?></p>
             </div>
           </section>
           <div class="goto_list">

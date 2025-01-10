@@ -35,7 +35,22 @@ class ReviewManager
     }
 
 
+   // 平均を計算する関数
+    public function calculateAverageRate()
+    {
+        $rates = [$this->rate01, $this->rate02, $this->rate03, $this->rate04, $this->rate05];
+        $validRates = array_filter($rates, function ($rate) {
+            return is_numeric($rate);
+        });
 
+        // 有効な評価があれば平均を計算する
+        if (count($validRates) > 0) {
+            return array_sum($validRates) / count($validRates);
+        }
+
+        // 評価がすべて無効ならnullを返す
+        return null;
+    }
 
 
     // ゲッター

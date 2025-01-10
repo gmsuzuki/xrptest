@@ -73,7 +73,7 @@
               </a>
             </li>
             <li>
-              <a href="newslist.php">
+              <a href="infolist.php">
                 <img src="img/news.jpeg" alt="">
                 <p class="black_cleanness"></p>
                 <dl>

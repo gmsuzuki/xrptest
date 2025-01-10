@@ -5,6 +5,7 @@
 $sample_names = [
     [
         'girlNumber' => 1,
+        'registrationDate' => '2024-12-27',
         'girlName' => '大島　美紀',
         'kanaName' => 'おおしま　みき',
         'girlAge' => 21,
@@ -12,10 +13,12 @@ $sample_names = [
         'girlBustSize' => 81,
         'girlBustCup' => 'C',
         'girlWest' => 53,
-        'girlHip' => 91
+        'girlHip' => 91,
+        'TrialShift' => true
     ],
     [
         'girlNumber' => 2,
+        'registrationDate' => '2024-12-27',
         'girlName' => '林田　美子',
         'kanaName' => 'はやしだ　みこ',
         'girlAge' => 22,
@@ -23,10 +26,12 @@ $sample_names = [
         'girlBustSize' => 85,
         'girlBustCup' => 'D',
         'girlWest' => 54,
-        'girlHip' => 86
+        'girlHip' => 86,
+        'TrialShift' => false
     ],
     [
         'girlNumber' => 3,
+        'registrationDate' => '2024-12-28',
         'girlName' => '岡崎　純子',
         'kanaName' => 'おかざき　じゅんこ',
         'girlAge' => 20,
@@ -34,10 +39,12 @@ $sample_names = [
         'girlBustSize' => 83,
         'girlBustCup' => 'E',
         'girlWest' => 58,
-        'girlHip' => 88
+        'girlHip' => 88,
+        'TrialShift' => true
     ],
     [
         'girlNumber' => 4,
+        'registrationDate' => '2024-12-27',
         'girlName' => '早川　文子',
         'kanaName' => 'はやかわ　ふみこ',
         'girlAge' => 21,
@@ -45,10 +52,12 @@ $sample_names = [
         'girlBustSize' => 95,
         'girlBustCup' => 'B',
         'girlWest' => 59,
-        'girlHip' => 89
+        'girlHip' => 89,
+        'TrialShift' => false
     ],
     [
         'girlNumber' => 5,
+        'registrationDate' => '2024-10-17',
         'girlName' => '大島　弘子',
         'kanaName' => 'おおしま　ひろこ',
         'girlAge' => 22,
@@ -56,10 +65,12 @@ $sample_names = [
         'girlBustSize' => 91,
         'girlBustCup' => 'C',
         'girlWest' => 57,
-        'girlHip' => 92
+        'girlHip' => 92,
+        'TrialShift' => true
     ],
     [
         'girlNumber' => 6,
+        'registrationDate' => '2024-06-12',
         'girlName' => '古賀　彩乃',
         'kanaName' => 'こが　あやの',
         'girlAge' => 24,
@@ -67,10 +78,12 @@ $sample_names = [
         'girlBustSize' => 88,
         'girlBustCup' => 'D',
         'girlWest' => 56,
-        'girlHip' => 91
+        'girlHip' => 91,
+        'TrialShift' => false
     ],
     [
         'girlNumber' => 7,
+        'registrationDate' => '2024-10-25',
         'girlName' => '平野　智美',
         'kanaName' => 'ひらの　ともみ',
         'girlAge' => 29,
@@ -78,10 +91,12 @@ $sample_names = [
         'girlBustSize' => 80,
         'girlBustCup' => 'B',
         'girlWest' => 55,
-        'girlHip' => 90
+        'girlHip' => 90,
+        'TrialShift' => true
     ],
     [
         'girlNumber' => 8,
+        'registrationDate' => '2024-08-09',
         'girlName' => '前田　洋子',
         'kanaName' => 'まえだ　ようこ',
         'girlAge' => 30,
@@ -89,10 +104,12 @@ $sample_names = [
         'girlBustSize' => 78,
         'girlBustCup' => 'A',
         'girlWest' => 59,
-        'girlHip' => 95
+        'girlHip' => 95,
+        'TrialShift' => false
     ],
     [
         'girlNumber' => 9,
+        'registrationDate' => '2024-09-14',
         'girlName' => '石川　彩乃',
         'kanaName' => 'いしかわ　あやの',
         'girlAge' => 20,
@@ -100,10 +117,12 @@ $sample_names = [
         'girlBustSize' => 90,
         'girlBustCup' => 'G',
         'girlWest' => 68,
-        'girlHip' => 91
+        'girlHip' => 91,
+        'TrialShift' => true
     ],
-     [
+    [
         'girlNumber' => 10,
+        'registrationDate' => '2024-10-30',
         'girlName' => '三浦　恵美',
         'kanaName' => 'みうら　えみ',
         'girlAge' => 20,
@@ -111,9 +130,11 @@ $sample_names = [
         'girlBustSize' => 88,
         'girlBustCup' => 'F',
         'girlWest' => 58,
-        'girlHip' => 92
+        'girlHip' => 92,
+        'TrialShift' => false
     ]
 ];
+
 
 $sample_pics = [
  
@@ -133,7 +154,12 @@ $sample_pics = [
         'girlgurabia02' => 'img/gravure01.jpeg',
         'girlgurabia03' => 'img/gravure02.jpeg',
         'girlgurabia04' => 'img/gravure03.jpeg',
-        'girlgurabia05' => 'img/gravure04.jpeg'
+        'girlgurabia05' => 'img/gravure04.jpeg',
+        'girlmovie01' =>null,
+        'girlmovie02' =>null,
+        'girlmovie03' =>null,
+        'girlmovie04' =>null,
+        'girlmovie05' =>null
     ],
     [
         'girlNumber' => 2,
@@ -151,7 +177,12 @@ $sample_pics = [
         'girlgurabia02' => 'img/gravure01.jpeg',
         'girlgurabia03' => 'img/gravure02.jpeg',
         'girlgurabia04' => 'img/gravure03.jpeg',
-        'girlgurabia05' => 'img/gravure04.jpeg'
+        'girlgurabia05' => 'img/gravure04.jpeg',
+        'girlmovie01' =>null,
+        'girlmovie02' =>null,
+        'girlmovie03' =>null,
+        'girlmovie04' =>null,
+        'girlmovie05' =>null
     ],
     [
         'girlNumber' => 3,
@@ -169,7 +200,12 @@ $sample_pics = [
         'girlgurabia02' => 'img/gravure01.jpeg',
         'girlgurabia03' => 'img/gravure02.jpeg',
         'girlgurabia04' => 'img/gravure03.jpeg',
-        'girlgurabia05' => 'img/gravure04.jpeg'
+        'girlgurabia05' => 'img/gravure04.jpeg',
+        'girlmovie01' =>null,
+        'girlmovie02' =>null,
+        'girlmovie03' =>null,
+        'girlmovie04' =>null,
+        'girlmovie05' =>null
     ],
     [
         'girlNumber' => 4,
@@ -187,7 +223,12 @@ $sample_pics = [
         'girlgurabia02' => 'img/gravure01.jpeg',
         'girlgurabia03' => 'img/gravure02.jpeg',
         'girlgurabia04' => 'img/gravure03.jpeg',
-        'girlgurabia05' => 'img/gravure04.jpeg'
+        'girlgurabia05' => 'img/gravure04.jpeg',
+        'girlmovie01' =>null,
+        'girlmovie02' =>null,
+        'girlmovie03' =>null,
+        'girlmovie04' =>null,
+        'girlmovie05' =>null
     ],
     [
         'girlNumber' => 5,
@@ -205,7 +246,12 @@ $sample_pics = [
         'girlgurabia02' => 'img/gravure01.jpeg',
         'girlgurabia03' => 'img/gravure02.jpeg',
         'girlgurabia04' => 'img/gravure03.jpeg',
-        'girlgurabia05' => 'img/gravure04.jpeg'
+        'girlgurabia05' => 'img/gravure04.jpeg',
+        'girlmovie01' =>null,
+        'girlmovie02' =>null,
+        'girlmovie03' =>null,
+        'girlmovie04' =>null,
+        'girlmovie05' =>null
     ],
     [
         'girlNumber' => 6,
@@ -223,7 +269,12 @@ $sample_pics = [
         'girlgurabia02' => 'img/gravure01.jpeg',
         'girlgurabia03' => 'img/gravure02.jpeg',
         'girlgurabia04' => 'img/gravure03.jpeg',
-        'girlgurabia05' => 'img/gravure04.jpeg'
+        'girlgurabia05' => 'img/gravure04.jpeg',
+        'girlmovie01' =>null,
+        'girlmovie02' =>null,
+        'girlmovie03' =>null,
+        'girlmovie04' =>null,
+        'girlmovie05' =>null
     ],
     [
         'girlNumber' => 7,
@@ -241,7 +292,12 @@ $sample_pics = [
         'girlgurabia02' => 'img/gravure01.jpeg',
         'girlgurabia03' => 'img/gravure02.jpeg',
         'girlgurabia04' => 'img/gravure03.jpeg',
-        'girlgurabia05' => 'img/gravure04.jpeg'
+        'girlgurabia05' => 'img/gravure04.jpeg',
+        'girlmovie01' =>null,
+        'girlmovie02' =>null,
+        'girlmovie03' =>null,
+        'girlmovie04' =>null,
+        'girlmovie05' =>null
     ],
     [
         'girlNumber' => 8,
@@ -259,7 +315,12 @@ $sample_pics = [
         'girlgurabia02' => 'img/gravure01.jpeg',
         'girlgurabia03' => 'img/gravure02.jpeg',
         'girlgurabia04' => 'img/gravure03.jpeg',
-        'girlgurabia05' => 'img/gravure04.jpeg'
+        'girlgurabia05' => 'img/gravure04.jpeg',
+        'girlmovie01' =>null,
+        'girlmovie02' =>null,
+        'girlmovie03' =>null,
+        'girlmovie04' =>null,
+        'girlmovie05' =>null
     ],
     [
         'girlNumber' => 9,
@@ -277,7 +338,12 @@ $sample_pics = [
         'girlgurabia02' => 'img/gravure01.jpeg',
         'girlgurabia03' => 'img/gravure02.jpeg',
         'girlgurabia04' => 'img/gravure03.jpeg',
-        'girlgurabia05' => 'img/gravure04.jpeg'
+        'girlgurabia05' => 'img/gravure04.jpeg',
+        'girlmovie01' =>null,
+        'girlmovie02' =>null,
+        'girlmovie03' =>null,
+        'girlmovie04' =>null,
+        'girlmovie05' =>null
     ],
     [
         'girlNumber' => 10,
@@ -295,9 +361,30 @@ $sample_pics = [
         'girlgurabia02' => 'img/gravure01.jpeg',
         'girlgurabia03' => 'img/gravure02.jpeg',
         'girlgurabia04' => 'img/gravure03.jpeg',
-        'girlgurabia05' => 'img/gravure04.jpeg'
+        'girlgurabia05' => 'img/gravure04.jpeg',
+        'girlmovie01' =>null,
+        'girlmovie02' =>null,
+        'girlmovie03' =>null,
+        'girlmovie04' =>null,
+        'girlmovie05' =>null
     ]
 ];
+
+  $sample_sns_lists =[
+    ['girlNumber' => 1, 'X' => false, 'Insta' => 'https://www.instagram.com/'],
+    ['girlNumber' => 2, 'X' => 'https://x.com/', 'Insta' => false],
+    ['girlNumber' => 3, 'X' => false, 'Insta' => 'https://www.instagram.com/'],
+    ['girlNumber' => 4, 'X' => 'https://x.com/', 'Insta' => 'https://www.instagram.com/'],
+    ['girlNumber' => 5, 'X' => false, 'Insta' => false],
+    ['girlNumber' => 6, 'X' => 'https://x.com/', 'Insta' => false],
+    ['girlNumber' => 7, 'X' => false, 'Insta' => 'https://www.instagram.com/'],
+    ['girlNumber' => 8, 'X' => 'https://x.com/', 'Insta' => 'https://www.instagram.com/'],
+    ['girlNumber' => 9, 'X' => false, 'Insta' => false],
+    ['girlNumber' => 10, 'X' => 'https://x.com/', 'Insta' => false],
+    
+  ];
+
+
 
 
     $sample_basic_options =[
@@ -327,6 +414,21 @@ $sample_pics = [
     ['girlNumber' => 10, 'spop01' => true, 'spop02' => false, 'spop03' => true, 'spop04' => false, 'spop05' => true, 'spop06' => false, 'spop07' => true, 'spop08' => false, 'spop09' => true, 'spop10' => false, 'spop11' => true, 'spop12' => false, 'spop13' => true, 'spop14' => false, 'spop15' => true, 'spop16' => false, 'spop17' => true, 'spop18' => false, 'spop19' => true, 'spop20' => false, 'spop21' => true, 'spop22' => false, 'spop23' => true, 'spop24' => false, 'spop25' => true, 'spop26' => false, 'spop27' => true, 'spop28' => false, 'spop29' => true, 'spop30' => false],
 ];
 
+
+
+    $sample_tag =[
+
+    ['girlNumber' => 1, 'sptag01' => '巨乳', 'staffcomment' => 'とにかくかわいい', 'tag01' => 3, 'tag02' => 5, 'tag03' => 1, 'tag04' => 2, 'tag05' => 2],
+    ['girlNumber' => 2, 'sptag01' => 'ショートカット', 'staffcomment' => '清楚系', 'tag01' => 5, 'tag02' => 3, 'tag03' => 6, 'tag04' => 6, 'tag05' => 6],
+    ['girlNumber' => 3, 'sptag01' => '清楚', 'staffcomment' => '元気いっぱい', 'tag01' => 5, 'tag02' => 2, 'tag03' => 1, 'tag04' => 2, 'tag05' => 2],
+    ['girlNumber' => 4, 'sptag01' => 'ロリ', 'staffcomment' => '元気いっぱい', 'tag01' => 2, 'tag02' => 1, 'tag03' => 3, 'tag04' => 6, 'tag05' => 4],
+    ['girlNumber' => 5, 'sptag01' => 'モデル', 'staffcomment' => 'おしゃれ', 'tag01' => 5, 'tag02' => 3, 'tag03' => 4, 'tag04' => 4, 'tag05' => 1],
+    ['girlNumber' => 6, 'sptag01' => 'OL', 'staffcomment' => 'おしゃれ', 'tag01' => 3, 'tag02' => 2, 'tag03' => 4, 'tag04' => 6, 'tag05' => 5],
+    ['girlNumber' => 7, 'sptag01' => 'キャバ嬢', 'staffcomment' => '元気いっぱい', 'tag01' => 2, 'tag02' => 6, 'tag03' => 1, 'tag04' => 2, 'tag05' => 6],
+    ['girlNumber' => 8, 'sptag01' => 'ギャル', 'staffcomment' => '清楚系', 'tag01' => 3, 'tag02' => 6, 'tag03' => 5, 'tag04' => 5, 'tag05' => 6],
+    ['girlNumber' => 9, 'sptag01' => '濃厚', 'staffcomment' => 'おしゃれ', 'tag01' => 4, 'tag02' => 6, 'tag03' => 5, 'tag04' => 1, 'tag05' => 5],
+    ['girlNumber' => 10, 'sptag01' => 'アイドル', 'staffcomment' => 'とにかくかわいい', 'tag01' => 1, 'tag02' => 3, 'tag03' => 2, 'tag04' => 3, 'tag05' => 3]
+];
 
 
   // 質問の回答

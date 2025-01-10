@@ -80,10 +80,42 @@
     <?php
       require_once( dirname(__FILE__). '/parts/header.php');
       require_once( dirname(__FILE__). '/data.php');
+
+    //イベント一覧
+    require_once( dirname(__FILE__). '/setting/class/info_class.php');
+    require_once( dirname(__FILE__). '/setting/data/info_data.php'); 
+    
+    $info_instances = []; // 空の配列を初期化
+    foreach ($info_list as $info_item) {
+    $info_instances[] = new InfoManager($info_item); // 新しいインスタンスを配列に追加
+    }
+
+    $event_instances=[];
+    $event_instances = array_filter($info_instances, function($instance) {
+    return $instance->getInfoType()== 1;
+    });
+
+
+
+    // is_visible が true のものだけを抽出
+    $visible_instances = array_filter($event_instances, function($instance) {
+    return $instance->getIsVisible();
+    });
+
+
+    // 最新順にソート
+    usort($visible_instances, function($a, $b) {
+    return strtotime($b->getInfoTime()) - strtotime($a->getInfoTime());
+    });
+
+
+
+
     ?>
     <!------------------>
 
     <main id="main">
+
 
 
 
@@ -93,11 +125,11 @@
           <h1 class="fixpage_title"><span>Event List</span></h1>
           <h3 class="block_title_caption">イベント一覧</h3>
           <ul class="event_list">
-            <?php foreach($event_objects as $event) :?> <li>
-              <a href="event.php?eventid=<?php echo $event->getEventId() ?>">
-                <img src="<?php echo $event->getEventImg() ?>" alt="">
+            <?php foreach($visible_instances as $event) :?> <li>
+              <a href="information.php?infoid=<?php echo $event->getInfoId() ?>">
+                <img src="<?php echo $event->getInfoImg() ?>" alt="">
                 <div class="event_title">
-                  <p><?php echo $event->getEventName() ?></p>
+                  <p><?php echo $event->getInfoTitle() ?></p>
                 </div>
               </a>
             </li>

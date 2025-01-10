@@ -80,8 +80,37 @@
     <?php
     require_once( dirname(__FILE__). '/parts/header.php');
     require_once( dirname(__FILE__). '/data.php');
+
+    // 最新情報info
+    require_once( dirname(__FILE__). '/setting/class/info_class.php');
+    require_once( dirname(__FILE__). '/setting/data/info_data.php');
+
+    $info_instances = []; // 空の配列を初期化
+    foreach ($info_list as $info_item) {
+    $info_instances[] = new InfoManager($info_item); // 新しいインスタンスを配列に追加
+    }
+
+    // is_visible が true のものだけを抽出
+    $visible_instances = array_filter($info_instances, function($instance) {
+    return $instance->getIsVisible();
+    });
+
+    // 最新順にソート
+    usort($visible_instances, function($a, $b) {
+    return strtotime($b->getInfoTime()) - strtotime($a->getInfoTime());
+    });
+
+
+
+
+
+
+
     ?>
     <!------------------>
+
+
+
 
 
     <main id="main">
@@ -92,7 +121,7 @@
       <section id="whats_new" class="container under_space">
         <div class="content_wrapper">
 
-          <h2 class="block_title"><span>News</span></h2>
+          <h2 class="block_title"><span>Information</span></h2>
           <h3 class="block_title_caption">最新情報</h3>
           <ul class="topics">
 
@@ -101,7 +130,7 @@
             define('MAX','5'); // 1ページの記事の表示数
 
 
-            $news_num = count($news_objects); // トータルデータ件数
+            $news_num = count($visible_instances); // トータルデータ件数
             // $news_num = count($news_list );
 
 
@@ -117,22 +146,22 @@
             $start_no = ($now - 1) * MAX; // 配列の何番目から取得すればよいか
 
             // array_sliceは、配列の何番目($start_no)から何番目(MAX)まで切り取る関数
-            $disp_data = array_slice($news_objects, $start_no, MAX, true);
+            $disp_data = array_slice($visible_instances, $start_no, MAX, true);
             // $disp_data = array_slice($news_list, $start_no, MAX, true);
             ?>
             <!-- 記事一覧表示 -->
             <?php foreach($disp_data as $news) :?>
-            <a href="">
+            <a href="information.php?infoid=<?php echo $news -> getInfoId()?>">
               <li class="topic">
                 <div class="news_data">
-                  <time><?php echo $news->getNewsTime() ?></time>
-                  <span class="news_kinds" style="background-color:<?php echo $news->getNewsColor()?>">
-                    <?php echo $news->getNewsTitleBody()?>
+                  <time><?php echo $news->getInfoDate() ?></time>
+                  <span class="news_kinds" style="background-color:<?php echo $news->getInfoColor()?>">
+                    <?php echo $news->getInfoTitleBody()?>
                   </span>
                 </div>
                 <div class="news_top_title">
                   <span class="news_list_title">
-                    <?php echo $news->getNewsTitle() ?>
+                    <?php echo $news->getInfoTitle() ?>
                   </span>
                 </div>
               </li>
@@ -149,7 +178,7 @@
             <!-- // 現在表示中のページ数の場合はリンクを貼らない -->
             <span class="page-numbers current"><?php echo $now ?></span>
             <?php else :?>
-            <?php echo "<a href='./newslist.php?page_id={$i}' class='page-numbers'>{$i}</a>" ?>
+            <?php echo "<a href='./infolist.php?page_id={$i}' class='page-numbers'>{$i}</a>" ?>
             <?php endif?>
             <?php endfor?>
 

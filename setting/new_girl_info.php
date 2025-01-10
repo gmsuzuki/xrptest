@@ -322,6 +322,13 @@ foreach ($staffPics as $staffPic) {
 
       } else if (isset($_POST['send']) && $_POST['send']) {
 
+
+        //informationようにt
+        // $_SESSION['information']['type'];
+        // $_SESSION['information']['reserve_day'];
+        // $_SESSION['information']['reserve_time'];
+
+
         // データベースコネクト
         require_once('db_connect.php');
         try {
@@ -383,9 +390,10 @@ foreach ($staffPics as $staffPic) {
         $_SESSION['cast_info_image']['width'];
         $_SESSION['cast_info_image']['height'];
         // Information
-        $_SESSION['Information']['type'];
-        $_SESSION['Information']['day'];
-        $_SESSION['Information']['time'];
+        $_SESSION['information']['type'];
+        $_SESSION['information']['reserve_day'];
+        $_SESSION['information']['reserve_time'];
+
 
       }
 
@@ -959,11 +967,11 @@ foreach ($staffPics as $staffPic) {
 
             <!-- 更新日時 -->
             <?php $originalDateTime = $_SESSION['new_post_header']['reserve_day'].$_SESSION['new_post_header']['reserve_time'];
-        // strtotime() 関数を使用してタイムスタンプに変換
-        $timestamp = strtotime($originalDateTime);
-        // date() 関数を使用して新しい形式に変換
-        $newDateTime = date('Y-m-d H:i:s', $timestamp);
-        ?>
+            // strtotime() 関数を使用してタイムスタンプに変換
+            $timestamp = strtotime($originalDateTime);
+            // date() 関数を使用して新しい形式に変換
+            $newDateTime = date('Y-m-d H:i:s', $timestamp);
+            ?>
             <input type="hidden" name="" value="<?php echo $newDateTime?>">
 
 
