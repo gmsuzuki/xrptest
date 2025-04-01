@@ -72,3 +72,15 @@ class memberProfileManager
         $this->memberIcon = $memberIcon;
     }
 }
+
+function getMemberProfile(array $staffarry, $targetMemberNumber) {
+    foreach ($staffarry as $member) {
+        if ($member instanceof memberProfileManager && $member->getMemberNumber() == $targetMemberNumber) {
+            return [
+                "memberName" => $member->getMemberName(),
+                "memberIcon" => $member->getMemberIcon()
+            ];
+        }
+    }
+    return null; // 該当するメンバーが見つからなかった場合
+}

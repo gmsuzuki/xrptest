@@ -132,6 +132,19 @@ $sample_names = [
         'girlWest' => 58,
         'girlHip' => 92,
         'TrialShift' => false
+    ],
+    [
+        'girlNumber' => 11,
+        'registrationDate' => '2024-10-31',
+        'girlName' => '中山　るる',
+        'kanaName' => 'なかやま　るる',
+        'girlAge' => 29,
+        'girlHeight' => 175,
+        'girlBustSize' => 88,
+        'girlBustCup' => 'F',
+        'girlWest' => 68,
+        'girlHip' => 92,
+        'TrialShift' => false
     ]
 ];
 
@@ -367,6 +380,29 @@ $sample_pics = [
         'girlmovie03' =>null,
         'girlmovie04' =>null,
         'girlmovie05' =>null
+    ],
+    [
+        'girlNumber' => 11,
+        'girlImage01' => 'img/newface08.jpeg',
+        'girlImage02' => 'img/newface07.jpeg',
+        'girlImage03' => 'img/newface02.jpeg',
+        'girlImage04' => 'img/newface06.jpeg',
+        'girlImage05' => 'img/newface07.jpeg',
+        'girlImage06' => null,
+        'girlImage07' => null,
+        'girlImage08' => null,
+        'girlImage09' => null,
+        'girlImage10' => null,
+        'girlgurabia01' => 'img/gravure00.jpeg',
+        'girlgurabia02' => 'img/gravure01.jpeg',
+        'girlgurabia03' => 'img/gravure02.jpeg',
+        'girlgurabia04' => 'img/gravure03.jpeg',
+        'girlgurabia05' => 'img/gravure04.jpeg',
+        'girlmovie01' =>null,
+        'girlmovie02' =>null,
+        'girlmovie03' =>null,
+        'girlmovie04' =>null,
+        'girlmovie05' =>null
     ]
 ];
 
@@ -381,6 +417,7 @@ $sample_pics = [
     ['girlNumber' => 8, 'X' => 'https://x.com/', 'Insta' => 'https://www.instagram.com/'],
     ['girlNumber' => 9, 'X' => false, 'Insta' => false],
     ['girlNumber' => 10, 'X' => 'https://x.com/', 'Insta' => false],
+    ['girlNumber' => 11, 'X' => false, 'Insta' => false]
     
   ];
 
@@ -397,7 +434,8 @@ $sample_pics = [
     ['girlNumber' => 7, 'option01' => false, 'option02' => true, 'option03' => false, 'option04' => true, 'option05' => false, 'option06' => true, 'option07' => false, 'option08' => true, 'option09' => false, 'option10' => true, 'option11' => false, 'option12' => true, 'option13' => false, 'option14' => true, 'option15' => false, 'option16' => true, 'option17' => false, 'option18' => true, 'option19' => false, 'option20' => true, 'option21' => false, 'option22' => true, 'option23' => false, 'option24' => true, 'option25' => false, 'option26' => true, 'option27' => false, 'option28' => true, 'option29' => false, 'option30' => true],
     ['girlNumber' => 8, 'option01' => true, 'option02' => true, 'option03' => true, 'option04' => true, 'option05' => true, 'option06' => true, 'option07' => true, 'option08' => true, 'option09' => true, 'option10' => true, 'option11' => true, 'option12' => true, 'option13' => true, 'option14' => true, 'option15' => true, 'option16' => true, 'option17' => true, 'option18' => true, 'option19' => true, 'option20' => true, 'option21' => true, 'option22' => true, 'option23' => true, 'option24' => true, 'option25' => true, 'option26' => true, 'option27' => true, 'option28' => true, 'option29' => true, 'option30' => true],
     ['girlNumber' => 9, 'option01' => false, 'option02' => false, 'option03' => false, 'option04' => false, 'option05' => false, 'option06' => false, 'option07' => false, 'option08' => false, 'option09' => false, 'option10' => false, 'option11' => false, 'option12' => false, 'option13' => false, 'option14' => false, 'option15' => false, 'option16' => false, 'option17' => false, 'option18' => false, 'option19' => false, 'option20' => false, 'option21' => false, 'option22' => false, 'option23' => false, 'option24' => false, 'option25' => false, 'option26' => false, 'option27' => false, 'option28' => false, 'option29' => false, 'option30' => false],
-    ['girlNumber' => 0, 'option01' => true, 'option02' => false, 'option03' => true, 'option04' => false, 'option05' => true, 'option06' => false, 'option07' => true, 'option08' => false, 'option09' => true, 'option10' => false, 'option11' => true, 'option12' => false, 'option13' => true, 'option14' => false, 'option15' => true, 'option16' => false, 'option17' => true, 'option18' => false, 'option19' => true, 'option20' => false, 'option21' => true, 'option22' => false, 'option23' => true, 'option24' => false, 'option25' => true, 'option26' => false, 'option27' => true, 'option28' => false, 'option29' => true, 'option30' => false]
+    ['girlNumber' => 10, 'option01' => true, 'option02' => false, 'option03' => true, 'option04' => false, 'option05' => true, 'option06' => false, 'option07' => true, 'option08' => false, 'option09' => true, 'option10' => false, 'option11' => true, 'option12' => false, 'option13' => true, 'option14' => false, 'option15' => true, 'option16' => false, 'option17' => true, 'option18' => false, 'option19' => true, 'option20' => false, 'option21' => true, 'option22' => false, 'option23' => true, 'option24' => false, 'option25' => true, 'option26' => false, 'option27' => true, 'option28' => false, 'option29' => true, 'option30' => false],
+    ['girlNumber' => 11, 'option01' => false, 'option02' => true, 'option03' => false, 'option04' => true, 'option05' => false, 'option06' => true, 'option07' => false, 'option08' => true, 'option09' => false, 'option10' => true, 'option11' => false, 'option12' => true, 'option13' => false, 'option14' => true, 'option15' => false, 'option16' => true, 'option17' => false, 'option18' => true, 'option19' => false, 'option20' => true, 'option21' => false, 'option22' => true, 'option23' => false, 'option24' => true, 'option25' => false, 'option26' => true, 'option27' => false, 'option28' => true, 'option29' => false, 'option30' => true]
 
   ];
 
@@ -412,6 +450,7 @@ $sample_pics = [
     ['girlNumber' => 8, 'spop01' => true, 'spop02' => true, 'spop03' => true, 'spop04' => true, 'spop05' => true, 'spop06' => true, 'spop07' => true, 'spop08' => true, 'spop09' => true, 'spop10' => true, 'spop11' => true, 'spop12' => true, 'spop13' => true, 'spop14' => true, 'spop15' => true, 'spop16' => true, 'spop17' => true, 'spop18' => true, 'spop19' => true, 'spop20' => true, 'spop21' => true, 'spop22' => true, 'spop23' => true, 'spop24' => true, 'spop25' => true, 'spop26' => true, 'spop27' => true, 'spop28' => true, 'spop29' => true, 'spop30' => true],
     ['girlNumber' => 9, 'spop01' => false, 'spop02' => false, 'spop03' => false, 'spop04' => false, 'spop05' => false, 'spop06' => false, 'spop07' => false, 'spop08' => false, 'spop09' => false, 'spop10' => false, 'spop11' => false, 'spop12' => false, 'spop13' => false, 'spop14' => false, 'spop15' => false, 'spop16' => false, 'spop17' => false, 'spop18' => false, 'spop19' => false, 'spop20' => false, 'spop21' => false, 'spop22' => false, 'spop23' => false, 'spop24' => false, 'spop25' => false, 'spop26' => false, 'spop27' => false, 'spop28' => false, 'spop29' => false, 'spop30' => false],
     ['girlNumber' => 10, 'spop01' => true, 'spop02' => false, 'spop03' => true, 'spop04' => false, 'spop05' => true, 'spop06' => false, 'spop07' => true, 'spop08' => false, 'spop09' => true, 'spop10' => false, 'spop11' => true, 'spop12' => false, 'spop13' => true, 'spop14' => false, 'spop15' => true, 'spop16' => false, 'spop17' => true, 'spop18' => false, 'spop19' => true, 'spop20' => false, 'spop21' => true, 'spop22' => false, 'spop23' => true, 'spop24' => false, 'spop25' => true, 'spop26' => false, 'spop27' => true, 'spop28' => false, 'spop29' => true, 'spop30' => false],
+    ['girlNumber' => 11, 'spop01' => true, 'spop02' => true, 'spop03' => true, 'spop04' => true, 'spop05' => true, 'spop06' => true, 'spop07' => true, 'spop08' => true, 'spop09' => true, 'spop10' => true, 'spop11' => true, 'spop12' => true, 'spop13' => true, 'spop14' => true, 'spop15' => true, 'spop16' => true, 'spop17' => true, 'spop18' => true, 'spop19' => true, 'spop20' => true, 'spop21' => true, 'spop22' => true, 'spop23' => true, 'spop24' => true, 'spop25' => true, 'spop26' => true, 'spop27' => true, 'spop28' => true, 'spop29' => true, 'spop30' => true]
 ];
 
 
@@ -427,7 +466,8 @@ $sample_pics = [
     ['girlNumber' => 7, 'sptag01' => 'キャバ嬢', 'staffcomment' => '元気いっぱい', 'tag01' => 2, 'tag02' => 6, 'tag03' => 1, 'tag04' => 2, 'tag05' => 6],
     ['girlNumber' => 8, 'sptag01' => 'ギャル', 'staffcomment' => '清楚系', 'tag01' => 3, 'tag02' => 6, 'tag03' => 5, 'tag04' => 5, 'tag05' => 6],
     ['girlNumber' => 9, 'sptag01' => '濃厚', 'staffcomment' => 'おしゃれ', 'tag01' => 4, 'tag02' => 6, 'tag03' => 5, 'tag04' => 1, 'tag05' => 5],
-    ['girlNumber' => 10, 'sptag01' => 'アイドル', 'staffcomment' => 'とにかくかわいい', 'tag01' => 1, 'tag02' => 3, 'tag03' => 2, 'tag04' => 3, 'tag05' => 3]
+    ['girlNumber' => 10, 'sptag01' => 'アイドル', 'staffcomment' => 'とにかくかわいい', 'tag01' => 1, 'tag02' => 3, 'tag03' => 2, 'tag04' => 3, 'tag05' => 3],
+    ['girlNumber' => 11, 'sptag01' => 'ロリ', 'staffcomment' => '元気いっぱい', 'tag01' => 2, 'tag02' => 1, 'tag03' => 3, 'tag04' => 6, 'tag05' => 4]
 ];
 
 
@@ -442,7 +482,8 @@ $sample_pics = [
     ['girlNumber' => 7, 'answer01' => 'いいえ', 'answer02' => 'はい', 'answer03' => 'いいえ', 'answer04' => 'はい', 'answer05' => 'いいえ', 'answer06' => 'はい', 'answer07' => 'いいえ', 'answer08' => 'はい', 'answer09' => 'いいえ', 'answer10' => 'はい'],
     ['girlNumber' => 8, 'answer01' => 'はい', 'answer02' => 'はい', 'answer03' => 'はい', 'answer04' => 'はい', 'answer05' => 'はい', 'answer06' => 'はい', 'answer07' => 'はい', 'answer08' => 'はい', 'answer09' => 'はい', 'answer10' => 'はい'],
     ['girlNumber' => 9, 'answer01' => 'いいえ', 'answer02' => 'いいえ', 'answer03' => 'いいえ', 'answer04' => 'いいえ', 'answer05' => 'いいえ', 'answer06' => 'いいえ', 'answer07' => 'いいえ', 'answer08' => 'いいえ', 'answer09' => 'いいえ', 'answer10' => 'いいえ'],
-    ['girlNumber' => 10, 'answer01' => 'はい', 'answer02' => 'いいえ', 'answer03' => 'はい', 'answer04' => 'いいえ', 'answer05' => 'はい', 'answer06' => 'いいえ', 'answer07' => 'はい', 'answer08' => 'いいえ', 'answer09' => 'はい', 'answer10' => 'いいえ']
+    ['girlNumber' => 10, 'answer01' => 'はい', 'answer02' => 'いいえ', 'answer03' => 'はい', 'answer04' => 'いいえ', 'answer05' => 'はい', 'answer06' => 'いいえ', 'answer07' => 'はい', 'answer08' => 'いいえ', 'answer09' => 'はい', 'answer10' => 'いいえ'],
+    ['girlNumber' => 4, 'answer01' => 'はい', 'answer02' => 'いいえ', 'answer03' => 'はい', 'answer04' => 'いいえ', 'answer05' => 'はい', 'answer06' => 'いいえ', 'answer07' => 'はい', 'answer08' => 'いいえ', 'answer09' => 'はい', 'answer10' => 'いいえ']
 ];
 
 

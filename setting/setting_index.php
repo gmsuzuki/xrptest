@@ -81,6 +81,9 @@
       <br>
 
       <div class="setting_btn">
+        <a href="01up_test.php">upテスト設定</a>
+      </div>
+      <div class="setting_btn">
         <a href="shop_set.php?setting=shop">お店の基本設定</a>
       </div>
 

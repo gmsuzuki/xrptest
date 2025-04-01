@@ -99,6 +99,7 @@ if( !empty($_POST['btn_confirm']) ) {
   <script src="js/popup.js" defer></script>
   <script src="js/text_count.js" defer></script>
   <script src="js/review_form.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!-- <script src="js/form_submit.js" defer></script> -->
 
 
@@ -126,6 +127,49 @@ if( !empty($_POST['btn_confirm']) ) {
     require_once( dirname(__FILE__). '/data.php');
     ?>
     <!------------------>
+
+    <?php
+    
+    // 女子スタッフ
+    require_once( dirname(__FILE__). '/setting/class/girl_class.php');
+    require_once( dirname(__FILE__). '/setting/data/girl_data.php');
+
+    // スタッフprofile
+    foreach($sample_names as $sample_name){
+    $staffList[] = new girlProfilelManager($sample_name);
+    }
+    // スタッフの画像
+    foreach($sample_pics as $sample_pic){
+       $girlNumber = $sample_pic['girlNumber'];
+    // girlImageManagerのインスタンスを作成
+    $staffPicList[] = new girlImageManager($girlNumber, $sample_pic);
+      }
+
+
+
+
+if (isset($_GET['reviewed']) && !empty($_GET['reviewed'])) {
+    $review_staff_no = $_GET['reviewed'];
+    $staff_found = false;
+
+    foreach ($staffList as $staff) {
+        if ($staff->getGirlNumber() == $review_staff_no) {
+            $her_name = $staff->getGirlName();
+            $her_img = getGirlImageByNumber($staffPicList, $staff->getGirlNumber());
+            $staff_found = true;
+            break;
+        }
+    }
+
+    if (!$staff_found) {
+        $error = "エラー: 指定されたスタッフが見つかりません。";
+    }
+    } else {
+        $error = "エラー: スタッフ番号が指定されていません。";
+    }
+
+    ?>
+
 
     <main id="main">
 
@@ -190,12 +234,17 @@ if( !empty($_POST['btn_confirm']) ) {
                     $select_played_girl = filter_input(INPUT_POST, 'played_girl');
                   } ?>
                   <!-- ちゃんといる人を選んでるよね？ -->
-                  <?php if(in_array( $select_played_girl, array_column( $sample_names, 0))) :?>
+
+
+                  <!-- これは事前にチェックされてね？ -->
+                  <?php if($staff_found) :?>
 
                   <div class="reviewed_girl">
-                    <img src='<?php echo $sample_names[$select_played_girl][2]?>' alt="">
+
+                    <img src='<?php echo $her_img?>' alt="">
+
                   </div>
-                  <p class="reviewed_girl_title"><?php echo $sample_names[$select_played_girl][1]?>さんへの口コミ
+                  <p class="reviewed_girl_title"><?php echo $her_name?>さんへの口コミ
                   </p>
                   <!-- なんかエラーです -->
                   <?php else :?>
@@ -204,22 +253,15 @@ if( !empty($_POST['btn_confirm']) ) {
                 </h2>
                 <input type="hidden" name="played_girl" value="<?php echo $select_played_girl ?>">
 
+
+
+
+
+
                 <!-- 実際の画面の感じにする -->
                 <section class="review_card">
                   <div class="review_header content_wrapper">
-                    <figure class="reviewer card">
-                      <a href="">
-                        <span class="user_icon">
-                          <img src="img/user_face.png" alt="">
-                        </span>
-                        <figcaption class="reviewer_data">
-                          <h2 class="user_name">
-                            <?php echo $_POST['reviewer_name']; ?>様
-                            <input type="hidden" name="reviewer_name" value="<?php echo $_POST['reviewer_name']; ?>">
-                          </h2>
-                        </figcaption>
-                      </a>
-                    </figure>
+
                     <section class="writen_by card">
                       ご連絡先<span class="hidden_alert">口コミ画面に表示されることはありません</span>
                       <h3><?php echo $_POST['customer_mail'];?></h3>
@@ -231,54 +273,75 @@ if( !empty($_POST['btn_confirm']) ) {
                     </section>
 
 
+                    <!-- ---------ここから------- -->
+
                     <section class="review_body card">
                       <div class="review_header">
-                        <p>ご利用日
-                          <span>
-                            <?php $re_date =filter_input(INPUT_POST,'played_date') ?>
-                            <?php echo date('Y年m月d日',strtotime($re_date))?>
-                            <input type="hidden" name="played_date" value="<?php echo $_POST['played_date']; ?>">
-                          </span>
-                        </p>
-                        <p>ご利用コース
-                          <span><?php echo $_POST['played_time'];?>分</span>
-                          <input type="hidden" name="played_time" value="<?php echo $_POST['played_time']; ?>">
-                        </p>
 
-                        <!-- 評価 -->
-                        <?php for( $i = 1; $i < 6; $i++){
-                          $review_items_star_num += $_POST["check{$i}_star"];
-                          };?>
+                        <!-- 個別　どうやってひょうじするか？ -->
+                        <div class="review-card">
+                          <div class="user-info">
+                            <img class='user-thumb' src="img/user_face.png" alt="">
 
-                        <?php $review_star_average = $review_items_star_num / 5 ?>
-                        <p class="total_evaluation">総合評価 <span class="stars stars_gray"
-                            style='--rating: <?php echo $review_star_average?>;'><?php echo $review_star_average?>
-                          </span>
-                        </p>
+                            <div>
+                              <div class="user-name"> <?php echo $_POST['reviewer_name'];?></div> <input type="hidden"
+                                name="reviewer_name" value="<?php echo $_POST['reviewer_name']; ?>">
+                              <div class="review-meta">来店日:
+                                <?php $re_date =filter_input(INPUT_POST,'played_date') ?>
+                                <?php echo date('Y年m月d日',strtotime($re_date))?>
+                                <input type="hidden" name="played_date" value="<?php echo $_POST['played_date']; ?>">
+                              </div>
+                            </div>
+                          </div>
 
-                        <ul class="review_rate">
-                          <?php for( $i = 1; $i < 6; $i++):?>
-                          <?php $n = $i-1?>
-                          <li class="star_detail"><?php echo $reviews_question[$n][0] ?>
-                            <?php echo $_POST["check{$i}_star"];?>
-                            <input type="hidden" name='check<?php echo $i ?>_star'
-                              value='<?php echo $_POST["check{$i}_star"];?>'>
-                          </li>
-                          <?php endfor ?>
-                        </ul>
+                          <?php
+                          $check_stars = [];
+                          for ($i = 1; $i <= 5; $i++) { $check_stars[$i]=!empty($_POST["check{$i}_star"]) ?
+                            $_POST["check{$i}_star"] : 0; }?>
 
-                        <div class="review_main">
-                          <!-- 口コミタイトル -->
-                          <h3 class="review_title">
-                            <?php echo $_POST['review_title']; ?>
-                            <input type="hidden" name="review_title" value="<?php echo $_POST['review_title']; ?>">
-                          </h3>
-                          <p class="review_text">
-                            <?php echo nl2br($_POST['review_body']);?>
+
+                          <div class="review-content">
+                            <div class="rating-box">
+                              <div class="review-meta">コース: <?php echo $_POST['played_time']?>分コース</div>
+                              <div>項目１:
+                                <span class="stars" style='--rating: <?php echo $check_stars[1]?>;'></span>
+                              </div>
+                              <div>項目２:
+                                <span class="stars" style='--rating: <?php echo $check_stars[2]?>;'></span>
+                              </div>
+                              <div>項目３:
+                                <span class="stars" style='--rating: <?php echo $check_stars[3]?>;'></span>
+                              </div>
+                              <div>項目４:
+                                <span class="stars" style='--rating: <?php echo $check_stars[4]?>;'></span>
+                              </div>
+                              <div>項目５:
+                                <span class="stars" style='--rating: <?php echo $check_stars[5]?>;'></span>
+                              </div>
+                            </div>
+                            <div class="chart-box">
+                              <canvas id="ratingChart"></canvas>
+                            </div>
+                          </div>
+
+                          <div class="review-title"><?php echo $_POST['review_title']?></div>
+                          <div class="review-comment"><?php echo nl2br($_POST['review_body']);?>
                             <!-- textareaをinputに変更 -->
-                            <input type="hidden" name="review_text_body" value="<?php echo $_POST['review_body']; ?>">
+                          </div>
+                          <input type="hidden" name="review_title" value="<?php echo $_POST['review_title']; ?>">
+                          <input type="hidden" name="review_text_body" value="<?php echo $_POST['review_body']; ?>">
+
+
+                          <p>ご利用日
+                            <span>
+                              <?php $re_date =filter_input(INPUT_POST,'played_date') ?>
+                              <?php echo date('Y年m月d日',strtotime($re_date))?>
+                              <input type="hidden" name="played_date" value="<?php echo $_POST['played_date']; ?>">
+                            </span>
                           </p>
+
                         </div>
+
                       </div>
                     </section>
 
@@ -471,13 +534,13 @@ if( !empty($_POST['btn_confirm']) ) {
               <div class="review_head under_space">
                 <h2 class="girl_content_head">
                   <figure class="reviewed_girl">
-                    <img src='<?php echo $sample_names[$_GET['reviewed']][2]?>' alt="">
+                    <img src='<?php echo $her_img?>' alt="">
                   </figure>
-                  <figcaption class="reviewed_girl_title"><?php echo $sample_names[$_GET['reviewed']][1]?>さんへの口コミを書く
+                  <figcaption class="reviewed_girl_title"><?php echo $her_name?>さんへの口コミを書く
                   </figcaption>
                 </h2>
 
-                <input type="hidden" name="played_girl" value='<?php echo $sample_names[$_GET['reviewed']][0]?>'>
+                <input type="hidden" name="played_girl" value='<?php echo $review_staff_no?>'>
 
 
               </div>
@@ -488,10 +551,11 @@ if( !empty($_POST['btn_confirm']) ) {
                   <dt>遊んだ女の子<em>必須</em></dt>
                   <select name="played_girl" required>
                     <option value="" hidden>選択</option>
-                    <?php foreach($sample_names as $sample_name) : ?>
-                    <?php echo '<option value="'.$sample_name[0].'">' ?>
-                    <?php echo $sample_name[1] ?>
+                    <?php foreach ($staffList as $staff):?>
+                    <option value="<?php echo $staff->getGirlNumber()?>">
+                      <?php echo $staff->getGirlName() ?>
                     </option>
+
                     <?php endforeach ?>
                   </select>
                 </dl>
@@ -504,7 +568,7 @@ if( !empty($_POST['btn_confirm']) ) {
 
 
               <!-- コース -->
-              <div class="review_item_wrap review_girl_item">
+              <div class=" review_item_wrap review_girl_item">
 
                 <!-- 利用コース -->
                 <dl class="played_program_item">
@@ -663,6 +727,51 @@ if( !empty($_POST['btn_confirm']) ) {
     ?>
 
   </div><!-- wrapper -->
+
+
+  <script>
+  const ctx = document.getElementById('ratingChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: ['項目１', '項目２', '項目３', '項目４', '項目５'],
+      datasets: [{
+        data: [
+          <?php echo $check_stars[1]?>,
+          <?php echo $check_stars[2]?>,
+          <?php echo $check_stars[3]?>,
+          <?php echo $check_stars[4]?>,
+          <?php echo $check_stars[5]?>
+        ],
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false
+        }
+      },
+      scales: {
+        r: {
+          min: 0,
+          max: 5,
+          ticks: {
+            stepSize: 1,
+            display: false // メモリの数字を非表示
+          }
+        }
+      }
+    }
+  });
+  </script>
+
+
+
 </body>
 
 </html>

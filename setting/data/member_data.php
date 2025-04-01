@@ -80,6 +80,13 @@ $people_basics = [
         "memberEmail" => 'yoshida.ryuichi@example.com',
         "memberIcon" => 'img/customer04.png',
         "approval" => true
+    ],
+     [  "memberNumber" => 10,
+        "memberName" => '武田隆一',
+        "memberPhone" => '08001234567',
+        "memberEmail" => 'takeda.ryuichi@example.com',
+        "memberIcon" => 'img/customer01.png',
+        "approval" => true
     ]
 ];
 

@@ -8,6 +8,7 @@ function getRandomreviewDay() {
 }
 
 
+
 $approvalPendings = [
 
     [
@@ -173,7 +174,7 @@ $approvalPendings = [
         "rate05" => 1,
         "reviewTitle" => 'このやろう',
         "reviewBody" => '死ねよきゃっきゃしながら歌って踊って完璧でしたわ',
-        "approval" => false
+        "approval" => true
     ],
     [
         "reviewNumber" => 12,
@@ -188,7 +189,7 @@ $approvalPendings = [
         "rate05" => 5,
         "reviewTitle" => '金返せ',
         "reviewBody" => '死ねてれてれてabc@gmail.comえこのままじゃいけてしまう',
-        "approval" => false
+        "approval" => true
     ],
     [
         "reviewNumber" => 13,
@@ -203,7 +204,7 @@ $approvalPendings = [
         "rate05" => 5,
         "reviewTitle" => 'ほれてまう',
         "reviewBody" => '好きです大好きすごい、とにかくすごいすごすぎる',
-        "approval" => false
+        "approval" => true
     ],
     [
         "reviewNumber" => 14,

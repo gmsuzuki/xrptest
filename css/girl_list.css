@@ -279,11 +279,6 @@
 }
 
 /* 口コミカード */
-.staff_review_list {
-  width: 33%;
-  margin-bottom: 20px;
-  position: relative;
-}
 
 /* 口コミ数 */
 .review_num {
@@ -331,10 +326,21 @@
   justify-content: space-between;
   width: 90%;
   margin: 24px auto;
+  gap: 10px;
 }
 
 .staff_review_list {
-  width: 30%;
+  width: calc(33.333% - 10px); /* 各要素の幅を調整 */
+  /* box-sizing: border-box; */
+  margin-bottom: 20px; /* 行間に余白を追加 */
+  background-color: rgb(221, 223, 225);
+}
+
+/* 擬似要素で空のliを追加 */
+.review_page_wrap::after {
+  content: "";
+  flex-basis: calc(33.333% - 20px); /* 空のアイテムのサイズを指定 */
+  margin-bottom: 20px;
 }
 
 .review_count {

@@ -81,12 +81,67 @@
   <div id="wrapper">
 
 
+
+
     <!-- header読み込み -->
     <?php
     require_once( dirname(__FILE__). '/parts/header.php');
     require_once( dirname(__FILE__). '/data.php');
+
+
+    // 女子スタッフ
+    $staffList = []; // 配列を初期化
+    require_once( dirname(__FILE__). '/setting/class/girl_class.php');
+    require_once( dirname(__FILE__). '/setting/data/girl_data.php');
+
+
+    // スタッフprofile
+    foreach($sample_names as $sample_name){
+     $staffList[] = new girlProfilelManager($sample_name);
+     }
+    // スタッフの画像
+    $staffPicList = []; // 配列を初期化
+    foreach($sample_pics as $sample_pic){
+       $girlNumber = $sample_pic['girlNumber'];
+    // girlImageManagerのインスタンスを作成
+    $staffPicList[] = new girlImageManager($girlNumber, $sample_pic);
+      }
+    
+    // review
+    require_once( dirname(__FILE__). '/setting/data/review_data.php');
+    require_once( dirname(__FILE__). '/setting/class/review_class.php');
+   
+   $review_tips = []; // 配列を初期化
+    foreach($approvalPendings as $approvalPending){
+    $review_tips[] = new ReviewManager($approvalPending);
+    }
+    $reviews_arry = []; // 配列を初期化
+    foreach($review_tips as $item){
+    if ($item->getApproval())  {
+        $reviews_arry[] = $item;
+    }
+    }
+    
+      $today = new DateTime(); // 今日の日付
+      $oneMonthAgo = (clone $today)->modify('-1 month'); // 1ヶ月前の日付
+
+      // playDate が条件に一致するものをフィルタリング
+      $filteredApprovalPendings = array_filter($approvalPendings, function ($item) use ($today, $oneMonthAgo) {
+      $playDate = DateTime::createFromFormat('Y-m-d', $item['playDate']);
+      return $playDate !== false && $playDate >= $oneMonthAgo && $playDate <= $today;
+      });
+
+      $new_review_data = []; // 配列を初期化
+
+      foreach ($filteredApprovalPendings as $filteredApprovalPending) {
+      $review = new ReviewManager($filteredApprovalPending);
+      if ($review->getApproval()) { // getApproval() が true のものだけ追加
+        $new_review_data[] = $review;
+      }
+      }
+
+
     ?>
-    <!------------------>
 
     <main id="main">
 
@@ -99,54 +154,57 @@
         <section id="new_reviews">
           <h2 class="girl_tag_title new_review_title">#new reviews</h2>
 
-          <div class="newreview_wrap">
-            <!-- foreachで回す -->
-            <!-- サンプルとして名前に各データ入れてみる -->
-            <div class="swiper10 newreviewSwiper">
-              <ul class="swiper-wrapper">
-                <?php foreach($new_reviews as $new_review) :?>
-                <!-- クチコミ1 -->
-                <li class="swiper-slide staff_review">
-                  <a href='review.php?review=<?php echo $new_review[3] ?>' class="staff_review_content block_wrap_a">
-                    <div class="staff_review_bg">
-                      <!-- 画像 -->
-                      <figure class="subtitles_img">
-                        <img src='<?php echo $sample_names[$new_review[3]][3]?>' alt="">
-                        <!-- 名前 -->
-                        <figcaption>
-                          <?php echo $sample_names[$new_review[3]][1] ?>(<?php echo $sample_names[$new_review[3]][4] ?>)
-                        </figcaption>
-                      </figure>
-                      <!-- タイトル -->
-                      <div class="staff_review_title">
-                        <p><?php echo $new_review[11] ?></p>
-                      </div>
-                      <!-- 評価星 -->
-                      <div class="assessment">
-                        <?php for($i=6; $i<10; $i++){$new_review_items_star_num += $new_review[$i];}?>
-                        <?php $new_review_star_average = $new_review_items_star_num / 5 ?>
-                        <p class="total_evaluation"><span class="stars"
-                            style='--rating: <?php echo $new_review_star_average?>;'>
-                          </span>
-                        </p>
-                      </div>
-                      <!-- 評価本文 -->
-                      <p class="staff_review_text">
-                        <?php echo $new_review[12] ?>
+          <div class="swiper10 newreviewSwiper">
+            <ul class="swiper-wrapper">
+
+              <?php foreach($new_review_data as $new_review) :?>
+
+
+              <?php $profile_this =findGirlByAttendanceNo($new_review->getEmployeeNumber(), $staffList);?>
+
+              <?php $image = getGirlImageByNumber($staffPicList, $new_review->getEmployeeNumber()); ?>
+
+              <!-- クチコミ1 -->
+              <li class="swiper-slide staff_review">
+
+                <a href='review.php?review=<?php echo $new_review->getReviewNumber() ?>'
+                  class="staff_review_content block_wrap_a">
+                  <div class="staff_review_bg">
+                    <!-- 画像 -->
+                    <figure class="subtitles_img">
+                      <img src='<?php echo $image ?>' alt="">
+                      <!-- 名前 -->
+                      <figcaption>
+                        <?php echo $profile_this->getGirlName() ?>(<?php echo $profile_this->getGirlAge()?>)
+                      </figcaption>
+                    </figure>
+                    <!-- タイトル -->
+                    <div class="staff_review_title">
+                      <p><?php echo $new_review->getReviewTitle() ?></p>
+                    </div>
+                    <!-- 評価星 -->
+                    <div class="assessment">
+
+                      <p class="total_evaluation"><span class="stars"
+                          style='--rating: <?php echo $new_review->calculateAverageRate()?>;'>
+                        </span>
                       </p>
                     </div>
-                    <div class="reviewer_data">
-                      <p class="date_use">掲載日:<?php echo $new_review[4] ?></p>
-                    </div>
-                  </a>
-                </li>
-                <?php $new_review_items_star_num = 0 ?>
-                <?php $new_review_star_average = 0 ?>
-                <?php endforeach ?>
-              </ul>
-            </div>
-
+                    <!-- 評価本文 -->
+                    <p class="staff_review_text">
+                      <?php echo $new_review->getReviewBody() ?>
+                    </p>
+                  </div>
+                  <div class="reviewer_data">
+                    <p class="date_use">掲載日:<?php echo $new_review->getPlayDate() ?></p>
+                  </div>
+                </a>
+              </li>
+              <?php endforeach ?>
+            </ul>
           </div>
+
+
         </section>
 
         <!-- 全員のレビュー -->
@@ -154,33 +212,71 @@
           <h2 class="girl_tag_title all_review_title">#all reviews</h2>
 
           <ul class="review_page_wrap">
-            <!-- 一枚目 -->
-            <?php foreach($sample_names as $sample_name) :?>
+
+            <?php $staffSummaries = [];
+
+            $staffSummaries = [];
+
+            foreach ($staffList as $staff) {
+            $count = 0;
+            $latestDate = null;
+
+            foreach ($reviews_arry as $review) {
+            if ($staff->getGirlNumber() == $review->getEmployeeNumber()) {
+            $count++;
+            $playDate = DateTime::createFromFormat('Y-m-d', $review->getPlayDate());
+            if ($playDate !== false && ($latestDate === null || $playDate > $latestDate)) {
+            $latestDate = $playDate;
+            }
+            }
+            }
+
+            // 最新の日付をフォーマット
+            $formattedDate = $latestDate ? $latestDate->format('Y-m-d') : null;
+
+            // インスタンスを作成してリストに追加
+            $staffSummaries[] = new StaffReviewSummary($staff, $count, $formattedDate);
+            }
+
+            // countの降順で並び替え
+            usort($staffSummaries, function ($a, $b) {
+            return $b->getCount() <=> $a->getCount();
+              });
+
+              ?>
+
             <!-- クチコミ1 -->
+            <?php foreach($staffSummaries as $summary):?>
             <li class="staff_review_list">
-              <p class="review_num"><span>1</span></p>
-              <a href="review.php?review=<?php echo $sample_name[0]?>" class="staff_review_content block_wrap_a">
+              <p class="review_num"><span><?php echo $summary->getCount() ?></span></p>
+              <a href="review.php?staff=<?php echo $summary->getStaff()->getGirlNumber() ?>"
+                class="staff_review_content block_wrap_a">
                 <figure class="staff_review_photo">
-                  <img src='<?php echo $sample_name[3]?>' alt="">
+                  <img src='<?php echo getGirlImageByNumber($staffPicList, $summary->getStaff()->getGirlNumber()) ?>'
+                    alt="">
                 </figure>
                 <div class="review_date">
-                  <p class="update_review"><span>00月00日</span>更新</p>
+                  <?php if ($summary->getLatestDate()): ?>
+                  <p class="update_review"><span><?php echo $summary->getLatestDate(); ?></span></p>
+                  <?php else: ?>
+                  <p class="update_review">口コミ募集中</p>
+                  <?php endif; ?>
+
                   <figcaption class="girl_name">
-                    <?php echo $sample_name[1] ?>
+                    <?php echo$summary->getStaff()->getGirlName() ?>
                   </figcaption>
                 </div>
               </a>
-            </li>
-            <?php endforeach ?>
-          </ul>
 
+            </li>
+            <?php endforeach?>
+          </ul>
 
 
         </section>
 
 
       </article>
-
 
 
       <?php
@@ -194,6 +290,9 @@
     <?php
       require_once( dirname(__FILE__). '/parts/footer.php');
     ?>
+
+
+
 
   </div><!-- wrapper -->
 </body>

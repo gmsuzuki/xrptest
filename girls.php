@@ -470,12 +470,11 @@
             <!-- クチコミ -->
             <section id="customer_review" class="under_space scroll-up">
               <h3 class="girl_tag_title review_title">#review</h3>
-              <a href="">
-                <h3 class="block_title_caption">江口さんへのクチコミ
-                  <!-- 口コミ数をカウントしているが、sqlでなおす -->
-                  <span>(<?php echo count($reviews) ?>)</span>
-                </h3>
-              </a>
+              <h3 class="block_title_caption">江口さんへのクチコミ
+                <!-- 口コミ数をカウントしているが、sqlでなおす -->
+                <span>(<?php echo count($reviews) ?>)</span>
+              </h3>
+
               <div class="girl_review_list">
                 <?php foreach($reviews as $review) :?>
                 <!-- レビュー -->
@@ -507,7 +506,7 @@
               </div>
               <!-- レビューリストここまで -->
               <div class="button goto_review_write">
-                <a href="" class="anime_btn btn_active btn_font01">クチコミを投稿する</a>
+                <a href="reviewform.php?reviewed=2" class="anime_btn btn_active btn_font01">クチコミを投稿する</a>
               </div>
 
           </div>

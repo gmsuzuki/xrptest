@@ -228,7 +228,8 @@ foreach ($sample_tag as $tag) {
           <!-- foreach で数だけ取る -->
           <?php foreach($sw_events as $sw_event) :?>
           <div class="swiper-slide">
-            <a href='event.php?sw_eventid=<?php echo $sw_event->getEventId() ?>' class="swipe_a">
+
+            <a href='information.php?infoid=<?php echo $sw_event->getEventId() ?>' class="swipe_a">
               <!-- ここの画像がでかくなるとbodyが動くのではみ出したら切る -->
               <img src='<?php echo $sw_event->getEventImg() ?>' alt="">
             </a>
@@ -451,7 +452,8 @@ foreach ($sample_tag as $tag) {
                 <div class="staff_card_wrap">
                   <span class="tag new_cast">新人</span>
                   <?php endif; ?>
-                  <a href="girls.php" class="staff_card_link block_wrap_a">
+                  <a href="girls.php?girlNo=<?php echo $profile_this->getGirlNumber()?>"
+                    class="staff_card_link block_wrap_a">
                     <!-- 写真 -->
                     <div class="staff_photo_area">
                       <figure class="staff_photo">
@@ -572,13 +574,19 @@ foreach ($sample_tag as $tag) {
       // playDate が条件に一致するものをフィルタリング
       $filteredApprovalPendings = array_filter($approvalPendings, function ($item) use ($today, $oneMonthAgo) {
       $playDate = DateTime::createFromFormat('Y-m-d', $item['playDate']);
-      return $playDate >= $oneMonthAgo && $playDate <= $today; }); 
+      return $playDate >= $oneMonthAgo && $playDate <= $today;
+      });
 
-      foreach($filteredApprovalPendings as $filteredApprovalPending){
-        $new_review_data[] = new ReviewManager($filteredApprovalPending);
+      $new_review_data = []; // 配列を初期化
+
+      foreach ($filteredApprovalPendings as $filteredApprovalPending) {
+      $review = new ReviewManager($filteredApprovalPending);
+      if ($review->getApproval()) { // getApproval() が true のものだけ追加
+        $new_review_data[] = $review;
       }
-     
+      }
       ?>
+
 
 
       <section id="reviews" class="container under_space scroll-up">

@@ -240,3 +240,93 @@ class ReviewManager
 }
 
 }
+
+
+function calculateAveragesFromObjects(array $reviewManagers)
+{
+    // 初期化
+    $rateSums = [
+        "rate01" => 0,
+        "rate02" => 0,
+        "rate03" => 0,
+        "rate04" => 0,
+        "rate05" => 0,
+    ];
+    $totalStars = 0;
+    $reviewCount = count($reviewManagers);
+
+    // 合計値を計算
+    foreach ($reviewManagers as $review) {
+        if (!$review instanceof ReviewManager) {
+            throw new InvalidArgumentException("All elements must be instances of ReviewManager");
+        }
+
+        $rateSums["rate01"] += $review->getRate01();
+        $rateSums["rate02"] += $review->getRate02();
+        $rateSums["rate03"] += $review->getRate03();
+        $rateSums["rate04"] += $review->getRate04();
+        $rateSums["rate05"] += $review->getRate05();
+
+        $totalStars += $review->getRate01() +
+                       $review->getRate02() +
+                       $review->getRate03() +
+                       $review->getRate04() +
+                       $review->getRate05();
+    }
+
+
+
+    // 平均を計算（小数点以下2桁で切り捨て）
+    $rateAverages = array_map(function ($sum) use ($reviewCount) {
+        return $reviewCount > 0 ? floor(($sum / $reviewCount) * 100) / 100 : 0;
+    }, $rateSums);
+
+    $overallAverage = $reviewCount > 0 ? floor(($totalStars / ($reviewCount * 5)) * 100) / 100 : 0;
+
+    // 結果を返す
+    return [
+        "rateAverages" => $rateAverages,
+        "overallAverage" => $overallAverage,
+    ];
+}
+
+
+
+// レビユーリスト用のクラス
+class StaffReviewSummary {
+    private $staff;
+    private $staffNumber;
+    private $count;
+    private $latestDate;
+
+    public function __construct($staff, $count, $latestDate) {
+        $this->staff = $staff;
+        $this->staffNumber = $staff->getGirlNumber();
+        $this->count = $count;
+        $this->latestDate = $latestDate;
+    }
+
+    // スタッフオブジェクトを取得
+    public function getStaff() {
+        return $this->staff;
+    }
+
+    // スタッフの番号を取得
+    public function getStaffNumber() {
+        return $this->staffNumber;
+    }
+
+    // レビューの数を取得
+    public function getCount() {
+        return $this->count;
+    }
+
+    // 最新のレビュー日を取得
+    public function getLatestDate() {
+        return $this->latestDate;
+    }
+}
+
+
+
+?>
